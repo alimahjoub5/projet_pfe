@@ -1,8 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { AppComponent } from "./app.component";
 import { TicketsComponent } from "../components/tickets/tickets.component";
 import { RouterModule, Routes } from "@angular/router";
+import { AppRoutingModule } from './app-routing.module';
 
 const appRoutes: Routes = [
     { path:'', component: TicketsComponent }
@@ -14,7 +14,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: []
