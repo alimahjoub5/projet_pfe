@@ -25,9 +25,22 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/vendor/datatables/dataTables.bootstrap4.min.css",
+              "src/styles.css",
+              "src/assets/css/sb-admin-2.min.css",
+              "src/assets/vendor/fontawesome-free/css/all.min.css"
+
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/vendor/jquery/jquery.min.js",
+              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+              "src/assets/vendor/jquery-easing/jquery.easing.min.js",
+              "src/assets/js/sb-admin-2.min.js",
+              "src/assets/vendor/chart.js/Chart.min.js",
+              "src/assets/js/demo/chart-area-demo.js",
+              "src/assets/js/demo/chart-pie-demo.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,8 +104,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }

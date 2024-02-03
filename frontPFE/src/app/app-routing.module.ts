@@ -1,15 +1,16 @@
+// app-routing.module.ts
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TicketsComponent } from '../components/tickets/tickets.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
-
-const routes: Routes = [
-  { path: 'tickets', component: TicketsComponent },
-  { path: '', redirectTo: '/tickets', pathMatch: 'full' },
+export const routes: Routes = [
+  { path: 'tickets', component : NavbarComponent },
+  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
