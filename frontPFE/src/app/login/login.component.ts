@@ -10,7 +10,7 @@ import { ToastModule } from 'primeng/toast';
   selector: 'app-login',
   standalone: true,
   imports: [CheckboxModule,StyleClassModule,PasswordModule,
-    ButtonModule,InputTextModule,ToastModule
+    ButtonModule,InputTextModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
