@@ -20,11 +20,11 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
                     {label: 'tickets', icon: 'pi pi-fw pi-check-square',
                  items: [
-                 { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/tickets'] },
-                 { label: 'liste de ticket', icon: 'pi pi-fw pi-list', routerLink: ['/tickets'] },
-                 { label: 'Planifier une intervention', icon: 'pi pi-calendar', routerLink: ['/tickets'] },
-                 { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-question', routerLink: ['/tickets'] },
-                 { label: 'Archiver les tickets', icon: 'pi pi-fw pi-briefcase', routerLink: ['/tickets'] },
+                 { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
+                 { label: 'liste de ticket', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
+                 { label: 'Planifier une intervention', icon: 'pi pi-calendar', routerLink: ['/plan'] },
+                 { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-question', routerLink: ['/status'] },
+                 { label: 'Archiver les tickets', icon: 'pi pi-fw pi-briefcase', routerLink: ['/archive'] },
 
                  ]
                  }
