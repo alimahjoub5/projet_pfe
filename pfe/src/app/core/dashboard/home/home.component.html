@@ -1,62 +1,52 @@
-<!-- Cartes d'équipements -->
-<div class="card equipment-card" *ngFor="let equipment of equipments">
-    <div class="equipment-name">{{ equipment.name }}</div>
-    <div class="equipment-location">{{ equipment.location }}</div>
-    <div class="equipment-status">{{ equipment.status }}</div>
-  </div>
-  
-  <!-- Cartes de tâches de maintenance -->
-  <div class="card task-card" *ngFor="let task of tasks">
-    <div class="task-title">{{ task.title }}</div>
-    <div class="task-status">{{ task.status }}</div>
-  </div>
-  
+<div class="grid">
+    <!-- Carte 1 : Tâches de Maintenance -->
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Tâches de Maintenance</span>
+                    <div class="text-900 font-medium text-xl">{{ unreadTasks }} Non lues</div>
+                </div>
+                <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                    <i class="pi pi-spin pi-cog" style="font-size: 2rem"></i>
+                </div>
+            </div>
+            <span class="text-green-500 font-medium">{{ respondedTasks }}</span>
+            <span class="text-500"> traitées</span>
+        </div>
+    </div>
 
+   
+</div>
 
-<section class="overview">
-    <div class="summary">
-      <h2>Résumé</h2>
-      <p>Bienvenue, {{ userName }} ! La dernière tâche que vous avez effectuée était "{{ lastTask }}".</p>
-      <!-- Affichez ici d'autres informations de résumé si nécessaire -->
+ <div class="grid">
+ <div class="col-12 xl:col-6">
+    <div class="card">
+        <h5>Tâches Récemment Traitées</h5>
+        <p-table [value]="recentTasks" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID</th>
+                    <th pSortableColumn="task">Tâche <p-sortIcon field="task"></p-sortIcon></th>
+                    <th pSortableColumn="employee">Employé <p-sortIcon field="employee"></p-sortIcon></th>
+                    <th>Date</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-task>
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.task }}</td>
+                    <td>{{ task.employee }}</td>
+                    <td>{{ task.date }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
-  
-    <div class="charts">
-      <h2>Statistiques</h2>
-      <div class="chart">
-        <p-chart type="line" [data]="maintenanceRequestsData" [options]="maintenanceRequestsOptions"></p-chart>
-        <p>Nombre de demandes de maintenance</p>
-      </div>
+</div>
+<div class="col-12 xl:col-6">
+    <div class="card">
+        <h5>Aperçu des Tâches</h5>
+        <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
     </div>
-  </section>
-  
-  <section class="notifications">
-    <h2>Notifications</h2>
-    <ul>
-      <li *ngFor="let notification of notifications">
-        {{ notification.message }}
-      </li>
-    </ul>
-  </section>
-  
-  <section class="equipment">
-    <h2>Liste des équipements</h2>
-    <div class="equipment-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Emplacement</th>
-            <th>État</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let equipment of equipments">
-            <td>{{ equipment.name }}</td>
-            <td>{{ equipment.location }}</td>
-            <td>{{ equipment.status }}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-  </section>
-  
+</div>
