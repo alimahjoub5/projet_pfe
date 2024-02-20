@@ -1,1 +1,47 @@
-<p-button label="Submit"></p-button>
+<section class="overview">
+    <div class="summary">
+      <h2>Résumé</h2>
+      <p>Bienvenue, {{ userName }}! La dernière tâche que vous avez effectuée était "{{ lastTask }}".</p>
+      <!-- Affichez ici d'autres informations de résumé si nécessaire -->
+    </div>
+  
+    <div class="charts">
+      <h2>Statistiques</h2>
+      <div class="chart">
+        <p-chart type="line" [data]="maintenanceRequestsData" [options]="maintenanceRequestsOptions"></p-chart>
+        <p>Nombre de demandes de maintenance</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="notifications">
+    <h2>Notifications</h2>
+    <ul>
+      <li *ngFor="let notification of notifications">
+        {{ notification.message }}
+      </li>
+    </ul>
+  </section>
+  
+  <section class="equipment">
+    <h2>Liste des équipements</h2>
+    <div class="equipment-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Emplacement</th>
+            <th>État</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let equipment of equipments">
+            <td>{{ equipment.name }}</td>
+            <td>{{ equipment.location }}</td>
+            <td>{{ equipment.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
