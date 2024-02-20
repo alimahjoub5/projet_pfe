@@ -3,6 +3,8 @@ import { ButtonModule } from 'primeng/button';
 import { ChartModule } from 'primeng/chart';
 import { CalendarModule } from 'primeng/calendar';
 import { NgModule } from '@angular/core';
+import { Task } from './interface/task';
+import { Equipment } from './interface/Equipment';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,8 @@ export class HomeComponent {
   userName: string;
   lastTask: string; // Supposons que vous stockez le titre de la dernière tâche ici
   notifications: any[]; // Ajoutez cette propriété pour stocker les notifications
-
+  equipments: Equipment[];
+  tasks: Task[];
 
   constructor() {
     // Exemple de fausses options pour maintenanceRequestsOptions
@@ -48,7 +51,7 @@ export class HomeComponent {
     };
 
      // Initialisation des données fictives pour le nom d'utilisateur et la dernière tâche
-     this.userName = "John Doe";
+     this.userName = "Ali Et Oumaima";
      this.lastTask = "Vérifier les systèmes de climatisation";
  
      // Initialisation des données fictives pour les notifications
@@ -56,9 +59,24 @@ export class HomeComponent {
        { message: 'Une nouvelle demande de maintenance a été soumise.' },
        { message: 'La maintenance préventive du système de ventilation est prévue pour demain.' },
        { message: 'Une alerte de température élevée a été détectée dans le serveur principal.' },
-       // Ajoutez d'autres notifications simulées ici
      ];
-   
-  }
+
+  // Génération de données fictives pour les équipements
+  this.equipments = [
+    { name: 'Chaudière principale', location: 'Salle des machines', status: 'En fonctionnement' },
+    { name: 'Générateur de secours', location: 'Bâtiment A, rez-de-chaussée', status: 'Hors service' },
+    { name: 'Système de sécurité incendie', location: 'Étages 1 à 5', status: 'En maintenance' },
+    // Ajoutez d'autres équipements simulés ici
+  ];
+
+  // Génération de données fictives pour les tâches de maintenance
+  this.tasks = [
+    { title: 'Vérifier les systèmes de climatisation', status: 'En cours' },
+    { title: "Réparer la fuite d'eau dans le hall principal", status: 'En attente' },
+    { title: "Effectuer l'entretien préventif des ascenseurs", status: 'Planifié' },
+    // Ajoutez d'autres tâches simulées ici
+  ];
 }
+  }
+
 

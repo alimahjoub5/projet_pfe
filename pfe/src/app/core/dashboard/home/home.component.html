@@ -1,7 +1,22 @@
+<!-- Cartes d'équipements -->
+<div class="card equipment-card" *ngFor="let equipment of equipments">
+    <div class="equipment-name">{{ equipment.name }}</div>
+    <div class="equipment-location">{{ equipment.location }}</div>
+    <div class="equipment-status">{{ equipment.status }}</div>
+  </div>
+  
+  <!-- Cartes de tâches de maintenance -->
+  <div class="card task-card" *ngFor="let task of tasks">
+    <div class="task-title">{{ task.title }}</div>
+    <div class="task-status">{{ task.status }}</div>
+  </div>
+  
+
+
 <section class="overview">
     <div class="summary">
       <h2>Résumé</h2>
-      <p>Bienvenue, {{ userName }}! La dernière tâche que vous avez effectuée était "{{ lastTask }}".</p>
+      <p>Bienvenue, {{ userName }} ! La dernière tâche que vous avez effectuée était "{{ lastTask }}".</p>
       <!-- Affichez ici d'autres informations de résumé si nécessaire -->
     </div>
   

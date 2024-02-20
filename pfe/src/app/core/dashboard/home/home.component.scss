@@ -1,5 +1,54 @@
 /* home.component.scss */
 
+/* styles.scss */
+
+// Importer les styles de PrimeNG
+@import "~primeng/resources/primeng.min.css";
+@import "~primeicons/primeicons.css";
+
+// Styles personnalisés pour les cartes
+
+// Style de base pour les cartes
+.card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+// Style spécifique pour les cartes d'équipements
+.equipment-card {
+  .equipment-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .equipment-location {
+    color: #777;
+    margin-bottom: 10px;
+  }
+
+  .equipment-status {
+    font-style: italic;
+    color: #888;
+  }
+}
+
+// Style spécifique pour les cartes de tâches de maintenance
+.task-card {
+  .task-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .task-status {
+    font-style: italic;
+    color: #888;
+  }
+}
+
+
+
 .overview {
     display: flex;
     flex-direction: column;
@@ -117,7 +166,7 @@
   
       tbody, tr, td {
         display: block;
-        width: 100%;
+        width: 50%;
       }
   
       td {
