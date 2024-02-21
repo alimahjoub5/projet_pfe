@@ -1,1 +1,38 @@
-<p>create works!</p>
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="p-fluid">
+    <div class="p-field">
+      <label for="subject">Sujet</label>
+      <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
+    </div>
+    <div class="p-field">
+      <label for="priority">Priorité</label>
+      <select id="priority" formControlName="priority" class="p-dropdown" [required]="true">
+        <option *ngFor="let priority of priorities" [value]="priority.id">{{ priority.name }}</option>
+      </select>
+    </div>
+    <div class="p-field">
+      <label for="dueDate">Date d'échéance</label>
+      <input type="date" id="dueDate" formControlName="dueDate" class="p-inputtext" required>
+    </div>
+    <div class="p-field">
+      <label for="equipmentTypeID">ID du type d'équipement</label>
+      <input type="number" id="equipmentTypeID" formControlName="equipmentTypeID" class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="startDate">Date de début</label>
+      <input type="datetime-local" id="startDate" formControlName="startDate" class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="endDate">Date de fin</label>
+      <input type="datetime-local" id="endDate" formControlName="endDate" class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="closedDate">Date de clôture</label>
+      <input type="datetime-local" id="closedDate" formControlName="closedDate" class="p-inputtext">
+    </div>
+      <button type="submit" class="p-button p-button-primary">Soumettre</button>
+  </form>
+  

@@ -4,6 +4,7 @@ import { ListComponent } from './list/list.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { CreateComponent } from './create/create.component';
 import { StatusComponent } from './status/status.component';
+import { PlanComponent } from './plan/plan.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: "plan",
-    component: ListComponent
+    component: PlanComponent
   },
   {
     path: "status",

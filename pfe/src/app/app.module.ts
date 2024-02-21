@@ -24,7 +24,8 @@ import { PhotoService } from './demo/service/photo.service';
         NodeService,
         PhotoService,
         ProductService,
-        NgModule
+        NgModule,
+        
     ],
     bootstrap: [AppComponent],
 })
