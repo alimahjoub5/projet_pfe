@@ -29,6 +29,7 @@ export class CrudComponent implements OnInit {
     statuses: any[] = [];
 
     rowsPerPageOptions = [5, 10, 20];
+priorities: any;
 
     constructor(private productService: ProductService, private messageService: MessageService) { }
 

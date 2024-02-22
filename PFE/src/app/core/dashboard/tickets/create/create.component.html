@@ -13,6 +13,7 @@
         <option *ngFor="let priority of priorities" [value]="priority.id">{{ priority.name }}</option>
       </select>
     </div>
+
     <div class="p-field">
       <label for="dueDate">Date d'échéance</label>
       <input type="date" id="dueDate" formControlName="dueDate" class="p-inputtext" required>
@@ -33,6 +34,8 @@
       <label for="closedDate">Date de clôture</label>
       <input type="datetime-local" id="closedDate" formControlName="closedDate" class="p-inputtext">
     </div>
-      <button type="submit" class="p-button p-button-primary">Soumettre</button>
+      <button type="submit" class="p-button p-button-primary"  >Soumettre</button>
+     
+    
   </form>
   

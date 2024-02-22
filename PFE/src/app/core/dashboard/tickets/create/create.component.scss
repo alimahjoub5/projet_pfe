@@ -15,5 +15,20 @@
   
   .p-button {
     margin-top: 20px;
+    width: 120px;
+    justify-content: center;
   }
-  
+
+   
+
+    .p-button-primary {
+        /* Ajoutez ici les styles spécifiques pour le bouton primaire */
+        background-color: #007bff; /* Changement de la couleur de fond */
+        color: #ffffff; /* Changement de la couleur du texte */
+        border: 1px solid #007bff; /* Changement de la couleur de la bordure */
+        border-radius: 5px; /* Ajout d'arrondi aux coins */
+        padding: 10px 20px; /* Ajout de rembourrage pour un aspect plus spacieux */
+        cursor: pointer; /* Curseur indiquant que le bouton est cliquable */
+    }
+
+

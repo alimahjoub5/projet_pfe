@@ -16,6 +16,8 @@ import { TicketService } from '../services/TicketService';
 export class CreateComponent implements OnInit {
   ticketForm: FormGroup;
   assignees: any[] = [];
+product: any;
+ 
 
   constructor(
     private fb: FormBuilder, 
@@ -31,9 +33,10 @@ export class CreateComponent implements OnInit {
       assigneeID: [''],
       // Ajoutez ici d'autres champs si nécessaire
     });
-
+    
   }
 
+ 
   
   onSubmit() {
     if (this.ticketForm.valid) {

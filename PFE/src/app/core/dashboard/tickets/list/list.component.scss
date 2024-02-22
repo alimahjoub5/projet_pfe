@@ -3,3 +3,23 @@
     margin: 0 auto 2rem auto;
     display: block;
 }
+/* Personnalisation des boutons */
+.custom-button {
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+/* Style pour le bouton "Update" */
+.p-button-success.custom-button {
+    background-color: #28a745; /* Couleur de fond pour le succès */
+    color: #fff; /* Couleur du texte */
+}
+
+/* Style pour le bouton "Delete" */
+.p-button-danger.custom-button {
+    background-color: #dc3545; /* Couleur de fond pour la suppression */
+    color: #fff; /* Couleur du texte */
+}
+

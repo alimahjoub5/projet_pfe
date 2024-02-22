@@ -1,7 +1,7 @@
-<p-button label="Ajouter un ticket" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" ></p-button>
+<p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active"  ></p-button>
 <p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
     [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
-    <ng-template pTemplate="header">
+    <ng-template pTemplate="header"><br><br>
         <tr>
             <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name"></p-sortIcon></th>
             <th pSortableColumn="country.name" style="width:25%">Country <p-sortIcon field="country.name"></p-sortIcon></th>
@@ -47,8 +47,11 @@
             </td>
             <th>
                 <div class="flex flex-wrap gap-2">
-                    <p-splitButton label="Save" icon="pi pi-plus" [model]="items" styleClass="p-button-info"></p-splitButton>
+                    <p-button  label="Update" icon="pi pi-pencil" [model]="updateItems" styleClass="p-button-success custom-button"></p-button>
+                    <p-button label="Delete" icon="pi pi-trash" [model]="deleteItems" styleClass="p-button-danger custom-button"></p-button>
+
                 </div>
+                
 
             </th>
         </tr>
