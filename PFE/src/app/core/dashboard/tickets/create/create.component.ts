@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { AssigneeService } from './services/AssigneeService';
+import { AssigneeService } from '../../services/AssigneeService';
 import { TicketService } from '../services/TicketService';
 import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-create',
@@ -11,15 +12,20 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./create.component.scss'],
   standalone:true,
   imports: [
-    ReactiveFormsModule // Correction ici : imports est un tableau
+    ReactiveFormsModule,AutoCompleteModule // Correction ici : imports est un tableau
   ]
 })
 
 
 export class CreateComponent implements OnInit {
+filterCountry($event: any) {
+throw new Error('Method not implemented.');
+}
   ticketForm: FormGroup;
   assignees: any[] = [];
 product: any;
+filteredCountries: any;
+formGroup: any;
 
 
   constructor(

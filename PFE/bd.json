@@ -1,0 +1,35 @@
+[
+    {
+      "EquipmentTypeID": 1,
+      "TypeName": "Ordinateur portable",
+      "Description": "Ordinateur portable standard",
+      "Manufacturer": "Dell",
+      "ModelNumber": "Latitude E7450",
+      "SerialNumber": "ABC123",
+      "InstallationDate": "2022-01-15",
+      "WarrantyExpiration": "2023-01-15",
+      "MaintenanceInterval": 30,
+      "LastMaintenanceDate": "2023-01-10",
+      "CreatedBy": 1,
+      "CreatedOn": "2022-01-10T08:00:00Z",
+      "ModifiedBy": null,
+      "ModifiedOn": null
+    },
+    {
+      "EquipmentTypeID": 2,
+      "TypeName": "Imprimante",
+      "Description": "Imprimante laser noir et blanc",
+      "Manufacturer": "HP",
+      "ModelNumber": "LaserJet Pro M402n",
+      "SerialNumber": "XYZ789",
+      "InstallationDate": "2022-02-01",
+      "WarrantyExpiration": "2023-02-01",
+      "MaintenanceInterval": 60,
+      "LastMaintenanceDate": "2023-01-30",
+      "CreatedBy": 1,
+      "CreatedOn": "2022-01-20T10:00:00Z",
+      "ModifiedBy": null,
+      "ModifiedOn": null
+    }
+  ]
+  
