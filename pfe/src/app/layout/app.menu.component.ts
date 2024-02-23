@@ -18,7 +18,7 @@ export class AppMenuComponent implements OnInit {
                 label: 'Home',
                 items: [
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
-                    {label: 'tickets', icon: 'pi pi-fw pi-check-square',
+                    {label: 'Tickets', icon: 'pi pi-fw pi-check-square',
                  items: [
                  { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
                  { label: 'liste de ticket', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
@@ -29,14 +29,14 @@ export class AppMenuComponent implements OnInit {
                  ]
                  },
                  {
-                    label: 'Administration',
+                    label: 'Administrateur',
                     icon: 'pi pi-fw pi-check-square',
                     items: [
-                      { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/create'] }, // Nouvelle icône pour Utilisateurs
-                      { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/'] }, // Nouvelle icône pour Groupes
+                      { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/ajouter'] }, // Nouvelle icône pour Utilisateurs
+                     { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/'] }, // Nouvelle icône pour Groupes
                       { label: 'Entité', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/'] }, // Nouvelle icône pour Entité
-                      { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/'] }, // Nouvelle icône pour Profils
-                      { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }, // Nouvelle icône pour File d'attente des notifications
+                     { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/'] }, // Nouvelle icône pour Profils
+                     { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }, // Nouvelle icône pour File d'attente des notifications
                     ]
                   }
                   

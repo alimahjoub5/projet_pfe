@@ -4,15 +4,17 @@ import { AjouterComponent } from './ajouter/ajouter.component';
 
 
 const routes: Routes = [
-
   {
     path: "ajouter",
     component: AjouterComponent
-  }
+  },
+  
+  
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class AdministrateurRoutingModule { }

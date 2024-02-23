@@ -18,7 +18,8 @@ import { TestComponent } from './test/test.component';
                     //     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
                     { path: "", loadChildren: () => import('./core/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     {path:'test' ,component : TestComponent},
-                    { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) }
+                    { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) },
+                    { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) }
 
                 ]
             },

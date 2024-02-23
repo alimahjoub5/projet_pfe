@@ -1,0 +1,41 @@
+.p-button {
+    margin-top: 20px;
+    width: 120px;
+    justify-content: center;
+  }
+
+   
+
+    .p-button-primary {
+        /* Ajoutez ici les styles spécifiques pour le bouton primaire */
+        background-color: #007bff; /* Changement de la couleur de fond */
+        color: #ffffff; /* Changement de la couleur du texte */
+        border: 1px solid #007bff; /* Changement de la couleur de la bordure */
+        border-radius: 5px; /* Ajout d'arrondi aux coins */
+        padding: 10px 20px; /* Ajout de rembourrage pour un aspect plus spacieux */
+        cursor: pointer; /* Curseur indiquant que le bouton est cliquable */
+    }
+
+/* Exemple de définition de classe CSS dans une feuille de style externe */
+.custom-select {
+  border-radius: 10px; /* Coins arrondis */
+  width: 150px; /* Largeur ajustée */
+  padding: 8px; /* Espacement interne */
+  background-color: #f8f8f8; /* Fond gris clair */
+  color: #333; /* Couleur du texte */
+  font-size: 16px; /* Taille de police */
+  transition: border-color 0.3s ease; /* Transition fluide pour la bordure */
+}
+
+.custom-select:focus {
+  outline: none; /* Supprime la bordure de focus par défaut */
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Ombre légère */
+}
+
+.custom-select option {
+  background-color: #f8f8f8; /* Fond gris clair pour les options */
+  color: #333; /* Couleur du texte */
+  font-size: 16px; /* Taille de police */
+}
+
+/* Hover effect */
