@@ -27,7 +27,19 @@ export class AppMenuComponent implements OnInit {
                  { label: 'Archiver les tickets', icon: 'pi pi-fw pi-briefcase', routerLink: ['/archive'] },
 
                  ]
-                 }
+                 },
+                 {
+                    label: 'Administration',
+                    icon: 'pi pi-fw pi-check-square',
+                    items: [
+                      { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/'] }, // Nouvelle icône pour Utilisateurs
+                      { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/'] }, // Nouvelle icône pour Groupes
+                      { label: 'Entité', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/'] }, // Nouvelle icône pour Entité
+                      { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/'] }, // Nouvelle icône pour Profils
+                      { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }, // Nouvelle icône pour File d'attente des notifications
+                    ]
+                  }
+                  
                 ],
             },
             // {

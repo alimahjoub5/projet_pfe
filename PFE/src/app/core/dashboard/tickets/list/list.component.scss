@@ -11,15 +11,21 @@
     border-radius: 5px;
 }
 
-/* Style pour le bouton "Update" */
-.p-button-success.custom-button {
-    background-color: #28a745; /* Couleur de fond pour le succès */
-    color: #fff; /* Couleur du texte */
+
+
+/* Style pour les éléments <input> dans les cellules de la table */
+table input[type="text"] {
+    width: 100%; /* Prend la largeur totale de la cellule */
+    padding: 8px; /* Ajoute un remplissage intérieur */
+    border: 1px solid #ccc; /* Ajoute une bordure */
+    border-radius: 5px; /* Ajoute un arrondi aux coins */
+    box-sizing: border-box; /* Inclut le remplissage et la bordure dans la largeur */
+    font-size: 14px; /* Taille de police */
 }
 
-/* Style pour le bouton "Delete" */
-.p-button-danger.custom-button {
-    background-color: #dc3545; /* Couleur de fond pour la suppression */
-    color: #fff; /* Couleur du texte */
+/* Style pour les éléments <input> lorsqu'ils sont en focus */
+table input[type="text"]:focus {
+    outline: none; /* Supprime la bordure de mise au point par défaut */
+    border-color: #007bff; /* Change la couleur de la bordure lorsque l'élément est en focus */
 }
 

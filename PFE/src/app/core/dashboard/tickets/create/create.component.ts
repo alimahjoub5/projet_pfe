@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { AssigneeService } from './services/AssigneeService';
 import { TicketService } from '../services/TicketService';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -13,11 +14,13 @@ import { TicketService } from '../services/TicketService';
     ReactiveFormsModule // Correction ici : imports est un tableau
   ]
 })
+
+
 export class CreateComponent implements OnInit {
   ticketForm: FormGroup;
   assignees: any[] = [];
 product: any;
- 
+
 
   constructor(
     private fb: FormBuilder, 
@@ -31,7 +34,9 @@ product: any;
       priority: ['', Validators.required],
       dueDate: ['', Validators.required],
       assigneeID: [''],
-      // Ajoutez ici d'autres champs si nécessaire
+     
+
+
     });
     
   }
