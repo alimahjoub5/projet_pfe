@@ -32,7 +32,7 @@ export class AppMenuComponent implements OnInit {
                     label: 'Administrateur',
                     icon: 'pi pi-fw pi-check-square',
                     items: [
-                      { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/ajouter'] }, // Nouvelle icône pour Utilisateurs
+                      { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/userlist'] }, // Nouvelle icône pour Utilisateurs
                      { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/'] }, // Nouvelle icône pour Groupes
                       { label: 'Entité', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/'] }, // Nouvelle icône pour Entité
                      { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/'] }, // Nouvelle icône pour Profils
