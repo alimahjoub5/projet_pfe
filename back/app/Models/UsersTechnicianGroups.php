@@ -19,5 +19,14 @@ class UsersTechnicianGroups extends Model
         'GroupID',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'UserID');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class, 'GroupID');
+    }
     // Vous pouvez ajouter des relations ici si nécessaire
 }

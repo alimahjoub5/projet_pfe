@@ -32,4 +32,9 @@ class User extends Model
         'CreatedOn' => 'datetime',
         'ModifiedOn' => 'datetime',
     ];
+
+    public function technicianGroups()
+    {
+        return $this->hasMany(UserTechnicianGroup::class, 'UserID');
+    }
 }

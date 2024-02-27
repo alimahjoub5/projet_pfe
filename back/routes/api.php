@@ -104,7 +104,8 @@ Route::delete('/ticket-tasks/{id}', [TicketTaskController::class, 'destroy']);
 
 use App\Http\Controllers\UsersTechnicianGroupsController;
 
-Route::get('/user-technician-groups', [UserTechnicianGroupController::class, 'index']);
-Route::get('/user-technician-groups/{id}', [UserTechnicianGroupController::class, 'show']);
-Route::post('/user-technician-groups', [UserTechnicianGroupController::class, 'store']);
-Route::get('/technician-groups/{groupId}/users', [UserTechnicianGroupController::class, 'getUsersByGroup']);
+Route::get('/user-technician-groups', [UsersTechnicianGroupsController::class, 'index']);
+Route::get('/user-technician-groups/{id}', [UsersTechnicianGroupsController::class, 'show']);
+Route::post('/user-technician-groups/assign-user', [UsersTechnicianGroupsController::class, 'assignUserToGroup']);
+Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
+Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
