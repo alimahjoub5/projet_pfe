@@ -1,18 +1,25 @@
 import { Component , OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { MenuItem} from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CustomerService } from 'src/app/demo/service/customer.service';
 import {RouterModule} from '@angular/router';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 @Component({
   selector: 'app-userlist',
   
   standalone: true,
-  imports: [TableModule,DialogModule,
+  imports: [FormsModule,
+    ButtonModule,
+     ReactiveFormsModule, 
+    AutoCompleteModule,
+    TableModule,DialogModule,
     ToolbarModule,
     ToastModule,
     ConfirmDialogModule,

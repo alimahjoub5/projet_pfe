@@ -5,30 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class TechnicianGroup extends Model
 {
     use HasFactory;
 
-    protected $table = 'users';
-    protected $primaryKey = 'UserID';
+    protected $table = 'technician_groups';
+    protected $primaryKey = 'GroupID';
     public $timestamps = false; // Si vous utilisez les colonnes `created_at` et `updated_at` dans la base de données, changez cette valeur à `true`.
 
     protected $fillable = [
-        'FirstName',
-        'LastName',
-        'Email',
-        'Username',
-        'Password',
-        'Role',
-        'Active',
-        'CreatedOn',
+        'GroupName',
+        'Description',
         'CreatedBy',
-        'ModifiedOn',
+        'CreatedOn',
         'ModifiedBy',
+        'ModifiedOn',
     ];
 
     protected $casts = [
-        'Active' => 'boolean', // Cast la colonne Active en boolean
         'CreatedOn' => 'datetime',
         'ModifiedOn' => 'datetime',
     ];
