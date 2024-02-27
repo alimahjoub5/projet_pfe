@@ -18,17 +18,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 //Get all tickets
-//Route::get('tickets','TicketController@getTicket');
+Route::get('tickets','TicketController@getTicket');
 
 //Get speic ticket detail
-//Route::get('ticket/{id},'TicketController@getTicketById');
+Route::get('ticket/{id}','TicketController@getTicketById');
 
 //Add ticket
-//Route::post('addTicket','TicketController@addTicket');
+Route::post('addTicket','TicketController@addTicket');
 
 //Update Ticket
-//Route::get('updateTicket/{id}','TicketController@updateTicket');
+Route::get('updateTicket/{id}','TicketController@updateTicket');
 
 //Delete ticket
-//Route::delete('deleteTicket/{id}','TicketController@deleteTicket');
+Route::delete('deleteTicket/{id}','TicketController@deleteTicket');

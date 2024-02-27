@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
+    public $timestamps=false;
+    protected $fillable = [
+        'StatusCodeID',
+        'AssigneeID',
+        'Subject',
+        'Description',
+        'PriorityID',
+        'ChannelID',
+        'StartDate',
+        'EndDate',
+        'DueDate',
+        'ClosedDate',
+    ];
+    
 }

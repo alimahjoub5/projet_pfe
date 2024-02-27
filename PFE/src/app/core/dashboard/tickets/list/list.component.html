@@ -31,13 +31,12 @@
     <ng-template pTemplate="body" let-customer>
         <tr [pSelectableRow]="customer">
             <td>
-                <span class="p-column-title">Name</span>
-                {{customer.name}}
+                <span class="p-column-title">Sujet</span>
+                {{customer.Sujet}}
             </td>
             <td>
-                <span class="p-column-title">Country</span>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
-                <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                <span class="p-column-title">Description</span>
+                <span class="ml-1 vertical-align-middle">{{customer.Description}}</span>
             </td>
             <td>
                 <span class="p-column-title">Representative</span>
