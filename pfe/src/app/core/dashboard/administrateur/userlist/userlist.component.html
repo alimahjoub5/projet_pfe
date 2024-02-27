@@ -3,11 +3,11 @@
     [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
     <ng-template pTemplate="header"><br><br>
         <tr>
-            <th pSortableColumn="sujet" style="width:25%">Identifiant<p-sortIcon field="sujet"></p-sortIcon></th>
-            <th pSortableColumn="ticket.description" style="width:25%">Nom de la famille <p-sortIcon field="ticket.description"></p-sortIcon></th>
-            <th pSortableColumn="priorite.ticket" style="width:25%">Email <p-sortIcon field="priorite.ticket"></p-sortIcon></th>
-            <th pSortableColumn="status" style="width:25%">Telephone <p-sortIcon field="status"></p-sortIcon></th>
-            <th pSortableColumn="status" style="width:25%">Actif <p-sortIcon field="status"></p-sortIcon></th>
+            <th pSortableColumn="userid" style="width:25%">Identifiant<p-sortIcon field="userid"></p-sortIcon></th>
+            <th pSortableColumn="user.nom" style="width:25%">Nom de la famille <p-sortIcon field="user.nom"></p-sortIcon></th>
+            <th pSortableColumn="user.email" style="width:25%">Email <p-sortIcon field="user.email"></p-sortIcon></th>
+            <th pSortableColumn="user.phone" style="width:25%">Telephone <p-sortIcon field="user.phone"></p-sortIcon></th>
+            <th pSortableColumn="user.actif" style="width:25%">Actif <p-sortIcon field="user.actif"></p-sortIcon></th>
 
             <th style="width:25%">Action</th>
 
