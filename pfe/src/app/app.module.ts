@@ -12,10 +12,14 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from './user-service.service';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule,HttpClientModule],
+    imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule,
+         ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService,
@@ -25,8 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
         NodeService,
         PhotoService,
         ProductService,
-        NgModule,
-        
+        UserService,
+        NgModule
+                
     ],
     bootstrap: [AppComponent],
 })

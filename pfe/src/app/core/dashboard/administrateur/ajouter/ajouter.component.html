@@ -1,67 +1,55 @@
-<form [formGroup]="ticketForm" class="p-fluid">
-    <div class="p-field">
+<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+  <div class="p-field">
       <label for="user">UserID</label>
       <input type="text" id="user" formControlName="user" class="p-inputtext" required>
-    </div> 
-    <div class="p-field">
-        <label for="firstName">FirstName</label>
-        <input type="text" id="firstName" formControlName="firstName" class="p-inputtext">
-      </div>
-      
-      <div class="p-field">
-        <label for="lastName">LastName</label>
-        <input type="text" id="lastName" formControlName="lastName" class="p-inputtext">
-      </div>
-      
-      <div class="p-field">
-        <label for="username">Username</label>
-        <input type="text" id="username" formControlName="username" class="p-inputtext">
-      </div>
-      
-      <div class="p-field">
-        <label for="role">Role</label>
-        <input type="text" id="role" formControlName="role" class="p-inputtext">
-      </div>
-      <div class="p-field">
-        <label for="telephone">Telephone</label>
-        <input type="telephone" id="telephone" formControlName="telephone" class="p-inputtext">
-      </div>
-
-      <div class="p-field">
-        <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email" class="p-inputtext">
-      </div><br>
-
-     <div class="p-field">
-  <label for="isActive">Actif</label>
-  <select id="isActive" formControlName="isActive" class="p-inputtext custom-select" [(ngModel)]="selectedOption">
-    <option value="oui">Oui</option>
-    <option value="non">Non</option>
-  </select>
-</div>
-
-      
-      
-      <!--div class="p-field">
-      <select [(ngModel)]="selectedOption">
-        <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
-      </select>
-      
-      </div-->
-      <div class="p-field">
-        <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password" class="p-inputtext">
-      </div>
-      <div class="p-field">
-        <label for="password">Confirm Password</label>
-        <input type="password" id="password" formControlName="password" class="p-inputtext">
-      </div>
-      
-  
-
-  
-      <button type="submit" class="p-button p-button-primary"  >Soumettre</button>
- 
+  </div> 
+  <div class="p-field">
+      <label for="firstName">FirstName</label>
+      <input type="text" id="firstName" formControlName="firstName" class="p-inputtext">
+  </div>
     
-  </form>
-  <br>
+  <div class="p-field">
+      <label for="lastName">LastName</label>
+      <input type="text" id="lastName" formControlName="lastName" class="p-inputtext">
+  </div>
+    
+  <div class="p-field">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username" class="p-inputtext">
+  </div>
+    
+  <div class="p-field">
+      <label for="role">Role</label>
+      <input type="text" id="role" formControlName="role" class="p-inputtext">
+  </div>
+  
+  <div class="p-field">
+      <label for="telephone">Telephone</label>
+      <input type="telephone" id="telephone" formControlName="telephone" class="p-inputtext">
+  </div>
+
+  <div class="p-field">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" class="p-inputtext">
+  </div><br>
+
+  <div class="p-field">
+      <label for="isActive">Actif</label>
+      <select id="isActive" formControlName="isActive" class="p-inputtext custom-select">
+          <option value="oui">Oui</option>
+          <option value="non">Non</option>
+      </select>
+  </div>
+
+  <div class="p-field">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" class="p-inputtext">
+  </div>
+  
+  <div class="p-field">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" class="p-inputtext">
+  </div>
+
+  <button type="submit" class="p-button p-button-primary" [disabled]="ticketForm.invalid">Soumettre</button>
+</form>

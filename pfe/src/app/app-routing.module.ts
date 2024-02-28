@@ -2,7 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
-import { TestComponent } from './test/test.component';
+import { UserFormComponent } from './user-form/user-form.component';
 
 @NgModule({
     imports: [
@@ -17,7 +17,7 @@ import { TestComponent } from './test/test.component';
                     //     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     //     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
                     { path: "", loadChildren: () => import('./core/dashboard/dashboard.module').then(m => m.DashboardModule) },
-                    {path:'test' ,component : TestComponent},
+                    {path:'test' ,component : UserFormComponent},
                     { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) }
 

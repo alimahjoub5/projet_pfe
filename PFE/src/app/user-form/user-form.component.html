@@ -1,0 +1,50 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" formControlName="FirstName">
+    </div>
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" formControlName="LastName">
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName="Email">
+    </div>
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" formControlName="Username">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" formControlName="Password">
+    </div>
+    <div>
+      <label for="role">Role:</label>
+      <select id="role" formControlName="Role">
+        <option value="Admin">Admin</option>
+        <option value="Technician">Technician</option>
+        <option value="Manager">Manager</option>
+      </select>
+    </div>
+    <div>
+      <label for="active">Active:</label>
+      <input type="checkbox" id="active" formControlName="Active">
+    </div>
+    <button type="submit" [disabled]="userForm.invalid">Add User</button>
+  </form>
+  
+
+
+  <h2>User List</h2>
+
+<ul>
+  <li *ngFor="let user of users">
+    <p>First Name: {{ user.FirstName }}</p>
+    <p>Last Name: {{ user.LastName }}</p>
+    <p>Email: {{ user.Email }}</p>
+    <p>Username: {{ user.Username }}</p>
+    <p>Role: {{ user.Role }}</p>
+    <p>Active: {{ user.Active }}</p>
+  </li>
+</ul>
