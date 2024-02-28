@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+       /* $request->validate([
             'FirstName' => 'required|string',
             'LastName' => 'required|string',
             'Email' => 'required|email|unique:users',
@@ -33,7 +33,7 @@ class UserController extends Controller
             'Role' => 'required|string|in:Admin,Technician,Manager',
             'Active' => 'required|boolean',
             // Ajoutez d'autres règles de validation au besoin
-        ]);
+        ]);*/
 
         $user = User::create($request->all());
         return response()->json($user, 201);
