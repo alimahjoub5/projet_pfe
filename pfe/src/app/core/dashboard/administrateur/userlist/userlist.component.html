@@ -15,7 +15,12 @@
             </th>
         </tr-->
         <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [rounded]="true" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
-
+        <br><br><div class="col-sm-4">
+            <div class="search-box">
+                <i class="material-icons"></i>
+                <input type="text" class="form-control" placeholder="Search…">
+            </div>
+        </div>
         <p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
             [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
