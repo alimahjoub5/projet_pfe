@@ -1,18 +1,4 @@
-<p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active"  ></p-button>
-<p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
-    [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
-    <ng-template pTemplate="header"><br><br>
-        <tr>
-            <th pSortableColumn="sujet" style="width:25%">Sujet<p-sortIcon field="sujet"></p-sortIcon></th>
-            <th pSortableColumn="ticket.description" style="width:25%">Description <p-sortIcon field="ticket.description"></p-sortIcon></th>
-            <th pSortableColumn="priorite.ticket" style="width:25%">Priorité <p-sortIcon field="priorite.ticket"></p-sortIcon></th>
-            <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status"></p-sortIcon></th>
-           
-            <th style="width:25%">Action</th>
-
-        </tr>
-        
-        <!--tr>
+  <!--tr>
             <th>
                 <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
             </th>
@@ -26,38 +12,67 @@
                 <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
             </th>
         </tr-->
+       
 
-    </ng-template>
-    <ng-template pTemplate="body" let-customer>
-        <tr [pSelectableRow]="customer">
-            <td>
-                <span class="p-column-title">Sujet</span>
-                {{customer.Sujet}}
-            </td>
-            <td>
-                <span class="p-column-title">Description</span>
-                <span class="ml-1 vertical-align-middle">{{customer.Description}}</span>
-            </td>
-            <td>
-                <span class="p-column-title">Representative</span>
-                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                <span class="ml-1 vertical-align-middle">{{customer.representative.name}}</span>
-            </td>
-            <td>
-                <span class="p-column-title">Status</span>
-                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
-            </td>
-            <th>
-                <div class="flex flex-wrap gap-2">
-                    <p-button  label="Update" icon="pi pi-pencil" [model]="updateItems" styleClass="p-button-success custom-button"></p-button>
-                    <p-button label="Delete" icon="pi pi-trash" [model]="deleteItems" styleClass="p-button-danger custom-button"></p-button>
 
-                </div>
-                
+        <p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
+        <br><br><div class="col-sm-4">
+            <div class="search-box">
+                <i class="material-icons"></i>
+                <input type="text" class="form-control" placeholder="Search…">
+            </div>
+        </div>
+        <p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
+    [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
 
-            </th>
-        </tr>
-    </ng-template>
+
+<ng-template pTemplate="header">
+    <tr>
+        <th style="width: 3rem">
+        </th>
+        <th pSortableColumn="sujet"style="width:25%">sujet <p-sortIcon field="sujet"></p-sortIcon></th>
+        <th pSortableColumn="priorite"style="width:25%">priorite <p-sortIcon field="priorite"></p-sortIcon></th>
+        <th pSortableColumn="status"style="width:25%">status <p-sortIcon field="status"></p-sortIcon></th>
+        <th pSortableColumn="description"style="width:25%">description <p-sortIcon field="description"></p-sortIcon></th>
+        <th>Action</th>
+    </tr>
+</ng-template>
+  
+<ng-template pTemplate="body" let-customer>
+    <tr [pSelectableRow]="customer">
+        <td>
+            <span class="p-column-title">Sujet</span>
+            {{customer.Sujet}}
+        </td>
+        <td>
+            <span class="p-column-title">Priorité</span>
+            <span class="ml-1 vertical-align-middle">{{customer.priorite}}</span>
+        </td>
+        <td>
+            <span class="p-column-title">Status</span>
+            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
+        </td>
+        <td>
+            <span class="p-column-title">Description</span>
+            <span class="ml-1 vertical-align-middle">{{customer.Description}}</span>
+        </td>
+        <td>
+        </td>
+        <td>
+            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+              
+              
+            
+        </td>
+         </tr>
+</ng-template>
+    
+
+
+
+
     <ng-template pTemplate="emptymessage">
         <tr>
             <td colspan="4">No customers found.</td>

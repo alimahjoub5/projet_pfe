@@ -16,6 +16,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './user-service.service';
 
+import {ButtonModule} from 'primeng/button';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule,
@@ -35,4 +36,5 @@ import { UserService } from './user-service.service';
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
+
