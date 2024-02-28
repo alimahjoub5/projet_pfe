@@ -26,6 +26,7 @@
         "@fullcalendar/daygrid": "^6.0.3",
         "@fullcalendar/interaction": "^6.0.3",
         "@fullcalendar/timegrid": "^6.0.3",
+        "bootstrap": "^5.3.3",
         "chart.js": "^3.3.2",
         "json-server": "^1.0.0-alpha.23",
         "primeflex": "^3.3.1",

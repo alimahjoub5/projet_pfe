@@ -12,10 +12,13 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
+import {ButtonModule} from 'primeng/button';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule,HttpClientModule],
+    imports: [AppRoutingModule, AppLayoutModule,HttpClientModule,  BrowserModule,FormsModule, ButtonModule],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService,
@@ -30,4 +33,5 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
+

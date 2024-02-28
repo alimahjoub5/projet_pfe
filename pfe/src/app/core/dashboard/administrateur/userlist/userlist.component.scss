@@ -1,17 +1,24 @@
-:host ::ng-deep .p-dialog .product-image {
-    width: 150px;
-    margin: 0 auto 2rem auto;
-    display: block;
-}
-/* Personnalisation des boutons */
-.custom-button {
-    width: 100px;
-    height: 40px;
-    font-size: 14px;
-    border-radius: 5px;
-}
 
+  
+    .custom-button {
+        background-color: #4CAF50; /* Couleur de fond */
+        border: none; /* Supprime la bordure */
+        color: white; /* Couleur du texte */
+        padding: 12px 24px; /* Espacement intérieur */
+        text-align: center; /* Alignement du texte */
+        text-decoration: none; /* Supprime la décoration du texte */
+        display: inline-block; /* Affichage en ligne */
+        font-size: 16px; /* Taille de la police */
+        margin: 4px 2px; /* Marge extérieure */
+        transition-duration: 0.4s; /* Durée de transition */
+        cursor: pointer; /* Curseur pointer */
+        border-radius: 8px; /* Bordures arrondies */
+    }
 
+    .custom-button:hover {
+        background-color: #45a049; /* Couleur de fond au survol */
+        color: white; /* Couleur du texte au survol */
+    }
 
 /* Style pour les éléments <input> dans les cellules de la table */
 table input[type="text"] {
@@ -28,4 +35,19 @@ table input[type="text"]:focus {
     outline: none; /* Supprime la bordure de mise au point par défaut */
     border-color: #007bff; /* Change la couleur de la bordure lorsque l'élément est en focus */
 }
+table input[type="text"]:focus {
+    outline: none; /* Supprime la bordure de mise au point par défaut */
+    border-color: #007bff; /* Change la couleur de la bordure lorsque l'élément est en focus */
+}
+    .view i {
+        color: blue; /* Couleur pour l'icône "View" */
+    }
 
+    .edit i {
+        color: green; /* Couleur pour l'icône "Edit" */
+    }
+
+    .delete i {
+        color: red; /* Couleur pour l'icône "Delete" */
+    }
+ 
