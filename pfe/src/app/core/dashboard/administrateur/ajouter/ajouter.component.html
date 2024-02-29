@@ -1,55 +1,31 @@
-<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
-  <div class="p-field">
-      <label for="user">UserID</label>
-      <input type="text" id="user" formControlName="user" class="p-inputtext" required>
-  </div> 
-  <div class="p-field">
-      <label for="firstName">FirstName</label>
-      <input type="text" id="firstName" formControlName="firstName" class="p-inputtext">
-  </div>
-    
-  <div class="p-field">
-      <label for="lastName">LastName</label>
-      <input type="text" id="lastName" formControlName="lastName" class="p-inputtext">
-  </div>
-    
-  <div class="p-field">
-      <label for="username">Username</label>
-      <input type="text" id="username" formControlName="username" class="p-inputtext">
-  </div>
-    
-  <div class="p-field">
-      <label for="role">Role</label>
-      <input type="text" id="role" formControlName="role" class="p-inputtext">
-  </div>
-  
-  <div class="p-field">
-      <label for="telephone">Telephone</label>
-      <input type="telephone" id="telephone" formControlName="telephone" class="p-inputtext">
-  </div>
-
-  <div class="p-field">
-      <label for="email">Email</label>
-      <input type="email" id="email" formControlName="email" class="p-inputtext">
-  </div><br>
-
-  <div class="p-field">
-      <label for="isActive">Actif</label>
-      <select id="isActive" formControlName="isActive" class="p-inputtext custom-select">
-          <option value="oui">Oui</option>
-          <option value="non">Non</option>
-      </select>
-  </div>
-
-  <div class="p-field">
-      <label for="password">Password</label>
-      <input type="password" id="password" formControlName="password" class="p-inputtext">
-  </div>
-  
-  <div class="p-field">
-      <label for="confirmPassword">Confirm Password</label>
-      <input type="password" id="confirmPassword" formControlName="confirmPassword" class="p-inputtext">
-  </div>
-
-  <button type="submit" class="p-button p-button-primary" [disabled]="ticketForm.invalid">Soumettre</button>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+    <div class="form-field">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" formControlName="FirstName" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" formControlName="LastName" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="Email" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="username">Username:</label>
+        <input type="text" id="username" formControlName="Username" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="password">Password:</label>
+        <input type="password" id="password" formControlName="Password" pPassword>
+    </div>
+    <div class="form-field">
+        <label for="role">Role:</label>
+        <p-dropdown id="role" formControlName="Role" [options]="roles" [showClear]="true"></p-dropdown>
+    </div>
+    <div class="form-field">
+        <label for="active">Active:</label>
+        <p-checkbox id="active" formControlName="Active"></p-checkbox>
+    </div>
+    <button type="submit" [disabled]="userForm.invalid" pButton>Add User</button>
 </form>

@@ -13,14 +13,14 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './user-service.service';
 
 import {ButtonModule} from 'primeng/button';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule,
-         ],
+    imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
+    ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService,

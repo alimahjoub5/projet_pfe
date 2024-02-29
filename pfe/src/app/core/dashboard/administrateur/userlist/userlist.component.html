@@ -14,52 +14,35 @@
                 <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
             </th>
         </tr-->
-        <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [rounded]="true" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
-        <br><br><div class="col-sm-4">
+        <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
+        <br><br>
+        <div class="col-sm-4">
             <div class="search-box">
                 <i class="material-icons"></i>
                 <input type="text" class="form-control" placeholder="Search…">
             </div>
         </div>
-        <p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
-            [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+        
+        <p-table [value]="users" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="userid" style="width:30%">Identifiant<p-sortIcon field="userid"></p-sortIcon></th>
-                    <th pSortableColumn="nom" style="width:25%">Nom de la famille <p-sortIcon field="nom"></p-sortIcon></th>
-                    <th pSortableColumn="email" style="width:25%">Email <p-sortIcon field="email"></p-sortIcon></th>
-                    <th pSortableColumn="phone" style="width:25%">Telephone <p-sortIcon field="phone"></p-sortIcon></th>
-                    <th pSortableColumn="actif" style="width:30%">Actif <p-sortIcon field="actif"></p-sortIcon></th>
-                    <th style="width:25%">Action</th>
+                    <th pSortableColumn="FirstName">First Name <p-sortIcon field="FirstName"></p-sortIcon></th>
+                    <th pSortableColumn="LastName">Last Name <p-sortIcon field="LastName"></p-sortIcon></th>
+                    <th pSortableColumn="Email">Email <p-sortIcon field="Email"></p-sortIcon></th>
+                    <th pSortableColumn="Username">Username <p-sortIcon field="Username"></p-sortIcon></th>
+                    <th pSortableColumn="Role">Role <p-sortIcon field="Role"></p-sortIcon></th>
+                    <th pSortableColumn="Active">Active <p-sortIcon field="Active"></p-sortIcon></th>
+                    <th>Action</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer>
-                <tr [pSelectableRow]="customer">
-                    <td>
-                        <span class="p-column-title">Identifiant</span>
-                        {{customer.userid}}
-                    </td>
-                   
-                    <td>
-                        <span class="p-column-title">Name</span>
-                        {{customer.nom}}
-                    </td>
-
-                    <td>
-                        <span class="p-column-title">Email</span>
-                        {{customer.email}}
-                    </td>
-
-                    <td>
-                        <span class="p-column-title">Télephone</span>
-                        {{customer.phone}}
-                    </td>
-
-                    <td>
-                        <span class="p-column-title">Actif</span>
-                        {{customer.actif}}
-                    </td>
-                    
+            <ng-template pTemplate="body" let-user>
+                <tr>
+                    <td>{{ user.FirstName }}</td>
+                    <td>{{ user.LastName }}</td>
+                    <td>{{ user.Email }}</td>
+                    <td>{{ user.Username }}</td>
+                    <td>{{ user.Role }}</td>
+                    <td>{{ user.Active }}</td>
                     <td>
                         <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                         <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -69,7 +52,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="6">No user found.</td>
+                    <td colspan="7">No user found.</td>
                 </tr>
             </ng-template>
         </p-table>

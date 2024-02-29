@@ -1,41 +1,137 @@
-.p-button {
-    margin-top: 20px;
-    width: 120px;
-    justify-content: center;
-  }
+.user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-   
+  .form-field {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
 
-    .p-button-primary {
-        /* Ajoutez ici les styles spécifiques pour le bouton primaire */
-        background-color: #007bff; /* Changement de la couleur de fond */
-        color: #ffffff; /* Changement de la couleur du texte */
-        border: 1px solid #007bff; /* Changement de la couleur de la bordure */
-        border-radius: 5px; /* Ajout d'arrondi aux coins */
-        padding: 10px 20px; /* Ajout de rembourrage pour un aspect plus spacieux */
-        cursor: pointer; /* Curseur indiquant que le bouton est cliquable */
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
     }
 
-/* Exemple de définition de classe CSS dans une feuille de style externe */
-.custom-select {
-  border-radius: 10px; /* Coins arrondis */
-  width: 150px; /* Largeur ajustée */
-  padding: 8px; /* Espacement interne */
-  background-color: #f8f8f8; /* Fond gris clair */
-  color: #333; /* Couleur du texte */
-  font-size: 16px; /* Taille de police */
-  transition: border-color 0.3s ease; /* Transition fluide pour la bordure */
-}
+    input,
+    p-dropdown,
+    p-checkbox {
+      width: 100%;
+    }
+  }
 
-.custom-select:focus {
-  outline: none; /* Supprime la bordure de focus par défaut */
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Ombre légère */
-}
+  button {
+    width: 100%;
+    max-width: 200px;
+    margin-top: 1rem;
+  }
 
-.custom-select option {
-  background-color: #f8f8f8; /* Fond gris clair pour les options */
-  color: #333; /* Couleur du texte */
-  font-size: 16px; /* Taille de police */
-}
+  @media (min-width: 768px) {
+    .form-field {
+      max-width: 300px;
+    }
+  }
 
-/* Hover effect */
+  @media (min-width: 992px) {
+    .form-field {
+      max-width: 400px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .form-field {
+      max-width: 500px;
+    }
+  }
+}
+.user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .form-field {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    input,
+    p-dropdown,
+    p-checkbox {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff; // Change to your desired focus color
+      }
+    }
+
+    p-dropdown {
+      .ui-dropdown {
+        width: 100%;
+        .ui-dropdown-label {
+          font-size: 1rem;
+          line-height: 1.5;
+          padding: 0.375rem 0.75rem;
+        }
+      }
+    }
+
+    p-checkbox {
+      .ui-chkbox-box {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    max-width: 200px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3; // Darker shade of primary color on hover
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .form-field {
+      max-width: 300px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .form-field {
+      max-width: 400px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .form-field {
+      max-width: 500px;
+    }
+  }
+}

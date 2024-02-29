@@ -11,6 +11,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { UserService } from 'src/app/user-service.service';
+import { User } from 'src/app/User';
 @Component({
   selector: 'app-userlist',
   
@@ -30,11 +32,25 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
  
 })
 export class UserlistComponent {
-  customers = [
-    { id: 1, name: 'John Doe', country: { code: 'US', name: 'United States' }, representative: { name: 'Alice', image: 'alice.jpg' }, status: 'qualified' },
-    { id: 2, name: 'Hane Smith', country: { code: 'CA', name: 'Canada' }, representative: { name: 'Bob', image: 'bob.jpg' }, status: 'unqualified' },
-    // Ajoutez plus de données clients au besoin
-  ];
+  users: User[];
+
+   //-------------------------------------------
+
+   constructor( private userService: UserService) {
+    this.userService.getUsers()
+    .subscribe(
+      users => {
+        this.users = users;
+      },
+      error => {
+        console.error('Error fetching users:', error);
+      }
+    );
+ 
+    }
+
+
+
       items: MenuItem[];
 
 selectedCustomers: any;
