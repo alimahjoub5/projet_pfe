@@ -7,5 +7,6 @@ export class User {
     Password: string;
     Role: string;
     Active: boolean;
+    CreatedOn: Date;
   }
   

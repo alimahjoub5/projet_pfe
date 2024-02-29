@@ -24,20 +24,22 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-       /* $request->validate([
+        $request->validate([
             'FirstName' => 'required|string',
             'LastName' => 'required|string',
             'Email' => 'required|email|unique:users',
             'Username' => 'required|string|unique:users',
-            'Password' => 'required|string',
+            'Password' => 'required|string|min:6', // Minimum 6 caractères pour le mot de passe
             'Role' => 'required|string|in:Admin,Technician,Manager',
-            'Active' => 'required|boolean',
-            // Ajoutez d'autres règles de validation au besoin
-        ]);*/
-
-        $user = User::create($request->all());
+        ]);
+    
+        $data = $request->all();
+        $data['Password'] = bcrypt($request->Password); // Hacher le mot de passe avant de le stocker
+    
+        $user = User::create($data);
         return response()->json($user, 201);
     }
+    
 
     public function update(Request $request, $id)
     {

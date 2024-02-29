@@ -1,4 +1,5 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+
     <div class="form-field">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" formControlName="FirstName" pInputText>
@@ -23,9 +24,6 @@
         <label for="role">Role:</label>
         <p-dropdown id="role" formControlName="Role" [options]="roles" [showClear]="true"></p-dropdown>
     </div>
-    <div class="form-field">
-        <label for="active">Active:</label>
-        <p-checkbox id="active" formControlName="Active"></p-checkbox>
-    </div>
+
     <button type="submit" [disabled]="userForm.invalid" pButton>Add User</button>
 </form>

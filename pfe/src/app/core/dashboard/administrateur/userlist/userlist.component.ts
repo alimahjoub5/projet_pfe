@@ -1,6 +1,6 @@
 import { Component , OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { MenuItem} from 'primeng/api';
+import { ConfirmationService, MenuItem} from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
@@ -31,12 +31,12 @@ import { User } from 'src/app/User';
   styleUrl: './userlist.component.scss'
  
 })
-export class UserlistComponent {
+export class UserlistComponent implements OnInit{
   users: User[];
 
    //-------------------------------------------
 
-   constructor( private userService: UserService) {
+   constructor( private userService: UserService ) {
     this.userService.getUsers()
     .subscribe(
       users => {
@@ -46,13 +46,32 @@ export class UserlistComponent {
         console.error('Error fetching users:', error);
       }
     );
+
+
  
     }
 
+  ngOnInit(): void {
+this.loadUsers();
+  }
+  loadUsers() {
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+    });
+  }
 
+  deleteUser(userId: number) {
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.userService.deleteUser(userId).subscribe(() => {
+        this.loadUsers();
+      });
+    }
+  }
 
+  
       items: MenuItem[];
 
 selectedCustomers: any;
+
 
 }

@@ -10,7 +10,7 @@ import { CheckboxModule } from 'primeng/checkbox';
   templateUrl: './ajouter.component.html',
   styleUrls: ['./ajouter.component.scss'],
   standalone : true,
-  imports : [ReactiveFormsModule,DropdownModule,CheckboxModule]
+  imports : [ReactiveFormsModule,DropdownModule,CheckboxModule  ]
 })
 export class AjouterComponent implements OnInit {
   userForm: FormGroup;
@@ -33,7 +33,6 @@ export class AjouterComponent implements OnInit {
       Username: [''],
       Password: [''],
       Role: [''],
-      Active: [false]
     });
   }
 
@@ -55,7 +54,20 @@ export class AjouterComponent implements OnInit {
       return;
     }
 
-    const user: User = this.userForm.value;
+   // Créer une nouvelle instance de l'objet User en extrayant les valeurs du formulaire
+   const userData = this.userForm.value;
+   const user: User = {
+     FirstName: userData.FirstName,
+     LastName: userData.LastName,
+     Email: userData.Email,
+     Username: userData.Username,
+     Password: userData.Password,
+     Role: userData.Role,
+     Active: userData.Active,
+     CreatedOn: new Date() // Définir la date et l'heure actuelles comme CreatedOn
+     ,
+     UserID: null
+   };
     this.userService.addUser(user)
       .subscribe(
         response => {

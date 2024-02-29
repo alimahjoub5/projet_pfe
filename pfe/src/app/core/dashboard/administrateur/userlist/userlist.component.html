@@ -14,6 +14,7 @@
                 <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
             </th>
         </tr-->
+
         <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
         <br><br>
         <div class="col-sm-4">
@@ -22,7 +23,7 @@
                 <input type="text" class="form-control" placeholder="Search…">
             </div>
         </div>
-        
+
         <p-table [value]="users" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
             <ng-template pTemplate="header">
                 <tr>
@@ -46,10 +47,11 @@
                     <td>
                         <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
                         <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                        <p-button (click)="deleteUser(user.UserID)" label="Delete" severity="danger"></p-button>
                     </td>
                 </tr>
             </ng-template>
+
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td colspan="7">No user found.</td>
