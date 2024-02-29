@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { AssigneeService } from '../../services/AssigneeService';
 import { TicketService } from '../services/TicketService';
-import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({

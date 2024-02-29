@@ -45,7 +45,9 @@
                     <td>{{ user.Role }}</td>
                     <td>{{ user.Active }}</td>
                     <td>
-                        <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                        <a [routerLink]="['/user-detail', user.UserID]" class="view" title="View" data-toggle="tooltip">
+                            <i class="material-icons">&#xE417;</i>
+                          </a>
                         <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                         <p-button (click)="deleteUser(user.UserID)" label="Delete" severity="danger"></p-button>
                     </td>

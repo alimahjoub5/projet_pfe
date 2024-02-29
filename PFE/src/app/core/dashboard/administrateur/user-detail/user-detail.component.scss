@@ -1,0 +1,38 @@
+.user-detail {
+    padding: 20px;
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  
+    .detail-row {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+  
+      label {
+        font-weight: bold;
+        width: 150px; // Ajustez la largeur selon vos besoins
+        margin-right: 10px;
+      }
+  
+      span {
+        flex: 1;
+      }
+    }
+  }
+  
+
+  .btn-print {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .btn-print:hover {
+    background-color: #0056b3;
+  }
+  

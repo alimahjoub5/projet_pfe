@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,   ReactiveFormsModule,  Validators } from '@angular/forms';
-import { User } from 'src/app/User';
-import { UserService } from 'src/app/user-service.service';
+import { User } from 'src/app/core/models/User';
+import { UserService } from 'src/app/core/dashboard/services/user-service.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 
@@ -66,7 +66,11 @@ export class AjouterComponent implements OnInit {
      Active: userData.Active,
      CreatedOn: new Date() // Définir la date et l'heure actuelles comme CreatedOn
      ,
-     UserID: null
+
+     UserID: null,
+     CreatedBy: 0,
+     ModifiedOn: undefined,
+     ModifiedBy: 0
    };
     this.userService.addUser(user)
       .subscribe(

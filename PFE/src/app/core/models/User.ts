@@ -8,5 +8,8 @@ export class User {
     Role: string;
     Active: boolean;
     CreatedOn: Date;
+    CreatedBy:number;
+    ModifiedOn : Date;
+    ModifiedBy:number;
   }
   

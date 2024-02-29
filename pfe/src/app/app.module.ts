@@ -14,7 +14,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from './user-service.service';
+import { UserService } from './core/dashboard/services/user-service.service';
 
 import {ButtonModule} from 'primeng/button';
 @NgModule({

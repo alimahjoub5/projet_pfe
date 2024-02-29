@@ -11,8 +11,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { UserService } from 'src/app/user-service.service';
-import { User } from 'src/app/User';
+import { UserService } from 'src/app/core/dashboard/services/user-service.service';
+import { User } from 'src/app/core/models/User';
 @Component({
   selector: 'app-userlist',
   
