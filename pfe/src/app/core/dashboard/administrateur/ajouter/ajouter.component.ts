@@ -68,9 +68,9 @@ export class AjouterComponent implements OnInit {
      ,
 
      UserID: null,
-     CreatedBy: 0,
+     CreatedBy: null,
      ModifiedOn: undefined,
-     ModifiedBy: 0
+     ModifiedBy: null
    };
     this.userService.addUser(user)
       .subscribe(
