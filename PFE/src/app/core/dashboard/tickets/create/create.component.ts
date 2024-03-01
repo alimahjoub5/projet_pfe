@@ -1,64 +1,129 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TicketService } from '../services/TicketService';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Correction ici : ReactiveFormsModule est importé dans AppModule
 import { AutoCompleteModule } from 'primeng/autocomplete';
-
+import { Priority } from 'src/app/core/models/Priority';
+import { PriorityService } from 'src/app/core/services/priority.service';
+import { CommonModule } from '@angular/common';
+import { Ticket } from 'src/app/core/models/ticket';
+import { TicketService } from 'src/app/core/services/tickets.service';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { EquipmentType } from 'src/app/core/models/equipement';
+import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
-  standalone:true,
+  standalone: true,
   imports: [
-    ReactiveFormsModule,AutoCompleteModule // Correction ici : imports est un tableau
+    AutoCompleteModule,
+    FormsModule,ReactiveFormsModule,
+    CommonModule // Correction ici : ReactiveFormsModule est importé dans AppModule
   ]
 })
-
-
 export class CreateComponent implements OnInit {
-filterCountry($event: any) {
-throw new Error('Method not implemented.');
-}
-  ticketForm: FormGroup;
-  assignees: any[] = [];
-product: any;
-filteredCountries: any;
-formGroup: any;
+  equipmentTypes: EquipmentType[] | undefined;
+  selectedEquipmentType: EquipmentType | null = null;
+  filteredEquipmentTypes: EquipmentType[] | undefined;
 
+  priorities: Priority[] | undefined;
+  form: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
+    private priorityService: PriorityService,
     private ticketService: TicketService,
+    private equipmentService: EquipmentTypeService
   ) {}
 
   ngOnInit(): void {
-    this.ticketForm = this.fb.group({
+    this.form = this.fb.group({
       subject: ['', Validators.required],
       description: [''],
       priority: ['', Validators.required],
       dueDate: ['', Validators.required],
-      assigneeID: [''],
-     
-
-
+      equipmentTypeID: [null, Validators.required],
     });
-    
+
+    this.loadPriorities();
+    this.loadEquipmentTypes();
   }
 
- 
+  onSubmit(): void {
+    if (this.form.valid) {
+      // Créer une nouvelle instance de Ticket en extrayant les valeurs du formulaire
+      const ticketData = this.form.value;
   
-  onSubmit() {
-    if (this.ticketForm.valid) {
-      const formData = this.ticketForm.value;
-      // Envoie des données au service pour les traiter, par exemple :
-      this.ticketService.createTicket(formData).subscribe(response => {
-        // Traitez la réponse si nécessaire
-        console.log('Ticket créé avec succès:', response);
-        // Réinitialisez le formulaire après soumission réussie
-        this.ticketForm.reset();
-      }, error => {
-        console.error('Erreur lors de la création du ticket:', error);
-        // Traitez l'erreur selon les besoins de votre application
-      });
+      // Créer une nouvelle instance de Ticket avec les données extraites
+      const ticket: Ticket = {
+        Subject: ticketData.subject,
+        Description: ticketData.description,
+        PriorityID: ticketData.priority,
+        DueDate: ticketData.dueDate,
+        EquipmentTypeID: ticketData.equipmentTypeID,
+        StartDate: ticketData.startDate,
+        EndDate: ticketData.endDate,
+        ClosedDate: ticketData.closedDate,
+        StatusCodeID : 2,
+        // D'autres propriétés si nécessaire
+        TicketID: null, // À remplir par le serveur
+        CreatedOn: null, // Définir la date et l'heure actuelles comme createdOn
+        CreatedBy: 7, // À remplir par le serveur
+        ModifiedOn: undefined,
+        ModifiedBy: null
+      };
+  
+      // Appeler le service pour ajouter le ticket
+      this.ticketService.addTicket(ticket).subscribe(
+        (response: any) => {
+          console.log('Ticket created successfully:', response);
+        },
+        (error: any) => {
+          console.error('Error creating ticket:', error);
+        }
+      );
+    } else {
+      console.error('Invalid form. Please check required fields.');
     }
+  }
+  
+
+  loadPriorities(): void {
+    this.priorityService.getAllPriorities().subscribe(
+      (priorities: Priority[]) => {
+        this.priorities = priorities;
+      },
+      (error: any) => {
+        console.log('Error loading priorities: ', error);
+      }
+    );
+  }
+
+  loadEquipmentTypes(): void {
+    this.equipmentService.getAllEquipmentTypes().subscribe(
+      (equipmentTypes: EquipmentType[]) => {
+        this.equipmentTypes = equipmentTypes;
+      },
+      (error: any) => {
+        console.error('Error fetching equipment types:', error);
+      }
+    );
+  }
+
+  filterEquipmentTypes(event: any): void {
+    let filtered: EquipmentType[] = [];
+    let query = event.query;
+
+    if (this.equipmentTypes) {
+      filtered = this.equipmentTypes.filter((equipmentType: EquipmentType) =>
+        equipmentType.TypeName.toLowerCase().startsWith(query.toLowerCase())
+      );
+    }
+
+    this.filteredEquipmentTypes = filtered;
+  }
+
+  onEquipmentTypeSelect(event: any): void {
+    this.selectedEquipmentType = event.value;
+    this.form.controls['equipmentTypeID'].setValue(this.selectedEquipmentType.EquipmentTypeID);
   }
 }

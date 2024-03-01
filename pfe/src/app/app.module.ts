@@ -14,9 +14,11 @@ import { PhotoService } from './demo/service/photo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from './core/dashboard/services/user-service.service';
+import { UserService } from './core/services/user-service.service';
 
 import {ButtonModule} from 'primeng/button';
+import { TicketService } from './core/services/tickets.service';
+import { EquipmentTypeService } from './core/services/equipements.service';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -31,6 +33,8 @@ import {ButtonModule} from 'primeng/button';
         PhotoService,
         ProductService,
         UserService,
+        TicketService,
+        EquipmentTypeService,
         NgModule
                 
     ],

@@ -14,7 +14,7 @@
                 <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
             </th>
         </tr-->
-
+       
         <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
         <br><br>
         <div class="col-sm-4">
@@ -25,6 +25,10 @@
         </div>
 
         <p-table [value]="users" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+            <div class="loading-overlay" *ngIf="isLoading">
+                <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>
+              </div>
+              
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="FirstName">First Name <p-sortIcon field="FirstName"></p-sortIcon></th>

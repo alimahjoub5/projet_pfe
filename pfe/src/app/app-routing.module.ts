@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { UserFormComponent } from './user-form/user-form.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
     imports: [
@@ -20,7 +21,7 @@ import { UserFormComponent } from './user-form/user-form.component';
                     {path:'test' ,component : UserFormComponent},
                     { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) },
-
+                    {path : "testo", component: TestComponent}
                 ]
             },
             { path: 'authen', loadChildren: () => import('./core/auth/auth-routing.module').then(m => m.AuthRoutingModule) },

@@ -11,8 +11,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { UserService } from 'src/app/core/dashboard/services/user-service.service';
+import { UserService } from 'src/app/core/services/user-service.service';
 import { User } from 'src/app/core/models/User';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-userlist',
   
@@ -26,17 +28,22 @@ import { User } from 'src/app/core/models/User';
     ToastModule,
     ConfirmDialogModule,
     SplitButtonModule,
-    RouterModule],
+    RouterModule,
+    ProgressSpinnerModule,
+CommonModule],
   templateUrl: './userlist.component.html',
   styleUrl: './userlist.component.scss'
  
 })
 export class UserlistComponent implements OnInit{
   users: User[];
+  isLoading: boolean;
 
    //-------------------------------------------
 
    constructor( private userService: UserService ) {
+    this.isLoading = true; // Show spinner before fetching data
+
     this.userService.getUsers()
     .subscribe(
       users => {
@@ -45,10 +52,12 @@ export class UserlistComponent implements OnInit{
       error => {
         console.error('Error fetching users:', error);
       }
+
     );
 
 
- 
+     this.isLoading = false; // Hide spinner after data retrieval
+
     }
 
   ngOnInit(): void {
@@ -58,6 +67,7 @@ this.loadUsers();
     this.userService.getUsers().subscribe(users => {
       this.users = users;
     });
+
   }
 
   deleteUser(userId: number) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../core/dashboard/services/user-service.service';
+import { UserService } from '../core/services/user-service.service';
 import { User } from '../core/models/User';
 import { CommonModule } from '@angular/common';
 

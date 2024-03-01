@@ -23,20 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// Get all tickets
-Route::get('tickets','App\Http\Controllers\TicketController@getTicket');
 
-// Get specific ticket detail
-Route::get('ticket/{id}','TicketController@getTicketById');
 
-// Add ticket
-Route::post('addTicket','TicketController@addTicket');
-
-// Update Ticket
-Route::put('updateTicket/{id}','TicketController@updateTicket');
-
-// Delete ticket
-Route::delete('deleteTicket/{id}','TicketController@deleteTicket');
+Route::get('tickets', [TicketController::class, 'getTicket']);
+Route::get('ticket/{id}', [TicketController::class, 'getTicketById']);
+Route::post('addTicket', [TicketController::class, 'addTicket']);
+Route::put('updateTicket/{id}', [TicketController::class, 'updateTicket']);
+Route::delete('deleteTicket/{id}', [TicketController::class, 'deleteTicket']);
 
 // user controller routes
 

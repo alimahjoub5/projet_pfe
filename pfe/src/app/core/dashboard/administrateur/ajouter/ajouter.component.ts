@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,   ReactiveFormsModule,  Validators } from '@angular/forms';
 import { User } from 'src/app/core/models/User';
-import { UserService } from 'src/app/core/dashboard/services/user-service.service';
+import { UserService } from 'src/app/core/services/user-service.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 

@@ -1,0 +1,11 @@
+<p-autoComplete 
+  [(ngModel)]="selectedEquipmentType" 
+  [suggestions]="filteredEquipmentTypes" 
+  (completeMethod)="filterEquipmentTypes($event)"
+  (onSelect)="onEquipmentTypeSelect($event)"
+  field="TypeName"
+  [dropdown]="true"
+  placeholder="Select an equipment">
+</p-autoComplete>
+
+<button (click)="saveSelectedEquipmentType()">Save</button>
