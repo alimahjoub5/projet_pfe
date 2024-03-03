@@ -40,5 +40,6 @@ class Ticket extends Model
         'ClosedDate',
     ];
 
+ 
     // Relations éventuelles à définir ici
 }

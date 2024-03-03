@@ -31,4 +31,10 @@ export class PriorityService {
   deletePriority(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  //-----------------------------------------------------------------------------
+
+  getPriorityName(priorityId: number): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/${priorityId}/name`);
+  }
 }

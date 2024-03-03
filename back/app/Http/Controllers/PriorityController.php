@@ -59,4 +59,17 @@ class PriorityController extends Controller
         $priority->delete();
         return response()->json(null, 204);
     }
+
+
+//------------------------------------------------------------------------------
+
+public function getPriorityName($id) {
+    $priority = Priority::find($id);
+    if ($priority !== null) {
+        return response()->json($priority->Name, 200);
+    } else {
+        return response()->json(['error' => 'Priority not found'], 404);
+    }
+}
+
 }

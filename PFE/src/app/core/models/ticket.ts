@@ -15,4 +15,7 @@ export interface Ticket {
     EndDate?: Date | null;
     DueDate: Date;
     ClosedDate?: Date | null;
+    EquipmentTypeName? : string |null;
+    PriorityName? : string | null;
+
 }

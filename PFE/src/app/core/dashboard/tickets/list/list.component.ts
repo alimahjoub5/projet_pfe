@@ -8,6 +8,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CustomerService } from 'src/app/demo/service/customer.service';
 import {RouterModule} from '@angular/router';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { Ticket } from 'src/app/core/models/ticket';
+import { TicketService } from 'src/app/core/services/tickets.service';
+import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
+import { PriorityService } from 'src/app/core/services/priority.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list',
@@ -17,7 +22,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     ToastModule,
     ConfirmDialogModule,
     SplitButtonModule,
-    RouterModule
+    RouterModule,
+    CommonModule
 ],
   templateUrl: './list.component.html',
   providers: [MessageService, ConfirmationService
@@ -25,77 +31,66 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 ],
   styleUrl: './list.component.scss'
 })
-export class ListComponent implements OnInit{
-    customers = [
-        { id: 1, name: 'John Doe', country: { code: 'US', name: 'United States' }, representative: { name: 'Alice', image: 'alice.jpg' }, status: 'qualified' },
-        { id: 2, name: 'Hane Smith', country: { code: 'CA', name: 'Canada' }, representative: { name: 'Bob', image: 'bob.jpg' }, status: 'unqualified' },
-        // Ajoutez plus de données clients au besoin
-      ];
-          items: MenuItem[];
+export class ListComponent implements OnInit {
+  tickets: Ticket[] = [];
+  selectedTicket: Ticket | undefined;
 
-    selectedCustomers: any;
+  constructor(private ticketService: TicketService,
+              private equipmentService: EquipmentTypeService,
+              private priorityService: PriorityService) { }
 
-    
-    constructor(private customerService: CustomerService,private messageService: MessageService) {
-        this.items = [
-            {
-                label: 'Update',
-                icon: 'pi pi-refresh',
-                command: () => {
-                    this.update();
-                }
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-times',
-                command: () => {
-                    this.delete();
-                }
-            },
-            { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
-            { separator: true },
-            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
-        ];
+  ngOnInit(): void {
+    this.loadTickets();
+  }
+
+  loadTickets() {
+    this.ticketService.getAllTickets().subscribe(
+      (tickets: Ticket[]) => {
+        this.tickets = tickets;
+        this.loadEquipmentNames();
+        this.loadPriorityNames(); // Charger les noms de priorité après avoir récupéré les tickets
+      },
+      (error) => {
+        console.log('Error occurred while loading tickets:', error);
+      }
+    );
+  }
+
+  loadEquipmentNames() {
+    for (let ticket of this.tickets) {
+      if (ticket.EquipmentTypeID !== undefined) {
+        this.equipmentService.getEquipmentName(ticket.EquipmentTypeID).subscribe(
+          (equipmentName: string) => {
+            ticket.EquipmentTypeName = equipmentName;
+          },
+          (error) => {
+            console.log('Error occurred while loading equipment name:', error);
+          }
+        );
+      }
     }
-    save(severity: string) {
-        this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
+  }
+
+  loadPriorityNames() {
+    for (let ticket of this.tickets) {
+      if (ticket.PriorityID !== undefined) {
+        this.priorityService.getPriorityName(ticket.PriorityID).subscribe(
+          (priorityName: string) => {
+            ticket.PriorityName = priorityName; // Ajouter le nom de la priorité à chaque ticket
+          },
+          (error) => {
+            console.log('Error occurred while loading priority name:', error);
+          }
+        );
+      }
     }
+  }
+  
 
-    update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
-    }
-
-    delete() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Deleted' });
-    }
-
-    ngOnInit() {
-        this.customerService.getCustomersMini().then((data) => (this.customers = data));
-    }
-
-    getSeverity(status: string) {
-        switch (status) {
-            case 'unqualified':
-                return 'danger';
-    
-            case 'qualified':
-                return 'success';
-    
-            case 'new':
-                return 'info';
-    
-            case 'negotiation':
-                return 'warning';
-    
-            default:
-                return null; // Valeur de retour par défaut
-        }
-     
-    }
-
-    
+  getSeverity(statusCodeID: number): string {
+    // Logic to determine severity based on status code ID
+    return ''; // Return appropriate severity string
+  }
 
 
-    
-    
 }

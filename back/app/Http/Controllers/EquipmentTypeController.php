@@ -75,4 +75,16 @@ class EquipmentTypeController extends Controller
         $equipmentType->delete();
         return response()->json(null, 204);
     }
+
+
+    public function getEquipmentName($id) {
+        $equipment = EquipmentType::find($id);
+        if ($equipment !== null) { // Vérifiez si l'équipement a été trouvé
+            return response()->json($equipment->TypeName, 200); // Utilisez le nom de la colonne correspondant à la structure de votre table
+        } else {
+            return response()->json(['error' => 'Equipment not found'], 404);
+        }
+    }
+    
+
 }

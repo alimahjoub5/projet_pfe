@@ -36,4 +36,8 @@ export class EquipmentTypeService {
   deleteEquipmentType(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/equipment-types/${id}`);
   }
+
+  getEquipmentName(equipmentTypeId: number): Observable<string> {
+    return this.http.get<string>(`${this.apiUrl}/equipment/${equipmentTypeId}/name`);
+  }
 }

@@ -48,6 +48,7 @@ Route::get('equipment-types/{id}', [EquipmentTypeController::class, 'show']);
 Route::post('equipment-types', [EquipmentTypeController::class, 'store']);
 Route::put('equipment-types/{id}', [EquipmentTypeController::class, 'update']);
 Route::delete('equipment-types/{id}', [EquipmentTypeController::class, 'destroy']);
+Route::get('equipment/{id}/name', [EquipmentTypeController::class, 'getEquipmentName']);
 
 
 // priorities controllers
@@ -58,6 +59,8 @@ Route::get('/priorities/{id}', [PriorityController::class, 'show']);
 Route::post('/priorities', [PriorityController::class, 'store']);
 Route::put('/priorities/{id}', [PriorityController::class, 'update']);
 Route::delete('/priorities/{id}', [PriorityController::class, 'destroy']);
+Route::get('priorities/{id}/name', [PriorityController::class, 'getPriorityName']);
+
 
 
 

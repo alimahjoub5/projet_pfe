@@ -1,81 +1,71 @@
-  <!--tr>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" placeholder="Search by Representative" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
-            </th>
-        </tr-->
-       
+<!-- Search bar -->
+<div class="col-sm-4">
+    <div class="search-box">
+        <i class="material-icons"></i>
+        <input type="text" class="form-control" placeholder="Rechercher...">
+    </div>
+</div>
 
+<!-- Bouton pour ajouter un ticket -->
+<p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
 
-        <p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
-        <br><br><div class="col-sm-4">
-            <div class="search-box">
-                <i class="material-icons"></i>
-                <input type="text" class="form-control" placeholder="Search…">
-            </div>
-        </div>
-        <p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
-    [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+<!-- Tableau pour afficher les tickets -->
+<p-table #dt1 [value]="tickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
+    [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">
 
-
-<ng-template pTemplate="header">
-    <tr>
-        <th style="width: 3rem">
-        </th>
-        <th pSortableColumn="sujet"style="width:25%">sujet <p-sortIcon field="sujet"></p-sortIcon></th>
-        <th pSortableColumn="priorite"style="width:25%">priorite <p-sortIcon field="priorite"></p-sortIcon></th>
-        <th pSortableColumn="status"style="width:25%">status <p-sortIcon field="status"></p-sortIcon></th>
-        <th pSortableColumn="description"style="width:25%">description <p-sortIcon field="description"></p-sortIcon></th>
-        <th>Action</th>
-    </tr>
-</ng-template>
+    <!-- En-tête du tableau -->
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="Subject" style="width:25%">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
+            <th pSortableColumn="Description" style="width:25%">Description <p-sortIcon field="Description"></p-sortIcon></th>
+            <th pSortableColumn="EquipmentTypeName" style="width:25%">Equipments <p-sortIcon field="EquipmentTypeName"></p-sortIcon></th>
+            <th pSortableColumn="DueDate" style="width:25%">Date d'échéance<p-sortIcon field="DueDate"></p-sortIcon></th>
+            <th pSortableColumn="priorityName" style="width:25%">Priorité <p-sortIcon field="priorityName"></p-sortIcon></th>
+            <th pSortableColumn="StatusCodeID" style="width:25%">Statut <p-sortIcon field="StatusCodeID"></p-sortIcon></th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
   
-<ng-template pTemplate="body" let-customer>
-    <tr [pSelectableRow]="customer">
-        <td>
-            <span class="p-column-title">Sujet</span>
-            {{customer.Sujet}}
-        </td>
-        <td>
-            <span class="p-column-title">Priorité</span>
-            <span class="ml-1 vertical-align-middle">{{customer.priorite}}</span>
-        </td>
-        <td>
-            <span class="p-column-title">Status</span>
-            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
-        </td>
-        <td>
-            <span class="p-column-title">Description</span>
-            <span class="ml-1 vertical-align-middle">{{customer.Description}}</span>
-        </td>
-        <td>
-        </td>
-        <td>
-            <a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-              
-              
-            
-        </td>
-         </tr>
-</ng-template>
-    
+    <!-- Corps du tableau -->
+    <ng-template pTemplate="body" let-ticket>
+        <tr [pSelectableRow]="ticket">
+            <td>
+                <span class="p-column-title">Sujet</span>
+                {{ ticket.Subject }}
+            </td>
+            <td>
+                <span class="p-column-title">Description</span>
+                <span class="ml-1 vertical-align-middle">{{ ticket.Description }}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Equipments</span>
+                <span class="ml-1 vertical-align-middle">{{ ticket.EquipmentTypeName }}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Equipments</span>
+                <span class="ml-1 vertical-align-middle">{{ ticket.DueDate }}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Priorité</span>
+                <span class="ml-1 vertical-align-middle">{{ ticket.PriorityName }}</span>
+            </td>
+            <td>
+                <span class="p-column-title">Statut</span>
+                <p-tag [value]="ticket.StatusCodeID" [severity]="getSeverity(ticket.StatusCodeID)"></p-tag>
+            </td>
 
+            <td>
+                <a href="#" class="view" title="Voir" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                <a href="#" class="edit" title="Modifier" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                <a href="#" class="delete" title="Supprimer" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+            </td>
+        </tr>
+    </ng-template>
 
-
-
+    <!-- Message affiché lorsque le tableau est vide -->
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="4">No customers found.</td>
+            <td colspan="5">Aucun ticket trouvé.</td>
         </tr>
     </ng-template>
 </p-table>
