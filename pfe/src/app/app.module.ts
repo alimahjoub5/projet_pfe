@@ -19,6 +19,9 @@ import { UserService } from './core/services/user-service.service';
 import {ButtonModule} from 'primeng/button';
 import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -35,8 +38,10 @@ import { EquipmentTypeService } from './core/services/equipements.service';
         UserService,
         TicketService,
         EquipmentTypeService,
-        NgModule
-                
+        NgModule,
+        BrowserAnimationsModule,
+        NgxSpinnerModule,
+        MessageService
     ],
     bootstrap: [AppComponent],
 })
