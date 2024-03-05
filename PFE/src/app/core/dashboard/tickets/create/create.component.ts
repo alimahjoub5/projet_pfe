@@ -63,11 +63,11 @@ export class CreateComponent implements OnInit {
         StartDate: ticketData.startDate,
         EndDate: ticketData.endDate,
         ClosedDate: ticketData.closedDate,
-        StatusCodeID : 2,
+        StatusCodeID : 1,
         // D'autres propriétés si nécessaire
         TicketID: null, // À remplir par le serveur
         CreatedOn: null, // Définir la date et l'heure actuelles comme createdOn
-        CreatedBy: 7, // À remplir par le serveur
+        CreatedBy: 1, // À remplir par le serveur
         ModifiedOn: undefined,
         ModifiedBy: null
       };
