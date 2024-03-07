@@ -15,13 +15,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './core/services/user-service.service';
-
 import {ButtonModule} from 'primeng/button';
 import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
+import { JarwisService } from './core/services/jarwis.service';
+import { TokenService } from './core/services/token.service';
+import { AfterLoginService } from './core/services/after-login.service';
+import { BeforeLoginService } from './core/services/before-login.service';
+import { AuthService } from './core/services/auth.service';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -41,7 +45,12 @@ import { MessageService } from 'primeng/api';
         NgModule,
         BrowserAnimationsModule,
         NgxSpinnerModule,
-        MessageService
+        MessageService,
+        JarwisService, 
+        TokenService, 
+        AuthService,
+        AfterLoginService,
+        BeforeLoginService
     ],
     bootstrap: [AppComponent],
 })
