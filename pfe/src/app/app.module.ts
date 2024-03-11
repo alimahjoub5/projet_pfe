@@ -19,6 +19,7 @@ import {ButtonModule} from 'primeng/button';
 import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
@@ -27,6 +28,8 @@ import { TokenService } from './core/services/token.service';
 import { AfterLoginService } from './core/services/after-login.service';
 import { BeforeLoginService } from './core/services/before-login.service';
 import { AuthService } from './core/services/auth.service';
+=======
+>>>>>>> parent of bec155f (update)
 =======
 >>>>>>> parent of bec155f (update)
 @NgModule({
@@ -46,6 +49,7 @@ import { AuthService } from './core/services/auth.service';
         TicketService,
         EquipmentTypeService,
 <<<<<<< HEAD
+<<<<<<< HEAD
         NgModule,
         BrowserAnimationsModule,
         NgxSpinnerModule,
@@ -55,6 +59,10 @@ import { AuthService } from './core/services/auth.service';
         AuthService,
         AfterLoginService,
         BeforeLoginService
+=======
+        NgModule
+                
+>>>>>>> parent of bec155f (update)
 =======
         NgModule
                 
