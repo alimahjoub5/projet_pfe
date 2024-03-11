@@ -18,7 +18,6 @@ import { UserService } from './core/services/user-service.service';
 import {ButtonModule} from 'primeng/button';
 import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
-<<<<<<< HEAD
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
@@ -27,8 +26,7 @@ import { TokenService } from './core/services/token.service';
 import { AfterLoginService } from './core/services/after-login.service';
 import { BeforeLoginService } from './core/services/before-login.service';
 import { AuthService } from './core/services/auth.service';
-=======
->>>>>>> parent of bec155f (update)
+
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -45,7 +43,6 @@ import { AuthService } from './core/services/auth.service';
         UserService,
         TicketService,
         EquipmentTypeService,
-<<<<<<< HEAD
         NgModule,
         BrowserAnimationsModule,
         NgxSpinnerModule,
@@ -55,10 +52,7 @@ import { AuthService } from './core/services/auth.service';
         AuthService,
         AfterLoginService,
         BeforeLoginService
-=======
-        NgModule
-                
->>>>>>> parent of bec155f (update)
+
     ],
     bootstrap: [AppComponent],
 })
