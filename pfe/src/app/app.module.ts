@@ -18,8 +18,8 @@ import { UserService } from './core/services/user-service.service';
 import {ButtonModule} from 'primeng/button';
 import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 import { JarwisService } from './core/services/jarwis.service';
 import { TokenService } from './core/services/token.service';
@@ -45,7 +45,6 @@ import { AuthService } from './core/services/auth.service';
         EquipmentTypeService,
         NgModule,
         BrowserAnimationsModule,
-        NgxSpinnerModule,
         MessageService,
         JarwisService, 
         TokenService, 
