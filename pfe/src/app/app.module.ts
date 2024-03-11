@@ -19,14 +19,6 @@ import {ButtonModule} from 'primeng/button';
 import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessageService } from 'primeng/api';
-import { JarwisService } from './core/services/jarwis.service';
-import { TokenService } from './core/services/token.service';
-import { AfterLoginService } from './core/services/after-login.service';
-import { BeforeLoginService } from './core/services/before-login.service';
-import { AuthService } from './core/services/auth.service';
-
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -43,14 +35,6 @@ import { AuthService } from './core/services/auth.service';
         UserService,
         TicketService,
         EquipmentTypeService,
-        NgModule,
-        BrowserAnimationsModule,
-        MessageService,
-        JarwisService, 
-        TokenService, 
-        AuthService,
-        AfterLoginService,
-        BeforeLoginService
 
     ],
     bootstrap: [AppComponent],
