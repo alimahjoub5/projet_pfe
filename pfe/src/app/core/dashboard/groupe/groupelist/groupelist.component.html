@@ -14,8 +14,12 @@
                 <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
             </th>
         </tr-->
-       
-        <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
+        
+        <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+
+        <!-- Your other content goes here -->
+        <div class="card flex justify-content-center" *ngIf="!isLoading">
+        <p-button label="Ajouter un groupe" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
         <br><br>
         <div class="col-sm-4">
             <div class="search-box">
@@ -60,8 +64,8 @@
 
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td colspan="7">No user found.</td>
+                    <td colspan="7">No groupe found.</td>
                 </tr>
             </ng-template>
         </p-table>
-        
+        </div>

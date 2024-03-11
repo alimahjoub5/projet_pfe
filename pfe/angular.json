@@ -30,8 +30,11 @@
                             "src/assets"
                         ],
                         "styles": [
+<<<<<<< HEAD
                             "node_modules/ngx-spinner/animations/ball-scale-multiple.css", 
                        
+=======
+>>>>>>> parent of bec155f (update)
                             "src/styles.scss"
                         ],
                         "scripts": []

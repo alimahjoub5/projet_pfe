@@ -17,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
+        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -36,21 +36,7 @@ class AuthController extends Controller
         return $this->respondWithToken($token); 
     
     }
-    public function signup(SignUpRequest $request)
-    {
-        // Assurez-vous que les données reçues sont valides
-        $validatedData = $request->validated();
     
-        // Créez un nouvel utilisateur avec les données validées
-        $user = User::create($validatedData);
-    
-        // Si la création de l'utilisateur réussit, redirigez vers la méthode de connexion
-        if ($user) {
-            return $this->login($request);
-        }
-    
-        // Gérer l'échec de la création de l'utilisateur ici
-    }
     /**
      * Get the authenticated User.
      *

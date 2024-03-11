@@ -16,7 +16,6 @@ export class UserDetailComponent implements OnInit {
   userId: number;
   user: User; // Définissez le type de votre utilisateur
   isLoading = false; 
-  
 
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 

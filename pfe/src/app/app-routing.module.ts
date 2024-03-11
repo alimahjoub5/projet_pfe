@@ -22,6 +22,8 @@ import { TestComponent } from './test/test.component';
                     { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) },
                     {path : "testo", component: TestComponent},
+                    { path: "", loadChildren: () => import('./core/dashboard/groupe/groupe-routing.module').then(m => m.GroupeRoutingModule) },
+
 
                 ]
             },

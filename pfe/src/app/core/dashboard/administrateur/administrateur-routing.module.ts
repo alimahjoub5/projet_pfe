@@ -15,7 +15,8 @@ const routes: Routes = [
     component: AjouterComponent 
   },
   
-  {path: 'user-detail/:id' , component : UserDetailComponent},
+  {path: 'user-detail/:id' ,
+   component : UserDetailComponent},
 
 ];
 

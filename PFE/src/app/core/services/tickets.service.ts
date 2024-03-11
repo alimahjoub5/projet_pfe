@@ -30,10 +30,4 @@ export class TicketService {
   deleteTicket(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/deleteTicket/${id}`);
   }
-
-
-  assignTicketToUser(ticketId: number, userId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/tickets/${ticketId}/assign`, { userId });
-  }
-  
 }
