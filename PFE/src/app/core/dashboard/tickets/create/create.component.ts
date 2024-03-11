@@ -9,6 +9,9 @@ import { TicketService } from 'src/app/core/services/tickets.service';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { EquipmentType } from 'src/app/core/models/equipement';
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -17,7 +20,9 @@ import { EquipmentTypeService } from 'src/app/core/services/equipements.service'
   imports: [
     AutoCompleteModule,
     FormsModule,ReactiveFormsModule,
-    CommonModule // Correction ici : ReactiveFormsModule est importé dans AppModule
+    CommonModule,
+    NgxSpinnerModule, // Correction ici : ReactiveFormsModule est importé dans AppModule
+  ToastModule
   ]
 })
 export class CreateComponent implements OnInit {
@@ -27,13 +32,20 @@ export class CreateComponent implements OnInit {
 
   priorities: Priority[] | undefined;
   form: FormGroup;
-
+  isLoading : boolean;
   constructor(
     private fb: FormBuilder,
     private priorityService: PriorityService,
     private ticketService: TicketService,
-    private equipmentService: EquipmentTypeService
+    private equipmentService: EquipmentTypeService,
+    private spinner: NgxSpinnerService,
+    private messageService: MessageService
+
   ) {}
+
+  showSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'ticket créé avec succès' });
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -50,6 +62,8 @@ export class CreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
+      this.isLoading=true;
+      this.spinner.show(); // Show the spinner
       // Créer une nouvelle instance de Ticket en extrayant les valeurs du formulaire
       const ticketData = this.form.value;
   
@@ -63,11 +77,11 @@ export class CreateComponent implements OnInit {
         StartDate: ticketData.startDate,
         EndDate: ticketData.endDate,
         ClosedDate: ticketData.closedDate,
-        StatusCodeID : 1,
+        StatusCodeID : 2,
         // D'autres propriétés si nécessaire
         TicketID: null, // À remplir par le serveur
         CreatedOn: null, // Définir la date et l'heure actuelles comme createdOn
-        CreatedBy: 1, // À remplir par le serveur
+        CreatedBy: 7, // À remplir par le serveur
         ModifiedOn: undefined,
         ModifiedBy: null
       };
@@ -76,6 +90,8 @@ export class CreateComponent implements OnInit {
       this.ticketService.addTicket(ticket).subscribe(
         (response: any) => {
           console.log('Ticket created successfully:', response);
+          this.spinner.hide(); // Hide the spinner when data is loaded
+          this.showSuccess();
         },
         (error: any) => {
           console.error('Error creating ticket:', error);

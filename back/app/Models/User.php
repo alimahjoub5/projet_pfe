@@ -4,17 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Contracts\Auth\Authenticatable;
 
-class User extends Model implements JWTSubject, Authenticatable
+class User extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     protected $table = 'users';
     protected $primaryKey = 'UserID';
-    public $timestamps = false;
+    public $timestamps = false; // Si vous utilisez les colonnes `created_at` et `updated_at` dans la base de données, changez cette valeur à `true`.
 
     protected $fillable = [
         'FirstName',
@@ -31,61 +28,13 @@ class User extends Model implements JWTSubject, Authenticatable
     ];
 
     protected $casts = [
-        'Active' => 'boolean',
+        'Active' => 'boolean', // Cast la colonne Active en boolean
         'CreatedOn' => 'datetime',
         'ModifiedOn' => 'datetime',
     ];
 
-
     public function technicianGroups()
     {
         return $this->hasMany(UserTechnicianGroup::class, 'UserID');
-    }
-
-    // Implement methods for Authenticatable interface
-    public function getAuthIdentifierName()
-    {
-        return 'UserID';
-    }
-
-    public function getAuthIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getAuthPassword()
-    {
-        return $this->password;
-    }
-
-    public function getRememberToken()
-    {
-        return $this->remember_token;
-    }
-
-    public function setRememberToken($value)
-    {
-        $this->remember_token = $value;
-    }
-
-    public function getRememberTokenName()
-    {
-        return 'remember_token';
-    }
-
-    // JWTSubject methods
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
     }
 }

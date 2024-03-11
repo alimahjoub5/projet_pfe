@@ -11,7 +11,7 @@ class CreateTicketTasksTable extends Migration
      *
      * @return void
      */
-  public function up()
+   public function up()
     {
         Schema::create('ticket_tasks', function (Blueprint $table) {
             $table->id('TicketTaskID');

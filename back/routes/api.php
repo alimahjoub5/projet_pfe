@@ -6,8 +6,6 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipmentTypeController;
 use App\Http\Controllers\PriorityController;
-use App\Http\Controllers\AuthController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -20,20 +18,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::group([
-    'middleware' => 'api',
-], function () {
-
-
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-    Route::post('sendPasswordResetLink', 'ResetPasswordController@sendEmail');
-    Route::post('resetPassword', 'ChangePasswordController@process');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
-//ticket routes
+
+
 
 Route::get('tickets', [TicketController::class, 'getTicket']);
 Route::get('ticket/{id}', [TicketController::class, 'getTicketById']);
