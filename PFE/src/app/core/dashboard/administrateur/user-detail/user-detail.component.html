@@ -1,9 +1,12 @@
-<button (click)="printDocument()" class="btn-print">Print</button>
 <div class="loading-overlay" *ngIf="isLoading">
-  <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>
+  <p-progressSpinner *ngIf="isLoading" ariaLabel="chargement"></p-progressSpinner>
 </div>
-<div class="user-detail">
-    <h2>User Details</h2>
+<div class="group-detail">
+  
+  <button (click)="printDocument()" class="btn-print">Print</button>
+  <h2>User Details</h2>
+
+
   
     <div class="detail-row">
       <label>First Name: </label>
