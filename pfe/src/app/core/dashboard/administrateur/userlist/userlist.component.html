@@ -19,15 +19,19 @@
 
         <!-- Your other content goes here -->
         <div class="card flex justify-content-center" *ngIf="!isLoading">
-        <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
-        <br><br>
-        <div class="col-sm-4">
-            <div class="search-box">
-                <i class="material-icons"></i>
-                <input type="text" class="form-control" placeholder="Search…">
+            <div class="d-flex justify-content-between align-items-center">
+                <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
+            
+                <div class="col-sm-3">
+                    <div class="search-box">
+                        <i class="material-icons"></i>
+                        <input type="text" class="form-control" placeholder="Search…">
+                    </div>
+                </div>
             </div>
-        </div>
-
+            
+            
+<br>
         <p-table [value]="users" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
             <div class="loading-overlay" *ngIf="isLoading">
                 <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>

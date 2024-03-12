@@ -1,0 +1,14 @@
+
+<form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="user-form">
+
+    <div class="form-field">
+        <label for="GroupName"> Name:</label>
+        <input type="text" id="GroupName" formControlName="GroupName" pInputText>
+    </div>
+    <div class="form-field">
+    
+        <label for="groupDescription"> Description:</label> <!-- Modifier le libellé ici -->
+        <textarea id="Description" formControlName="Description" pInputTextarea rows="5" cols="68"></textarea> <!-- Augmenter les colonnes ici -->
+    </div>
+   <button type="submit" [disabled]="groupForm.invalid" >Add Group</button>
+</form>

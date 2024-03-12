@@ -21,6 +21,8 @@ import { TestComponent } from './test/test.component';
                     {path:'test' ,component : UserFormComponent},
                     { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) },
+                    { path: "", loadChildren: () => import('./core/dashboard/groupe/groupe-routing.module').then(m => m.GroupeRoutingModule) },
+
                     {path : "testo", component: TestComponent}
                 ]
             },

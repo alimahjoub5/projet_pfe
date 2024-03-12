@@ -1,0 +1,67 @@
+
+        
+        <!--tr>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="w-full" />
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" placeholder="Search by Representative" class="w-full" />
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
+            </th>
+        </tr-->
+        
+        <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+
+        <!-- Your other content goes here -->
+        <div class="card flex justify-content-center" *ngIf="!isLoading">
+            <div class="d-flex justify-content-between align-items-center">
+                <p-button label="Ajouter un groupe" icon="pi pi-plus" [routerLink]="['/ajoutergrp']" routerLinkActive="router-link-active"></p-button>
+            
+                <div class="col-sm-3">
+                    <div class="search-box">
+                        <i class="material-icons"></i>
+                        <input type="text" class="form-control" placeholder="Search…">
+                    </div>
+                </div>
+            </div>
+            <br>
+        
+            <p-table [value]="groupes" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+                <div class="loading-overlay" *ngIf="isLoading">
+                    <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>
+                </div>
+                
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-groupe>
+                    <tr>
+                        <td>{{ groupe.GroupName }}</td>
+                        <td>{{ groupe.Description }}</td>
+                        <td>
+                            <a [routerLink]="['/groupe-detail', groupe.GroupID]" class="view" title="View" data-toggle="tooltip">
+                                <i class="material-icons">&#xE417;</i>
+                            </a>
+                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                            <p-button (click)="deleteGroupe(groupe.GroupID)" label="Delete" severity="danger"></p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+        
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="3">Aucun groupe trouvé.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        

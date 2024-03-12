@@ -20,7 +20,6 @@ import {ButtonModule} from 'primeng/button';
 import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
@@ -40,7 +39,6 @@ import { MessageService } from 'primeng/api';
         EquipmentTypeService,
         NgModule,
         BrowserAnimationsModule,
-        NgxSpinnerModule,
         MessageService
     ],
     bootstrap: [AppComponent],
