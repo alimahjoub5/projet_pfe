@@ -1,1 +1,41 @@
-<p>ajoutereq works!</p>
+<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="equipment-form">
+
+    <div class="form-field">
+        <label for="TypeName">Type Name:</label>
+        <input type="text" id="TypeName" formControlName="TypeName" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="Description">Description:</label>
+        <textarea id="Description" formControlName="Description" pInputTextarea rows="5" cols="68"></textarea>
+    </div>
+    <div class="form-field">
+        <label for="Manufacturer">Manufacturer:</label>
+        <input type="text" id="Manufacturer" formControlName="Manufacturer" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="ModelNumber">Model Number:</label>
+        <input type="text" id="ModelNumber" formControlName="ModelNumber" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="SerialNumber">Serial Number:</label>
+        <input type="text" id="SerialNumber" formControlName="SerialNumber" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="InstallationDate">Installation Date:</label>
+        <input type="date" id="InstallationDate" formControlName="InstallationDate" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="WarrantyExpiration">Warranty Expiration:</label>
+        <input type="date" id="WarrantyExpiration" formControlName="WarrantyExpiration" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="MaintenanceInterval">Maintenance Interval (in months):</label>
+        <input type="number" id="MaintenanceInterval" formControlName="MaintenanceInterval" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="LastMaintenanceDate">Last Maintenance Date:</label>
+        <input type="date" id="LastMaintenanceDate" formControlName="LastMaintenanceDate" pInputText>
+    </div>
+
+    <button type="submit" [disabled]="equipmentForm.invalid">Add Equipment</button>
+</form>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Groupe } from 'src/app/core/models/groupe';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CommonModule } from '@angular/common';
 import { GroupeService } from 'src/app/core/services/groupe.service';
+import { Groupe } from 'src/app/core/models/groupe';
+
 @Component({
   selector: 'app-groupe-detail',
   standalone : true,
