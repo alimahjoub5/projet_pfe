@@ -23,6 +23,8 @@ import { TestComponent } from './test/test.component';
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/groupe/groupe-routing.module').then(m => m.GroupeRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/equipement-ty/equipement-ty-routing.module').then(m => m.EquipementTyRoutingModule ) },
+                    { path: "", loadChildren: () => import('./core/dashboard/priority/priority-routing.module').then(m => m.PriorityRoutingModule  ) },
+                    { path: "", loadChildren: () => import('./core/dashboard/ticket-status/ticket-status-routing.module').then(m => m.TicketStatusRoutingModule ) },
 
                     {path : "testo", component: TestComponent}
                 ]

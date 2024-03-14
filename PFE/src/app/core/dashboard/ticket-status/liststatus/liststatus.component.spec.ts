@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AjouterComponent } from './ajoutereq.component';
+import { ListstatusComponent } from './liststatus.component';
 
-describe('AjoutereqComponent', () => {
-  let component: AjouterComponent;
-  let fixture: ComponentFixture<AjouterComponent>;
+describe('ListstatusComponent', () => {
+  let component: ListstatusComponent;
+  let fixture: ComponentFixture<ListstatusComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AjouterComponent]
+      imports: [ListstatusComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AjouterComponent);
+    fixture = TestBed.createComponent(ListstatusComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AjouterComponent } from './ajoutereq.component';
+import { PriorityDetailsComponent } from './priority-details.component';
 
-describe('AjoutereqComponent', () => {
-  let component: AjouterComponent;
-  let fixture: ComponentFixture<AjouterComponent>;
+describe('PriorityDetailsComponent', () => {
+  let component: PriorityDetailsComponent;
+  let fixture: ComponentFixture<PriorityDetailsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AjouterComponent]
+      imports: [PriorityDetailsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AjouterComponent);
+    fixture = TestBed.createComponent(PriorityDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
