@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,   ReactiveFormsModule,  Validators } from '@angular/forms';
+import { Groupe } from 'src/app/core/models/groupe';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { GroupeService } from 'src/app/core/services/groupe.service';
-import { Groupe } from 'src/app/core/models/groupe';
-
 @Component({
   selector: 'app-ajouter',
   templateUrl: './ajoutergrp.component.html',

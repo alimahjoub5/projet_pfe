@@ -1,9 +1,0 @@
-<form [formGroup]="priorityForm" (ngSubmit)="onSubmit()" class="user-form">
-
-    <div class="form-field">
-        <label for="Name"> Name:</label>
-        <input type="text" id="Name" formControlName="Name" pInputText>
-    </div>
-  
-   <button type="submit" [disabled]="priorityForm.invalid" >Add Priority</button>
-</form>
