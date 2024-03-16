@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Connexion</h2>
+  <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-3 col-form-label">Email :</label>
+      <div class="col-sm-9">
+        <input type="email" formControlName="email" class="form-control" id="email">
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+          <div *ngIf="email.errors?.required">L'email est requis.</div>
+          <div *ngIf="email.errors?.email">L'email doit être valide.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="password" class="col-sm-3 col-form-label">Mot de passe :</label>
+      <div class="col-sm-9">
+        <input type="password" formControlName="password" class="form-control" id="password">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+          <div *ngIf="password.errors?.required">Le mot de passe est requis.</div>
+          <div *ngIf="password.errors?.minlength">Le mot de passe doit avoir au moins 6 caractères.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-9 offset-sm-3">
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+      </div>
+    </div>
+  </form>
+</div>

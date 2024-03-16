@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as AuthenticatableUser;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Model
+class User extends AuthenticatableUser implements Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
     protected $primaryKey = 'UserID';
@@ -26,12 +29,23 @@ class User extends Model
         'ModifiedOn',
         'ModifiedBy',
     ];
+    
 
     protected $casts = [
         'Active' => 'boolean', // Cast la colonne Active en boolean
         'CreatedOn' => 'datetime',
         'ModifiedOn' => 'datetime',
     ];
+
+    /**
+     * Récupère le mot de passe haché de l'utilisateur.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->Password;
+    }
 
     public function technicianGroups()
     {

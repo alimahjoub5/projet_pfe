@@ -3,19 +3,21 @@ import { RouterModule, Routes } from '@angular/router';
 import { GroupelistComponent } from './groupelist/groupelist.component';
 import { AjouterComponent } from './ajoutergrp/ajoutergrp.component';
 import { GroupeDetailComponent } from './groupe-detail/groupe-detail.component';
+import { AuthGuard } from 'src/app/auth.guard';
 
 const routes: Routes = [
   {
     path: "groupelist",
     component: GroupelistComponent 
+    ,canActivate : [AuthGuard]
   },
   {
     path: "ajoutergrp",
-    component: AjouterComponent 
+    component: AjouterComponent ,canActivate : [AuthGuard]
   },
   {
     path: "groupe-detail/:id",
-    component: GroupeDetailComponent 
+    component: GroupeDetailComponent ,canActivate : [AuthGuard]
   },
 ];
 

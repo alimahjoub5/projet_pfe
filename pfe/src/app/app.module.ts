@@ -11,7 +11,7 @@ import { EventService } from './demo/service/event.service';
 import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './core/services/user-service.service';
@@ -21,6 +21,8 @@ import { TicketService } from './core/services/tickets.service';
 import { EquipmentTypeService } from './core/services/equipements.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
+import { AuthInterceptor } from './core/services/intercepteur/auth.interceptor';
+import { AuthService } from './core/services/auth.service';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -39,7 +41,10 @@ import { MessageService } from 'primeng/api';
         EquipmentTypeService,
         NgModule,
         BrowserAnimationsModule,
-        MessageService
+        MessageService,
+        AuthService,
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true } // Enregistrez l'intercepteur
+     
     ],
     bootstrap: [AppComponent],
 })

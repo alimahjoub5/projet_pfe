@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -22,6 +23,7 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -34,7 +36,7 @@ class UserController extends Controller
         ]);
     
         $data = $request->all();
-        $data['Password'] = bcrypt($request->Password); // Hacher le mot de passe avant de le stocker
+        $data['Password'] = Hash::make($request->Password); // Hacher le mot de passe avant de le stocker
     
         $user = User::create($data);
         return response()->json($user, 201);
@@ -73,4 +75,26 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+
+
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+    
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('API Token')->plainTextToken;
+    
+            return response()->json([
+                'token' => $token,
+                'UserID' => $user->UserID,
+                'Username' => $user->Username,
+                'Role' => $user->Role,
+            ]);
+        }
+    
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+    
 }
