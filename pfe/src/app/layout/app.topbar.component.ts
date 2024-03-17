@@ -10,6 +10,7 @@ import { AuthService } from '../core/services/auth.service';
 })
 
 export class AppTopBarComponent {
+name: string = this.authservice.getUsername();
 
 
     logout(): void {
@@ -27,5 +28,9 @@ export class AppTopBarComponent {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService, private authService: AuthService,private route:ActivatedRoute,private router:Router) { }
+    constructor(private authservice: AuthService ,public layoutService: LayoutService, private authService: AuthService,private route:ActivatedRoute,private router:Router) {
+ 
+    }
+
 }
+

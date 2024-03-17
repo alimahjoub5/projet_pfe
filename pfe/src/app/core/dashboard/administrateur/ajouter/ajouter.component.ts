@@ -4,6 +4,7 @@ import { User } from 'src/app/core/models/User';
 import { UserService } from 'src/app/core/services/user-service.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-ajouter',
@@ -15,7 +16,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 export class AjouterComponent implements OnInit {
   userForm: FormGroup;
   roles: any[]; // Define roles array
-  constructor(private formBuilder: FormBuilder, private userService: UserService) { 
+  constructor(private formBuilder: FormBuilder, private userService: UserService,
+    private authservice : AuthService) { 
 
 
 
@@ -68,7 +70,7 @@ export class AjouterComponent implements OnInit {
      ,
 
      UserID: null,
-     CreatedBy: null,
+     CreatedBy: Number(this.authservice.getUserID()),
      ModifiedOn: undefined,
      ModifiedBy: null
    };

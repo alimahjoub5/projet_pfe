@@ -19,7 +19,7 @@ export class AuthService {
           const now = Date.now();
     localStorage.setItem('Token', response.token);
     localStorage.setItem('UserID', response.UserID);
-    localStorage.setItem('Username', response.Username);
+    localStorage.setItem('Username', response.User);
     localStorage.setItem('Role', response.Role);
     localStorage.setItem('timestamp', now.toString());
         })
@@ -59,6 +59,7 @@ export class AuthService {
     }
   }
 
+
   // Méthode pour effacer les données d'authentification
   clearAuthData(): void {
     localStorage.removeItem('Token');
@@ -72,5 +73,26 @@ export class AuthService {
     // Vérifier si le jeton d'authentification est présent dans le stockage local
     const token = localStorage.getItem('Token');
     return !!token;
+  }
+
+  
+  getToken(): string | null {
+    return localStorage.getItem('Token');
+  }
+
+  getUserID(): string | null {
+    return localStorage.getItem('UserID');
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('Username');
+  }
+
+  getRole(): string | null {
+    return localStorage.getItem('Role');
+  }
+
+  getTimestamp(): string | null {
+    return localStorage.getItem('timestamp');
   }
 }

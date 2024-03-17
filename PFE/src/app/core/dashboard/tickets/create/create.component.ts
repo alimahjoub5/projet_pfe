@@ -12,6 +12,7 @@ import { EquipmentTypeService } from 'src/app/core/services/equipements.service'
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -39,7 +40,9 @@ export class CreateComponent implements OnInit {
     private ticketService: TicketService,
     private equipmentService: EquipmentTypeService,
     private spinner: NgxSpinnerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authservice: AuthService
+
 
   ) {}
 
@@ -81,11 +84,11 @@ export class CreateComponent implements OnInit {
         // D'autres propriétés si nécessaire
         TicketID: null, // À remplir par le serveur
         CreatedOn: null, // Définir la date et l'heure actuelles comme createdOn
-        CreatedBy: 7, // À remplir par le serveur
+        CreatedBy: Number(this.authservice.getUserID()), // À remplir par le serveur
         ModifiedOn: undefined,
         ModifiedBy: null
       };
-  
+  console.log(ticket);
       // Appeler le service pour ajouter le ticket
       this.ticketService.addTicket(ticket).subscribe(
         (response: any) => {

@@ -4,6 +4,7 @@ import { Groupe } from 'src/app/core/models/groupe';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { GroupeService } from 'src/app/core/services/groupe.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-ajouter',
   templateUrl: './ajoutergrp.component.html',
@@ -14,7 +15,8 @@ import { GroupeService } from 'src/app/core/services/groupe.service';
 export class AjouterComponent implements OnInit {
   groupForm: FormGroup;
 
-  constructor(private fb: FormBuilder , private groupeService: GroupeService) {
+  constructor(private fb: FormBuilder , private groupeService: GroupeService,
+    private authservice: AuthService) {
 
     
     this.groupForm = this.fb.group({
@@ -40,8 +42,8 @@ export class AjouterComponent implements OnInit {
     GroupName: groupeData.GroupName,
     Description: groupeData.Description,
     GroupID: null,
-     CreatedBy: 1,
-     ModifiedOn: undefined,
+    CreatedBy: Number(this.authservice.getUserID()),
+    ModifiedOn: undefined,
      ModifiedBy: 1,
      created_at: null,
      updated_at:null

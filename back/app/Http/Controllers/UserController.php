@@ -89,7 +89,7 @@ class UserController extends Controller
             return response()->json([
                 'token' => $token,
                 'UserID' => $user->UserID,
-                'Username' => $user->Username,
+                'User' => $user->FirstName.' '.$user->LastName,
                 'Role' => $user->Role,
             ]);
         }
