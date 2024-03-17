@@ -4,7 +4,10 @@ import { Groupe } from 'src/app/core/models/groupe';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { GroupeService } from 'src/app/core/services/groupe.service';
+<<<<<<< HEAD
 import { AuthService } from 'src/app/core/services/auth.service';
+=======
+>>>>>>> parent of 61b03b0 (update)
 @Component({
   selector: 'app-ajouter',
   templateUrl: './ajoutergrp.component.html',

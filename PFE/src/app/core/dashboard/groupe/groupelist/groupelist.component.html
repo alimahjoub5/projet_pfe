@@ -48,12 +48,17 @@
                         <td>{{ groupe.GroupName }}</td>
                         <td>{{ groupe.Description }}</td>
                         <td>
-                            <a [routerLink]="['/groupe-detail', groupe.GroupID]" class="view" title="View" data-toggle="tooltip">
-                                <i class="material-icons">&#xE417;</i>
-                              </a>
-                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <p-button (click)="deleteGroupe(groupe.GroupID)" label="Delete" severity="danger"></p-button>
-                        </td>
+                            
+                           
+                                <div class="flex">
+                                    <a [routerLink]="['/groupe-detail', groupe.GroupID]" class="view" title="View" data-toggle="tooltip">
+                                        <i class="material-icons">&#xE417;</i>
+                                      </a>
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteGroupe(groupe.GroupID)"></button>
+                                </div>
+                            </td>
+                      
                     </tr>
                 </ng-template>
         
