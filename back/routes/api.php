@@ -28,6 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
+use App\Http\Controllers\AuthController;
+
+Route::post('login', [AuthController::class, 'login']);
 
 
 Route::get('tickets', [TicketController::class, 'getTicket']);
