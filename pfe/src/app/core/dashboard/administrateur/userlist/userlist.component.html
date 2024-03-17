@@ -57,13 +57,15 @@
                     <td>{{ user.Role }}</td>
                     <td>{{ user.Active }}</td>
                     <td>
-                        <a [routerLink]="['/user-detail', user.UserID]" class="view" title="View" data-toggle="tooltip">
+                        <a *ngIf="user.Active" [routerLink]="['/user-detail', user.UserID]" class="view" title="View" data-toggle="tooltip">
                             <i class="material-icons">&#xE417;</i>
-                          </a>
-                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <p-button (click)="deleteUser(user.UserID)" label="Delete" severity="danger"></p-button>
+                        </a>
+                        <a href="#" *ngIf="user.Active" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <p-button *ngIf="user.Active" (click)="deleteUser(user.UserID)" label="Delete" severity="danger"></p-button>
+                        <button *ngIf="user.Active" (click)="toggleUserStatus(user)" [disabled]="user.Active == null">{{ user.Active ? 'Bloquer' : 'Débloquer' }}</button>
+                        <button *ngIf="!user.Active" (click)="toggleUserStatus(user)">Débloquer</button>
                     </td>
-                </tr>
+                    
             </ng-template>
 
             <ng-template pTemplate="emptymessage">

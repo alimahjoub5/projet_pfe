@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EquipmentType } from '../models/equipement';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,34 +11,40 @@ export class EquipmentTypeService {
 
   private apiUrl = 'http://localhost:8000/api'; // Remplacez ceci par l'URL de votre API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   // Récupérer tous les types d'équipement
   getAllEquipmentTypes(): Observable<EquipmentType[]> {
-    return this.http.get<EquipmentType[]>(`${this.apiUrl}/equipment-types`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<EquipmentType[]>(`${this.apiUrl}/equipment-types`, headers);
   }
 
   // Récupérer un type d'équipement par son ID
   getEquipmentTypeById(id: number): Observable<EquipmentType> {
-    return this.http.get<EquipmentType>(`${this.apiUrl}/equipment-types/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<EquipmentType>(`${this.apiUrl}/equipment-types/${id}`, headers);
   }
 
   // Ajouter un nouveau type d'équipement
   addEquipmentType(equipmentType: EquipmentType): Observable<EquipmentType> {
-    return this.http.post<EquipmentType>(`${this.apiUrl}/equipment-types`, equipmentType);
+    const headers = this.authService.includeAuthToken();
+    return this.http.post<EquipmentType>(`${this.apiUrl}/equipment-types`, equipmentType, headers);
   }
 
   // Mettre à jour un type d'équipement existant
   updateEquipmentType(id: number, equipmentType: EquipmentType): Observable<EquipmentType> {
-    return this.http.put<EquipmentType>(`${this.apiUrl}/equipment-types/${id}`, equipmentType);
+    const headers = this.authService.includeAuthToken();
+    return this.http.put<EquipmentType>(`${this.apiUrl}/equipment-types/${id}`, equipmentType, headers);
   }
 
   // Supprimer un type d'équipement
   deleteEquipmentType(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/equipment-types/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.delete<void>(`${this.apiUrl}/equipment-types/${id}`, headers);
   }
 
   getEquipmentName(equipmentTypeId: number): Observable<string> {
-    return this.http.get<string>(`${this.apiUrl}/equipment/${equipmentTypeId}/name`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<string>(`${this.apiUrl}/equipment/${equipmentTypeId}/name`, headers);
   }
 }

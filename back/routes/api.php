@@ -6,6 +6,10 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipmentTypeController;
 use App\Http\Controllers\PriorityController;
+use App\Http\Controllers\TechnicianGroupController;
+use App\Http\Controllers\UsersTechnicianGroupsController;
+use App\Http\Controllers\TicketTaskController;
+use App\Http\Controllers\TicketStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +22,11 @@ use App\Http\Controllers\PriorityController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+Route::middleware('auth:sanctum')->group(function () {
+    // Routes protégées
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 
 
 
@@ -67,7 +72,6 @@ Route::get('priorities/{id}/name', [PriorityController::class, 'getPriorityName'
 
 // techniciens groups
 
-use App\Http\Controllers\TechnicianGroupController;
 
 Route::get('/technician-groups', [TechnicianGroupController::class, 'index']);
 Route::get('/technician-groups/{id}', [TechnicianGroupController::class, 'show']);
@@ -78,7 +82,6 @@ Route::delete('/technician-groups/{id}', [TechnicianGroupController::class, 'des
 
 // tickets status api
 
-use App\Http\Controllers\TicketStatusController;
 
 Route::get('/ticket-statuses', [TicketStatusController::class, 'index']);
 Route::get('/ticket-statuses/{id}', [TicketStatusController::class, 'show']);
@@ -89,7 +92,6 @@ Route::delete('/ticket-statuses/{id}', [TicketStatusController::class, 'destroy'
 
 // tickets task api 
 
-use App\Http\Controllers\TicketTaskController;
 
 Route::get('/ticket-tasks', [TicketTaskController::class, 'index']);
 Route::get('/ticket-tasks/{id}', [TicketTaskController::class, 'show']);
@@ -99,10 +101,10 @@ Route::delete('/ticket-tasks/{id}', [TicketTaskController::class, 'destroy']);
 
 //user technician groups api 
 
-use App\Http\Controllers\UsersTechnicianGroupsController;
 
 Route::get('/user-technician-groups', [UsersTechnicianGroupsController::class, 'index']);
 Route::get('/user-technician-groups/{id}', [UsersTechnicianGroupsController::class, 'show']);
 Route::post('/user-technician-groups/assign-user', [UsersTechnicianGroupsController::class, 'assignUserToGroup']);
 Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
+});

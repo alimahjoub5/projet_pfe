@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Groupe } from '../models/groupe'; // Assurez-vous d'importer votre interface Groupe
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,30 +11,35 @@ export class GroupeService {
 
   private apiUrl = 'http://localhost:8000/api'; // Remplacez ceci par l'URL de votre API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   // Récupérer tous les groupes
   getAllGroupes(): Observable<Groupe[]> {
-    return this.http.get<Groupe[]>(`${this.apiUrl}/technician-groups`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<Groupe[]>(`${this.apiUrl}/technician-groups`, headers);
   }
 
   // Récupérer un groupe par son ID
   getGroupeById(id: number): Observable<Groupe> {
-    return this.http.get<Groupe>(`${this.apiUrl}/technician-groups/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<Groupe>(`${this.apiUrl}/technician-groups/${id}`, headers);
   }
 
   // Ajouter un nouveau groupe
   addGroupe(groupe: Groupe): Observable<Groupe> {
-    return this.http.post<Groupe>(`${this.apiUrl}/technician-groups`, groupe);
+    const headers = this.authService.includeAuthToken();
+    return this.http.post<Groupe>(`${this.apiUrl}/technician-groups`, groupe, headers);
   }
 
   // Mettre à jour un groupe existant
   updateGroupe(id: number, groupe: Groupe): Observable<Groupe> {
-    return this.http.put<Groupe>(`${this.apiUrl}/technician-groups/${id}`, groupe);
+    const headers = this.authService.includeAuthToken();
+    return this.http.put<Groupe>(`${this.apiUrl}/technician-groups/${id}`, groupe, headers);
   }
 
   // Supprimer un groupe
   deleteGroupe(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/technician-groups/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.delete<void>(`${this.apiUrl}/technician-groups/${id}`, headers);
   }
 }

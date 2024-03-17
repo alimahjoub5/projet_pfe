@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AuthDataService } from '../models/auth.model';
@@ -94,5 +94,18 @@ export class AuthService {
 
   getTimestamp(): string | null {
     return localStorage.getItem('timestamp');
+  }
+
+
+  includeAuthToken() {
+    const token = localStorage.getItem('Token');
+    if (token) {
+      const headers = new HttpHeaders({
+        'Authorization': 'Bearer ' + token
+      });
+      return { headers };
+    } else {
+      return {};
+    }
   }
 }

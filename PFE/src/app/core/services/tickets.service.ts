@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ticket } from '../models/ticket';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +10,39 @@ import { Ticket } from '../models/ticket';
 export class TicketService {
   private apiUrl = 'http://localhost:8000/api'; // Remplacez 'http://your-api-url' par l'URL de votre API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getAllTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>(`${this.apiUrl}/tickets`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<Ticket[]>(`${this.apiUrl}/tickets`, headers);
   }
 
   getTicketById(id: number): Observable<Ticket> {
-    return this.http.get<Ticket>(`${this.apiUrl}/ticket/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<Ticket>(`${this.apiUrl}/ticket/${id}`, headers);
   }
 
   addTicket(ticketData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addTicket`, ticketData);
+    const headers = this.authService.includeAuthToken();
+    return this.http.post(`${this.apiUrl}/addTicket`, ticketData, headers);
   }
 
   updateTicket(id: number, ticketData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/updateTicket/${id}`, ticketData);
+    const headers = this.authService.includeAuthToken();
+    return this.http.put(`${this.apiUrl}/updateTicket/${id}`, ticketData, headers);
   }
 
   deleteTicket(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deleteTicket/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.delete(`${this.apiUrl}/deleteTicket/${id}`, headers);
   }
 
 
   assignTicketToUser(ticketId: number, userId: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/tickets/${ticketId}/assign`, { userId });
+    const headers = this.authService.includeAuthToken();
+    return this.http.put(`${this.apiUrl}/tickets/${ticketId}/assign`, { userId }, headers);
   }
   
+
+
 }
