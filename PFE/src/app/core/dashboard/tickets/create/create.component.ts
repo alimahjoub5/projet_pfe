@@ -105,7 +105,6 @@ export class CreateComponent implements OnInit {
     }
   }
   
-
   loadPriorities(): void {
     this.priorityService.getAllPriorities().subscribe(
       (priorities: Priority[]) => {

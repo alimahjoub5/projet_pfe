@@ -38,6 +38,7 @@ CommonModule],
 export class UserlistComponent implements OnInit{
   users: User[];
   isLoading: boolean;
+cols: any;
 
    //-------------------------------------------
 

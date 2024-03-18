@@ -1,5 +1,5 @@
 import { Component , OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { MenuItem} from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -11,7 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-
+import { Product } from 'src/app/demo/api/product';
+import { MessageService } from 'primeng/api';
+import { ProductService } from 'src/app/demo/service/product.service';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { EquipmentType } from 'src/app/core/models/equipement';
@@ -35,16 +37,22 @@ import { EquipmentTypeService } from 'src/app/core/services/equipements.service'
     RouterModule,
     NgxSpinnerModule,
 CommonModule],
+providers: [MessageService]
+
 })
 export class EqlistComponent implements OnInit {
 
   equipments: EquipmentType[];
   isLoading: boolean;
+dt: Table;
+cols: any;
+  EquipementDialog: boolean = false;
 
   constructor(
     private equipmentService: EquipmentTypeService,
-    private spinner: NgxSpinnerService
-  ) {}
+    private spinner: NgxSpinnerService,
+   private messageService: MessageService) { }
+
 
   ngOnInit(): void {
     this.loadEquipments();
@@ -75,5 +83,12 @@ export class EqlistComponent implements OnInit {
       });
     }
   }
+  editEquipementt(equipmentTypeId: number): void{
+    this.equipments = { ...this.equipments };
+    this.EquipementDialog = true;
+  }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+}
 
 }

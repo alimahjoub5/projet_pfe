@@ -28,7 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-use App\Http\Controllers\AuthController;
 
 Route::post('login', [AuthController::class, 'login']);
 
@@ -41,12 +40,7 @@ Route::delete('deleteTicket/{id}', [TicketController::class, 'deleteTicket']);
 
 // user controller routes
 
-Route::get('users', [UserController::class, 'index']);
-Route::get('users/{id}', [UserController::class, 'show']);
-Route::post('users', [UserController::class, 'store']);
-Route::put('users/{id}', [UserController::class, 'update']);
-Route::delete('users/{id}', [UserController::class, 'destroy']);
-Route::post('/login', [UserController::class, 'login']);
+
 
 
 // equipement type api routes
@@ -111,3 +105,10 @@ Route::post('/user-technician-groups/assign-user', [UsersTechnicianGroupsControl
 Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
 });
+
+Route::get('users', [UserController::class, 'index']);
+Route::get('users/{id}', [UserController::class, 'show']);
+Route::post('users', [UserController::class, 'store']);
+Route::put('users/{id}', [UserController::class, 'update']);
+Route::delete('users/{id}', [UserController::class, 'destroy']);
+Route::post('/login', [UserController::class, 'login']);

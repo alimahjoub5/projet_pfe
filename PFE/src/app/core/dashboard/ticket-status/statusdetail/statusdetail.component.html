@@ -1,0 +1,31 @@
+    
+  <div class="loading-overlay" *ngIf="isLoading">
+    <p-progressSpinner *ngIf="isLoading" ariaLabel="chargement"></p-progressSpinner>
+  </div>
+  <div class="group-detail">
+    <button (click)="printDocument()" class="btn-print">Print</button>
+    <h2>TicketStatus Details</h2>
+
+   
+    <div class="detail-row" >
+      <label>Status Name: </label>
+      <span>{{ ticketStatus.StatusName }}</span>
+    </div>
+    <div class="detail-row" >
+      <label>Created By: </label>
+      <span>{{ ticketStatus.CreatedBy }}</span>
+    </div>
+    <div class="detail-row" >
+      <label>Created On: </label>
+      <span>{{ ticketStatus.CreatedOn  }}</span>
+    </div>
+    <div class="detail-row" >
+      <label>Modified By: </label>
+      <span>{{ ticketStatus.ModifiedBy }}</span>
+    </div>
+    <div class="detail-row" >
+      <label>Modified On: </label>
+      <span>{{ ticketStatus.ModifiedOn}}</span>
+    </div>
+  
+  </div>

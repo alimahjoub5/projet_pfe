@@ -13,11 +13,10 @@ import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { Groupe } from 'src/app/core/models/groupe';
-import { GroupeService } from 'src/app/core/services/groupe.service';
-
+import { PriorityService } from 'src/app/core/services/priority.service';
+import { Priority } from 'src/app/core/models/Priority';
 @Component({
-  selector: 'app-groupelist',
+  selector: 'app-prioritylist',
   standalone: true,
   imports: [FormsModule,
     ButtonModule,
@@ -31,46 +30,48 @@ import { GroupeService } from 'src/app/core/services/groupe.service';
     RouterModule,
     NgxSpinnerModule,
 CommonModule],
-  templateUrl: './groupelist.component.html',
-  styleUrls: ['./groupelist.component.scss']
+  templateUrl: './prioritylist.component.html',
+  styleUrl: './prioritylist.component.scss'
 })
-export class GroupelistComponent implements OnInit {
-  groupes: Groupe[];
+export class PrioritylistComponent  implements OnInit {
+  priorities: Priority[];
   isLoading: boolean;
 cols: any;
 
   constructor(
-    private groupeService: GroupeService,
+    private priorityService: PriorityService,
     private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
-    this.loadGroupes();
+    this.loadPriorities();
   }
 
-  loadGroupes(): void {
+  loadPriorities(): void {
     this.isLoading = true;
     this.spinner.show(); // Afficher le spinner avant de récupérer les données
 
-    this.groupeService.getAllGroupes().subscribe(
-      groupes => {
-        this.groupes = groupes;
+    this.priorityService.getAllPriorities().subscribe(
+      priorities => {
+        this.priorities = priorities;
         this.isLoading = false;
         this.spinner.hide(); // Masquer le spinner après le chargement des données
       },
       error => {
-        console.error('Erreur lors du chargement des groupes :', error);
+        console.error('Erreur lors du chargement des priorités :', error);
         this.isLoading = false;
         this.spinner.hide(); // Assurez-vous de cacher le spinner en cas d'erreur
       }
     );
   }
 
-  deleteGroupe(groupId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce groupe ?')) {
-      this.groupeService.deleteGroupe(groupId).subscribe(() => {
-        this.loadGroupes(); // Recharger la liste des groupes après la suppression
+  deletePriority(priorityId: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette priorité ?')) {
+      this.priorityService.deletePriority(priorityId).subscribe(() => {
+        this.loadPriorities(); // Recharger la liste des priorités après la suppression
       });
     }
   }
+} {
+
 }

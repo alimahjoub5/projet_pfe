@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from 'src/app/core/models/User';
-import { UserService } from 'src/app/core/services/user-service.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { CommonModule } from '@angular/common';
+import { User } from 'src/app/core/models/User';
+import { UserService } from 'src/app/core/services/user-service.service';
+
 
 @Component({
   selector: 'app-user-detail',

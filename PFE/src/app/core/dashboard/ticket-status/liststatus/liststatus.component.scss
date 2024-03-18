@@ -1,0 +1,77 @@
+:host ::ng-deep .p-dialog .product-image {
+    width: 150px;
+    margin: 0 auto 2rem auto;
+    display: block;
+}
+
+
+
+/* Style pour les éléments <input> dans les cellules de la table */
+table input[type="text"] {
+    width: 100%; /* Prend la largeur totale de la cellule */
+    padding: 8px; /* Ajoute un remplissage intérieur */
+    border: 1px solid #ccc; /* Ajoute une bordure */
+    border-radius: 5px; /* Ajoute un arrondi aux coins */
+    box-sizing: border-box; /* Inclut le remplissage et la bordure dans la largeur */
+    font-size: 14px; /* Taille de police */
+}
+
+/* Style pour les éléments <input> lorsqu'ils sont en focus */
+table input[type="text"]:focus {
+    outline: none; /* Supprime la bordure de mise au point par défaut */
+    border-color: #007bff; /* Change la couleur de la bordure lorsque l'élément est en focus */
+}
+    .view i {
+        color: blue; /* Couleur pour l'icône "View" */
+    }
+
+    .edit i {
+        color: green; /* Couleur pour l'icône "Edit" */
+    }
+
+    .delete i {
+        color: red; /* Couleur pour l'icône "Delete" */
+    }
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    
+    .search-box {
+        position: relative;
+    }
+    
+    .search-box input[type="text"] {
+        width: 100%;
+        padding-left: 35px; /* Ajustez la marge gauche pour inclure l'icône */
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+    
+    .search-box i {
+        position: absolute;
+        top: 50%;
+        left: 10px; /* Ajustez la position de l'icône */
+        transform: translateY(-50%);
+        color: #666; /* Couleur de l'icône */
+    }
+   
+    
+    .search-box input[type="text"] {
+        width: 200px; /* Ajustez la largeur selon vos besoins */
+        padding-left: 35px; /* Ajustez la marge gauche pour inclure l'icône */
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+    
+    .search-box i {
+        position: absolute;
+        top: 50%;
+        left: 10px; /* Ajustez la position de l'icône */
+        transform: translateY(-50%);
+        color: #666; /* Couleur de l'icône */
+    }

@@ -1,43 +1,29 @@
+<ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
 
-        
-        <!--tr>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" placeholder="Search by Representative" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
-            </th>
-        </tr-->
-        
-        <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+<!-- Your other content goes here -->
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Ajouter un utilisateur" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>
 
-        <!-- Your other content goes here -->
-        <div class="card flex justify-content-center" *ngIf="!isLoading">
-            <div class="d-flex justify-content-between align-items-center">
-                <p-button label="Ajouter un utilisateur" icon="pi pi-plus" [routerLink]="['/ajouter']" routerLinkActive="router-link-active"></p-button>
-            
-                <div class="col-sm-3">
-                    <div class="search-box">
-                        <i class="material-icons"></i>
-                        <input type="text" class="form-control" placeholder="Search…">
-                    </div>
-                </div>
-            </div>
-            
-            
-<br>
-        <p-table [value]="users" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
-            <div class="loading-overlay" *ngIf="isLoading">
-                <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>
-              </div>
-              
-            <ng-template pTemplate="header">
+      <p-table #dt [value]="users" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gérer les utilisateurs</h5>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="FirstName">First Name <p-sortIcon field="FirstName"></p-sortIcon></th>
                     <th pSortableColumn="LastName">Last Name <p-sortIcon field="LastName"></p-sortIcon></th>

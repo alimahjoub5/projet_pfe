@@ -13,11 +13,10 @@ import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { Groupe } from 'src/app/core/models/groupe';
-import { GroupeService } from 'src/app/core/services/groupe.service';
-
+import { TicketStatus } from 'src/app/core/models/ticketstatus';
+import { TicketStatusService } from 'src/app/core/services/ticketstatus.service';
 @Component({
-  selector: 'app-groupelist',
+  selector: 'app-liststatus',
   standalone: true,
   imports: [FormsModule,
     ButtonModule,
@@ -31,45 +30,44 @@ import { GroupeService } from 'src/app/core/services/groupe.service';
     RouterModule,
     NgxSpinnerModule,
 CommonModule],
-  templateUrl: './groupelist.component.html',
-  styleUrls: ['./groupelist.component.scss']
+  templateUrl: './liststatus.component.html',
+  styleUrl: './liststatus.component.scss'
 })
-export class GroupelistComponent implements OnInit {
-  groupes: Groupe[];
+export class ListstatusComponent implements OnInit{
+  ticketStatuses: TicketStatus[];
   isLoading: boolean;
-cols: any;
 
   constructor(
-    private groupeService: GroupeService,
+    private ticketStatusService: TicketStatusService,
     private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
-    this.loadGroupes();
+    this.loadTicketStatuses();
   }
 
-  loadGroupes(): void {
+  loadTicketStatuses(): void {
     this.isLoading = true;
     this.spinner.show(); // Afficher le spinner avant de récupérer les données
 
-    this.groupeService.getAllGroupes().subscribe(
-      groupes => {
-        this.groupes = groupes;
+    this.ticketStatusService.getAllTicketStatuses().subscribe(
+      ticketStatuses => {
+        this.ticketStatuses = ticketStatuses;
         this.isLoading = false;
         this.spinner.hide(); // Masquer le spinner après le chargement des données
       },
       error => {
-        console.error('Erreur lors du chargement des groupes :', error);
+        console.error('Erreur lors du chargement des statuts de ticket :', error);
         this.isLoading = false;
         this.spinner.hide(); // Assurez-vous de cacher le spinner en cas d'erreur
       }
     );
   }
 
-  deleteGroupe(groupId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce groupe ?')) {
-      this.groupeService.deleteGroupe(groupId).subscribe(() => {
-        this.loadGroupes(); // Recharger la liste des groupes après la suppression
+  deleteTicketStatus(ticketStatusId: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce statut de ticket ?')) {
+      this.ticketStatusService.deleteTicketStatus(ticketStatusId).subscribe(() => {
+        this.loadTicketStatuses(); // Recharger la liste des statuts de ticket après la suppression
       });
     }
   }

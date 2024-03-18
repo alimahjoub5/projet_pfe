@@ -1,75 +1,66 @@
-
-        
-        <!--tr>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" placeholder="Search by Representative" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
-            </th>
-        </tr-->
-        <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+<ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
 
 <!-- Your other content goes here -->
-<div class="card flex justify-content-center" *ngIf="!isLoading">
-    <div class="d-flex justify-content-between align-items-center">
-        <p-button label="Ajouter un équipement" icon="pi pi-plus" [routerLink]="['/ajouterequip']" routerLinkActive="router-link-active"></p-button>
-    
-        <div class="col-sm-3">
-            <div class="search-box">
-                <i class="material-icons"></i>
-                <input type="text" class="form-control" placeholder="Rechercher…">
-            </div>
-        </div>
-    </div>
-    <br>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Ajouter un équipement" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/ajoutereq']" routerLinkActive="router-link-active"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>
 
-    <p-table [value]="equipments" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
-        <div class="loading-overlay" *ngIf="isLoading">
-            <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>
-        </div>
-        
+      <p-table #dt [value]="equipments" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gérer les équipements</h5>
+          </div>
+        </ng-template>
         <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="TypeName">Type <p-sortIcon field="TypeName"></p-sortIcon></th>
-                <th pSortableColumn="Description">Description <p-sortIcon field="Description"></p-sortIcon></th>
-                <th pSortableColumn="Manufacturer">Fabricant <p-sortIcon field="Manufacturer"></p-sortIcon></th>
-                <th pSortableColumn="ModelNumber">Numéro de modèle <p-sortIcon field="ModelNumber"></p-sortIcon></th>
-                <th pSortableColumn="SerialNumber">Numéro de série <p-sortIcon field="SerialNumber"></p-sortIcon></th>
-                <th pSortableColumn="InstallationDate">Date d'installation <p-sortIcon field="InstallationDate"></p-sortIcon></th>
-                <th pSortableColumn="WarrantyExpiration">Expiration de la garantie <p-sortIcon field="WarrantyExpiration"></p-sortIcon></th>
-                <th>Action</th>
-            </tr>
+          <tr>
+            <th pSortableColumn="TypeName">Type <p-sortIcon field="TypeName"></p-sortIcon></th>
+            <th pSortableColumn="Description">Description <p-sortIcon field="Description"></p-sortIcon></th>
+            <th pSortableColumn="Manufacturer">Fabricant <p-sortIcon field="Manufacturer"></p-sortIcon></th>
+            <th pSortableColumn="ModelNumber">Numéro de modèle <p-sortIcon field="ModelNumber"></p-sortIcon></th>
+            <th pSortableColumn="SerialNumber">Numéro de série <p-sortIcon field="SerialNumber"></p-sortIcon></th>
+            <th pSortableColumn="InstallationDate">Date d'installation <p-sortIcon field="InstallationDate"></p-sortIcon></th>
+            <th pSortableColumn="WarrantyExpiration">Expiration de la garantie <p-sortIcon field="WarrantyExpiration"></p-sortIcon></th>
+            <th>Action</th>
+          </tr>
         </ng-template>
         <ng-template pTemplate="body" let-equipment>
-            <tr>
-                <td>{{ equipment.TypeName }}</td>
-                <td>{{ equipment.Description }}</td>
-                <td>{{ equipment.Manufacturer }}</td>
-                <td>{{ equipment.ModelNumber }}</td>
-                <td>{{ equipment.SerialNumber }}</td>
-                <td>{{ equipment.InstallationDate }}</td>
-                <td>{{ equipment.WarrantyExpiration }}</td>
-                <td>
-                    <a [routerLink]="['/equipement-detail', equipment.EquipmentTypeID]" class="view" title="View" data-toggle="tooltip">
-                        <i class="material-icons">&#xE417;</i>
-                    </a>
-                    <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <p-button (click)="deleteEquipment(equipment.EquipmentTypeID)" label="Delete" severity="danger"></p-button>
-                </td>
-            </tr>
+          <tr>
+            <td>{{ equipment.TypeName }}</td>
+            <td>{{ equipment.Description }}</td>
+            <td>{{ equipment.Manufacturer }}</td>
+            <td>{{ equipment.ModelNumber }}</td>
+            <td>{{ equipment.SerialNumber }}</td>
+            <td>{{ equipment.InstallationDate }}</td>
+            <td>{{ equipment.WarrantyExpiration }}</td>
+            <td>
+              <a [routerLink]="['/equipement-detail', equipment.EquipmentTypeID]" class="view" title="View" data-toggle="tooltip">
+                <i class="material-icons">&#xE417;</i>
+              </a> 
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEquipment(equipment.EquipmentTypeID)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEquipment(equipment.EquipmentTypeID)"></button>
+            </td>
+          </tr>
         </ng-template>
-
+      
+        
         <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="8">Aucun équipement trouvé.</td>
-            </tr>
+          <tr>
+            <td colspan="8">Aucun équipement trouvé.</td>
+          </tr>
         </ng-template>
-    </p-table>
+      </p-table>
+    </div>
+  </div>
 </div>

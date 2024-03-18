@@ -1,0 +1,9 @@
+<form [formGroup]="ticketStatusForm" (ngSubmit)="onSubmit()" class="user-form">
+
+    <div class="form-field">
+        <label for="StatusName">Name:</label>
+        <input type="text" id="StatusName" formControlName="StatusName" pInputText>
+    </div>
+   
+   <button type="submit" [disabled]="ticketStatusForm.invalid">Add Ticket Status</button>
+</form>

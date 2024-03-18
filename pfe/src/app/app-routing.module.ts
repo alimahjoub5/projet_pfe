@@ -21,17 +21,19 @@ import { AuthGuard } from './auth.guard';
                     //     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
                     { path: "", loadChildren: () => import('./core/dashboard/dashboard.module').then(m => m.DashboardModule) ,canActivate : [AuthGuard]},
                     {path:'test' ,component : UserFormComponent},
-<<<<<<< HEAD
                     { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule),canActivate : [AuthGuard] },
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule),canActivate : [AuthGuard] },
                     { path: "", loadChildren: () => import('./core/dashboard/groupe/groupe-routing.module').then(m => m.GroupeRoutingModule),canActivate : [AuthGuard] },
                     { path: "", loadChildren: () => import('./core/dashboard/equipement-ty/equipement-ty-routing.module').then(m => m.EquipementTyRoutingModule ),canActivate : [AuthGuard] },
-=======
+                    { path: "", loadChildren: () => import('./core/dashboard/priority/priority-routing.module').then(m => m.PriorityRoutingModule  ),canActivate : [AuthGuard] },
+                    { path: "", loadChildren: () => import('./core/dashboard/ticket-status/ticket-status-routing.module').then(m => m.TicketStatusRoutingModule  ),canActivate : [AuthGuard] },
+
                     { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/groupe/groupe-routing.module').then(m => m.GroupeRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/equipement-ty/equipement-ty-routing.module').then(m => m.EquipementTyRoutingModule ) },
->>>>>>> parent of 61b03b0 (update)
+                    { path: "", loadChildren: () => import('./core/dashboard/priority/priority-routing.module').then(m => m.PriorityRoutingModule  ),canActivate : [AuthGuard] },
+                    { path: "", loadChildren: () => import('./core/dashboard/ticket-status/ticket-status-routing.module').then(m => m.TicketStatusRoutingModule  ),canActivate : [AuthGuard] },
 
                 ]
             },
