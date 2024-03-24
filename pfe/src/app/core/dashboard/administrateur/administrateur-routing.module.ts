@@ -4,6 +4,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { AjouterComponent } from './ajouter/ajouter.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { AuthGuard } from 'src/app/auth.guard';
+import { UpdateComponent } from './update/update.component';
 
 
 const routes: Routes = [
@@ -16,8 +17,14 @@ const routes: Routes = [
     path: "ajouter",
     component: AjouterComponent ,canActivate : [AuthGuard]
   },
+  {
+    path: "update/:userID",
+    component: UpdateComponent,
+    canActivate: [AuthGuard]
+  },
   
-  {path: 'user-detail/:id' , component : UserDetailComponent,canActivate : [AuthGuard]},
+  
+  {path: 'user-detail/:userID' , component : UserDetailComponent,canActivate : [AuthGuard]},
 
 ];
 

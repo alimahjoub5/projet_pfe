@@ -11,18 +11,46 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-ticket>
-            <tr>
-              <td>{{ tickets.Subject }}</td>
-              <td>{{ tickets.Description }}</td>
-              <td>{{ tickets.Priority }}</td>
-              <td>
-                <p-dropdown [options]="users" [(ngModel)]="ticket.AssigneeID" placeholder="Sélectionner un utilisateur" [showClear]="true"></p-dropdown>
-              </td>
-              <td>
-                <p-button label="Affecter" (click)="assignTicket(ticket)"></p-button>
-              </td>
-            </tr>
-          </ng-template>
+          <tr [style.color]="getPriorityColor(ticket.PriorityName)">
+            <td>{{ ticket.Subject }}</td>
+            <td>{{ ticket.Description }}</td>
+            <td>{{ ticket.PriorityName }}</td>
+            <td>
+              <!-- Logique pour afficher le nom du groupe ou de l'utilisateur assigné -->
+              {{ ticket.GroupName ? ticket.GroupName : (ticket.AssigneeName ? ticket.AssigneeName : 'Non assigné') }}
+            </td>
+            <td>
+              <button pButton type="button" label="Affecter" (click)="showAssignDialog(ticket)"></button>
+            </td>
+            
+            <p-dialog header="Affecter le ticket" [(visible)]="displayAssignDialog" [modal]="true" [responsive]="true">
+              <!-- Contenu de la boîte de dialogue -->
+              <div>
+                <!-- Formulaire pour affecter le ticket -->
+                <form (ngSubmit)="assignTicket()" #assignForm="ngForm">
+                  <!-- Sélection du groupe -->
+                  <!--<div class="form-group">
+                    <label for="group">Groupe :</label>
+                    <p-dropdown [options]="groups" [(ngModel)]="selectedGroup" name="group" id="group" [filter]="true" [showClear]="true"></p-dropdown>
+                  </div>-->
+                  <!-- Sélection du technicien -->
+                  <div class="form-group">
+                    <label for="technician">Technicien :</label>
+                    <p-dropdown [options]="technicians" [(ngModel)]="selectedTechnician" name="technician" id="technician" [filter]="true" [showClear]="true"></p-dropdown>
+                  </div>
+                  <!-- Bouton de soumission -->
+                  <button pButton type="submit" label="Affecter"></button>
+                  <!-- Bouton d'annulation -->
+                  <button pButton type="button" label="Annuler" (click)="hideAssignDialog()"></button>
+                </form>
+              </div>
+            </p-dialog>
+            
+          </tr>
+        </ng-template>
+
+        
+        
           
       </p-table>
     </div>

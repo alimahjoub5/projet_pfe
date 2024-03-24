@@ -21,6 +21,7 @@ use App\Http\Controllers\TicketStatusController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Routes protégées
@@ -29,7 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
-Route::post('login', [AuthController::class, 'login']);
 
 
 Route::get('tickets', [TicketController::class, 'getTicket']);
@@ -41,6 +41,13 @@ Route::delete('deleteTicket/{id}', [TicketController::class, 'deleteTicket']);
 // user controller routes
 
 
+Route::get('users', [UserController::class, 'index']);
+Route::get('users/{id}', [UserController::class, 'show']);
+Route::post('users', [UserController::class, 'store']);
+Route::put('users/{id}', [UserController::class, 'update']);
+Route::delete('users/{id}', [UserController::class, 'destroy']);
+Route::put('/users/{userId}/status', [UserController::class, 'toggleStatus']);
+Route::get('technicians', [UserController::class,'getTechnicien']);
 
 
 // equipement type api routes
@@ -106,9 +113,3 @@ Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsControl
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
 });
 
-Route::get('users', [UserController::class, 'index']);
-Route::get('users/{id}', [UserController::class, 'show']);
-Route::post('users', [UserController::class, 'store']);
-Route::put('users/{id}', [UserController::class, 'update']);
-Route::delete('users/{id}', [UserController::class, 'destroy']);
-Route::post('/login', [UserController::class, 'login']);

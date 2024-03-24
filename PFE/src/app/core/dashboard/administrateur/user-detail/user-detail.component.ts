@@ -15,14 +15,14 @@ import { UserService } from 'src/app/core/services/user-service.service';
 })
 export class UserDetailComponent implements OnInit {
   userId: number;
-  user: User; // Définissez le type de votre utilisateur
+  user: User = new User(); // Définissez le type de votre utilisateur
   isLoading = false; 
   
 
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userId = +this.route.snapshot.paramMap.get('id');
+    this.userId = +this.route.snapshot.paramMap.get('userID');
     this.getUserDetails(this.userId);
   }
 

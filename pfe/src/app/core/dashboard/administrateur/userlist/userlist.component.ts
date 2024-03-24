@@ -68,6 +68,16 @@ cols: any;
     this.spinner.show(); // Show the spinner
 this.loadUsers();
   }
+
+  //-----------------------------------------------------------------------
+
+  toggleUserStatus(user: User): void {
+    this.userService.toggleUserStatus(user).subscribe(updatedUser => {
+      user.Active = updatedUser.Active; // Mettre à jour le statut de l'utilisateur dans la liste des utilisateurs
+      this.loadUsers();
+    
+    });
+  }
   loadUsers() {
     this.isLoading=true;
     this.spinner.show(); // Show the spinner

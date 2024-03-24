@@ -43,27 +43,37 @@ class UserController extends Controller
     }
     
 
-    public function update(Request $request, $id)
+
+    public function update(Request $request, $UserId)
     {
-        $user = User::find($id);
+        $user = User::find($UserId);
+    
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
-
+    
         $request->validate([
             'FirstName' => 'string',
             'LastName' => 'string',
-            'Email' => 'email|unique:users,Email,' . $id,
-            'Username' => 'string|unique:users,Username,' . $id,
-            'Password' => 'string',
-            'Role' => 'string|in:Admin,Technician,Manager',
-            'Active' => 'boolean',
+            'Email' => 'email|unique:users,Email,' . $user->UserID . ',UserID',
+            'Username' => 'string|unique:users,Username,' . $user->UserID . ',UserID',
             // Ajoutez d'autres règles de validation au besoin
         ]);
-
+    
+        $request->merge([
+            'ModifiedBy' => Auth::id(),
+            'ModifiedOn' => now(),
+        ]);
+    
+    
         $user->update($request->all());
+    
         return response()->json($user, 200);
     }
+    
+    
+
+    
 
     public function destroy($id)
     {
@@ -95,6 +105,29 @@ class UserController extends Controller
         }
     
         return response()->json(['message' => 'Unauthorized'], 401);
+    }
+
+    public function toggleStatus($id)
+    {
+        $user = User::findOrFail($id);
+    
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+    
+        $user->Active = !$user->Active;
+        $user->save();
+    
+        return response()->json(['message' => 'User status updated successfully'], 200);
+    }
+
+    public function getTechnicien()
+    {
+        // Récupérer les techniciens depuis la base de données
+        $technicians = User::where('Role', 'Technician')->get();
+
+        // Retourner les techniciens au format JSON
+        return response()->json($technicians);
     }
     
 }

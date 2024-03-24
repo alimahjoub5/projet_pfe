@@ -35,7 +35,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-user>
-                <tr>
+                <tr  [ngClass]="{'user-blocked': !user.Active}">
                     <td>{{ user.FirstName }}</td>
                     <td>{{ user.LastName }}</td>
                     <td>{{ user.Email }}</td>
@@ -46,10 +46,15 @@
                         <a *ngIf="user.Active" [routerLink]="['/user-detail', user.UserID]" class="view" title="View" data-toggle="tooltip">
                             <i class="material-icons">&#xE417;</i>
                         </a>
-                        <a href="#" *ngIf="user.Active" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a [routerLink]="['/update', user.UserID]" *ngIf="user.Active" class="edit" title="Edit" data-toggle="tooltip">
+                          <i class="material-icons">&#xE254;</i>
+                        </a>
                         <p-button *ngIf="user.Active" (click)="deleteUser(user.UserID)" label="Delete" severity="danger"></p-button>
-                        <button *ngIf="user.Active" (click)="toggleUserStatus(user)" [disabled]="user.Active == null">{{ user.Active ? 'Bloquer' : 'Débloquer' }}</button>
+                        <button *ngIf="user.Active" (click)="toggleUserStatus(user)">
+                          {{ user.Active ? 'Bloquer' : 'Débloquer' }}
+                        </button>
                         <button *ngIf="!user.Active" (click)="toggleUserStatus(user)">Débloquer</button>
+                        
                     </td>
                     
             </ng-template>

@@ -28,9 +28,31 @@ export class UserService {
     return this.http.post<User>(this.apiUrl, user, headers);
   }
 
+  updateUser(user: User,userId: string): Observable<User> {
+    console.log(user.UserID+" "+userId)
+    const headers = this.authService.includeAuthToken();
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.put<User>(url, user, headers);
+  }
+
   deleteUser(userId: number): Observable<void> {
     const url = `${this.apiUrl}/${userId}`;
     const headers = this.authService.includeAuthToken();
     return this.http.delete<void>(url, headers);
+  }
+
+  toggleUserStatus(user: User): Observable<User> {
+    const newStatus = !user.Active; // Inverser le statut actuel
+    const headers = this.authService.includeAuthToken();
+    return this.http.put<User>(`${this.apiUrl}/${user.UserID}/status`, { Active: newStatus },headers);
+  }
+/*
+  getTechnicians(): Observable<User[]> {
+    const url = `${this.apiUrl}/technicians`;
+    return this.http.get<User[]>(url,headers);
+  }*/
+  getTechnicians(): Observable<User[]> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<User[]>(`localhost:8000/api/technicians`,headers);
   }
 }
