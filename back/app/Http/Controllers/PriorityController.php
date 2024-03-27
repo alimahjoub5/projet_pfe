@@ -41,7 +41,7 @@ class PriorityController extends Controller
         }
 
         $request->validate([
-            'Name' => 'required|string|unique:priorities,Name,' . $id,
+            'Name' => 'required|string|unique:priorities,Name,'. $priority->PriorityID.',PriorityID',
             // Ajoutez d'autres règles de validation au besoin
         ]);
 

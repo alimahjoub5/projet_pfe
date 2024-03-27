@@ -6,6 +6,8 @@ import { CreateComponent } from './create/create.component';
 import { StatusComponent } from './status/status.component';
 import { PlanComponent } from './plan/plan.component';
 import { AuthGuard } from 'src/app/auth.guard';
+import { UpdateticketsComponent } from './updatetickets/updatetickets.component';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 
 
 const routes: Routes = [
@@ -29,6 +31,14 @@ const routes: Routes = [
   {
     path: "status",
     component: StatusComponent,canActivate : [AuthGuard]
+  },
+  {
+    path: "updatetickets/:TicketID",
+    component: UpdateticketsComponent,canActivate : [AuthGuard]
+  },
+  {
+    path: "ticket-details/:id",
+    component: TicketDetailsComponent,canActivate : [AuthGuard]
   },
 ];
 

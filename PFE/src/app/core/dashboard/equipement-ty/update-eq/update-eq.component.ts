@@ -1,4 +1,4 @@
-/*import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { EquipmentType } from 'src/app/core/models/equipement';
 })
 export class UpdateEqComponent {
 
-  equipementtype: EquipmentType = new EquipmentType;
+  equipementtype: EquipmentType ;
   EquipmentTypeID: string;
 
   constructor(
@@ -33,7 +33,7 @@ export class UpdateEqComponent {
   }
 
   updateEquipmentType(): void {
-    this.Equipmenttypeservice.updateEquipmentType(this.equipementtype,this.EquipmentTypeID).subscribe(updateEquipmentType => {
+    this.Equipmenttypeservice.updateEquipmentType(Number(this.EquipmentTypeID),this.equipementtype).subscribe(updateEquipmentType => {
       console.log('Equipement updated successfully:', updateEquipmentType);
       // Rediriger vers la page de détails de l'utilisateur mis à jour
       this.router.navigate(['equipement-detail/', this.EquipmentTypeID]);
@@ -42,4 +42,3 @@ export class UpdateEqComponent {
 
 
 }
-*/

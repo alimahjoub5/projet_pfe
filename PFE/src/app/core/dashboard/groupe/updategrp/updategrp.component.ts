@@ -1,4 +1,4 @@
-/*import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Groupe } from 'src/app/core/models/groupe';
 import { GroupeService } from 'src/app/core/services/groupe.service';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 
 })
 export class UpdategrpComponent implements OnInit {
-  groupe: Groupe = new Groupe();
+  groupe: Groupe ;
   GroupID: string;
 
   constructor(
@@ -33,9 +33,9 @@ export class UpdategrpComponent implements OnInit {
   }
 
   updateGroupe(): void {
-    this.groupeservice.updateGroupe(this.GroupID, this.groupe).subscribe(updatedGroupe => {
+    this.groupeservice.updateGroupe(Number(this.GroupID), this.groupe).subscribe(updatedGroupe => {
       console.log('Groupe updated successfully:', updatedGroupe);
       this.router.navigate(['groupe-detail/', this.GroupID]);
     });
 }
-}*/
+}

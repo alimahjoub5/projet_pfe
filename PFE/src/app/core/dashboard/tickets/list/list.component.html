@@ -60,8 +60,12 @@
             </td>
 
             <td>
-                <a href="#" class="view" title="Voir" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                <a href="#" class="edit" title="Modifier" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                <a [routerLink]="['/ticket-details', ticket.TicketID]" class="view" title="View" data-toggle="tooltip">
+                    <i class="material-icons">&#xE417;</i>
+                  </a>
+                  <a [routerLink]="['/updatetickets', ticket.TicketID]" class="edit" title="Edit" data-toggle="tooltip">
+                    <i class="material-icons">&#xE254;</i>
+                  </a>
                 <a (click)="confirmDelete(ticket)" class="delete" title="Supprimer" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
             </td>
         </tr>

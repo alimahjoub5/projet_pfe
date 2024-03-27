@@ -3,7 +3,7 @@ import { TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
-import {RouterModule} from '@angular/router';
+import {RouterModule , ROUTES} from '@angular/router';
 import { Ticket } from 'src/app/core/models/ticket';
 import { TicketService } from 'src/app/core/services/tickets.service';
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service';

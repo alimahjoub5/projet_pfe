@@ -41,7 +41,7 @@ class TechnicianGroupController extends Controller
         }
 
         $request->validate([
-            'GroupName' => 'required|string|unique:technician_groups,GroupName,' . $id,
+            'GroupName' => 'required|string|unique:technician_groups,GroupName,'.$group->GroupID .',GroupID',
             // Ajoutez d'autres règles de validation au besoin
         ]);
 

@@ -4,6 +4,7 @@ import { GroupelistComponent } from './groupelist/groupelist.component';
 import { AjouterComponent } from './ajoutergrp/ajoutergrp.component';
 import { GroupeDetailComponent } from './groupe-detail/groupe-detail.component';
 import { AuthGuard } from 'src/app/auth.guard';
+import { UpdategrpComponent } from './updategrp/updategrp.component';
 
 const routes: Routes = [
   {
@@ -21,11 +22,11 @@ const routes: Routes = [
     component: GroupeDetailComponent,
     canActivate: [AuthGuard]
   },
- // {
-   // path: 'updategrp/:GroupID',
-   // component: UpdategrpComponent,
-   // canActivate: [AuthGuard]
-  //},
+ {
+   path: 'updategrp/:GroupID',
+    component: UpdategrpComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

@@ -49,7 +49,8 @@ class EquipmentTypeController extends Controller
         }
 
         $request->validate([
-            'TypeName' => 'string|unique:equipment_types,TypeName,' . $id,
+            'TypeName' => 'string|unique:equipment_types,TypeName,' . $equipmentType->EquipmentTypeID . ',EquipmentTypeID',
+
             'Description' => 'nullable|string',
             'Manufacturer' => 'nullable|string',
             'ModelNumber' => 'nullable|string',
@@ -58,6 +59,7 @@ class EquipmentTypeController extends Controller
             'WarrantyExpiration' => 'nullable|date',
             'MaintenanceInterval' => 'nullable|integer',
             'LastMaintenanceDate' => 'nullable|date',
+
             // Ajoutez d'autres règles de validation au besoin
         ]);
 
