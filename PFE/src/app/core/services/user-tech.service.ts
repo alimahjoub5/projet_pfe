@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usertech } from '../models/user-tech';
 import { AuthService } from './auth.service';
@@ -9,37 +9,35 @@ import { AuthService } from './auth.service';
 })
 export class UsersTechnicianGroupsService {
 
-  private baseUrl = 'localhost:8000/api'; // Remplacez ceci par l'URL de votre API
+  private baseUrl = 'http://localhost:8000/api'; // Remplacez ceci par l'URL de votre API
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getUsersTechnicianGroups(): Observable<Usertech> {
     const headers = this.authService.includeAuthToken();
 
-    return this.http.get(`${this.baseUrl}/users-technician-groups`);
+    return this.http.get<Usertech>(`${this.baseUrl}/user-technician-groups`,headers);
   }
 
   getUserTechnicianGroup(groupId: number): Observable<Usertech> {
     const headers = this.authService.includeAuthToken();
-
-    return this.http.get(`${this.baseUrl}/users-technician-groups/${groupId}`,headers);
+    return this.http.get<Usertech>(`${this.baseUrl}/user-technician-groups/${groupId}`,headers);
   }
 
-  assignUserToGroup(userId: number, groupId: number): Observable<Usertech> {
+  assignUserToGroup(userId: number, groupId: number): Observable<any> {
     const headers = this.authService.includeAuthToken();
-
-    return this.http.post(`${this.baseUrl}/users-technician-groups/assign`, { UserID: userId, GroupID: groupId },headers);
+    return this.http.post<any>(`${this.baseUrl}/user-technician-groups/assign`, { UserID: userId, GroupID: groupId }, headers);
   }
 
-  removeUserFromGroup(userId: number, groupId: number): Observable<Usertech> {
+  removeUserFromGroup(userId: number, groupId: number): Observable<any> {
     const headers = this.authService.includeAuthToken();
 
-    return this.http.post(`${this.baseUrl}/users-technician-groups/remove`, { UserID: userId, GroupID: groupId },headers);
+    return this.http.post<any>(`${this.baseUrl}/user-technician-groups/remove`, { UserID: userId, GroupID: groupId }, headers);
   }
 
-  getUsersInGroup(groupId: number): Observable<Usertech> {
+  getUsersInGroup(groupId: number): Observable<Usertech[]> {
     const headers = this.authService.includeAuthToken();
 
-    return this.http.get(`${this.baseUrl}/users-technician-groups/${groupId}/users`,headers);
+    return this.http.get<Usertech[]>(`${this.baseUrl}/user-technician-groups/${groupId}/users`, headers);
   }
 }

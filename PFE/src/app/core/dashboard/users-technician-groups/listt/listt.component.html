@@ -25,38 +25,36 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="UserID">user name <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="GroupID">groupe name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="Username">user name <p-sortIcon field="Username"></p-sortIcon></th>
+                <th pSortableColumn="GroupName">groupe name <p-sortIcon field="GroupName"></p-sortIcon></th>
 
                 <th>Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-priority>
-            <tr>
-                <td>{{ userstech.UserID }}</td>
-                <td>{{ userstech.GroupID }}</td>
-
-                <td>
-                    
-            
-               
-              <div class="flex">
-                <a [routerLink]="['/detaills', userstech.UserID]" class="view" title="View" data-toggle="tooltip">
-                    <i class="material-icons">&#xE417;</i>
-                  </a>
-                  <a [routerLink]="['/updatee', userstech.UserID]"  class="edit" title="Edit" data-toggle="tooltip">
-                    <i class="material-icons">&#xE254;</i>
-                  </a>
-                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteUsersTech(userstech.UserID)"></button>
-            </div>
-            </td>
-          </tr>
-        </ng-template>
+        <ng-template pTemplate="body" let-userstech>
+          <tr *ngFor="let user of userstech.users; let i = index">
+              <td hidden>{{ i }}</td> <!-- Afficher l'index à partir de 0 -->
+              <td>{{ user.Username }}</td> <!-- Afficher le nom d'utilisateur -->
+              <td>{{ userstech.GroupName }}</td>
       
-        
+              <td>
+                  <div class="flex">
+                      <a [routerLink]="['/details', user.UserID]" class="view" title="View" data-toggle="tooltip">
+                          <i class="material-icons">&#xE417;</i>
+                      </a>
+                      <a [routerLink]="['/updatee', user.UserID]"  class="edit" title="Edit" data-toggle="tooltip">
+                          <i class="material-icons">&#xE254;</i>
+                      </a>
+                      <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeleteUsersTech(user.UserID)"></button>
+                  </div>
+              </td>
+          </tr>
+      </ng-template>
+      
+
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="8">Aucune priorité trouvée.</td>
+            <td colspan="8">Aucun tech user trouvé.</td>
           </tr>
         </ng-template>
       </p-table>

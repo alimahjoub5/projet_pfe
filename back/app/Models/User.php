@@ -51,4 +51,5 @@ class User extends AuthenticatableUser implements Authenticatable
     {
         return $this->hasMany(UserTechnicianGroup::class, 'UserID');
     }
+
 }

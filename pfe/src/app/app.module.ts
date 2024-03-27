@@ -13,7 +13,7 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgControl, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './core/services/user-service.service';
 
 import {ButtonModule} from 'primeng/button';
@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { AuthInterceptor } from './core/services/intercepteur/auth.interceptor';
 import { AuthService } from './core/services/auth.service';
+import { UsersTechnicianGroupsService } from './core/services/user-tech.service';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -43,6 +44,7 @@ import { AuthService } from './core/services/auth.service';
         BrowserAnimationsModule,
         MessageService,
         AuthService,
+        UsersTechnicianGroupsService,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true } // Enregistrez l'intercepteur
      
     ],

@@ -17,7 +17,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { PriorityService } from 'src/app/core/services/priority.service';
 import { Priority } from 'src/app/core/models/Priority';
 import { Usertech } from 'src/app/core/models/user-tech';
-import { UserTechService } from 'src/app/core/services/user-tech.service';
+import { UsersTechnicianGroupsService } from 'src/app/core/services/user-tech.service';
 @Component({
  selector: 'app-listt',
   
@@ -42,12 +42,12 @@ styleUrl: './listt.component.scss'
 
 
 export class ListtComponent  implements OnInit {
-  userstech: Usertech[];
+  userstech: Usertech;
   isLoading: boolean;
 cols: any;
 
   constructor(
-    private usertechservice: UserTechService,
+    private usertechservice: UsersTechnicianGroupsService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -59,10 +59,11 @@ cols: any;
     this.isLoading = true;
     this.spinner.show(); // Afficher le spinner avant de récupérer les données
 
-    this.usertechservice.getAllPriorities().subscribe(
+    this.usertechservice.getUsersTechnicianGroups().subscribe(
       userstech => {
         this.userstech = userstech;
         this.isLoading = false;
+        console.log(userstech);
         this.spinner.hide(); // Masquer le spinner après le chargement des données
       },
       error => {
@@ -73,10 +74,10 @@ cols: any;
     );
   }
 
-  deletePriority(priorityId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette priorité ?')) {
-      this.priorityService.deletePriority(priorityId).subscribe(() => {
-        this.loadPriorities(); // Recharger la liste des priorités après la suppression
+  removeUserFromGroup(UserID: number , GroupID:number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce user ?')) {
+      this.usertechservice.removeUserFromGroup(UserID,GroupID).subscribe(() => {
+        this.loadTech(); // Recharger la liste des priorités après la suppression
       });
     }
   }

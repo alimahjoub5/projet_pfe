@@ -26,4 +26,10 @@ class TechnicianGroup extends Model
         'CreatedOn' => 'datetime',
         'ModifiedOn' => 'datetime',
     ];
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_technician_groups', 'GroupID', 'UserID');
+    }
+
+
 }

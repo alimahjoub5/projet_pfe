@@ -111,5 +111,5 @@ Route::get('/user-technician-groups/{id}', [UsersTechnicianGroupsController::cla
 Route::post('/user-technician-groups/assign-user', [UsersTechnicianGroupsController::class, 'assignUserToGroup']);
 Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
-});
 
+});
