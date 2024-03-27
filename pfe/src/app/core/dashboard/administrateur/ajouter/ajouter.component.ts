@@ -68,7 +68,6 @@ export class AjouterComponent implements OnInit {
      Active: userData.Active,
      CreatedOn: new Date() // Définir la date et l'heure actuelles comme CreatedOn
      ,
-
      UserID: null,
      CreatedBy: Number(this.authservice.getUserID()),
      ModifiedOn: undefined,

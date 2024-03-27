@@ -7,18 +7,25 @@ import { AuthGuard } from 'src/app/auth.guard';
 
 const routes: Routes = [
   {
-    path: "groupelist",
-    component: GroupelistComponent 
-    ,canActivate : [AuthGuard]
+    path: 'groupelist',
+    component: GroupelistComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: "ajoutergrp",
-    component: AjouterComponent ,canActivate : [AuthGuard]
+    path: 'ajoutergrp',
+    component: AjouterComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: "groupe-detail/:id",
-    component: GroupeDetailComponent ,canActivate : [AuthGuard]
+    path: 'groupe-detail/:id',
+    component: GroupeDetailComponent,
+    canActivate: [AuthGuard]
   },
+ // {
+   // path: 'updategrp/:GroupID',
+   // component: UpdategrpComponent,
+   // canActivate: [AuthGuard]
+  //},
 ];
 
 @NgModule({

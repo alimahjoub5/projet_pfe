@@ -26,6 +26,7 @@ class TicketStatusController extends Controller
     {
         $request->validate([
             'StatusName' => 'required|string',
+
             // Ajoutez d'autres règles de validation au besoin
         ]);
 

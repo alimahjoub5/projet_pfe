@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-
+import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'

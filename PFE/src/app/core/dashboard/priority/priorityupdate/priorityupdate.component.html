@@ -1,0 +1,11 @@
+
+<h2>Mettre à jour une priorité</h2>
+<form (ngSubmit)="updatePriority()" #updateForm="ngForm">
+ 
+  <div class="form-group">
+    <label for="Name">Nom</label>
+    <input type="text" class="form-control" id="Name" name="Name" [(ngModel)]="priority.Name" required>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Mettre à jour</button>
+</form>

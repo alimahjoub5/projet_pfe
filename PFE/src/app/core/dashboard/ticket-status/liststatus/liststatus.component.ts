@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { TicketStatus } from 'src/app/core/models/ticketstatus';
 import { TicketStatusService } from 'src/app/core/services/ticketstatus.service';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-liststatus',
   standalone: true,
@@ -31,15 +32,18 @@ import { TicketStatusService } from 'src/app/core/services/ticketstatus.service'
     NgxSpinnerModule,
 CommonModule],
   templateUrl: './liststatus.component.html',
-  styleUrl: './liststatus.component.scss'
+  styleUrl: './liststatus.component.scss',
+  providers: [MessageService] 
 })
 export class ListstatusComponent implements OnInit{
   ticketStatuses: TicketStatus[];
   isLoading: boolean;
+cols: any;
 
   constructor(
     private ticketStatusService: TicketStatusService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private messageService: MessageService 
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +64,8 @@ export class ListstatusComponent implements OnInit{
         console.error('Erreur lors du chargement des statuts de ticket :', error);
         this.isLoading = false;
         this.spinner.hide(); // Assurez-vous de cacher le spinner en cas d'erreur
+        this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Une erreur s\'est produite lors du chargement des statuts de ticket.' }); // Afficher un message d'erreur
+
       }
     );
   }

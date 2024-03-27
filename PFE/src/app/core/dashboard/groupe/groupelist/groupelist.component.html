@@ -7,7 +7,7 @@
       <p-toast></p-toast>
       <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-          <button pButton pRipple label="Ajouter un groupe" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/ajoutereq']" routerLinkActive="router-link-active"></button>
+          <button pButton pRipple label="Ajouter un groupe" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/ajoutergrp']" routerLinkActive="router-link-active"></button>
         </ng-template>
         <ng-template pTemplate="right">
           <div class="search-box ml-auto">
@@ -42,8 +42,9 @@
                                     <a [routerLink]="['/groupe-detail', groupe.GroupID]" class="view" title="View" data-toggle="tooltip">
                                         <i class="material-icons">&#xE417;</i>
                                       </a>
-                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>
-                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteGroupe(groupe.GroupID)"></button>
+                                      <a [routerLink]="['/updategrp', groupe.GroupID]"  class="edit" title="Edit" data-toggle="tooltip">
+                                        <i class="material-icons">&#xE254;</i>
+                                      </a>                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteGroupe(groupe.GroupID)"></button>
                                 </div>
                             </td>
                       

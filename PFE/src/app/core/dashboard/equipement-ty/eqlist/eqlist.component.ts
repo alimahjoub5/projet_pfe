@@ -44,9 +44,7 @@ export class EqlistComponent implements OnInit {
 
   equipments: EquipmentType[];
   isLoading: boolean;
-dt: Table;
 cols: any;
-  EquipementDialog: boolean = false;
 
   constructor(
     private equipmentService: EquipmentTypeService,
@@ -83,12 +81,6 @@ cols: any;
       });
     }
   }
-  editEquipementt(equipmentTypeId: number): void{
-    this.equipments = { ...this.equipments };
-    this.EquipementDialog = true;
-  }
-  onGlobalFilter(table: Table, event: Event) {
-    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-}
+
 
 }

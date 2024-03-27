@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TicketStatus } from '../models/ticketstatus'; // Assurez-vous d'importer votre interface TicketStatus
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,30 +11,35 @@ export class TicketStatusService {
 
   private apiUrl = 'http://localhost:8000/api'; // Remplacez ceci par l'URL de votre API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
-  // Récupérer tous les statuts de ticket
+  // Récupérer tous les status de tickets
   getAllTicketStatuses(): Observable<TicketStatus[]> {
-    return this.http.get<TicketStatus[]>(`${this.apiUrl}/ticket-statuses`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<TicketStatus[]>(`${this.apiUrl}/ticket-statuses`,headers);
   }
 
-  // Récupérer un statut de ticket par son ID
+  // Récupérer un status de ticket par son ID
   getTicketStatusById(id: number): Observable<TicketStatus> {
-    return this.http.get<TicketStatus>(`${this.apiUrl}/ticket-statuses/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<TicketStatus>(`${this.apiUrl}/ticket-statuses/${id}`,headers);
   }
 
-  // Ajouter un nouveau statut de ticket
+  // Ajouter un nouveau status de ticket
   addTicketStatus(ticketStatus: TicketStatus): Observable<TicketStatus> {
-    return this.http.post<TicketStatus>(`${this.apiUrl}/ticket-statuses`, ticketStatus);
+    const headers = this.authService.includeAuthToken();
+    return this.http.post<TicketStatus>(`${this.apiUrl}/ticket-statuses`, ticketStatus,headers);
   }
 
-  // Mettre à jour un statut de ticket existant
+  // Mettre à jour un status de ticket existant
   updateTicketStatus(id: number, ticketStatus: TicketStatus): Observable<TicketStatus> {
-    return this.http.put<TicketStatus>(`${this.apiUrl}/ticket-statuses/${id}`, ticketStatus);
+    const headers = this.authService.includeAuthToken();
+    return this.http.put<TicketStatus>(`${this.apiUrl}/ticket-statuses/${id}`, ticketStatus,headers);
   }
 
-  // Supprimer un statut de ticket
+  // Supprimer un status de ticket
   deleteTicketStatus(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/ticket-statuses/${id}`);
+    const headers = this.authService.includeAuthToken();
+    return this.http.delete<void>(`${this.apiUrl}/ticket-statuses/${id}`,headers);
   }
 }

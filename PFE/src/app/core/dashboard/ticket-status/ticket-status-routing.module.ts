@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateticketstatutComponent } from './createticketstatut/createticketstatut.component';
 import { ListstatusComponent } from './liststatus/liststatus.component';
 import { StatusdetailComponent } from './statusdetail/statusdetail.component';
+import { UpdatestatusComponent } from './updatestatus/updatestatus.component';
 
 const routes: Routes = [
   {
@@ -14,8 +15,12 @@ const routes: Routes = [
     component: CreateticketstatutComponent 
   },
   {
-    path: "statut-detail/:id",
+    path: "statusdetail/:id",
     component: StatusdetailComponent
+  },
+  {
+    path: "updatestatus/:StatusCodeID",
+    component: UpdatestatusComponent
   },
 ];
 

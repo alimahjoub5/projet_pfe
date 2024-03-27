@@ -40,7 +40,9 @@
                 <a [routerLink]="['/priority-details', priority.PriorityID]" class="view" title="View" data-toggle="tooltip">
                     <i class="material-icons">&#xE417;</i>
                   </a>
-                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEquipment(equipment.EquipmentTypeID)"></button>
+                  <a [routerLink]="['/priorityupdate', priority.PriorityID]"  class="edit" title="Edit" data-toggle="tooltip">
+                    <i class="material-icons">&#xE254;</i>
+                  </a>
                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletePriority(priority.PriorityID)"></button>
             </div>
             </td>

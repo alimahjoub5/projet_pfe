@@ -48,7 +48,9 @@
               <a [routerLink]="['/equipement-detail', equipment.EquipmentTypeID]" class="view" title="View" data-toggle="tooltip">
                 <i class="material-icons">&#xE417;</i>
               </a> 
-              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEquipment(equipment.EquipmentTypeID)"></button>
+              <a [routerLink]="['/update-eq', equipment.EquipmentTypeID]"  class="edit" title="Edit" data-toggle="tooltip">
+                <i class="material-icons">&#xE254;</i>
+              </a>
               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEquipment(equipment.EquipmentTypeID)"></button>
             </td>
           </tr>

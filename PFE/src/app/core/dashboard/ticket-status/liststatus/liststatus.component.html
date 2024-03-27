@@ -1,24 +1,29 @@
-<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+<ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
 
 <!-- Your other content goes here -->
-<div class="card flex justify-content-center" *ngIf="!isLoading">
-    <div class="d-flex justify-content-between align-items-center">
-        <p-button label="Ajouter un statut" icon="pi pi-plus" [routerLink]="['/createticketstatut']" routerLinkActive="router-link-active"></p-button>
-    
-        <div class="col-sm-3">
-            <div class="search-box">
-                <i class="material-icons"></i>
-                <input type="text" class="form-control" placeholder="Search…">
-            </div>
-        </div>
-    </div>
-    <br>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <!-- Add Ticket Status Button -->
+          <button pButton pRipple label="Ajouter un statut de ticket" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/createticketstatut']" routerLinkActive="router-link-active"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <!-- Search Input -->
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>
 
-    <p-table [value]="groupes" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
+      <!-- Table to Display Ticket Statuses -->
+      <p-table [value]="ticketStatuses" [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
         <div class="loading-overlay" *ngIf="isLoading">
             <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>
         </div>
-        
         
         <ng-template pTemplate="header">
             <tr>
@@ -32,24 +37,30 @@
                 <td>{{ ticketStatus.StatusName }}</td>
                
              
-                        <td>
-                            <a [routerLink]="['/statut-detail', ticketStatus.StatusCodeID]" class="view" title="View" data-toggle="tooltip">
-                                <i class="material-icons">&#xE417;</i>
-                            </a>
-                            <a href="#" class="edit" title="Edit" data-toggle="tooltip">
-                                <i class="material-icons">&#xE254;</i>
-                            </a>
-                            <p-button (click)="deleteTicketStatus(ticketStatus.StatusCodeID)" label="Delete" severity="danger"></p-button>
-                        </td>
-                    </tr>
-                </ng-template>
-                
-      
-
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="7">No ticket status found.</td>
-            </tr>
+                     
+            <td>
+              <div class="flex">
+                <!-- View Ticket Status Button -->
+                <a [routerLink]="['/statusdetail', ticketStatus.StatusCodeID]" class="view" title="View" data-toggle="tooltip">
+                  <i class="material-icons">&#xE417;</i>
+                </a>
+                <!-- Edit Ticket Status Button -->
+                <a [routerLink]="['/updatestatus', ticketStatus.StatusCodeID]" class="edit" title="Edit" data-toggle="tooltip">
+                  <i class="material-icons">&#xE254;</i>
+                </a>
+                <!-- Delete Ticket Status Button -->
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteTicketStatus(ticketStatus.StatusCodeID)"></button>
+              </div>
+            </td>
+          </tr>
         </ng-template>
-    </p-table>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <!-- Empty Table Message -->
+            <td colspan="2">Aucun statut de ticket trouvé.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
 </div>

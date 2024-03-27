@@ -35,6 +35,5 @@ export class StatusdetailComponent  implements OnInit{
     window.print();
   }
 
-
 }
 

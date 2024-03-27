@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PrioritylistComponent } from './prioritylist/prioritylist.component';
 import { CreatepriorityComponent } from './createpriority/createpriority.component';
 import { PriorityDetailsComponent } from './priority-details/priority-details.component';
+import { PriorityupdateComponent } from './priorityupdate/priorityupdate.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
     path: "priority-details/:id",
     component: PriorityDetailsComponent
   },
+{
+   path: "priorityupdate/:PriorityID",
+   component: PriorityupdateComponent
+ },
 ];
 
 @NgModule({
