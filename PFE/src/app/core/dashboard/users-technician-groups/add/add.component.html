@@ -1,12 +1,27 @@
-<!--form [formGroup]="userstechForm" (ngSubmit)="onSubmit()" class="user-form">
-    <div class="form-field">
-        <label for="UserID">User:</label>
-        <p-dropdown id="UserID" formControlName="UserID" [options]="userstech.UserID" optionLabel="UserName"></p-dropdown>
+<div>
+    <h2>Liste des groupes</h2>
+    <select (change)="onGroupeSelected($event.target.value)">
+      <option value="">Sélectionner un groupe</option>
+      <option *ngFor="let groupe of groupes" [ngValue]="groupe">{{ groupe.GroupName }}</option>
+    </select>
+    <div *ngIf="selectedGroupe">
+      <h3>Groupe sélectionné :</h3>
+      <p>ID: {{ selectedGroupe.GroupID }}</p>
+      <p>Nom: {{ selectedGroupe.GroupName }}</p>
+      <p>Description: {{ selectedGroupe.Description }}</p>
+      <!-- Ajoutez ici d'autres champs que vous souhaitez afficher -->
     </div>
-    <div class="form-field">
-        <label for="GroupID">Group:</label>
-        <p-dropdown id="GroupID" formControlName="GroupID" [options]="groups" optionLabel="GroupName"></p-dropdown>
+    <h2>Liste des utilisateurs</h2>
+    <select (change)="onUserSelected($event.target.value)">
+      <option value="">Sélectionner un groupe</option>
+      <option *ngFor="let users of user" [ngValue]="users">{{ users.Username }}</option>
+    </select>
+    <div *ngIf="selectedGroupe">
+      <h3>Groupe sélectionné :</h3>
+      <p>ID: {{ selectedGroupe.GroupID }}</p>
+      <p>Nom: {{ selectedGroupe.GroupName }}</p>
+      <p>Description: {{ selectedGroupe.Description }}</p>
+      <!-- Ajoutez ici d'autres champs que vous souhaitez afficher -->
     </div>
-    
-    <button type="submit" [disabled]="userstechForm.invalid">Add Ticket Status</button>
-</form-->
+  </div>
+  

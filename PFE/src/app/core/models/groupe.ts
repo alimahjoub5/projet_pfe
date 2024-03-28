@@ -1,11 +1,11 @@
 export interface Groupe {
     GroupID?: number;
-    GroupName: string;
+    GroupName?: string;
     Description?: string;
-    CreatedBy: number;
+    CreatedBy?: number;
     CreatedOn?: Date;
-    ModifiedBy: number;
+    ModifiedBy?: number;
     ModifiedOn?: Date;
-    created_at: Date;
-    updated_at:Date;
+    created_at?: Date;
+    updated_at?:Date;
 }
