@@ -15,8 +15,8 @@ export class UsersTechnicianGroupsService {
 
   getUsersTechnicianGroups(): Observable<Usertech> {
     const headers = this.authService.includeAuthToken();
-
-    return this.http.get<Usertech>(`${this.baseUrl}/user-technician-groups`,headers);
+    const test = this.http.get<Usertech>(`${this.baseUrl}/user-technician-groups`,headers);
+    return test;
   }
 
   getUserTechnicianGroup(groupId: number): Observable<Usertech> {

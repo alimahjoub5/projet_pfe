@@ -19,14 +19,11 @@ import { UsersTechnicianGroupsService } from 'src/app/core/services/user-tech.se
 })
 export class AddComponent implements OnInit {
   
-    usertech: Usertech;
+  userstech: Usertech | any;
     userstechForm: FormGroup;
-    groups: Groupe[] | undefined;
   isLoading: boolean;
 
-  constructor(private fb: FormBuilder, private usertechservice: UsersTechnicianGroupsService
-    , private groupeservice:GroupeService,
-    private userservice:UserService) {
+  constructor(private fb: FormBuilder, private usertechservice: UsersTechnicianGroupsService) {
     this.userstechForm = this.fb.group({
       UserID: ['', Validators.required],
       GroupID: ['', Validators.required],
@@ -34,8 +31,8 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadGroupes();
-    console.log(this.groups);
+    this.loadTech();
+    console.log(this.userstech);
   }
 
   onSubmit(): void {
@@ -61,41 +58,27 @@ export class AddComponent implements OnInit {
         }
       );
   }
-  loadGroupes(): void {
-    this.isLoading = true;
-    // Afficher le spinner avant de récupérer les données
-    // this.spinner.show();
+ 
   
-    this.groupeservice.getAllGroupes().subscribe(
-      (groups: Groupe[]) => {
-        this.groups = groups;
+  loadTech(): void {
+    this.isLoading = true;
+    // this.spinner.show(); // Afficher le spinner avant de récupérer les données
+  
+    this.usertechservice.getUsersTechnicianGroups().subscribe(
+      (usertech: Usertech) => {
+        this.userstech = usertech;
         this.isLoading = false;
-        // Masquer le spinner après le chargement des données
-        // this.spinner.hide();
+        // this.spinner.hide(); // Masquer le spinner après le chargement des données
       },
       error => {
-        console.error('Erreur lors du chargement des groupes :', error);
+        console.error('Erreur lors du chargement des priorités :', error);
         this.isLoading = false;
-        // Assurez-vous de cacher le spinner en cas d'erreur
-        // this.spinner.hide();
-        // Afficher un message d'erreur
-        // this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Une erreur s\'est produite lors du chargement des groupes.' });
+        // this.spinner.hide(); // Assurez-vous de cacher le spinner en cas d'erreur
       }
     );
   }
   
-
-  loadUsers(): void {
-    this.usertechservice.getUsersTechnicianGroups().subscribe(
-      (usertechList: Usertech) => {
-        this.usertech = usertechList;
-      },
-      (error: any) => {
-        console.log('Error loading usertech: ', error);
-      }
-    );
-    
-  }
+  
   
   
 
