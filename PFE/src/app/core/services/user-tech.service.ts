@@ -25,7 +25,7 @@ export class UsersTechnicianGroupsService {
 
   assignUserToGroup(userId: number, groupId: number): Observable<any> {
     const headers = this.authService.includeAuthToken();
-    return this.http.post<any>(`${this.baseUrl}/user-technician-groups/assign`, { UserID: userId, GroupID: groupId }, headers);
+    return this.http.post<any>(`${this.baseUrl}/user-technician-groups/assign-user`, { UserID: userId, GroupID: groupId }, headers);
   }
 
   removeUserFromGroup(userId: number, groupId: number): Observable<any> {
