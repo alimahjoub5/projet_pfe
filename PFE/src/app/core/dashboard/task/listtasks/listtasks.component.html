@@ -1,0 +1,100 @@
+<ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+
+<!-- Your other content goes here -->
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Ajouter une tâche" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/createtasks']" routerLinkActive="router-link-active"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="tasks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gérer les tâches</h5>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Subject">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>               
+                <th pSortableColumn="Description">Description <p-sortIcon field="Description"></p-sortIcon></th>                
+                <th pSortableColumn="Subject">Ticket <p-sortIcon field="Subject"></p-sortIcon></th>
+                <th pSortableColumn="StatusName">Status <p-sortIcon field="StatusName"></p-sortIcon></th>
+                <th pSortableColumn="AssigneeID">Assignee a <p-sortIcon field="AssigneeID"></p-sortIcon></th>
+                <th pSortableColumn="priorityName">Priorité <p-sortIcon field="priorityName"></p-sortIcon></th>
+                <th pSortableColumn="StartDate">Date début <p-sortIcon field="StartDate"></p-sortIcon></th>
+                <th pSortableColumn="EndDate">Date finale <p-sortIcon field="EndDate"></p-sortIcon></th>
+
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-task>
+          <tr [pSelectableRow]="task">
+
+            <tr>
+                <td>
+                  <span class="p-column-title">Sujet</span>
+                  {{ task.Subject }}
+              </td>
+              <td>
+                  <span class="p-column-title">Description</span>
+                  <span class="ml-1 vertical-align-middle">{{ task.Description }}</span>
+              </td>
+              <td>
+                  <span class="p-column-title">ticket</span>
+                  <span class="ml-1 vertical-align-middle">{{ task.Subject }}</span>
+              </td>
+              <td>
+                <span class="p-column-title">Assigné a</span>
+                <span class="ml-1 vertical-align-middle">{{ task.AssigneeID }}</span>
+            </td>
+              <td>
+                  <span class="p-column-title">statut</span>
+                  <span class="ml-1 vertical-align-middle">{{ task.StatusName }}</span>
+              </td>
+              <td>
+                  <span class="p-column-title">Priorité</span>
+                  <span class="ml-1 vertical-align-middle">{{ task.PriorityName }}</span>
+              </td>
+              <td>
+                <span class="p-column-title">Date début</span>
+                <span class="ml-1 vertical-align-middle">{{ task.StartDate }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Date finale</span>
+              <span class="ml-1 vertical-align-middle">{{ task.EndDate }}</span>
+          </td>
+
+                <td>
+              <div class="flex">
+                <a [routerLink]="['/tasks-details', task.TicketTaskID]" class="view" title="View" data-toggle="tooltip">
+                    <i class="material-icons">&#xE417;</i>
+                  </a>
+                  <a [routerLink]="['/updatetasks', task.TicketTaskID]"  class="edit" title="Edit" data-toggle="tooltip">
+                    <i class="material-icons">&#xE254;</i>
+                  </a>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteTask(task.TicketTaskID)"></button>
+            </div>
+            </td>
+          </tr>
+        </ng-template>
+      
+        
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">Aucune tâche trouvée.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

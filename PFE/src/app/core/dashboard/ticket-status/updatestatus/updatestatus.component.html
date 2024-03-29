@@ -1,1 +1,8 @@
-mrigl ayy rakahom nn enti eni maraftsh hhhh yah nsit fama table esmha tickets
+<h2>Mettre à jour un statut de ticket</h2>
+<form (ngSubmit)="updateTicketStatus()" #updateForm="ngForm">
+  <div class="form-group">
+    <label for="StatusName">Nom</label>
+    <input type="text" class="form-control" id="StatusName" name="StatusName" [(ngModel)]="ticketStatus.StatusName!" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Mettre à jour</button>
+</form>

@@ -39,12 +39,7 @@
       
               <td>
                   <div class="flex">
-                      <a [routerLink]="['/details', user.UserID]" class="view" title="View" data-toggle="tooltip">
-                          <i class="material-icons">&#xE417;</i>
-                      </a>
-                      <a [routerLink]="['/updatee', user.UserID]"  class="edit" title="Edit" data-toggle="tooltip">
-                          <i class="material-icons">&#xE254;</i>
-                      </a>
+                   
                       <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeleteUsersTech(user.UserID)"></button>
                   </div>
               </td>

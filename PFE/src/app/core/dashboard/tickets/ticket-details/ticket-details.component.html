@@ -1,1 +1,78 @@
-<p>ticket-details works!</p>
+<div class="loading-overlay" *ngIf="isLoading">
+    <p-progressSpinner *ngIf="isLoading" ariaLabel="chargement"></p-progressSpinner>
+  </div>
+  <div class="group-detail">
+    <button (click)="printDocument()" class="btn-print">Print</button>
+    <h2>Ticket Details</h2>
+
+    <div class="detail-row">
+        <label>Subject: </label>
+        <span>{{ ticket.Subject }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Description: </label>
+        <span>{{ ticket.Description }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Priority: </label>
+        <span>{{ ticket.PriorityName }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Status Code: </label>
+        <span>{{ ticket.StatusCodeID }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Assignee ID: </label>
+        <span>{{ ticket.AssigneeID }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Equipment Type ID: </label>
+        <span>{{ ticket.EquipmentTypeID }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Start Date: </label>
+        <span>{{ ticket.StartDate }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>End Date: </label>
+        <span>{{ ticket.EndDate }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Due Date: </label>
+        <span>{{ ticket.DueDate }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Closed Date: </label>
+        <span>{{ ticket.ClosedDate }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Created By: </label>
+        <span>{{ ticket.CreatedBy }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Created On: </label>
+        <span>{{ ticket.CreatedOn }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Modified By: </label>
+        <span>{{ ticket.ModifiedBy }}</span>
+    </div>
+
+    <div class="detail-row">
+        <label>Modified On: </label>
+        <span>{{ ticket.ModifiedOn }}</span>
+    </div>
+
+</div>

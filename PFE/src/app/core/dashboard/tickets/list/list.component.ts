@@ -31,7 +31,6 @@ import { ToastModule } from 'primeng/toast';
 })
 export class ListComponent implements OnInit {
   tickets: Ticket[] = [];
-  selectedTicket: Ticket | undefined;
 isLoading: boolean;
 
 //---------------------------------------------------------------

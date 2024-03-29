@@ -42,4 +42,8 @@ export class TicketStatusService {
     const headers = this.authService.includeAuthToken();
     return this.http.delete<void>(`${this.apiUrl}/ticket-statuses/${id}`,headers);
   }
+  getStatusName(StatusCodeID: number): Observable<string> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<string>(`${this.apiUrl}/${StatusCodeID}/name`, headers);
+  }
 }

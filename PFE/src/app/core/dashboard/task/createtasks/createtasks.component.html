@@ -1,0 +1,49 @@
+<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+
+<p-toast></p-toast>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-fluid">
+<div class="p-field">
+      <label for="subject">Sujet</label>
+      <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
+    </div>
+    <div class="p-field">
+      <label for="priority">Priorité</label>
+      <select id="priority" formControlName="priority" class="p-dropdown" [required]="true">
+        <option value="" selected>selection</option>
+        <option *ngFor="let priority of priorities" [value]="priority.PriorityID">{{ priority.Name }}</option>
+      </select>
+    </div>
+    
+
+    <div class="p-field">
+      <label for="dueDate">Date d'échéance</label>
+      <input type="date" id="dueDate" formControlName="dueDate" class="p-inputtext" required>
+    </div>
+
+    <div>
+      <label for="equipmentTypeID">ID du type d'équipement</label>
+      <p-autoComplete 
+        [(ngModel)]="selectedEquipmentType" 
+        [suggestions]="filteredEquipmentTypes" 
+        (completeMethod)="filterEquipmentTypes($event)"
+        (onSelect)="onEquipmentTypeSelect($event)"
+        field="TypeName"
+        [dropdown]="true"
+        placeholder="Select an equipment"
+        id="equipmentTypeID" 
+        formControlName="equipmentTypeID" 
+        class="p-inputtext">
+      </p-autoComplete>
+    </div>
+
+
+      <button type="submit" class="p-button p-button-primary"  >Soumettre</button>
+ 
+    
+  </form>
+  <br>

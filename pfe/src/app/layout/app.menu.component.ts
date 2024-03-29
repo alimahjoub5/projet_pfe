@@ -38,7 +38,20 @@ export class AppMenuComponent implements OnInit {
                      { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/'] }, // Nouvelle icône pour Profils
                      { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }, // Nouvelle icône pour File d'attente des notifications
                     ]
-                  }
+                  },
+                  {
+                    
+                        label: 'Outils',
+                        icon: 'pi pi-fw pi-check-square',
+                        items: [
+                          { label: 'Equipement', icon: 'pi pi-fw pi-desktop', routerLink: ['/eqlist'] }, // Icône mise à jour pour Equipement
+                          { label: 'Priority', icon: 'pi pi-fw pi-sort-numeric-up-alt', routerLink: ['/prioritylist'] }, // Icône mise à jour pour Priority
+                          { label: 'Ticket Task', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listtasks'] }, // Icône maintenue pour Ticket Task
+                          { label: 'Ticket Status', icon: 'pi pi-fw pi-info-circle', routerLink: ['/liststatus'] }, // Icône mise à jour pour Ticket Status
+                          { label: 'Users Technician Groups', icon: 'pi pi-fw pi-users', routerLink: ['/listt'] }, // Icône mise à jour pour Users Technician Groups
+                        ]
+                      }
+                      
                   
                 ],
             },

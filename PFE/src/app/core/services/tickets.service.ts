@@ -36,7 +36,10 @@ export class TicketService {
     const headers = this.authService.includeAuthToken();
     return this.http.delete(`${this.apiUrl}/deleteTicket/${id}`, headers);
   }
-
+  getTicketName(TicketID: number): Observable<string> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<string>(`${this.apiUrl}/tickets/${TicketID}/name`, headers);
+  }
 
   assignTicketToUser(ticketId: number, userId: number): Observable<any> {
     const headers = this.authService.includeAuthToken();
