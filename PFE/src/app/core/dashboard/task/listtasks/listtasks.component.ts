@@ -19,6 +19,7 @@ import { PriorityService } from 'src/app/core/services/priority.service';
 import { TicketService } from 'src/app/core/services/tickets.service';
 import { TicketStatusModule } from '../../ticket-status/ticket-status.module';
 import { TicketStatusService } from 'src/app/core/services/ticketstatus.service';
+import { UserService } from 'src/app/core/services/user-service.service';
 
 @Component({
   selector: 'app-listtasks',
@@ -40,7 +41,7 @@ CommonModule],
   providers: [MessageService, ConfirmationService ],
 })
 export class ListtasksComponent implements OnInit {
-  tasks: Task[] = [];
+  tasks: Task;
   cols: any;
   isLoading: boolean;
 
@@ -49,43 +50,104 @@ export class ListtasksComponent implements OnInit {
     private priorityService: PriorityService,
               private spinner: NgxSpinnerService,
               private messageService: MessageService,
-              private ticketservice: TicketService,
+              private ticketService: TicketService,
+              private userservice: UserService,
               private ticketstatusservice: TicketStatusService
   ) {}
 
   ngOnInit(): void {
 
     this.spinner.show(); // Show the spinner
-    //this.loadTasks();
+    this.loadTasks();
   }
 
 //---------------------------------------------------------------------------------------
 
-  //loadTasks() {
-   // this.isLoading=true;
-   // this.spinner.show(); // Show the spinner
-   //setTimeout(() => {
-    //  this.taskService.getAllTasks().subscribe(
-     //   (tasks: Task[]) => {
-     //     this.tasks = tasks;
-     //    this.loadTicketNames();
-      //    this.loadPriorityNames();
-       //   this.loadTicketStatusNames(); 
-       // },
-        //(error) => {
-        //  console.log('Error occurred while loading tasks:', error);
-       // }//
-      //);
-    //  this.spinner.hide(); // Hide the spinner when data is loaded
-   // }, 2000);
-//   this.isLoading=false;
- // }
+  loadTasks() {
+   this.isLoading=true;
+   this.spinner.show(); // Show the spinner
+   setTimeout(() => {
+     this.taskService.getAllTasks().subscribe(
+       (tasks: Task) => {
+         this.tasks = tasks;
+        this.loadPriorityNames();
+        this.loadStatus();
+        this.loaduser();
+        this.loadTicketName()
+       },
+        (error) => {
+         console.log('Error occurred while loading tasks:', error);
+       }//
+      );
+     this.spinner.hide(); // Hide the spinner when data is loaded
+   }, 2000);
+  this.isLoading=false;
+ }
+
+ loaduser() {
+  if (Array.isArray(this.tasks)) {
+    this.tasks.forEach(task => {
+      if (task.AssigneeID !== undefined) {
+        this.userservice.getUsername(task.AssigneeID).subscribe(
+          (statusName: string) => {
+            task.AssigneeName = statusName; // Ajouter le nom du statut à chaque tâche
+          },
+          (error) => {
+            console.log('Error occurred while loading status name:', error);
+          }
+        );
+      }
+    });
+  } else {
+    console.log('Tasks is not an array. Unable to load status names.');
+  }
+}
+
+ loadStatus() {
+  if (Array.isArray(this.tasks)) {
+    this.tasks.forEach(task => {
+      if (task.StatusCodeID !== undefined) {
+        this.ticketstatusservice.getStatusName(task.StatusCodeID).subscribe(
+          (statusName: string) => {
+            task.StatusName = statusName; // Ajouter le nom du statut à chaque tâche
+          },
+          (error) => {
+            console.log('Error occurred while loading status name:', error);
+          }
+        );
+      }
+    });
+  } else {
+    console.log('Tasks is not an array. Unable to load status names.');
+  }
+}
 
 
-  //---------------------------------------------------------------------------------
+loadTicketName() {
+  if (Array.isArray(this.tasks)) {
+    this.tasks.forEach(task => {
+      if (task.StatusCodeID !== undefined) {
+        this.ticketService.getTicketName(task.TicketID).subscribe(
+          (statusName: string) => {
+            task.ticketname = statusName; // Ajouter le nom du statut à chaque tâche
+          },
+          (error) => {
+            console.log('Error occurred while loading status name:', error);
+          }
+        );
+      }
+    });
+  } else {
+    console.log('Tasks is not an array. Unable to load status names.');
+  }
+}
 
-  loadPriorityNames() {
-    for (let task of this.tasks) {
+
+
+
+ loadPriorityNames() {
+  if (Array.isArray(this.tasks)) {
+    this.tasks.forEach(task => {
       if (task.PriorityID !== undefined) {
         this.priorityService.getPriorityName(task.PriorityID).subscribe(
           (priorityName: string) => {
@@ -96,41 +158,13 @@ export class ListtasksComponent implements OnInit {
           }
         );
       }
-    }
+    });
+  } else {
+    console.log('Tasks is not an array. Unable to load priority names.');
   }
+}
 
-
-  loadTicketStatusNames(){
-    for (let task of this.tasks) {
-      if (task.StatusCodeID !== undefined) {
-        this.ticketstatusservice.getStatusName(task.StatusCodeID).subscribe(
-          (StatusName: string) => {
-            task.StatusName = StatusName; 
-          },
-          (error) => {
-            console.log('Error occurred while loading priority name:', error);
-          }
-        );
-      }
-    }
-  }
-
-  loadTicketNames(){
-    for (let task of this.tasks) {
-      if (task.TicketID !== undefined) {
-        this.ticketservice.getTicketName(task.TicketID).subscribe(
-          (Subject: string) => {
-            task.Subject = Subject; 
-          },
-          (error) => {
-            console.log('Error occurred while loading priority name:', error);
-          }
-        );
-      }
-    }
-  }
-
-
+  
 
 
 

@@ -60,4 +60,14 @@ class TicketStatusController extends Controller
         $status->delete();
         return response()->json(null, 204);
     }
+
+    public function getName($statusCodeID) {
+        $ticketStatus = TicketStatus::where('StatusCodeID', $statusCodeID)->first();
+        
+        if ($ticketStatus) {
+            return response()->json(['statusName' => $ticketStatus->StatusName], 200);
+        } else {
+            return response()->json(['error' => 'Ticket status not found'], 404);
+        }
+    }
 }

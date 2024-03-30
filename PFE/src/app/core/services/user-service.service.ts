@@ -55,4 +55,9 @@ export class UserService {
     const headers = this.authService.includeAuthToken();
     return this.http.get<User[]>(`localhost:8000/api/technicians`,headers);
   }
+
+  getUsername(userID: number): Observable<string> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<string>(`${this.apiUrl}/${userID}/username`,headers);
+  }
 }

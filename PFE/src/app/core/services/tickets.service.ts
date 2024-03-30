@@ -38,13 +38,15 @@ export class TicketService {
   }
   getTicketName(TicketID: number): Observable<string> {
     const headers = this.authService.includeAuthToken();
-    return this.http.get<string>(`${this.apiUrl}/tickets/${TicketID}/name`, headers);
+    return this.http.get<string>(`${this.apiUrl}/ticket/${TicketID}/name`, headers);
   }
 
   assignTicketToUser(ticketId: number, userId: number): Observable<any> {
     const headers = this.authService.includeAuthToken();
     return this.http.put(`${this.apiUrl}/tickets/${ticketId}/assign`, { userId }, headers);
   }
+
+  
   
 
 

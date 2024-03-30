@@ -17,5 +17,7 @@ export interface Task {
     CompletedDate: Date | string;
     PriorityName: string;
     StatusName: string;
+    AssigneeName : string;
+    ticketname: string;
   }
   

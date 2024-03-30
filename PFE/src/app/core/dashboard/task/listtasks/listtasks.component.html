@@ -46,20 +46,20 @@
                   {{ task.Subject }}
               </td>
               <td>
-                  <span class="p-column-title">Description</span>
+                  <span class="p-column-title">Rapport</span>
                   <span class="ml-1 vertical-align-middle">{{ task.Description }}</span>
               </td>
               <td>
                   <span class="p-column-title">ticket</span>
-                  <span class="ml-1 vertical-align-middle">{{ task.Subject }}</span>
+                  <span class="ml-1 vertical-align-middle"><a [routerLink]="['/ticket-details', task.TicketID]">{{ task.ticketname.subject }}</a></span>
               </td>
               <td>
                 <span class="p-column-title">Assigné a</span>
-                <span class="ml-1 vertical-align-middle">{{ task.AssigneeID }}</span>
+                <span class="ml-1 vertical-align-middle">{{ task.StatusName.statusName }}</span>
             </td>
               <td>
                   <span class="p-column-title">statut</span>
-                  <span class="ml-1 vertical-align-middle">{{ task.StatusName }}</span>
+                  <span class="ml-1 vertical-align-middle">{{task.AssigneeName.username}}</span>
               </td>
               <td>
                   <span class="p-column-title">Priorité</span>

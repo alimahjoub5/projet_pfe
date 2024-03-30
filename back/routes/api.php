@@ -37,6 +37,7 @@ Route::get('ticket/{id}', [TicketController::class, 'getTicketById']);
 Route::post('addTicket', [TicketController::class, 'addTicket']);
 Route::put('updateTicket/{id}', [TicketController::class, 'updateTicket']);
 Route::delete('deleteTicket/{id}', [TicketController::class, 'deleteTicket']);
+Route::get('ticket/{ticketID}/name', [TicketController::class, 'getTicketName']);
 
 // user controller routes
 
@@ -48,6 +49,7 @@ Route::put('users/{id}', [UserController::class, 'update']);
 Route::delete('users/{id}', [UserController::class, 'destroy']);
 Route::put('/users/{userId}/status', [UserController::class, 'toggleStatus']);
 Route::get('technicians', [UserController::class,'getTechnicien']);
+Route::get('users/{userID}/username', [UserController::class, 'getUsername']);
 
 
 // equipement type api routes
@@ -92,6 +94,7 @@ Route::get('/ticket-statuses/{id}', [TicketStatusController::class, 'show']);
 Route::post('/ticket-statuses', [TicketStatusController::class, 'store']);
 Route::put('/ticket-statuses/{id}', [TicketStatusController::class, 'update']);
 Route::delete('/ticket-statuses/{id}', [TicketStatusController::class, 'destroy']);
+Route::get('/ticket-status/{statusCodeID}/name', [TicketStatusController::class, 'getName']);
 
 
 // tickets task api 

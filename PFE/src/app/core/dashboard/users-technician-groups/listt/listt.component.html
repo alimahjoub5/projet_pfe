@@ -34,8 +34,8 @@
         <ng-template pTemplate="body" let-userstech>
           <tr *ngFor="let user of userstech.users; let i = index">
               <td hidden>{{ i }}</td> <!-- Afficher l'index à partir de 0 -->
-              <td>{{ user.Username }}</td> <!-- Afficher le nom d'utilisateur -->
-              <td>{{ userstech.GroupName }}</td>
+              <td><a [routerLink]="['/user-detail', user.UserID]">{{ user.Username }}</a></td> <!-- Afficher le nom d'utilisateur -->
+              <td><a [routerLink]="['/groupe-detail', userstech.GroupID]">{{ userstech.GroupName }}</a></td>
       
               <td>
                   <div class="flex">

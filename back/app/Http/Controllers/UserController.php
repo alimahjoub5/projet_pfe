@@ -129,5 +129,15 @@ class UserController extends Controller
         // Retourner les techniciens au format JSON
         return response()->json($technicians);
     }
+
+    public function getUsername($userID) {
+        $user = User::find($userID);
+        
+        if ($user) {
+            return response()->json(['username' => $user->Username], 200);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    }
     
 }
