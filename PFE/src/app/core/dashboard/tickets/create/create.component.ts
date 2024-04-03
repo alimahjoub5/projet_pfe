@@ -88,7 +88,6 @@ export class CreateComponent implements OnInit {
         ModifiedOn: undefined,
         ModifiedBy: null
       };
-  console.log(ticket);
       // Appeler le service pour ajouter le ticket
       this.ticketService.addTicket(ticket).subscribe(
         (response: any) => {

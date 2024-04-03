@@ -94,7 +94,7 @@ Route::get('/ticket-statuses/{id}', [TicketStatusController::class, 'show']);
 Route::post('/ticket-statuses', [TicketStatusController::class, 'store']);
 Route::put('/ticket-statuses/{id}', [TicketStatusController::class, 'update']);
 Route::delete('/ticket-statuses/{id}', [TicketStatusController::class, 'destroy']);
-Route::get('/ticket-status/{statusCodeID}/name', [TicketStatusController::class, 'getName']);
+Route::get('/ticket-statuses/{statusCodeID}/name', [TicketStatusController::class, 'getName']);
 
 
 // tickets task api 
