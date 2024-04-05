@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Ticket;
+
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -139,5 +141,29 @@ class UserController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
     }
+
+    public function assignTechnicianToTicket(Request $request, $ticketId)
+    {
+        // Validation des données de la requête
+        $request->validate([
+            'UserID' => 'required|exists:users,UserID' // Assurez-vous que 'UserID' est le bon nom de champ dans votre base de données
+        ]);
+    
+        // Recherche du ticket
+        $ticket = Ticket::findOrFail($ticketId);
+    
+        // Attribution du technicien au ticket
+        $ticket->update(['AssigneeID' => $request->UserID]);
+    
+        // Vérifier si la mise à jour a réussi
+        if ($ticket->wasChanged()) {
+            // Réponse JSON si la mise à jour a réussi
+            return response()->json(['message' => 'Technician assigned to ticket successfully'], 200);
+        } else {
+            // Réponse JSON si la mise à jour a échoué
+            return response()->json(['message' => 'Failed to assign technician to ticket'], 500);
+        }
+    }
+    
     
 }

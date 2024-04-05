@@ -61,8 +61,6 @@ isLoading: boolean;
       this.ticketService.getAllTickets().subscribe(
         (tickets: Ticket[]) => {
           this.tickets = tickets;
-          this.loadEquipmentNames();
-          this.loadPriorityNames(); // Charger les noms de priorité après avoir récupéré les tickets
         },
         (error) => {
           console.log('Error occurred while loading tickets:', error);
@@ -75,38 +73,6 @@ isLoading: boolean;
 
   //--------------------------------------------------------------------------------------
 
-  loadEquipmentNames() {
-    for (let ticket of this.tickets) {
-      if (ticket.EquipmentTypeID !== undefined) {
-        this.equipmentService.getEquipmentName(ticket.EquipmentTypeID).subscribe(
-          (equipmentName: string) => {
-            ticket.EquipmentTypeName = equipmentName;
-          },
-          (error) => {
-            console.log('Error occurred while loading equipment name:', error);
-          }
-        );
-      }
-    }
-  }
-
-
-  //---------------------------------------------------------------------------------
-
-  loadPriorityNames() {
-    for (let ticket of this.tickets) {
-      if (ticket.PriorityID !== undefined) {
-        this.priorityService.getPriorityName(ticket.PriorityID).subscribe(
-          (priorityName: string) => {
-            ticket.PriorityName = priorityName; // Ajouter le nom de la priorité à chaque ticket
-          },
-          (error) => {
-            console.log('Error occurred while loading priority name:', error);
-          }
-        );
-      }
-    }
-  }
   
 
   getSeverity(statusCodeID: number): string {

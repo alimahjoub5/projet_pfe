@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\TechnicianGroup;
 class Ticket extends Model
 {
     use HasFactory;
@@ -42,4 +42,18 @@ class Ticket extends Model
 
  
     // Relations éventuelles à définir ici
+    // Relation avec le groupe
+    public function TechnicianGroup()
+    {
+        return $this->belongsTo(TechnicianGroup::class, 'GroupID', 'GroupID'); // Assurez-vous que 'GroupID' correspond à la clé primaire de votre table de groupes
+    }
+    public function priority()
+    {
+        return $this->belongsTo(Priority::class, 'PriorityID');
+    }
+
+    public function equipmentType()
+    {
+        return $this->belongsTo(EquipmentType::class, 'EquipmentTypeID');
+    }
 }

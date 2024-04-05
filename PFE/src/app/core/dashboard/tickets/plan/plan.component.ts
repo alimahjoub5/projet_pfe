@@ -9,38 +9,51 @@ import { PriorityService } from 'src/app/core/services/priority.service';
 import { TicketService } from 'src/app/core/services/tickets.service';
 import { UserService } from 'src/app/core/services/user-service.service';
 import { DialogModule } from 'primeng/dialog';
+import { Groupe } from 'src/app/core/models/groupe';
+import { GroupeService } from 'src/app/core/services/groupe.service';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { DropdownModule } from 'primeng/dropdown';
+import { AssignTicketGroupComponent } from './assign-ticket-group/assign-ticket-group.component';
+import { CommonModule } from '@angular/common';
+import { AssignTicketTechnicianComponent } from './assign-ticket-technician/assign-ticket-technician.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-plan',
   standalone: true,
   imports: [
     FormsModule,
+    CommonModule,
     TableModule,
-    DialogModule
-    
+    DialogModule,
+    AutoCompleteModule,
+    DropdownModule,
+    AssignTicketGroupComponent,
+    AssignTicketTechnicianComponent,
+    RadioButtonModule
   ],
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.scss'
 })
 export class PlanComponent {
+
+  selectedTicketId: string | undefined;
+
+
+  userRole : string;
     tickets: Ticket[];
     users : User[];
     technicians :  User[] = [];
   isLoading: boolean;
   displayAssignDialog: boolean = false;
-
-  showAssignDialog(ticket: Ticket): void {
+selectedAssignType: any;
+  
+  showAssignDialog(ticketId: string) {
+    this.selectedTicketId = ticketId;
     this.displayAssignDialog = true;
-    this.loadDropdownData();
-
   }
 
-  loadDropdownData(): void {
-
-    this.userService.getTechnicians().subscribe(technicians => {
-      this.technicians = technicians;
-    });
-  }
 
   hideAssignDialog(): void {
     this.displayAssignDialog = false;
@@ -48,15 +61,15 @@ export class PlanComponent {
     constructor(
       private ticketService: TicketService,
       private userService: UserService,
-      private priorityService: PriorityService,
       private messageService: MessageService,
       private spinner: NgxSpinnerService,
-
+      private authservice:AuthService
     ) { }
-  
     ngOnInit(): void {
       this.loadTickets();
       this.loadUsers();
+      this.userRole=this.authservice.getRole();
+      console.log(this.userRole);
     }
   
     loadTickets() {
@@ -66,7 +79,6 @@ export class PlanComponent {
         this.ticketService.getAllTickets().subscribe(
           (tickets: Ticket[]) => {
             this.tickets = tickets;
-            this.loadPriorityNames(); // Charger les noms de priorité après avoir récupéré les tickets
           },
           (error) => {
             console.log('Error occurred while loading tickets:', error);
@@ -76,22 +88,7 @@ export class PlanComponent {
       }, 2000);
       this.isLoading=false;
     }
-  //------------------------------------------------------------------------
 
-  loadPriorityNames() {
-    for (let ticket of this.tickets) {
-      if (ticket.PriorityID !== undefined) {
-        this.priorityService.getPriorityName(ticket.PriorityID).subscribe(
-          (priorityName: string) => {
-            ticket.PriorityName = priorityName; // Ajouter le nom de la priorité à chaque ticket
-          },
-          (error) => {
-            console.log('Error occurred while loading priority name:', error);
-          }
-        );
-      }
-    }
-  }
   //--------------------------------------------------------------
     loadUsers() {
       this.userService.getUsers().subscribe(
@@ -120,8 +117,67 @@ export class PlanComponent {
           return 'black'; // Couleur par défaut pour les autres priorités
       }
     }
+// ----------------------------- affectation --------------------------------------------
 
-    
+Technicians: User[] | undefined;
+  selectedTechnician: User | null = null;
+  filteredTechnicians: User[] | undefined;
+
+  Groupe: Groupe[] | undefined;
+  selectedGroupe: Groupe | null = null;
+  filteredGroupe: Groupe[] | undefined;
+
+
+
+  filterTechnicians(event: any) {
+    let filtered: User[] = [];
+    let query = event.query;
+
+    if (this.Technicians) {
+      filtered = this.Technicians.filter((technician) =>
+        technician.Username.toLowerCase().startsWith(query.toLowerCase())
+      );
+    }
+
+    this.filteredTechnicians = filtered;
+  }
+
+  onTechnicianSelect(event: any) {
+    this.selectedTechnician = event.value;
+  }
+
+  saveSelectedTechnician() {
+    if (this.selectedTechnician) {
+      // Vous pouvez enregistrer l'ID du technicien dans la base de données ici
+      console.log('Selected Technician ID:', this.selectedTechnician.UserID);
+    }
+  }
+//---------------------groupe--------------------------------
+  filterGroupe(event: any) {
+    let filtered: Groupe[] = [];
+    let query = event.query;
+
+    if (this.Groupe) {
+      filtered = this.Groupe.filter((Groupe) =>
+      Groupe.GroupName.toLowerCase().startsWith(query.toLowerCase())
+      );
+    }
+
+    this.filteredGroupe = filtered;
+  }
+
+  onGroupeSelect(event: any) {
+    this.selectedTechnician = event.value;
+  }
+
+  saveSelectedGroupe() {
+    if (this.selectedTechnician) {
+      // Vous pouvez enregistrer l'ID du technicien dans la base de données ici
+      console.log('Selected Technician ID:', this.selectedTechnician.UserID);
+    }
+  }
+
+
   
   }
   

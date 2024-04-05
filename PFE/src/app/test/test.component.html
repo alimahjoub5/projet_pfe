@@ -1,11 +1,22 @@
 <p-autoComplete 
-  [(ngModel)]="selectedEquipmentType" 
-  [suggestions]="filteredEquipmentTypes" 
-  (completeMethod)="filterEquipmentTypes($event)"
-  (onSelect)="onEquipmentTypeSelect($event)"
-  field="TypeName"
+  [(ngModel)]="selectedTechnician" 
+  [suggestions]="filteredTechnicians" 
+  (completeMethod)="filterTechnicians($event)"
+  (onSelect)="onTechnicianSelect($event)"
+  field="Username" 
   [dropdown]="true"
-  placeholder="Select an equipment">
+  placeholder="Select a technician">
 </p-autoComplete>
 
-<button (click)="saveSelectedEquipmentType()">Save</button>
+<p-autoComplete 
+  [(ngModel)]="selectedGroupe" 
+  [suggestions]="filteredGroupe" 
+  (completeMethod)="filterGroupe($event)"
+  (onSelect)="onGroupeSelect($event)"
+  field="GroupName" 
+  [dropdown]="true"
+  placeholder="Select a technician">
+</p-autoComplete>
+
+
+<button (click)="saveSelectedTechnician()">Save</button>

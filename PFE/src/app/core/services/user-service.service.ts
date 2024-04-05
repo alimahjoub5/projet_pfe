@@ -53,11 +53,18 @@ export class UserService {
   }*/
   getTechnicians(): Observable<User[]> {
     const headers = this.authService.includeAuthToken();
-    return this.http.get<User[]>(`localhost:8000/api/technicians`,headers);
+    return this.http.get<User[]>(`http://localhost:8000/api/technicians`,headers);
   }
 
   getUsername(userID: number): Observable<string> {
     const headers = this.authService.includeAuthToken();
     return this.http.get<string>(`${this.apiUrl}/${userID}/username`,headers);
   }
+
+
+  assignTechnicianToTicket(ticketId: number, userId: number): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.put<any>(`${this.apiUrl}/tickets/${ticketId}/assign-technician`, { UserID: userId },headers);
+  }
+  
 }

@@ -42,4 +42,14 @@ export class GroupeService {
     const headers = this.authService.includeAuthToken();
     return this.http.delete<void>(`${this.apiUrl}/technician-groups/${id}`, headers);
   }
+  assignTicketToGroup(ticketId: number, groupId: number): Observable<any> {
+    const url = `${this.apiUrl}/tickets/${ticketId}/assign-to-group`;
+    const headers = this.authService.includeAuthToken();
+    return this.http.post<any>(url, { group_id: groupId }, headers);
+  }
+
+  getGroupNameById(id: number): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<any>(`${this.apiUrl}/group/${id}`, headers);
+  }
 }

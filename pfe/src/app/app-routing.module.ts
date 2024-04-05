@@ -42,6 +42,7 @@ import { AuthGuard } from './auth.guard';
                 ]
             },
             {path : "login", component: LoginComponent},
+            {path : "testo", component: TestComponent ,canActivate : [AuthGuard]},
 
             { path: 'authen', loadChildren: () => import('./core/auth/auth-routing.module').then(m => m.AuthRoutingModule)},
 

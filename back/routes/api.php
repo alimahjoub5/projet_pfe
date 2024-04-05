@@ -30,14 +30,13 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
-
-
 Route::get('tickets', [TicketController::class, 'getTicket']);
 Route::get('ticket/{id}', [TicketController::class, 'getTicketById']);
 Route::post('addTicket', [TicketController::class, 'addTicket']);
 Route::put('updateTicket/{id}', [TicketController::class, 'updateTicket']);
 Route::delete('deleteTicket/{id}', [TicketController::class, 'deleteTicket']);
 Route::get('ticket/{ticketID}/name', [TicketController::class, 'getTicketName']);
+Route::post('tickets/{ticketId}/assign-to-group', [TicketController::class, 'assignTicketToGroup']);
 
 // user controller routes
 
@@ -50,6 +49,7 @@ Route::delete('users/{id}', [UserController::class, 'destroy']);
 Route::put('/users/{userId}/status', [UserController::class, 'toggleStatus']);
 Route::get('technicians', [UserController::class,'getTechnicien']);
 Route::get('users/{userID}/username', [UserController::class, 'getUsername']);
+Route::put('users/tickets/{ticketId}/assign-technician', [UserController::class, 'assignTechnicianToTicket']);
 
 
 // equipement type api routes
@@ -84,6 +84,7 @@ Route::get('/technician-groups/{id}', [TechnicianGroupController::class, 'show']
 Route::post('/technician-groups', [TechnicianGroupController::class, 'store']);
 Route::put('/technician-groups/{id}', [TechnicianGroupController::class, 'update']);
 Route::delete('/technician-groups/{id}', [TechnicianGroupController::class, 'destroy']);
+Route::get('/group/{id}', [TechnicianGroupController::class, 'getGroupNameById']);
 
 
 // tickets status api

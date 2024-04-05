@@ -17,5 +17,5 @@ export interface Ticket {
     ClosedDate?: Date | null;
     EquipmentTypeName? : string |null;
     PriorityName? : string | null;
-
+    GroupName? : string| null;
 }

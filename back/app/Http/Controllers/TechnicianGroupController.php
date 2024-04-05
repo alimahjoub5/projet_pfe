@@ -59,4 +59,25 @@ class TechnicianGroupController extends Controller
         $group->delete();
         return response()->json(null, 204);
     }
+
+   /* public function getAllGroupNames()
+    {
+        // Récupérer tous les noms de groupe
+        $groupNames = TechnicianGroup::pluck('GroupName');
+
+        // Retourner les noms de groupe sous forme de réponse JSON
+        return response()->json(['groupNames' => $groupNames], 200);
+    }*/
+
+    public function getGroupNameById($id)
+    {
+        $group = TechnicianGroup::find($id);
+
+        if (!$group) {
+            return response()->json(['message' => 'Group not found'], 404);
+        }
+
+        return response()->json(['group_name' => $group->GroupName], 200);
+    }
+
 }

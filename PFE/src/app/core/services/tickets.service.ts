@@ -41,10 +41,8 @@ export class TicketService {
     return this.http.get<string>(`${this.apiUrl}/ticket/${TicketID}/name`, headers);
   }
 
-  assignTicketToUser(ticketId: number, userId: number): Observable<any> {
-    const headers = this.authService.includeAuthToken();
-    return this.http.put(`${this.apiUrl}/tickets/${ticketId}/assign`, { userId }, headers);
-  }
+
+
 
   
   
