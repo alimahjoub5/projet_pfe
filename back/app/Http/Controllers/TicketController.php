@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\TechnicianGroup;
+use App\Models\User;
+
 
 class TicketController extends Controller
 {
     public function getTicket()
     {
-        $tickets = Ticket::with(['technicianGroup', 'priority', 'EquipmentType'])->get();
+        $tickets = Ticket::with(['technicianGroup', 'priority', 'EquipmentType', 'users'])->get();
     
         // Mapper les tickets pour inclure le nom du groupe, le nom de la priorité et le nom de l'équipement
         $ticketsWithGroupNamePriorityAndEquipment = $tickets->map(function ($ticket) {
@@ -33,12 +35,14 @@ class TicketController extends Controller
                 'ClosedDate' => $ticket->ClosedDate,
                 'GroupName' => $ticket->technicianGroup ? $ticket->technicianGroup->GroupName : 'Non assigné',
                 'PriorityName' => $ticket->priority ? $ticket->priority->Name : 'Non défini',
-                'EquipmentTypeName' => $ticket->EquipmentType ? $ticket->EquipmentType->TypeName : 'Non défini' // Ajouter le nom de l'équipement ou 'Non défini' s'il n'y a pas d'équipement assigné
+                'EquipmentTypeName' => $ticket->EquipmentType ? $ticket->EquipmentType->TypeName : 'Non défini', // Ajouter le nom de l'équipement ou 'Non défini' s'il n'y a pas d'équipement assigné
+                'username' => $ticket->users ? $ticket->users->Username : 'Non assigné' // Ajouter le nom de l'utilisateur ou 'Non défini' s'il n'y a pas d'utilisateur assigné
             ];
         });
     
         return response()->json($ticketsWithGroupNamePriorityAndEquipment, 200);
     }
+    
     
         
     

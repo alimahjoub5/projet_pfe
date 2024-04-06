@@ -1,18 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MessageService } from 'primeng/api';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
-import { User } from 'src/app/core/models/User';
 import { Ticket } from 'src/app/core/models/ticket';
-import { PriorityService } from 'src/app/core/services/priority.service';
 import { TicketService } from 'src/app/core/services/tickets.service';
-import { UserService } from 'src/app/core/services/user-service.service';
 import { DialogModule } from 'primeng/dialog';
-import { Groupe } from 'src/app/core/models/groupe';
-import { GroupeService } from 'src/app/core/services/groupe.service';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { DropdownModule } from 'primeng/dropdown';
 import { AssignTicketGroupComponent } from './assign-ticket-group/assign-ticket-group.component';
 import { CommonModule } from '@angular/common';
 import { AssignTicketTechnicianComponent } from './assign-ticket-technician/assign-ticket-technician.component';
@@ -26,29 +20,32 @@ import { AuthService } from 'src/app/core/services/auth.service';
     FormsModule,
     CommonModule,
     TableModule,
+    AssignTicketGroupComponent,
     DialogModule,
     AutoCompleteModule,
-    DropdownModule,
-    AssignTicketGroupComponent,
+    RadioButtonModule,
     AssignTicketTechnicianComponent,
-    RadioButtonModule
+    NgxSpinnerModule
+
   ],
   templateUrl: './plan.component.html',
-  styleUrl: './plan.component.scss'
+  styleUrl: './plan.component.scss',
+  providers: [MessageService, ConfirmationService
+
+  ],
 })
 export class PlanComponent {
+  @ViewChild(AssignTicketGroupComponent) assignTicketGroupComponent: AssignTicketGroupComponent;
+  @ViewChild(AssignTicketTechnicianComponent) AssignTicketTechnicianComponent: AssignTicketTechnicianComponent;
 
   selectedTicketId: string | undefined;
 
 
-  userRole : string;
     tickets: Ticket[];
-    users : User[];
-    technicians :  User[] = [];
   isLoading: boolean;
   displayAssignDialog: boolean = false;
-selectedAssignType: any;
-  
+selectedAssignType: string;
+
   showAssignDialog(ticketId: string) {
     this.selectedTicketId = ticketId;
     this.displayAssignDialog = true;
@@ -60,16 +57,12 @@ selectedAssignType: any;
   }
     constructor(
       private ticketService: TicketService,
-      private userService: UserService,
       private messageService: MessageService,
       private spinner: NgxSpinnerService,
       private authservice:AuthService
     ) { }
     ngOnInit(): void {
       this.loadTickets();
-      this.loadUsers();
-      this.userRole=this.authservice.getRole();
-      console.log(this.userRole);
     }
   
     loadTickets() {
@@ -90,20 +83,7 @@ selectedAssignType: any;
     }
 
   //--------------------------------------------------------------
-    loadUsers() {
-      this.userService.getUsers().subscribe(
-        (users: User[]) => {
-          this.users = users;
-        },
-        (error) => {
-          console.log('Error occurred while loading users:', error);
-        }
-      );
-    }
-
-
-
-    //---------------------------------------------------------------------
+    
     getPriorityColor(priorityName: string): string {
       // Définissez les couleurs pour chaque priorité
       switch (priorityName.toLowerCase()) {
@@ -117,68 +97,23 @@ selectedAssignType: any;
           return 'black'; // Couleur par défaut pour les autres priorités
       }
     }
-// ----------------------------- affectation --------------------------------------------
 
-Technicians: User[] | undefined;
-  selectedTechnician: User | null = null;
-  filteredTechnicians: User[] | undefined;
-
-  Groupe: Groupe[] | undefined;
-  selectedGroupe: Groupe | null = null;
-  filteredGroupe: Groupe[] | undefined;
-
-
-
-  filterTechnicians(event: any) {
-    let filtered: User[] = [];
-    let query = event.query;
-
-    if (this.Technicians) {
-      filtered = this.Technicians.filter((technician) =>
-        technician.Username.toLowerCase().startsWith(query.toLowerCase())
-      );
+    onSubmit(event: Event) {
+      if (this.selectedAssignType === 'technician') {
+        this.AssignTicketTechnicianComponent.saveSelectedTechnician();
+      } else if (this.selectedAssignType === 'group') {
+        this.assignTicketGroupComponent.saveSelectedGroupe();
+      }
+      event.preventDefault(); // Empêcher le rafraîchissement de la page
+      this.displayAssignDialog = false; // Masquer la boîte de dialogue
+      this.loadTickets();
     }
-
-    this.filteredTechnicians = filtered;
-  }
-
-  onTechnicianSelect(event: any) {
-    this.selectedTechnician = event.value;
-  }
-
-  saveSelectedTechnician() {
-    if (this.selectedTechnician) {
-      // Vous pouvez enregistrer l'ID du technicien dans la base de données ici
-      console.log('Selected Technician ID:', this.selectedTechnician.UserID);
+    
+    onCancel(event: Event) {
+      // Réinitialiser les valeurs ou effectuer d'autres actions en cas d'annulation
+      this.displayAssignDialog = false; // Cacher la boîte de dialogue
+      // Autres actions d'annulation...
     }
-  }
-//---------------------groupe--------------------------------
-  filterGroupe(event: any) {
-    let filtered: Groupe[] = [];
-    let query = event.query;
-
-    if (this.Groupe) {
-      filtered = this.Groupe.filter((Groupe) =>
-      Groupe.GroupName.toLowerCase().startsWith(query.toLowerCase())
-      );
-    }
-
-    this.filteredGroupe = filtered;
-  }
-
-  onGroupeSelect(event: any) {
-    this.selectedTechnician = event.value;
-  }
-
-  saveSelectedGroupe() {
-    if (this.selectedTechnician) {
-      // Vous pouvez enregistrer l'ID du technicien dans la base de données ici
-      console.log('Selected Technician ID:', this.selectedTechnician.UserID);
-    }
-  }
-
-
-  
   }
   
 

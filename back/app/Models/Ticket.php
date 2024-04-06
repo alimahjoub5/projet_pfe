@@ -56,4 +56,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(EquipmentType::class, 'EquipmentTypeID');
     }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'AssigneeID'); // Si un ticket est associé à un seul utilisateur
+
+    }
 }

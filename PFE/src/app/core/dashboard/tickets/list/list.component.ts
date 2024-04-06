@@ -36,8 +36,6 @@ isLoading: boolean;
 //---------------------------------------------------------------
 
   constructor(private ticketService: TicketService,
-              private equipmentService: EquipmentTypeService,
-              private priorityService: PriorityService,
               private spinner: NgxSpinnerService,
               private messageService: MessageService
 
@@ -75,7 +73,7 @@ isLoading: boolean;
 
   
 
-  getSeverity(statusCodeID: number): string {
+  getSeverity(): string {
     // Logic to determine severity based on status code ID
     return ''; // Return appropriate severity string
   }

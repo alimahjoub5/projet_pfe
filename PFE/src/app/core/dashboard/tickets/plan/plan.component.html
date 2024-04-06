@@ -1,3 +1,5 @@
+<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+
 <div class="p-grid">
     <div class="p-col-12">
       <p-table [value]="tickets" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,20]" [responsive]="true">
@@ -15,28 +17,21 @@
             <td>{{ ticket.Subject }}</td>
             <td>{{ ticket.Description }}</td>
             <td>{{ ticket.PriorityName }}</td>
-            <td>
-              <ng-container *ngIf="ticket.GroupName; else assigneeSection">
-                {{ ticket.GroupName }}
-              </ng-container>
-              <ng-template #assigneeSection>
-                <ng-container *ngIf="ticket.AssigneeID; else unassigned">
-                  Utilisateur assigné
-                </ng-container>
-                <ng-template #unassigned>
-                  Non assigné
-                </ng-template>
-              </ng-template>
-            </td>
+              <td>
+                {{ ticket.AssigneeID ? ticket.username : (ticket.GroupName ? ticket.GroupName : 'Non assigné') }}
+              </td>
+            
+            
             
             
           
             <td>
-              <button type="button" (click)="showAssignDialog(ticket.TicketID)" class="p-button p-component p-button-icon-only" 
-              [disabled]="(ticket.GroupName !== 'Non assigné' || ticket.AssigneeID !== 'Non assigné')">
-        <span class="p-button-icon pi pi-user"></span> <!-- Icône d'utilisateur, remplacez 'pi pi-user' par l'icône de votre choix -->
-      </button>
-      
+<button type="button" (click)="showAssignDialog(ticket.TicketID)" class="p-button p-component p-button-icon-only" 
+        [disabled]="ticket.GroupName !== 'Non assigné' || ticket.username !== 'Non assigné'">
+  <span class="p-button-icon pi pi-user"></span> <!-- Icône d'utilisateur, remplacez 'pi pi-user' par l'icône de votre choix -->
+</button>
+
+
               
               
       
@@ -46,30 +41,47 @@
       </p-table>
       
       <p-dialog header="Assign Ticket" [(visible)]="displayAssignDialog" [modal]="true" [responsive]="true" [style]="{ 'width': '1024', 'height' : '712px' }" [closeOnEscape]="false">
-        <div class="p-grid p-fluid">
-          <div class="p-col-12">
-            <div class="p-field-radiobutton">
-              <label for="assignType">Assign To:</label>
-              <div class="p-formgrid p-grid">
-                <div class="p-field-checkbox p-col">
-                  <p-radioButton name="assignType" id="technician" value="technician" [(ngModel)]="selectedAssignType"></p-radioButton>
-                  <label for="technician">Technician</label>
-                </div>
-                <div class="p-field-checkbox p-col">
-                  <p-radioButton name="assignType" id="group" value="group" [(ngModel)]="selectedAssignType"></p-radioButton>
-                  <label for="group">Group</label>
+        <div class="dialog-content p-fluid">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <div class="p-field-radiobutton">
+                <label for="assignType">Assign To:</label>
+                <div class="p-grid p-formgrid">
+                  <div class="p-col">
+                    <p-radioButton name="assignType" id="technician" value="technician" [(ngModel)]="selectedAssignType"></p-radioButton>
+                    <label for="technician">Technician</label>
+                  </div>
+                  <div class="p-col">
+                    <p-radioButton name="assignType" id="group" value="group" [(ngModel)]="selectedAssignType"></p-radioButton>
+                    <label for="group">Group</label>
+                  </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="selectedAssignType === 'technician'">
-              <app-assign-ticket-technician [ticketId]="selectedTicketId" [selectedTechnician]="selectedTechnician"></app-assign-ticket-technician>
-            </div>
-            <div *ngIf="selectedAssignType === 'group'">
-              <app-assign-ticket-group [ticketId]="selectedTicketId" [selectedGroup]="selectedGroup"></app-assign-ticket-group>
+            <div class="p-col-12">
+              <div *ngIf="selectedAssignType === 'technician'">
+                <app-assign-ticket-technician [ticketId]="selectedTicketId" [selectedTechnician]="selectedTechnician"></app-assign-ticket-technician>
+              </div>
+              <div *ngIf="selectedAssignType === 'group'">
+                <app-assign-ticket-group [ticketId]="selectedTicketId" [selectedGroup]="selectedGroup"></app-assign-ticket-group>
+              </div>
             </div>
           </div>
         </div>
+        <div class="dialog-footer p-grid">
+          <div class="p-col">
+            <button type="button" (click)="onSubmit($event)" class="p-button p-button-success">Valider</button>
+          </div>
+          <div class="p-col">
+            <button type="button" (click)="onCancel($event)" class="p-button p-button-danger">Annuler</button>
+          </div>
+        </div>
+        
       </p-dialog>
+      
+      
+    
+      
       
       
       

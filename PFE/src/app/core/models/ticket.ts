@@ -18,4 +18,5 @@ export interface Ticket {
     EquipmentTypeName? : string |null;
     PriorityName? : string | null;
     GroupName? : string| null;
+    username? :string ;  //for user display name
 }
