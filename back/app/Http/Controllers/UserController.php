@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ticket;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountCreated;
+use App\Mail\TechnicianAssignedToTicket;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -37,12 +40,23 @@ class UserController extends Controller
             'Role' => 'required|string|in:Admin,Technician,Manager',
         ]);
     
-        $data = $request->all();
-        $data['Password'] = Hash::make($request->Password); // Hacher le mot de passe avant de le stocker
+        // Récupérer le mot de passe depuis la requête
+        $mdp = $request->input('Password');
     
+        // Hasher le mot de passe
+        $data = $request->all();
+        $data['Password'] = Hash::make($mdp);
+    
+        // Créer l'utilisateur
         $user = User::create($data);
+    
+        // Envoyer l'e-mail après avoir créé l'utilisateur
+        Mail::to($user->Email)->send(new AccountCreated($user, $mdp));
+    
+        // Retourner une réponse JSON avec l'utilisateur créé
         return response()->json($user, 201);
     }
+    
     
 
 
@@ -143,27 +157,33 @@ class UserController extends Controller
     }
 
     public function assignTechnicianToTicket(Request $request, $ticketId)
-    {
-        // Validation des données de la requête
-        $request->validate([
-            'UserID' => 'required|exists:users,UserID' // Assurez-vous que 'UserID' est le bon nom de champ dans votre base de données
-        ]);
-    
-        // Recherche du ticket
-        $ticket = Ticket::findOrFail($ticketId);
-    
-        // Attribution du technicien au ticket
-        $ticket->update(['AssigneeID' => $request->UserID]);
-    
-        // Vérifier si la mise à jour a réussi
-        if ($ticket->wasChanged()) {
-            // Réponse JSON si la mise à jour a réussi
-            return response()->json(['message' => 'Technician assigned to ticket successfully'], 200);
-        } else {
-            // Réponse JSON si la mise à jour a échoué
-            return response()->json(['message' => 'Failed to assign technician to ticket'], 500);
-        }
+{
+    // Validation des données de la requête
+    $request->validate([
+        'UserID' => 'required|exists:users,UserID' // Assurez-vous que 'UserID' est le bon nom de champ dans votre base de données
+    ]);
+
+    // Recherche du ticket
+    $ticket = Ticket::findOrFail($ticketId);
+
+    // Attribution du technicien au ticket
+    $ticket->update(['AssigneeID' => $request->UserID]);
+
+    // Recherche du technicien assigné
+    $technician = User::findOrFail($request->UserID);
+
+    // Vérifier si la mise à jour a réussi
+    if ($ticket->wasChanged()) {
+        // Envoyer l'e-mail de notification
+        Mail::to($technician->Email)->send(new TechnicianAssignedToTicket($ticket, $technician));
+
+        // Réponse JSON si la mise à jour a réussi
+        return response()->json(['message' => 'Technician assigned to ticket successfully'], 200);
+    } else {
+        // Réponse JSON si la mise à jour a échoué
+        return response()->json(['message' => 'Failed to assign technician to ticket'], 500);
     }
+}
     
     
 }
