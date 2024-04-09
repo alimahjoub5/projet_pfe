@@ -5,6 +5,7 @@ import { EquipmentType } from 'src/app/core/models/equipement'; // Assurez-vous 
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service'; // Assurez-vous que le chemin d'importation est correct
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-ajoutereq',
  
@@ -17,7 +18,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 export class AjoutereqComponent implements OnInit{
   equipmentForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private equipmentService: EquipmentTypeService) {
+  constructor(private fb: FormBuilder, private equipmentService: EquipmentTypeService,
+    private authservice : AuthService) {
     this.equipmentForm = this.fb.group({
       TypeName: ['', Validators.required],
       Description: [''],
@@ -54,10 +56,10 @@ export class AjoutereqComponent implements OnInit{
       WarrantyExpiration: equipmentData.WarrantyExpiration,
       MaintenanceInterval: equipmentData.MaintenanceInterval,
       LastMaintenanceDate: equipmentData.LastMaintenanceDate,
-      CreatedBy: equipmentData.CreatedBy,
-      CreatedOn: equipmentData.CreatedOn,
-      ModifiedBy: equipmentData.ModifiedBy,
-      ModifiedOn: equipmentData.ModifiedOn
+      CreatedBy: Number(this.authservice.getUserID()),
+      CreatedOn: null,
+      ModifiedBy: null,
+      ModifiedOn: null
     };
 
     this.equipmentService.addEquipmentType(equipment) // Assurez-vous que le nom du service est correct
