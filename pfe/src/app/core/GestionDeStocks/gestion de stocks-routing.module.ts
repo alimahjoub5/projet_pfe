@@ -10,7 +10,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   { path: "about", component: AboutComponent ,canActivate : [AuthGuard]},
-
+egouefvu
 */
   { path: "stocks", component: StockFormComponent },
   { path: "listStocks", component: ListStocksComponent },
