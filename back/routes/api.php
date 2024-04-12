@@ -11,6 +11,13 @@ use App\Http\Controllers\UsersTechnicianGroupsController;
 use App\Http\Controllers\TicketTaskController;
 use App\Http\Controllers\TicketStatusController;
 
+// ----------Gestion De stock---------------------------------
+
+use App\Http\Controllers\GestionStocks\StockController;
+use App\Http\Controllers\GestionStocks\CommandeController;
+use App\Http\Controllers\GestionStocks\DetailCommandeController;
+use App\Http\Controllers\GestionStocks\FournisseurController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +29,44 @@ use App\Http\Controllers\TicketStatusController;
 |
 */
 Route::post('login', [UserController::class, 'login']);
+
+
+// stocks ---------------------------------------------------------
+Route::get('/stocks', [StockController::class, 'index']);
+Route::get('/stocks/{id}', [StockController::class, 'show']);
+Route::post('/stocks', [StockController::class, 'store']);
+Route::put('/stocks/{id}', [StockController::class, 'update']);
+Route::delete('/stocks/{id}', [StockController::class, 'destroy']);
+
+//commande -----------------------------------------------
+Route::get('/commandes', [CommandeController::class, 'index']);
+Route::get('/commandes/{id}', [CommandeController::class, 'show']);
+Route::post('/commandes', [CommandeController::class, 'store']);
+Route::put('/commandes/{id}', [CommandeController::class, 'update']);
+Route::delete('/commandes/{id}', [CommandeController::class, 'destroy']);
+ 
+//detail-commandes-----------------------------------------
+
+
+Route::get('/detail-commandes', [DetailCommandeController::class, 'index']);
+Route::get('/detail-commandes/{id}', [DetailCommandeController::class, 'show']);
+Route::post('/detail-commandes', [DetailCommandeController::class, 'store']);
+Route::put('/detail-commandes/{id}', [DetailCommandeController::class, 'update']);
+Route::delete('/detail-commandes/{id}', [DetailCommandeController::class, 'destroy']);
+
+
+//founisseur --------------------------------------------------------------------
+
+
+Route::get('/fournisseurs', [FournisseurController::class, 'index']);
+Route::get('/fournisseurs/{id}', [FournisseurController::class, 'show']);
+Route::post('/fournisseurs', [FournisseurController::class, 'store']);
+Route::put('/fournisseurs/{id}', [FournisseurController::class, 'update']);
+Route::delete('/fournisseurs/{id}', [FournisseurController::class, 'destroy']);
+
+
+//---------------------------------------------------------------------------------------
+
 
 Route::middleware('auth:sanctum')->group(function () {
     // Routes protégées
@@ -117,3 +162,5 @@ Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsControl
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
 
 });
+
+

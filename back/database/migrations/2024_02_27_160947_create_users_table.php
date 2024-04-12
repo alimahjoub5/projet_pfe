@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('Password', 100);
             $table->enum('Role', ['Admin', 'Technician', 'Manager']);
             $table->tinyInteger('Active')->default(1);
-            $table->dateTime('CreatedOn');
-            $table->integer('CreatedBy');
+            $table->dateTime('CreatedOn')->nullable();
+            $table->integer('CreatedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
             $table->timestamps();
