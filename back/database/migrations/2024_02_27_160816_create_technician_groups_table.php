@@ -17,7 +17,7 @@ class CreateTechnicianGroupsTable extends Migration
             $table->id('GroupID');
             $table->string('GroupName', 50)->unique();
             $table->text('Description')->nullable();
-            $table->integer('CreatedBy');
+            $table->integer('CreatedBy')->nullable();
             $table->dateTime('CreatedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
