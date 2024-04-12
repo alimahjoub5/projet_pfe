@@ -29,6 +29,7 @@ import { AuthGuard } from './auth.guard';
                     { path: "", loadChildren: () => import('./core/dashboard/ticket-status/ticket-status-routing.module').then(m => m.TicketStatusRoutingModule  ),canActivate : [AuthGuard] },
                     { path: "", loadChildren: () => import('./core/dashboard/users-technician-groups/users-technician-groups-routing.module').then(m => m.UsersTechnicianGroupsRoutingModule  ),canActivate : [AuthGuard] },
                     { path: "", loadChildren: () => import('./core/dashboard/task/task-routing.module').then(m => m.TaskRoutingModule   ),canActivate : [AuthGuard] },
+                    { path: "", loadChildren: () => import('./core/GestionDeStocks/gestion de stocks-routing.module').then(m => m.StocksRoutingModule   ),canActivate : [AuthGuard] },
 
                     { path: "", loadChildren: () => import('./core/dashboard/tickets/tickets-routing.module').then(m => m.DashboardRoutingModule) },
                     { path: "", loadChildren: () => import('./core/dashboard/administrateur/administrateur-routing.module').then(m => m.AdministrateurRoutingModule) },
@@ -38,6 +39,7 @@ import { AuthGuard } from './auth.guard';
                     { path: "", loadChildren: () => import('./core/dashboard/ticket-status/ticket-status-routing.module').then(m => m.TicketStatusRoutingModule  ),canActivate : [AuthGuard] },
                     { path: "", loadChildren: () => import('./core/dashboard/users-technician-groups/users-technician-groups-routing.module').then(m => m.UsersTechnicianGroupsRoutingModule  ),canActivate : [AuthGuard] },
                     { path: "", loadChildren: () => import('./core/dashboard/task/task-routing.module').then(m => m.TaskRoutingModule   ),canActivate : [AuthGuard] },
+                    { path: "", loadChildren: () => import('./core/GestionDeStocks/gestion de stocks-routing.module').then(m => m.StocksRoutingModule   ),canActivate : [AuthGuard] },
 
                 ]
             },
