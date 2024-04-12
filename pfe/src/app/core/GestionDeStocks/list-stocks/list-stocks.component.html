@@ -1,0 +1,27 @@
+<div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom de la pièce</th>
+          <th>Quantité</th>
+          <th>Quantité réservée</th>
+          <th>Seuil minimum</th>
+          <th>Seuil maximum</th>
+          <th>ID du fournisseur</th>
+          <!-- Ajoutez d'autres colonnes si nécessaire -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of stocks">
+          <td>{{ stock[0].nom_piece }}</td>
+          <td>{{ stock[0].quantite }}</td>
+          <td>{{ stock[0].quantite_reservee }}</td>
+          <td>{{ stock[0].seuil_min }}</td>
+          <td>{{ stock[0].seuil_max }}</td>
+          <td>{{ stock[0].fournisseur_id }}</td>
+          <!-- Ajoutez d'autres colonnes si nécessaire -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
