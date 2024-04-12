@@ -16,9 +16,9 @@ class CreatePrioritiesTable extends Migration
         Schema::create('priorities', function (Blueprint $table) {
             $table->id('PriorityID');
             $table->string('Name', 50);
-            $table->unsignedBigInteger('CreatedBy');
+            $table->unsignedBigInteger('CreatedBy')->nullable();
             $table->dateTime('CreatedOn')->nullable();
-            $table->unsignedBigInteger('ModifiedBy');
+            $table->unsignedBigInteger('ModifiedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
 
             $table->foreign('CreatedBy')->references('UserID')->on('users');
