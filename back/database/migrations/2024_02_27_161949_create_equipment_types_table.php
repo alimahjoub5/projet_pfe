@@ -24,7 +24,7 @@ class CreateEquipmentTypesTable extends Migration
             $table->date('WarrantyExpiration')->nullable();
             $table->integer('MaintenanceInterval')->nullable();
             $table->date('LastMaintenanceDate')->nullable();
-            $table->unsignedBigInteger('CreatedBy')->nullable();
+            $table->unsignedBigInteger('CreatedBy');
             $table->dateTime('CreatedOn')->nullable();
             $table->unsignedBigInteger('ModifiedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();

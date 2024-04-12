@@ -25,9 +25,7 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "App\\gestionDeStock\\": "app/gestionDeStock/"
-
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {

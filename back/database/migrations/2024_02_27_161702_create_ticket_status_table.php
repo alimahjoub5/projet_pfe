@@ -16,9 +16,9 @@ class CreateTicketStatusTable extends Migration
         Schema::create('ticket_status', function (Blueprint $table) {
             $table->id('StatusCodeID');
             $table->string('StatusName', 50);
-            $table->unsignedBigInteger('CreatedBy')->nullable();
+            $table->unsignedBigInteger('CreatedBy');
             $table->dateTime('CreatedOn')->nullable();
-            $table->unsignedBigInteger('ModifiedBy')->nullable();
+            $table->unsignedBigInteger('ModifiedBy');
             $table->dateTime('ModifiedOn')->nullable();
 
             $table->foreign('CreatedBy')->references('UserID')->on('users');
