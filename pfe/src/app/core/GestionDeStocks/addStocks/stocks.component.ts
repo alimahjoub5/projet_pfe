@@ -7,6 +7,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { StockService } from '../../services/GestionDeStocks/StockService.service';
 import { Stock } from '../../models/GestionDeStocks/stocks';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-stocks',
@@ -18,7 +19,8 @@ import { Stock } from '../../models/GestionDeStocks/stocks';
     InputTextModule,
     InputNumberModule,
     ButtonModule,
-    FileUploadModule
+    FileUploadModule,
+    RouterModule
   ],
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.scss'
