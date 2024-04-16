@@ -23,8 +23,16 @@ class Stock extends Model
         'modify_by',
     ];
 
+    protected $uploadFolder = 'stocks'; // Chemin relatif du répertoire d'images
+
     public function fournisseur()
     {
         return $this->belongsTo(Fournisseur::class);
+    }
+
+    // Accessor pour générer l'URL de l'image
+    public function getImageUrlAttribute()
+    {
+        return asset('images/' . $this->uploadFolder . '/' . $this->image_piece);
     }
 }

@@ -10,10 +10,16 @@ use App\Http\Controllers\Controller;
 class StockController extends Controller
 {
     public function index()
-    {
+    {    
         $stocks = Stock::all();
+
+    foreach ($stocks as $stock) {
+        $stock->image_url = $stock->image_url;
+    }
+    
         return response()->json(['stocks' => $stocks], 200);
     }
+    
 
     public function show($id)
     {

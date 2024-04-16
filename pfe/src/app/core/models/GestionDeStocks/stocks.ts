@@ -1,4 +1,5 @@
 export interface Stock {
+    statut: string;
     nom_piece: string;
     description:string;
     quantite: number;

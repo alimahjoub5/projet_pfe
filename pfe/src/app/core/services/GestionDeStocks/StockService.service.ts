@@ -13,8 +13,8 @@ export class StockService {
   constructor(private http: HttpClient) { }
 
  // Méthode pour récupérer tous les stocks
- getAllStocks(): Observable<Stock[]> { 
-  return this.http.get<Stock[]>(this.apiUrl);
+ getAllStocks(): Observable<Stock> { 
+  return this.http.get<Stock>(this.apiUrl);
 }
   // Méthode pour récupérer un stock par son ID
   getStockById(id: number): Observable<Stock> {
