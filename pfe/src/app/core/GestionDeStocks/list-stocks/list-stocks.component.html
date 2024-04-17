@@ -29,8 +29,16 @@
         <td><img [src]="stock.image_url" alt="Stock Image" style="max-width: 100px;"></td>
         <td>{{ stock.statut }}</td> <!-- Affichez le statut du stock -->
         <td>
-          <button pButton type="button" icon="pi pi-pencil" class="p-button-warning" (click)="editStock(stock)"></button>
-          <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteStock(stock)"></button>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteStock(stock.stock_id)"></button>
+          <a [routerLink]="['/updatestock', stock.stock_id]" class="view" title="View" data-toggle="tooltip">
+            <i class="material-icons">&#xE417;</i>
+          </a>
+
+
+          <button type="button"[routerLink]="['/commander', stock.stock_id]" class="p-button p-component p-button-icon-only" 
+        [disabled]="stock.quantite >10 ">
+  <span class="p-button-icon pi pi-user"></span> <!-- Icône d'utilisateur, remplacez 'pi pi-user' par l'icône de votre choix -->
+  </button>
         </td>
       </tr>
     </ng-template>

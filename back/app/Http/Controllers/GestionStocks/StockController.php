@@ -21,14 +21,16 @@ class StockController extends Controller
     }
     
 
-    public function show($id)
+    public function show($stock_id)
     {
-        $stock = Stock::find($id);
+        $stock = Stock::find($stock_id);
         if (!$stock) {
             return response()->json(['message' => 'Stock not found'], 404);
         }
         return response()->json(['stock' => $stock], 200);
     }
+    
+    
 
 
     public function store(Request $request)
@@ -87,20 +89,27 @@ class StockController extends Controller
         if (!$stock) {
             return response()->json(['message' => 'Stock not found'], 404);
         }
-
+    
         $validator = Validator::make($request->all(), [
             'nom_piece' => 'string',
+            'description' => 'string',
             'quantite' => 'integer',
+            'quantite_reservee' => 'integer',
+            'seuil_min' => 'integer',
+            'seuil_max' => 'integer',
+            'fournisseur_id' => 'integer',
             // Ajoutez les autres règles de validation ici
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
-
+    
         $stock->update($request->all());
         return response()->json(['stock' => $stock], 200);
     }
+    
+    
 
     public function destroy($id)
     {

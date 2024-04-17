@@ -64,4 +64,13 @@ export class ListStocksComponent implements OnInit {
       String(stock.quantite).includes(value.toLowerCase())
     );
   }
+
+
+  deleteStock(stock_id: number) {
+    if (confirm('Are you sure you want to delete this stock?')) {
+      this.stockService.deleteStock(stock_id).subscribe(() => {
+        this.getStocks();
+      });
+    }
+  }
 }
