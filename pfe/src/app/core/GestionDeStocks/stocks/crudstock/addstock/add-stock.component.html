@@ -1,0 +1,57 @@
+<!-- stock-piece-form.component.html -->
+<form [formGroup]="stockPieceForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="piece_id">ID de la pièce</label>
+            <input type="number" id="piece_id" formControlName="piece_id" pInputNumber>
+        </div>
+
+        <div class="p-field">
+            <label for="piece_id">Choisir votre pièce</label>
+            <p-dropdown 
+                [options]="filteredPieces" 
+                [(ngModel)]="selectedPiece"
+                optionLabel="nom_piece" 
+                placeholder="Sélectionnez une pièce"
+                id="piece_id" 
+                formControlName="piece_id"
+                [filter]="true"
+                filterPlaceholder="Rechercher une pièce"
+                appendTo="body"
+                [style]="{ width: '100%' }">
+            </p-dropdown>
+        </div>
+        
+        
+        
+        
+
+
+        <div>
+            <label for="equipmentTypeID">ID du type d'équipement</label>
+            <p-autoComplete 
+              [(ngModel)]="selectedEquipmentType" 
+              [suggestions]="filteredEquipmentTypes" 
+              (completeMethod)="filterEquipmentTypes($event)"
+              (onSelect)="onEquipmentTypeSelect($event)"
+              field="TypeName"
+              [dropdown]="true"
+              placeholder="Select an equipment"
+              id="equipment_id" 
+              formControlName="equipment_id" 
+              class="p-inputtext">
+            </p-autoComplete>
+          </div>
+        <div class="p-field">
+            <label for="quantity">Quantité</label>
+            <input type="number" id="quantity" formControlName="quantity" pInputNumber>
+        </div>
+        <div class="p-field">
+            <label for="local">Emplacement</label>
+            <input type="text" id="local" formControlName="local" pInputText>
+        </div>
+    </div>
+    <button type="submit" pButton label="Enregistrer"></button>
+    <a routerLink="/stocklist" class="btn btn-secondary">Annuler</a>
+  </form>
+  

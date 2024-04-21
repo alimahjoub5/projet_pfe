@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-6">
+    <input type="text" pInputText placeholder="Rechercher" (input)="filter($event.target.value)" class="search-input">
+  </div>
+  <div class="col-md-6">
+    <button pButton type="button" icon="pi pi-plus" class="p-button-raised p-button-success" routerLink="/addstocks">
+      Ajouter un stock
+    </button>
+  </div>
+</div>
+<!-- Tableau -->
+<p-table [value]="pieces" [value]="filteredPieces" [rows]="10" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[5,10,20]">
+  <!-- Entêtes de colonne -->
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="image_piece">Image</th>
+      <th pSortableColumn="nom_piece">Nom <p-sortIcon field="nom_piece"></p-sortIcon></th>
+      <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+      <th pSortableColumn="material">Matériau <p-sortIcon field="material"></p-sortIcon></th>
+      <th pSortableColumn="serial_number">Numéro de série <p-sortIcon field="serial_number"></p-sortIcon></th>
+      <th pSortableColumn="cost">Coût <p-sortIcon field="cost"></p-sortIcon></th>
+      <th pSortableColumn="fournisseur_id">ID du fournisseur <p-sortIcon field="fournisseur_id"></p-sortIcon></th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <!-- Corps du tableau -->
+  <ng-template pTemplate="body" let-piece>
+    <tr>
+      <td><img [src]="piece.image_url" alt="Image de la pièce" width="150" height="150"></td>
+      <td>{{ piece.nom_piece }}</td>
+      <td>{{ piece.description }}</td>
+      <td>{{ piece.material }}</td>
+      <td>{{ piece.serial_number }}</td>
+      <td>{{ piece.cost }}</td>
+      <td>{{ piece.fournisseur_id }}</td>
+      <td>
+        <!-- Bouton Modifier -->
+        <button type="button" pButton icon="pi pi-pencil" label="Modifier" [routerLink]="['/majpiece', piece.piece_id]" routerLinkActive="router-link-active"></button>
+        <!-- Bouton Supprimer -->
+        <button type="button" pButton icon="pi pi-trash" label="Supprimer" (click)="confirmDeletePiece(piece)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

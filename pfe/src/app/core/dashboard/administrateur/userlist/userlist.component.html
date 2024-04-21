@@ -1,4 +1,5 @@
 <ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <!-- Your other content goes here -->
 <div class="grid">
@@ -43,19 +44,24 @@
                     <td>{{ user.Role }}</td>
                     <td>{{ user.Active }}</td>
                     <td>
-                        <a *ngIf="user.Active" [routerLink]="['/user-detail', user.UserID]" class="view" title="View" data-toggle="tooltip">
-                            <i class="material-icons">&#xE417;</i>
-                        </a>
-                        <a [routerLink]="['/update', user.UserID]" *ngIf="user.Active" class="edit" title="Edit" data-toggle="tooltip">
-                          <i class="material-icons">&#xE254;</i>
-                        </a>
-                        <p-button *ngIf="user.Active" (click)="deleteUser(user.UserID)" label="Delete" severity="danger"></p-button>
-                        <button *ngIf="user.Active" (click)="toggleUserStatus(user)">
-                          {{ user.Active ? 'Bloquer' : 'Débloquer' }}
-                        </button>
-                        <button *ngIf="!user.Active" (click)="toggleUserStatus(user)">Débloquer</button>
-                        
+                      <a *ngIf="user.Active" [routerLink]="['/user-detail', user.UserID]" class="view" title="View" data-toggle="tooltip">
+                        <i class="material-icons text-primary">&#xE417;</i> <!-- Icône de vue avec la couleur primaire -->
+                      </a>
+                      <a [routerLink]="['/update', user.UserID]" *ngIf="user.Active" class="edit" title="Edit" data-toggle="tooltip">
+                        <i class="material-icons text-success">&#xE254;</i> <!-- Icône d'édition avec la couleur de succès -->
+                      </a>
+                      <button *ngIf="user.Active" (click)="deleteUser(user.UserID)" class="material-icons text-danger" title="Delete" data-toggle="tooltip">
+                        &#xE872; <!-- Icône de suppression avec la couleur d'erreur -->
+                      </button>
+                      <button *ngIf="user.Active" (click)="toggleUserStatus(user)" title="{{ user.Active ? 'Bloquer' : 'Débloquer' }}" data-toggle="tooltip">
+                        <i class="material-icons text-warning">{{ user.Active ? 'block' : 'unlock' }}</i> <!-- Icône de blocage ou de déblocage avec la couleur d'avertissement -->
+                      </button>
+                      <button *ngIf="!user.Active" (click)="toggleUserStatus(user)" title="Débloquer" data-toggle="tooltip">
+                        <i class="material-icons text-info">unlock</i> <!-- Icône de déblocage avec la couleur d'information -->
+                      </button>
                     </td>
+                    
+                    
                     
             </ng-template>
 

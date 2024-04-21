@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-6">
+      <input type="text" pInputText placeholder="Rechercher" (input)="filter($event.target.value)" class="search-input">
+    </div>
+    <div class="col-md-6">
+      <button pButton type="button" icon="pi pi-plus" class="p-button-raised p-button-success" routerLink="/addstocks">
+        Ajouter un stock
+      </button>
+    </div>
+  </div>
+
+  <p-table [value]="stockPieces" #dt>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="stock_id">Stock ID <p-sortIcon field="stock_id"></p-sortIcon></th>
+        <th pSortableColumn="piece_id">Piece ID <p-sortIcon field="piece_id"></p-sortIcon></th>
+        <th pSortableColumn="equipment_id">Equipment ID <p-sortIcon field="equipment_id"></p-sortIcon></th>
+        <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+        <th pSortableColumn="reserved_quantity">Reserved Quantity <p-sortIcon field="reserved_quantity"></p-sortIcon></th>
+        <th pSortableColumn="local">Location <p-sortIcon field="local"></p-sortIcon></th>
+        <th>Actions</th> <!-- Ajout de la colonne Actions -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-stockPiece>
+      <tr>
+        <td>{{ stockPiece.stock_id }}</td>
+        <td>{{ stockPiece.piece_id }}</td>
+        <td>{{ stockPiece.equipment_id }}</td>
+        <td>{{ stockPiece.quantity }}</td>
+        <td>{{ stockPiece.reserved_quantity }}</td>
+        <td>{{ stockPiece.local }}</td>
+        <td>
+          <button pButton type="button" icon="pi pi-pencil" class="p-button-warning" (click)="editStockPiece(stockPiece)"></button>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteStockPiece(stockPiece.stock_id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  

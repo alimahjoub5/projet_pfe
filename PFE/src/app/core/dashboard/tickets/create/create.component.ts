@@ -34,6 +34,7 @@ export class CreateComponent implements OnInit {
   priorities: Priority[] | undefined;
   form: FormGroup;
   isLoading : boolean;
+  value: any;
   constructor(
     private fb: FormBuilder,
     private priorityService: PriorityService,
@@ -76,7 +77,7 @@ export class CreateComponent implements OnInit {
         Description: ticketData.description,
         PriorityID: ticketData.priority,
         DueDate: ticketData.dueDate,
-        EquipmentTypeID: ticketData.equipmentTypeID,
+        EquipmentTypeID: this.value,
         StartDate: ticketData.startDate,
         EndDate: ticketData.endDate,
         ClosedDate: ticketData.closedDate,
@@ -141,6 +142,7 @@ export class CreateComponent implements OnInit {
 
   onEquipmentTypeSelect(event: any): void {
     this.selectedEquipmentType = event.value;
-    this.form.controls['equipmentTypeID'].setValue(this.selectedEquipmentType.EquipmentTypeID);
+    this.form.controls['equipmentTypeID'].setValue(this.selectedEquipmentType.TypeName);
+    this.value.setValue(this.selectedEquipmentType.EquipmentTypeID);
   }
 }

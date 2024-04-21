@@ -1,0 +1,27 @@
+/* piecelist.component.scss */
+
+/* Style pour la barre de recherche */
+.search-input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style pour le tableau */
+  ::ng-deep .p-table {
+    width: 100%;
+  }
+  
+  /* Style pour les cellules de la table */
+  ::ng-deep .p-table tbody tr td {
+    vertical-align: middle;
+  }
+  
+  /* Style pour les boutons d'action */
+  ::ng-deep .p-table tbody tr td button {
+    margin-right: 0.5rem;
+  }
+  

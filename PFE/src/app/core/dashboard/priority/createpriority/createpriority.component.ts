@@ -4,6 +4,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { Priority } from 'src/app/core/models/Priority';
 import { PriorityService } from 'src/app/core/services/priority.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-createpriority',
@@ -15,11 +16,12 @@ import { PriorityService } from 'src/app/core/services/priority.service';
 export class CreatepriorityComponent implements OnInit {
   priorityForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private priorityService: PriorityService) {
+  constructor(private fb: FormBuilder, private priorityService: PriorityService,
+    private authservice : AuthService
+    ) {
     this.priorityForm = this.fb.group({
       Name: ['', Validators.required],
-      CreatedBy: [1], // Default value for CreatedBy, adjust as needed
-      ModifiedBy: [1] // Default value for ModifiedBy, adjust as needed
+      CreatedBy: Number(this.authservice.getUserID()), // Default value for CreatedBy, adjust as needed
     });
   }
 

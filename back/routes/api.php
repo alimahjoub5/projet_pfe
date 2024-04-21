@@ -13,8 +13,7 @@ use App\Http\Controllers\TicketStatusController;
 
 // ----------Gestion De stock---------------------------------
 
-use App\Http\Controllers\GestionStocks\StockController;
-use App\Http\Controllers\GestionStocks\CommandeController;
+use App\Http\Controllers\GestionStocks\StockPieceController;
 use App\Http\Controllers\GestionStocks\DetailCommandeController;
 use App\Http\Controllers\GestionStocks\FournisseurController;
 
@@ -29,32 +28,25 @@ use App\Http\Controllers\GestionStocks\FournisseurController;
 |
 */
 Route::post('login', [UserController::class, 'login']);
+// routes/api.php
 
+use App\Http\Controllers\GestionStocks\PieceController;
 
+Route::prefix('pieces')->group(function () {
+    Route::get('/', [PieceController::class, 'index']);
+    Route::post('/', [PieceController::class, 'store']);
+    Route::get('/{piece}', [PieceController::class, 'show']);
+    Route::put('/{piece}', [PieceController::class, 'update']);
+    Route::delete('/{piece}', [PieceController::class, 'destroy']);
+});
 // stocks ---------------------------------------------------------
-Route::get('/stocks', [StockController::class, 'index']);
-Route::get('/stocks/{id}', [StockController::class, 'show']);
-Route::post('/stocks', [StockController::class, 'store']);
-Route::put('/stocks/{id}', [StockController::class, 'update']);
-Route::delete('/stocks/{id}', [StockController::class, 'destroy']);
-
-//commande -----------------------------------------------
-Route::get('/commandes', [CommandeController::class, 'index']);
-Route::get('/commandes/{id}', [CommandeController::class, 'show']);
-Route::post('/commandes', [CommandeController::class, 'store']);
-Route::put('/commandes/{id}', [CommandeController::class, 'update']);
-Route::delete('/commandes/{id}', [CommandeController::class, 'destroy']);
- 
-//detail-commandes-----------------------------------------
-
-
-Route::get('/detail-commandes', [DetailCommandeController::class, 'index']);
-Route::get('/detail-commandes/{id}', [DetailCommandeController::class, 'show']);
-Route::post('/detail-commandes', [DetailCommandeController::class, 'store']);
-Route::put('/detail-commandes/{id}', [DetailCommandeController::class, 'update']);
-Route::delete('/detail-commandes/{id}', [DetailCommandeController::class, 'destroy']);
-
-
+    Route::prefix('stock-pieces')->group(function () {
+    Route::get('/', [StockPieceController::class, 'index']);
+    Route::post('/', [StockPieceController::class, 'store']);
+    Route::get('/{stockPiece}', [StockPieceController::class, 'show']);
+    Route::put('/{stockPiece}', [StockPieceController::class, 'update']);
+    Route::delete('/{stockPiece}', [StockPieceController::class, 'destroy']);
+});
 //founisseur --------------------------------------------------------------------
 
 
