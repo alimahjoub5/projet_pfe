@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CommandeEnAttente extends Model
 {
     use HasFactory;
-
+    
+    protected $table = 'commandes_en_attente';
     protected $primaryKey = 'commande_id';
+  
 
     protected $fillable = [
         'piece_id',
@@ -19,6 +21,7 @@ class CommandeEnAttente extends Model
         'fournisseur_id',
         'expected_delivery_date',
         'actual_delivery_date',
+       
     ];
 
     public function piece()
@@ -30,4 +33,5 @@ class CommandeEnAttente extends Model
     {
         return $this->belongsTo(Fournisseur::class, 'fournisseur_id');
     }
+    
 }

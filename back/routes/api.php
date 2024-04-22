@@ -13,9 +13,7 @@ use App\Http\Controllers\TicketStatusController;
 
 // ----------Gestion De stock---------------------------------
 
-use App\Http\Controllers\GestionStocks\StockPieceController;
-use App\Http\Controllers\GestionStocks\DetailCommandeController;
-use App\Http\Controllers\GestionStocks\FournisseurController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,16 +45,39 @@ Route::prefix('pieces')->group(function () {
     Route::put('/{stockPiece}', [StockPieceController::class, 'update']);
     Route::delete('/{stockPiece}', [StockPieceController::class, 'destroy']);
 });
-//founisseur --------------------------------------------------------------------
+//commandeEnAttente---------------------------------------------------------
+use App\Http\Controllers\GestionStocks\CommandeEnAttenteController;
 
+Route::get('/commandes', [CommandeEnAttenteController::class, 'index']);
+Route::get('/commandes/{id}', [CommandeEnAttenteController::class, 'show']);
+Route::post('/commandes', [CommandeEnAttenteController::class, 'store']);
+Route::put('/commandes/{id}', [CommandeEnAttenteController::class, 'update']);
+Route::delete('/commandes/{id}', [CommandeEnAttenteController::class, 'destroy']);
+//location------------------------------------------------------------------------
+use App\Http\Controllers\GestionStocks\LocationController;
+
+Route::get('/location', [LocationController::class, 'index']);
+
+Route::get('/location/{id}', [LocationController::class, 'show']);
+Route::post('/location', [LocationController::class, 'store']);
+Route::put('/location/{id}', [LocationController::class, 'update']);
+Route::delete('/location/{id}', [LocationController::class, 'destroy']);
+//founisseur --------------------------------------------------------------------
+use App\Http\Controllers\GestionStocks\FournisseurController;
 
 Route::get('/fournisseurs', [FournisseurController::class, 'index']);
 Route::get('/fournisseurs/{id}', [FournisseurController::class, 'show']);
 Route::post('/fournisseurs', [FournisseurController::class, 'store']);
 Route::put('/fournisseurs/{id}', [FournisseurController::class, 'update']);
 Route::delete('/fournisseurs/{id}', [FournisseurController::class, 'destroy']);
+//--------------------------------------------------------------------------------------
+use App\Http\Controllers\GestionStocks\UtilisationPiecesController;
 
-
+Route::get('/utilisation', [UtilisationPiecesController::class, 'index']);
+Route::get('/utilisation/{id}', [UtilisationPiecesController::class, 'show']);
+Route::post('/utilisation', [UtilisationPiecesController::class, 'store']);
+Route::put('/utilisation/{id}', [UtilisationPiecesController::class, 'update']);
+Route::delete('/utilisation/{id}', [UtilisationPiecesController::class, 'destroy']);
 //---------------------------------------------------------------------------------------
 
 
@@ -152,6 +173,10 @@ Route::get('/user-technician-groups/{id}', [UsersTechnicianGroupsController::cla
 Route::post('/user-technician-groups/assign-user', [UsersTechnicianGroupsController::class, 'assignUserToGroup']);
 Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
+
+
+
+
 
 });
 

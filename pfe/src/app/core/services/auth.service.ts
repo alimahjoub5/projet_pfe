@@ -59,7 +59,6 @@ export class AuthService {
     }
   }
 
-
   // Méthode pour effacer les données d'authentification
   clearAuthData(): void {
     localStorage.removeItem('Token');
@@ -67,7 +66,7 @@ export class AuthService {
     localStorage.removeItem('Username');
     localStorage.removeItem('Role');
     localStorage.removeItem('timestamp');
-  }
+  } 
 
   isLoggedIn(): boolean {
     // Vérifier si le jeton d'authentification est présent dans le stockage local
