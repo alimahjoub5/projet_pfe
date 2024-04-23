@@ -58,7 +58,7 @@ export class AppMenuComponent implements OnInit {
                         items: [
                           { label: 'Gérer les fournisseurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/fournisseur'] }, // Icône mise à jour pour Equipement
                           { label: 'Gérer les commandes', icon: 'pi pi-fw pi-shopping-cart', routerLink: ['/commande'] }, // Icône mise à jour pour Priority
-                          { label: 'Gérer les pièces', icon: 'pi pi-fw pi-cog', routerLink: ['/crudpiece'] }, // Icône mise à jour pour Ticket Task
+                          { label: 'Gérer les pièces', icon: 'pi pi-fw pi-cog', routerLink: ['/piecelist'] }, // Icône mise à jour pour Ticket Task
                           { label: 'Gérer le stock', icon: 'pi pi-fw pi-briefcase', routerLink: ['/stocks'] }, // Icône mise à jour pour Ticket Status
                           { label: 'Gérer locaux', icon: 'pi pi-fw pi-home', routerLink: ['/location'] }, // Icône mise à jour pour Users Technician Groups
                           { label: 'Gérer utilisation pièce', icon: 'pi pi-fw pi-sitemap', routerLink: ['/utilisation'] }, // Icône mise à jour pour Users Technician Groups

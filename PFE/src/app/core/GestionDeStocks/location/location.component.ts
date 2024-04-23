@@ -6,6 +6,17 @@ import { Location } from '../../models/GestionDeStocks/Location';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-location',
@@ -15,7 +26,21 @@ import { InputTextModule } from 'primeng/inputtext';
   CommonModule,
   ButtonModule,
   InputTextModule,
-  RouterModule
+  RouterModule,
+  TableModule,
+  FileUploadModule,
+  FormsModule,
+  ButtonModule,
+  RippleModule,
+  ToastModule,
+  ToolbarModule,
+  RatingModule,
+  InputTextModule,
+  InputTextareaModule,
+  DropdownModule,
+  RadioButtonModule,
+  InputNumberModule,
+  DialogModule,RouterModule
   ],
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss']

@@ -7,15 +7,18 @@ import { UtilisationPiece } from '../../models/GestionDeStocks/UtilisationPiece'
   providedIn: 'root'
 })
 export class UtilisationPieceService {
-  private apiUrl = 'http://localhost:8000/api/utilisation-pieces'; // Remplacez ceci par l'URL de votre API Laravel
+  private apiUrl = 'http://localhost:8000/api/utilisation'; // Remplacez ceci par l'URL de votre API Laravel
 
   constructor(private http: HttpClient) { }
 
   // Méthode pour récupérer toutes les utilisations de pièces
-  getUtilisationPieces(): Observable<UtilisationPiece[]> {
-    return this.http.get<UtilisationPiece[]>(this.apiUrl);
+  getUtilisationPieces(): Observable<any> { 
+    return this.http.get<UtilisationPiece>(this.apiUrl);
   }
-
+  getAllPieces(): Observable<any> {
+    return this.http.get<any>(this.apiUrl); // Retourner un Observable de tableau de Piece
+  }
+  
   // Méthode pour récupérer une utilisation de pièce par son ID
   getUtilisationPieceById(utilisationId: number): Observable<UtilisationPiece> {
     const url = `${this.apiUrl}/${utilisationId}`;
@@ -23,9 +26,10 @@ export class UtilisationPieceService {
   }
 
   // Méthode pour créer une nouvelle utilisation de pièce
-  createUtilisationPiece(utilisationPiece: UtilisationPiece): Observable<UtilisationPiece> {
-    return this.http.post<UtilisationPiece>(this.apiUrl, utilisationPiece);
+  createUtilisationPiece(utilisationPiece: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, utilisationPiece);
   }
+ 
 
   // Méthode pour mettre à jour une utilisation de pièce existante
   updateUtilisationPiece(utilisationPiece: UtilisationPiece): Observable<UtilisationPiece> {
