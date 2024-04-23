@@ -8,8 +8,8 @@ import{Location} from '../../models/GestionDeStocks/Location';
   providedIn: 'root'
 })
 export class LocationService {
-  private apiUrl = 'http://localhost:8000/api/locations'; // Remplacez ceci par l'URL de votre API Laravel
-
+  private apiUrl =  'http://localhost:8000/api/location' ;// Remplacez ceci par l'URL de votre API Laravel
+ 
   constructor(private http: HttpClient) { }
 
   // Méthode pour récupérer toutes les locations
@@ -24,14 +24,14 @@ export class LocationService {
   }
 
   // Méthode pour créer une nouvelle location
-  createLocation(location: Location): Observable<Location> {
-    return this.http.post<Location>(this.apiUrl, location);
+  createLocation(location: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, location);
   }
 
   // Méthode pour mettre à jour une location existante
-  updateLocation(location: Location): Observable<Location> {
-    const url = `${this.apiUrl}/${location.location_id}`;
-    return this.http.put<Location>(url, location);
+  updateLocation(location_id: number,updateLocation:Location ): Observable<Location> {
+    const url = `${this.apiUrl}/${location_id}`;
+    return this.http.put<Location>(url, updateLocation);
   }
 
   // Méthode pour supprimer une location

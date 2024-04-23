@@ -1,1 +1,14 @@
-<p>addlocation works!</p>
+<!-- piece-form.component.html -->
+<form [formGroup]="localForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="name">Nom du local</label>
+            <input type="text" id="name" formControlName="name" pInputText>
+        </div>
+       
+    </div>
+    <button type="submit" pButton label="Enregistrer"></button>
+    <a routerLink="/location" class="btn btn-secondary">Annuler</a>
+  
+  </form>
+  

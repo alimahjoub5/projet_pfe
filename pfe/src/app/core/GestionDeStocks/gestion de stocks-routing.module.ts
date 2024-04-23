@@ -12,6 +12,7 @@ import { LocationComponent } from './location/location.component';
 import { AddlocationComponent } from './location/crudlocation/addlocation/addlocation.component';
 import { UtilisationComponent } from './utilisation/utilisation.component';
 import { AddutilisationComponent } from './utilisation/crudutilisation/addutilisation/addutilisation.component';
+import { UpdatelocationComponent } from './location/crudlocation/updatelocation/updatelocation.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
 { path: "addcommande", component: AddcommandeComponent  },
 { path: "location", component: LocationComponent   },
 { path: "addlocation", component: AddlocationComponent  },
+{ path: "updatelocation/:id", component: UpdatelocationComponent   },
 
 { path: "utilisation", component: UtilisationComponent  },
 { path: "addutilisation", component: AddutilisationComponent  },

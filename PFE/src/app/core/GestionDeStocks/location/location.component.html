@@ -27,7 +27,7 @@
        
         <td>
           <!-- Bouton Modifier -->
-          <button type="button" pButton icon="pi pi-pencil" label="Modifier" [routerLink]="['/majlocation', location.location_id]" routerLinkActive="router-link-active"></button>
+          <button type="button" pButton icon="pi pi-pencil" label="Modifier" [routerLink]="['/updatelocation', location.location_id]" routerLinkActive="router-link-active"></button>
           <!-- Bouton Supprimer -->
           <button type="button" pButton icon="pi pi-trash" label="Supprimer" (click)="confirmDeleteLocations(location)"></button>
         </td>
