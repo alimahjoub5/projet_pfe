@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { PieceService } from '../../services/GestionDeStocks/pieceService.service';
+import { PieceService } from '../../../services/GestionDeStocks/pieceService.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Piece } from '../../models/GestionDeStocks/piece';
+import { Piece } from '../../../models/GestionDeStocks/piece';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
