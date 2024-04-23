@@ -38,6 +38,8 @@ Route::prefix('pieces')->group(function () {
     Route::delete('/{piece}', [PieceController::class, 'destroy']);
 });
 // stocks ---------------------------------------------------------
+
+use App\Http\Controllers\GestionStocks\StockPieceController;
     Route::prefix('stock-pieces')->group(function () {
     Route::get('/', [StockPieceController::class, 'index']);
     Route::post('/', [StockPieceController::class, 'store']);

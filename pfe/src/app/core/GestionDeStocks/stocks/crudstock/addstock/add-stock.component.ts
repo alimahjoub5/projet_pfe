@@ -12,7 +12,10 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
 import { Piece } from 'src/app/core/models/GestionDeStocks/piece';
 import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService.service';
-
+import { StockService } from 'src/app/core/services/GestionDeStocks/stock.service';
+import { StockPiece } from 'src/app/core/models/GestionDeStocks/StockPiece';
+import { LocationService } from 'src/app/core/services/GestionDeStocks/location.service';
+import { Location } from 'src/app/core/models/GestionDeStocks/Location';
 @Component({
   selector: 'app-stocks',
   standalone: true, // Je n'ai pas modifié cela car je ne suis pas sûr de son utilisation, veuillez le vérifier
@@ -39,16 +42,25 @@ export class StockFormComponent implements OnInit {
   filteredPieces: Piece[];
   selectedPiece: Piece;
   pieces: any;
-
+  locations: Location[];
+  selectedLocation: Location;
+  eqId: number;
+  idpiece: number;
+  locname: string;
   constructor(
     private fb: FormBuilder,
     private equipmentService: EquipmentTypeService,
-    private pieceService: PieceService
+    private pieceService: PieceService,
+    private stockService: StockService,
+    private locationService: LocationService
+
   ) { }
 
   ngOnInit(): void {
     this.loadPiece();
     this.loadEquipmentTypes();
+    this.loadLocations();
+
     this.stockPieceForm = this.fb.group({
       piece_id: [''],
       equipment_id: [''],
@@ -56,17 +68,55 @@ export class StockFormComponent implements OnInit {
       reserved_quantity: [''],
       local: [''],
     });
-    console.log(this.pieces);
   }
 
-  onSubmit() {
-    const formData = new FormData();
-    formData.append('piece_id', this.stockPieceForm.get('piece_id').value);
-    formData.append('equipment_id', this.value);
-    formData.append('quantity', this.stockPieceForm.get('quantity').value);
-    formData.append('local', this.stockPieceForm.get('local').value);
-    console.log(formData);
+  onSubmit(): void {
+    const formData = this.stockPieceForm.value;
+
+    // Créer un objet StockPiece à partir des valeurs du formulaire
+    const stockPiece: StockPiece = {
+      piece_id: formData.idpiece,
+      equipment_id: formData.eqId,
+      quantity: formData.quantity,
+      reserved_quantity: null,
+      local: formData.locname
+    };
+
+    console.log(stockPiece);
+    // Appeler la méthode createStockPiece du service StockService
+    this.stockService.createStockPiece(stockPiece).subscribe(
+      (response) => {
+        console.log('Stock de pièces créé avec succès :', response);
+        // Réinitialiser le formulaire après la soumission réussie
+        this.stockPieceForm.reset();
+      },
+      (error) => {
+        console.error('Erreur lors de la création du stock de pièces :', error);
+      }
+    );
   }
+
+
+  loadLocations(): void {
+    this.locationService.getLocations().subscribe(
+      (locations: Location[]) => {
+        this.locations = locations;
+        console.log(this.locations);
+      },
+      (error: any) => {
+        console.error('Error fetching locations:', error);
+      }
+    );
+  }
+
+  onLocationSelect(event: any): void {
+    this.selectedLocation = event.value;
+    if (this.selectedLocation) {
+      this.stockPieceForm.controls['local'].setValue(this.selectedLocation.name);
+      this.locname=this.selectedLocation.name;
+    }
+  }
+
 
   loadEquipmentTypes(): void {
     this.equipmentService.getAllEquipmentTypes().subscribe(
@@ -83,9 +133,9 @@ export class StockFormComponent implements OnInit {
     this.pieceService.getAllPieces().subscribe(response => {
       // Vérifie si la propriété 'pieces' existe et si elle est de type 'Piece[]'
       if (response && Array.isArray(response.pieces)) {
-        this.pieces = response.pieces;
-        console.log(response.pieces);
-        console.log(this.pieces);
+        this.filteredPieces = response.pieces;
+        console.log(response.filteredPieces);
+        console.log(this.filteredPieces);
       } else {
         console.error('La réponse de l\'API est invalide :', response);
       }
@@ -96,22 +146,29 @@ export class StockFormComponent implements OnInit {
 
   filterPieceTypes(event: any): void {
     let filtered: Piece[] = [];
-    let query = event.query;
+    let query = event.query.toLowerCase(); // Convertir la requête en minuscules dès le début
 
     if (Array.isArray(this.pieces)) {
       filtered = this.pieces.filter((piece: Piece) => {
-        return piece.nom_piece.toLowerCase().startsWith(query.toLowerCase());
+        // Vérifiez d'abord si la propriété nom_piece est une chaîne de caractères valide
+        if (typeof piece.nom_piece === 'string' && typeof query === 'string') {
+          // Utilisez toLowerCase() seulement si nom_piece est une chaîne de caractères
+          return piece.nom_piece.toLowerCase().startsWith(query);
+        }
+        return false; // Retournez false si nom_piece n'est pas une chaîne de caractères valide
       });
     }
 
     this.filteredPieces = filtered;
-  }
+}
+
 
   onPieceSelect(event: any): void {
     this.selectedPiece = event.value;
     if (this.selectedPiece) {
       this.stockPieceForm.controls['piece_id'].setValue(this.selectedPiece.piece_id);
     }
+    this.idpiece=this.selectedPiece.piece_id;
   }
 
   filterEquipmentTypes(event: any): void {
@@ -135,6 +192,7 @@ export class StockFormComponent implements OnInit {
     this.selectedEquipmentType = event.value;
     if (this.selectedEquipmentType) {
       this.stockPieceForm.controls['equipment_id'].setValue(this.selectedEquipmentType.TypeName);
+      this.eqId=this.selectedEquipmentType.EquipmentTypeID;
     }
   }
 

@@ -9,18 +9,19 @@
         <div class="p-field">
             <label for="piece_id">Choisir votre pièce</label>
             <p-dropdown 
-                [options]="filteredPieces" 
+                [options]="filteredPieces"
                 [(ngModel)]="selectedPiece"
                 optionLabel="nom_piece" 
                 placeholder="Sélectionnez une pièce"
                 id="piece_id" 
                 formControlName="piece_id"
-                [filter]="true"
+                [filter]="false"
                 filterPlaceholder="Rechercher une pièce"
                 appendTo="body"
                 [style]="{ width: '100%' }">
             </p-dropdown>
         </div>
+        
         
         
         
@@ -46,10 +47,25 @@
             <label for="quantity">Quantité</label>
             <input type="number" id="quantity" formControlName="quantity" pInputNumber>
         </div>
+
+
         <div class="p-field">
             <label for="local">Emplacement</label>
-            <input type="text" id="local" formControlName="local" pInputText>
+            <p-dropdown 
+                [options]="locations"
+                [(ngModel)]="selectedLocation"
+                optionLabel="name"
+                placeholder="Sélectionnez un emplacement"
+                id="local" 
+                formControlName="local"
+                [filter]="false"
+                filterPlaceholder="Rechercher un emplacement"
+                appendTo="body"
+                [style]="{ width: '100%' }">
+            </p-dropdown>
         </div>
+        
+
     </div>
     <button type="submit" pButton label="Enregistrer"></button>
     <a routerLink="/stocklist" class="btn btn-secondary">Annuler</a>
