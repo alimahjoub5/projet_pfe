@@ -1,0 +1,26 @@
+<!-- piece-form.component.html -->
+<form [formGroup]="fournisseurform"  (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="nom_fournisseur">Nom du fournisseur</label>
+            <input type="text" id="nom_fournisseur" formControlName="nom_fournisseur" pInputText>
+        </div>
+        <div class="p-field">
+            <label for="adresse">Adresse</label>
+            <input type="text" id="adresse" formControlName="adresse" pInputText>
+        </div>
+        <div class="p-field">
+            <label for="email">Email</label>
+            <input type="text" id="email" formControlName="email" pInputText>
+        </div>
+        <div class="p-field">
+            <label for="telephone">Telephone</label>
+            <input type="text" id="telephone" formControlName="telephone" pInputText>
+        </div>
+       
+    </div>
+    <button type="submit" pButton label="Enregistrer"></button>
+    <a routerLink="/location" class="btn btn-secondary">Annuler</a>
+  
+  </form>
+  

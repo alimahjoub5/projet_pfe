@@ -13,6 +13,9 @@ import { AddlocationComponent } from './location/crudlocation/addlocation/addloc
 import { UtilisationComponent } from './utilisation/utilisation.component';
 import { AddutilisationComponent } from './utilisation/crudutilisation/addutilisation/addutilisation.component';
 import { UpdatelocationComponent } from './location/crudlocation/updatelocation/updatelocation.component';
+import { AddfournisseurComponent } from './fournisseur/addfournisseur/addfournisseur.component';
+import { FournisseurComponent } from './fournisseur/fournisseur.component';
+import { UpdatefournisseurComponent } from './fournisseur/updatefournisseur/updatefournisseur.component';
 
 
 const routes: Routes = [
@@ -26,16 +29,24 @@ const routes: Routes = [
 { path: "addpiece", component: PieceFormComponent },
 { path: "piecelist", component: PiecelistComponent },
 { path: "majpiece/:id", component: EditPieceComponent },
+
 { path: "stocks", component: StockComponent },
 { path: "addstocks", component: StockFormComponent },
+
 { path: "commande", component: CommandeComponent  },
 { path: "addcommande", component: AddcommandeComponent  },
+
 { path: "location", component: LocationComponent   },
 { path: "addlocation", component: AddlocationComponent  },
 { path: "updatelocation/:id", component: UpdatelocationComponent   },
 
 { path: "utilisation", component: UtilisationComponent  },
 { path: "addutilisation", component: AddutilisationComponent  },
+
+{ path: "fournisseur", component: FournisseurComponent  },
+{ path: "addfournisseur", component: AddfournisseurComponent  },
+{ path: "updatefournisseur/:id", component: UpdatefournisseurComponent   },
+
 
 ];
 

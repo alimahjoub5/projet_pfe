@@ -42,8 +42,8 @@
         <tr>
           <th style="width: 3rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-            <th pSortableColumn="piece_id">
-                ID de la pièce <p-sortIcon field="piece_id"></p-sortIcon>
+            <th pSortableColumn="nom_piece">
+                Pièce <p-sortIcon field="nom_piece"></p-sortIcon>
               </th>
               <th pSortableColumn="requested_quantity">
                 Quantité utilisée <p-sortIcon field="requested_quantity"></p-sortIcon>
@@ -55,7 +55,7 @@
                 Description <p-sortIcon field="order_status"></p-sortIcon>
               </th>
               <th pSortableColumn="fournisseur_id">
-                ID de l'équipement <p-sortIcon field="fournisseur_id"></p-sortIcon>
+                Fournisseur <p-sortIcon field="fournisseur_id"></p-sortIcon>
               </th>
               <th pSortableColumn="expected_delivery_date">
                 Date de livraison prévue <p-sortIcon field="expected_delivery_date"></p-sortIcon>
@@ -78,6 +78,7 @@
           <td>{{ commande.order_date }}</td>
           <td>{{ commande.order_status }}</td>
           <td>{{ commande.fournisseur_id }}</td>
+          
           <td>{{ commande.expected_delivery_date }}</td>
           <td>{{ commande.actual_delivery_date }}</td>
 
@@ -85,7 +86,7 @@
             <!-- Bouton Modifier -->
             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  [routerLink]="['/updateutilisation', commande.commande_id]" routerLinkActive="router-link-active"></button>
             <!-- Bouton Supprimer -->
-            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeletecommande(commande)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeleteutilisation(commande)"></button>
           </td>
         </tr>
       </ng-template>

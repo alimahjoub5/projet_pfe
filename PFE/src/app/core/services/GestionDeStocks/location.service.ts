@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-
-
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import{Location} from '../../models/GestionDeStocks/Location';
@@ -12,6 +10,10 @@ export class LocationService {
  
   constructor(private http: HttpClient) { }
 
+   // Méthode pour créer une nouvelle location
+    createLocation(location: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, location);
+  }
   // Méthode pour récupérer toutes les locations
   getLocations(): Observable<Location[]> {
     return this.http.get<Location[]>(this.apiUrl);
@@ -23,10 +25,7 @@ export class LocationService {
     return this.http.get<Location>(url);
   }
 
-  // Méthode pour créer une nouvelle location
-  createLocation(location: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, location);
-  }
+ 
 
   // Méthode pour mettre à jour une location existante
   updateLocation(location_id: number,updateLocation:Location ): Observable<Location> {

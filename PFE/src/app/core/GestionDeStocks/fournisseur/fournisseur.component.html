@@ -1,1 +1,65 @@
-<p>fournisseur works!</p>
+<div class="grid">
+  <div class="col-12">
+      <div class="card px-6 py-6">
+          <p-toast></p-toast>
+          <p-toolbar styleClass="mb-4">
+              <ng-template pTemplate="left">
+                  <div class="my-2">
+                      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addfournisseur"></button>
+                      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                  </div>
+              </ng-template>
+
+              <ng-template pTemplate="right">
+                  <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                  <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+              </ng-template>
+          </p-toolbar>
+
+          <p-table [value]="fournisseurs" [rows]="10" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[5,10,20]">
+              <ng-template pTemplate="caption">
+                  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                      <h5 class="m-0">Gérer les Fournisseurs</h5>
+                      <span class="block mt-2 md:mt-0 p-input-icon-left">
+                          <i class="pi pi-search"></i>
+                          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." class="w-full sm:w-auto" />
+                      </span>
+                  </div>
+              </ng-template>
+
+              <!-- Entêtes de colonne -->
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th style="width: 3rem">
+                          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                      </th>
+                      <th pSortableColumn="nom_fournisseur">Nom <p-sortIcon field="nom_fournisseur"></p-sortIcon></th>
+                      <th pSortableColumn="adresse">Adresse <p-sortIcon field="adresse"></p-sortIcon></th>
+                      <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                      <th pSortableColumn="telephone">Telephone <p-sortIcon field="telephone"></p-sortIcon></th>
+                      <th>Actions</th>
+                  </tr>
+              </ng-template>
+
+              <!-- Corps du tableau -->
+              <ng-template pTemplate="body" let-fournisseur>
+                  <tr>
+                      <td>
+                          <p-tableCheckbox [value]="fournisseur"></p-tableCheckbox>
+                      </td>
+                      <td>{{ fournisseur.nom_fournisseur }}</td>
+                      <td>{{ fournisseur.adresse }}</td>
+                      <td>{{ fournisseur.email }}</td>
+                      <td>{{ fournisseur.telephone }}</td>
+                      <td>
+                          <!-- Bouton Modifier -->
+                          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatefournisseur', fournisseur.fournisseur_id]" routerLinkActive="router-link-active"></button>
+                          <!-- Bouton Supprimer -->
+                          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeleteFournisseur(fournisseur)"></button>
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </div>
+  </div>
+</div>
