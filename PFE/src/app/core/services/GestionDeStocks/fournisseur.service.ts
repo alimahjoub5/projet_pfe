@@ -17,8 +17,8 @@ export class FournisseurService {
   }
 
   // Obtenir la liste des fournisseurs
-  getFournisseurs(): Observable<Fournisseur[]> {
-    return this.http.get<Fournisseur[]>(this.apiUrl);
+  getFournisseurs(): Observable<Fournisseur> {
+    return this.http.get<Fournisseur>(this.apiUrl);
   }
 
   // Obtenir un fournisseur par son ID

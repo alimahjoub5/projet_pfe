@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>Modifier local</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nom_fournisseur">Nom du local</label>
+        <input type="text" [ngModel]="fournisseur?.nom_fournisseur" (ngModelChange)="fournisseur.nom_fournisseur = $event" name="nom_fournisseur" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="adresse">Adresse</label>
+        <input type="text" [ngModel]="fournisseur?.adresse" (ngModelChange)="fournisseur.adresse = $event" name="adresse" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" [ngModel]="fournisseur?.email" (ngModelChange)="fournisseur.email = $event" name="email" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="telephone">Télephone</label>
+        <input type="text" [ngModel]="fournisseur?.telephone" (ngModelChange)="fournisseur.telephone = $event" name="telephone" class="form-control">
+      </div>
+      <!-- Ajoutez d'autres champs du formulaire ici -->
+  
+      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
+      <a routerLink="/location" class="btn btn-secondary">Annuler</a>
+    </form>
+  </div>
+  

@@ -53,7 +53,7 @@
                       <td>{{ fournisseur.telephone }}</td>
                       <td>
                           <!-- Bouton Modifier -->
-                          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatefournisseur', fournisseur.fournisseur_id]" routerLinkActive="router-link-active"></button>
+                          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/editfournisseur', fournisseur.fournisseur_id]" routerLinkActive="router-link-active"></button>
                           <!-- Bouton Supprimer -->
                           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeleteFournisseur(fournisseur)"></button>
                       </td>

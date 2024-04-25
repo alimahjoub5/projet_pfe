@@ -15,8 +15,8 @@ import { AddutilisationComponent } from './utilisation/crudutilisation/addutilis
 import { UpdatelocationComponent } from './location/crudlocation/updatelocation/updatelocation.component';
 import { AddfournisseurComponent } from './fournisseur/addfournisseur/addfournisseur.component';
 import { FournisseurComponent } from './fournisseur/fournisseur.component';
-import { UpdatefournisseurComponent } from './fournisseur/updatefournisseur/updatefournisseur.component';
 import { UpdateutilisationComponent } from './utilisation/crudutilisation/updateutilisation/updateutilisation.component';
+import { EditfournisseurComponent } from './fournisseur/editfournisseur/editfournisseur.component';
 
 
 const routes: Routes = [
@@ -47,7 +47,7 @@ const routes: Routes = [
 
 { path: "fournisseur", component: FournisseurComponent  },
 { path: "addfournisseur", component: AddfournisseurComponent  },
-{ path: "updatefournisseur/:id", component: UpdatefournisseurComponent   },
+{ path: "editfournisseur/:id", component: EditfournisseurComponent   },
 
 
 ];
