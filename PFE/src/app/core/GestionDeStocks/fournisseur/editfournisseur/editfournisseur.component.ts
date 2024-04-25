@@ -1,85 +1,79 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators, NgModel } from '@angular/forms';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms'; // Supprimez NgModel de cet import
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Fournisseur } from 'src/app/core/models/GestionDeStocks/Fournisseur';
 import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
 
 @Component({
   selector: 'app-editfournisseur',
   standalone: true,
-  imports: [ CommonModule,
-    FormsModule, // Importez FormsModule ici
+  imports: [ 
+    CommonModule,
+    FormsModule, // Conservez FormsModule ici pour utiliser ngModel
     ReactiveFormsModule,
     RouterModule
   ],
   templateUrl: './editfournisseur.component.html',
   styleUrl: './editfournisseur.component.scss'
 })
-export class EditfournisseurComponent {
+export class EditfournisseurComponent implements OnInit {
   fournisseur_id: number;
   fournisseur: Fournisseur;
-  fournisseurForm: FormGroup;
   isLoading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fournisseurservice: FournisseurService,
-    private formBuilder: FormBuilder
-  ) {}
+    private fournisseurService: FournisseurService
+  ) {
+    this.fournisseur ; // Initialiser un nouvel objet Fournisseur
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.fournisseur_id = +params.get('id');
-      this.loadfournisseur(this.fournisseur_id);
-    });
-
-    this.fournisseurForm = this.formBuilder.group({
-      nom_fournisseur: ['', Validators.required],
-      adresse: ['', Validators.required],
-      email: ['', Validators.required],
-      telephone: ['', Validators.required],
-
-      // Ajoutez d'autres champs du formulaire selon vos besoins
+      this.loadFournisseur(this.fournisseur_id);
     });
   }
 
-  loadfournisseur(id: number): void {
-    this.fournisseurservice.getFournisseurById(id).subscribe(
-      (fournisseur) => {
-        this.fournisseur = fournisseur;
-        console.log(this.fournisseur);
-        // Pré-remplir le formulaire avec les données de la pièce
-        this.fournisseurForm.patchValue({
-          nom_fournisseur: this.fournisseur.nom_fournisseur,
-          adresse: this.fournisseur.adresse,
-          email: this.fournisseur.email,
-          telephone: this.fournisseur.telephone,
-          // Assurez-vous d'ajouter d'autres champs ici si nécessaire
-        });
+  loadFournisseur(id: number): void {
+    this.fournisseurService.getFournisseurById(id).subscribe(
+      (response: any) => {
+        this.fournisseur = response.fournisseur;
       },
       error => {
-        console.error('Une erreur est survenue lors du chargement de la pièce:', error);
+        console.error('Une erreur est survenue lors du chargement du fournisseur:', error);
       }
     );
   }
 
   onSubmit(): void {
-    if (this.fournisseurForm.valid) {
-      const formData = this.fournisseurForm.value;
+    console.log(this.fournisseur); // Affichez l'objet Fournisseur dans la console
+    
+    // Vérifiez que les valeurs de l'objet fournisseur sont valides (vous devrez peut-être implémenter une méthode de validation dans la classe Fournisseur)
+    if (this.fournisseurIsValid()) {
       this.isLoading = true;
-      this.fournisseurservice .updateFournisseur(this.fournisseur_id, formData).subscribe(
+      this.fournisseurService.updateFournisseur(this.fournisseur_id, this.fournisseur).subscribe(
         () => {
           this.isLoading = false;
-          // Rediriger vers la liste des pièces après la mise à jour
           this.router.navigate(['/fournisseur']);
         },
         error => {
           this.isLoading = false;
-          console.error('Une erreur est survenue lors de la mise à jour du local:', error);
+          console.error('An error occurred while updating fournisseur:', error);
         }
       );
+    } else {
+      console.error('Invalid fournisseur data.');
     }
   }
+  
+  // Méthode pour vérifier la validité des données du fournisseur
+  fournisseurIsValid(): boolean {
+    // Implémentez votre logique de validation ici
+    // Par exemple, vérifiez si les propriétés obligatoires sont définies
+    return !!this.fournisseur.nom_fournisseur && !!this.fournisseur.adresse && !!this.fournisseur.email && !!this.fournisseur.telephone;
+  }
+  
 }

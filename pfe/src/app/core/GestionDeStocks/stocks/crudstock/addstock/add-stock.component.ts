@@ -16,6 +16,7 @@ import { StockService } from 'src/app/core/services/GestionDeStocks/stock.servic
 import { StockPiece } from 'src/app/core/models/GestionDeStocks/StockPiece';
 import { LocationService } from 'src/app/core/services/GestionDeStocks/location.service';
 import { Location } from 'src/app/core/models/GestionDeStocks/Location';
+import { AuthService } from 'src/app/core/services/auth.service';
 @Component({
   selector: 'app-stocks',
   standalone: true, // Je n'ai pas modifié cela car je ne suis pas sûr de son utilisation, veuillez le vérifier
@@ -46,13 +47,16 @@ export class StockFormComponent implements OnInit {
   selectedLocation: Location;
   eqId: number;
   idpiece: number;
-  locname: string;
+  locname: number;
   constructor(
     private fb: FormBuilder,
     private equipmentService: EquipmentTypeService,
     private pieceService: PieceService,
     private stockService: StockService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private authservice: AuthService
+
+
 
   ) { }
 
@@ -75,11 +79,12 @@ export class StockFormComponent implements OnInit {
 
     // Créer un objet StockPiece à partir des valeurs du formulaire
     const stockPiece: StockPiece = {
-      piece_id: formData.idpiece,
-      equipment_id: formData.eqId,
+      piece_id: this.selectedPiece.piece_id,
+      equipment_id: this.value,
       quantity: formData.quantity,
       reserved_quantity: null,
-      local: formData.locname
+      local: this.selectedLocation.name,
+      created_by: Number(this.authservice.getUserID()), // À remplir par le serveur
     };
 
     console.log(stockPiece);
@@ -113,7 +118,7 @@ export class StockFormComponent implements OnInit {
     this.selectedLocation = event.value;
     if (this.selectedLocation) {
       this.stockPieceForm.controls['local'].setValue(this.selectedLocation.name);
-      this.locname=this.selectedLocation.name;
+      this.locname=this.selectedLocation.location_id;
     }
   }
 

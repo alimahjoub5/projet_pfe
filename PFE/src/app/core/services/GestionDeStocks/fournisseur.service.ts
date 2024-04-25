@@ -28,7 +28,7 @@ export class FournisseurService {
   }
 
   // Mettre à jour un fournisseur
-  updateFournisseur(fournisseurId: number, updateFournisseur: Fournisseur): Observable<Fournisseur> {
+  updateFournisseur(fournisseurId: number, updateFournisseur: any): Observable<any> {
     const url = `${this.apiUrl}/${fournisseurId}`;
     return this.http.put<Fournisseur>(url, updateFournisseur);
   }

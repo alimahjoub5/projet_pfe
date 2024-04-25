@@ -11,7 +11,7 @@ class CreateStockPiecesTable extends Migration
         Schema::create('stock_pieces', function (Blueprint $table) {
             $table->id('stock_id');
             $table->unsignedBigInteger('piece_id');
-            $table->unsignedBigInteger('EquipmentTypeID')->nullable();
+            $table->unsignedBigInteger('equipment_id')->nullable();
             $table->integer('quantity');
             $table->integer('reserved_quantity')->default(0);
             $table->string('local', 255);
@@ -20,7 +20,7 @@ class CreateStockPiecesTable extends Migration
             $table->timestamps();
 
             $table->foreign('piece_id')->references('piece_id')->on('pieces');
-            $table->foreign('EquipmentTypeID')->references('EquipmentTypeID')->on('equipment_types');
+            $table->foreign('equipment_id')->references('EquipmentTypeID')->on('equipment_types'); // Peut-être également modifier ici
         });
     }
 

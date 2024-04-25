@@ -12,9 +12,11 @@ class StockPieceController extends Controller
 
     public function index()
     {
-        $stockPieces = StockPiece::all();
+        $stockPieces = StockPiece::with('piece', 'equipment')->get();
         return response()->json($stockPieces);
     }
+    
+    
 
 
     public function store(Request $request)
@@ -23,10 +25,8 @@ class StockPieceController extends Controller
             'piece_id' => 'required',
             'equipment_id' => 'required',
             'quantity' => 'required',
-            'reserved_quantity' => 'required',
             'local' => 'required',
             'created_by' => 'required',
-            'modify_by' => 'required',
         ]);
 
         $stockPiece = StockPiece::create($validatedData);

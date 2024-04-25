@@ -29,8 +29,10 @@ class StockPiece extends Model
 
     public function equipment()
     {
-        return $this->belongsTo(EquipmentType::class, 'EquipmentTypeID');
+        return $this->belongsTo(EquipmentType::class, 'equipment_id');
     }
+
+    
 
     public function createdBy()
     {

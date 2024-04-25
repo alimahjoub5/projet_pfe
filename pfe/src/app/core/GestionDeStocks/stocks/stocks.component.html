@@ -13,8 +13,8 @@
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="stock_id">Stock ID <p-sortIcon field="stock_id"></p-sortIcon></th>
-        <th pSortableColumn="piece_id">Piece ID <p-sortIcon field="piece_id"></p-sortIcon></th>
-        <th pSortableColumn="equipment_id">Equipment ID <p-sortIcon field="equipment_id"></p-sortIcon></th>
+        <th pSortableColumn="piece_id">Piece <p-sortIcon field="piece_id"></p-sortIcon></th>
+        <th pSortableColumn="equipment_id">Equipment<p-sortIcon field="equipment_id"></p-sortIcon></th>
         <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
         <th pSortableColumn="reserved_quantity">Reserved Quantity <p-sortIcon field="reserved_quantity"></p-sortIcon></th>
         <th pSortableColumn="local">Location <p-sortIcon field="local"></p-sortIcon></th>
@@ -24,8 +24,8 @@
     <ng-template pTemplate="body" let-stockPiece>
       <tr>
         <td>{{ stockPiece.stock_id }}</td>
-        <td>{{ stockPiece.piece_id }}</td>
-        <td>{{ stockPiece.equipment_id }}</td>
+        <td>{{ stockPiece.piece.nom_piece }}</td>
+        <td>{{ stockPiece.equipment.TypeName}}</td>
         <td>{{ stockPiece.quantity }}</td>
         <td>{{ stockPiece.reserved_quantity }}</td>
         <td>{{ stockPiece.local }}</td>

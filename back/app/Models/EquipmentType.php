@@ -37,5 +37,10 @@ class EquipmentType extends Model
         'ModifiedOn',
     ];
 
+
+    public function stockPieces()
+    {
+        return $this->hasMany(StockPiece::class, 'equipment_id');
+    }
     // Relations éventuelles à définir ici
 }
