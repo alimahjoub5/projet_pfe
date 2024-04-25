@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Fournisseur } from '../../models/GestionDeStocks/Fournisseur';
+
 @Injectable({
   providedIn: 'root'
 })
 export class FournisseurService {
-  private apiUrl = 'http://localhost:8000/api/fournisseurs'; // Remplacez avec votre URL d'API
+  private apiUrl = 'http://localhost:8000/api/fournisseurs'; // URL de votre API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Créer un nouveau fournisseur
   createFournisseur(fournisseur: any): Observable<any> {
@@ -31,6 +32,7 @@ export class FournisseurService {
     const url = `${this.apiUrl}/${fournisseurId}`;
     return this.http.put<Fournisseur>(url, updateFournisseur);
   }
+
   // Supprimer un fournisseur
   deleteFournisseur(fournisseurId: number): Observable<void> {
     const url = `${this.apiUrl}/${fournisseurId}`;

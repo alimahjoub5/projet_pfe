@@ -29,6 +29,13 @@ import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService
 export class AddutilisationComponent implements OnInit {
   utilisationform: FormGroup;
   isLoading : boolean;
+  equipements: EquipmentType[] = [];
+  selectedEquipement: number | undefined;
+
+ 
+
+  pieces: Piece[] = [];
+  selectedPiece: number | undefined;
   constructor(
     private fb: FormBuilder,
   
@@ -55,7 +62,19 @@ export class AddutilisationComponent implements OnInit {
 
     });
 
-   
+    this.getAllEquipements();
+
+  }
+  getAllEquipements(): void {
+    this.equipmentService.getAllEquipmentTypes().subscribe(equipements => {
+      this.equipements = equipements;
+    });
+  }
+
+  getAllPicess(): void {
+    this.pieceservice.getAllPieces().subscribe(pieces => {
+      this.pieces = pieces;
+    });
   }
 
   onSubmit(): void {

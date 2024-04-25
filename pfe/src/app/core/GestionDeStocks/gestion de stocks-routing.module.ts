@@ -16,6 +16,7 @@ import { UpdatelocationComponent } from './location/crudlocation/updatelocation/
 import { AddfournisseurComponent } from './fournisseur/addfournisseur/addfournisseur.component';
 import { FournisseurComponent } from './fournisseur/fournisseur.component';
 import { UpdatefournisseurComponent } from './fournisseur/updatefournisseur/updatefournisseur.component';
+import { UpdateutilisationComponent } from './utilisation/crudutilisation/updateutilisation/updateutilisation.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
 
 { path: "utilisation", component: UtilisationComponent  },
 { path: "addutilisation", component: AddutilisationComponent  },
+{ path: "updateutilisation/:id", component: UpdateutilisationComponent  },
 
 { path: "fournisseur", component: FournisseurComponent  },
 { path: "addfournisseur", component: AddfournisseurComponent  },

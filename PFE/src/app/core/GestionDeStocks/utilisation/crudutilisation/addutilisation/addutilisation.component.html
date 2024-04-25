@@ -1,35 +1,45 @@
 <ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
 
+  <div class="container">
+    <h2>Ajouter</h2>
 <p-toast></p-toast>
 <form [formGroup]="utilisationform" (ngSubmit)="onSubmit()" class="p-fluid">
 
-
-    <div>
-     
-      </div>
-      <div>
-        <label for="piece_id">ID de la piéce</label>
-        
-      </div>
-
-    <div class="p-field">
-      <label for="quantity_used">Quantité utilisé</label>
-      <input type="text" id="quantity_used" formControlName="quantity_used" class="p-inputtext" required>
-    </div>
-    <div class="p-field">
-      <label for="date_utilisation">Date d'utilisation</label>
-      <textarea type="date" id="date_utilisation" formControlName="date_utilisation" class="p-inputtext"></textarea>
-    </div>
-
-    <div class="p-field">
-        <label for="description">Description</label>
-        <input type="text" id="description" formControlName="description" class="p-inputtext" required>
-    </div>
-
-      <button type="submit" class="p-button p-button-primary"  >Soumettre</button>
- 
     
-  </form>
-  <br>
-
+ 
+      <div>
+        <label for="equipementSelect">Equipement</label>
+        <select id="equipementSelect" [(ngModel)]="selectedEquipement" name="equipementSelect">
+          <option *ngFor="let equipement of equipements" [value]="equipement.EquipmentTypeID">{{ equipement.TypeName }}</option>
+        </select>
+      </div>
+    
+      <div>
+        <label for="pieceSelect">Piéce</label>
+        <select id="pieceSelect" [(ngModel)]="selectedPiece" name="pieceSelect">
+          <option *ngFor="let piece of pieces" [value]="piece.piece_id">{{ piece_id.nom_piece }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="quantity_used">Quantité utilisée</label>
+        <input type="number" formControlName="quantity_used" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="date_utilisation">Date d'utilisation</label>
+        <input type="date" formControlName="date_utilisation" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea formControlName="description" class="form-control"></textarea>
+      </div>
+      
+      <!-- Ajoutez d'autres champs du formulaire ici si nécessaire -->
+  
+      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
+      <a routerLink="/liste-utilisations-pieces" class="btn btn-secondary">Annuler</a>
+    </form>
+  </div>
+  
+    
+ 
   

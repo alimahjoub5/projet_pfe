@@ -1,29 +1,26 @@
 <div class="container">
-    <h2>Modifier les données d'un fournisseur</h2>
-    
-    <form [formGroup]="fournisseurForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="nom_fournisseur">Nom du fournisseur</label>
-        <input type="text" disabled [(ngModel)]="fournisseur.nom_fournisseur" formControlName="nom_fournisseur" class="form-control">
-      </div> 
-      <div class="form-group">
-        <label for="adresse">Adresse</label>
-        <textarea formControlName="adresse"  [(ngModel)]="fournisseur.adresse" class="form-control"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="telephone">Numéro de téléphone </label>
-        <input type="text" [(ngModel)]="fournisseur.telephone" formControlName="telephone" class="form-control">
-      </div>
-      
-      <!-- Ajoutez d'autres champs du formulaire ici -->
-  
-      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
-      <a routerLink="/piecelist" class="btn btn-secondary">Annuler</a>
-    </form>
-</div>
+  <h2>Modifier les données d'un fournisseur</h2>
 
-  
+  <form [formGroup]="fournisseurForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom_fournisseur">Nom du Fournisseur</label>
+      <input type="text" formControlName="nom_fournisseur" [(ngModel)]="fournisseur.nom_fournisseur" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="adresse">Adresse</label>
+      <input type="text" formControlName="adresse" [(ngModel)]="fournisseur.adresse" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" formControlName="email" [(ngModel)]="fournisseur.email" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="telephone">Numéro de téléphone</label>
+      <input type="text" formControlName="telephone" [(ngModel)]="fournisseur.telephone" class="form-control">
+    </div>
+    <!-- Ajoutez d'autres champs du formulaire ici -->
+
+    <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
+    <a routerLink="/piecelist" class="btn btn-secondary">Annuler</a>
+  </form>
+</div>
