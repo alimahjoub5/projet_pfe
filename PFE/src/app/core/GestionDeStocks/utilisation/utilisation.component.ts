@@ -57,6 +57,7 @@ export class UtilisationComponent implements OnInit {
     this.utilisationpieceService.getUtilisationPieces().subscribe(response => {
       if (response && Array.isArray(response)) {
         this.utilisations = response; 
+        console.log(this.utilisations);
       } else {
         console.error('La réponse de l\'API est invalide :', response);
       }

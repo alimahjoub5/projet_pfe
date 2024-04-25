@@ -21,11 +21,13 @@ class UtilisationPiece extends Model
 
     public function equipment()
     {
-        return $this->belongsTo(Equipment::class, 'equipment_id');
+        return $this->belongsTo(EquipmentType::class, 'equipment_id');
     }
 
     public function piece()
     {
         return $this->belongsTo(Piece::class, 'piece_id');
     }
+
+
 }

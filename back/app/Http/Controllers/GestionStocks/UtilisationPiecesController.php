@@ -9,6 +9,14 @@ use App\Http\Controllers\Controller;
 
 class UtilisationPiecesController extends Controller
 {
+
+    public function index()
+    {
+        $stockPieces = UtilisationPiece::with('piece','equipment')->get();
+        return response()->json($stockPieces);
+    }
+    
+
       // Méthode pour créer une nouvelle utilisation de pièce
       public function store(Request $request)
       {
@@ -56,12 +64,6 @@ class UtilisationPiecesController extends Controller
           return response()->json(['message' => 'Utilisation de pièce supprimée avec succès'], 200);
       }
   
-      // Méthode pour récupérer toutes les utilisations de pièces
-      public function index()
-      {
-          $utilisations = UtilisationPiece::all();
-          return response()->json($utilisations, 200);
-      }
   
       // Méthode pour récupérer une utilisation de pièce spécifique par son ID
       public function show($id)

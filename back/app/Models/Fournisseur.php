@@ -19,4 +19,6 @@ class Fournisseur extends Model
         'modify_at',
         'modify_by',
     ];
+
+    
 }

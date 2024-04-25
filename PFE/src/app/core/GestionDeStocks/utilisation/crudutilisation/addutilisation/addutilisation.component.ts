@@ -63,6 +63,7 @@ export class AddutilisationComponent implements OnInit {
     });
 
     this.getAllEquipements();
+    this.getAllPicess();
 
   }
   getAllEquipements(): void {
