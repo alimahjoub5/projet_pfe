@@ -1,17 +1,33 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { CommandeEnAttente } from 'src/app/core/models/GestionDeStocks/CommandeEnAttente';
+import { Fournisseur } from 'src/app/core/models/GestionDeStocks/Fournisseur';
+import { Piece } from 'src/app/core/models/GestionDeStocks/piece';
+import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService.service';
 
 @Component({
   selector: 'app-addcommande',
   standalone: true,
-  imports: [],
+  imports: [
+    AutoCompleteModule,
+    FormsModule,ReactiveFormsModule,
+    CommonModule,
+    NgxSpinnerModule,
+    ButtonModule, 
+  ToastModule],
+  
   templateUrl: './addcommande.component.html',
   styleUrl: './addcommande.component.scss'
 })
 export class AddcommandeComponent {
 
-<<<<<<< Updated upstream
-}
-=======
+
+
 
     commande: CommandeEnAttente ;
     pieces: Piece[]; // Supposons que vous avez une liste de pièces
@@ -54,4 +70,4 @@ export class AddcommandeComponent {
     }
 
   }
->>>>>>> Stashed changes
+
