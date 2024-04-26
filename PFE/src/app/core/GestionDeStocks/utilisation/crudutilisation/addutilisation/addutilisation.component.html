@@ -1,45 +1,32 @@
-<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
-
-  <div class="container">
-    <h2>Ajouter</h2>
-<p-toast></p-toast>
-<form [formGroup]="utilisationform" (ngSubmit)="onSubmit()" class="p-fluid">
-
-    
- 
-      <div>
-        <label for="equipementSelect">Equipement</label>
-        <select id="equipementSelect" [(ngModel)]="selectedEquipement" name="equipementSelect">
-          <option *ngFor="let equipement of equipements" [value]="equipement.EquipmentTypeID">{{ equipement.TypeName }}</option>
-        </select>
-      </div>
-    
-      <div>
-        <label for="pieceSelect">Piéce</label>
-        <select id="pieceSelect" [(ngModel)]="selectedPiece" name="pieceSelect">
-          <option *ngFor="let piece of pieces" [value]="piece.piece_id">{{ piece.nom_piece }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="quantity_used">Quantité utilisée</label>
-        <input type="number" formControlName="quantity_used" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="date_utilisation">Date d'utilisation</label>
-        <input type="date" formControlName="date_utilisation" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea formControlName="description" class="form-control"></textarea>
-      </div>
-      
-      <!-- Ajoutez d'autres champs du formulaire ici si nécessaire -->
-  
-      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
-      <a routerLink="/liste-utilisations-pieces" class="btn btn-secondary">Annuler</a>
-    </form>
-  </div>
-  
-    
- 
-  
+<div class="container">
+  <h2>Ajouter</h2>
+  <p-toast></p-toast>
+  <form [formGroup]="utilisationform" (ngSubmit)="onSubmit()" class="p-fluid">
+    <div class="p-field">
+      <label for="equipementSelect">Sélectionner un équipement</label>
+      <select id="equipementSelect" formControlName="equipementSelect">
+        <option *ngFor="let equipement of equipements" [ngValue]="equipement?.EquipmentTypeID">{{ equipement?.TypeName }}</option>
+      </select>
+    </div>
+    <div class="p-field">
+      <label for="pieceSelect">Sélectionner une pièce :</label>
+      <select id="pieceSelect" formControlName="pieceSelect">
+        <option *ngFor="let piece of pieces" [ngValue]="piece?.piece_id">{{ piece?.nom_piece }}</option>
+      </select>
+    </div>
+    <div class="p-field">
+      <label for="quantity_used">Quantité utilisée</label>
+      <input type="text" id="quantity_used" formControlName="quantity_used" pInputText>
+    </div>
+    <div class="p-field">
+      <label for="date_utilisation">Date d'utilisation</label>
+      <input type="date" id="date_utilisation" formControlName="date_utilisation" pInputText>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <input type="text" id="description" formControlName="description" pInputText>
+    </div>
+    <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
+    <a routerLink="/liste-utilisations-pieces" class="btn btn-secondary">Annuler</a>
+  </form>
+</div>
