@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
 import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-addutilisation',
@@ -21,7 +22,8 @@ import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService
     AutoCompleteModule,
     FormsModule,ReactiveFormsModule,
     CommonModule,
-    NgxSpinnerModule, 
+    NgxSpinnerModule,
+    ButtonModule, 
   ToastModule],
   templateUrl: './addutilisation.component.html',
   styleUrls: ['./addutilisation.component.scss']
@@ -29,8 +31,8 @@ import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService
 export class AddutilisationComponent implements OnInit {
   utilisationform: FormGroup;
   isLoading: boolean;
-  equipements: EquipmentType[] = [];
-  pieces: Piece[] = [];
+  equipements: EquipmentType[] ;
+  pieces: Piece;
 
   constructor(
     private fb: FormBuilder,
@@ -61,8 +63,9 @@ export class AddutilisationComponent implements OnInit {
   }
 
   getAllPieces(): void {
-    this.pieceservice.getAllPieces().subscribe((pieces: Piece[]) => {
-      this.pieces = pieces;
+    this.pieceservice.getAllPieces().subscribe((response: any ) => {
+      this.pieces = response.pieces;
+      console.log(this.pieces);
     });
   }
 

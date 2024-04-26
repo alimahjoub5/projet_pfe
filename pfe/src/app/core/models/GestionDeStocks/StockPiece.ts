@@ -1,4 +1,5 @@
 export interface StockPiece {
+    location_id: any;
     stock_id?: number; // Le '?' indique que la propriété est optionnelle
     piece_id?: number;
     equipment_id?: number;

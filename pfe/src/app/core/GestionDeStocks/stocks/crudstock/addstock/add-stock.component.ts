@@ -84,7 +84,8 @@ export class StockFormComponent implements OnInit {
       quantity: formData.quantity,
       reserved_quantity: null,
       local: this.selectedLocation.name,
-      created_by: Number(this.authservice.getUserID()), // À remplir par le serveur
+      created_by: Number(this.authservice.getUserID()),
+      location_id: undefined
     };
 
     console.log(stockPiece);
