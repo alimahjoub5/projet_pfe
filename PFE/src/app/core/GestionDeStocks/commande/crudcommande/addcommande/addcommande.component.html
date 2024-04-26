@@ -1,1 +1,44 @@
+<<<<<<< Updated upstream
 <p>addcommande works!</p>
+=======
+<form (ngSubmit)="submitForm()" #commandForm="ngForm">
+    <div class="form-group">
+        <label for="piece_id">Pièce:</label>
+        <select id="piece_id" class="form-control" name="piece_id" required>
+          <option *ngFor="let piece of pieces" [value]="piece.piece_id">{{ piece.nom_piece }}</option>
+        </select>
+      </div>
+      
+      
+  
+    <div class="form-group">
+      <label for="requested_quantity">Quantité demandée:</label>
+      <input type="number" class="form-control" id="requested_quantity" name="requested_quantity" [(ngModel)]="commande.requested_quantity" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="order_date">Date de commande:</label>
+      <input type="date" class="form-control" id="order_date" name="order_date" [(ngModel)]="commande.order_date" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="order_status">Statut de la commande:</label>
+      <input type="text" class="form-control" id="order_status" name="order_status" [(ngModel)]="commande.order_status" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="fournisseur_id">Fournisseur:</label>
+      <select id="fournisseur_id" class="form-control" name="fournisseur_id" [(ngModel)]="commande.fournisseur_id" required>
+        <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.id">{{ fournisseur.name }}</option>
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="expected_delivery_date">Date de livraison prévue:</label>
+      <input type="date" class="form-control" id="expected_delivery_date" name="expected_delivery_date" [(ngModel)]="commande.expected_delivery_date" required>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="!commandForm.valid">Soumettre</button>
+  </form>
+  
+>>>>>>> Stashed changes
