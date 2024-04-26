@@ -7,7 +7,6 @@ import { EditPieceComponent } from './crudpiece/edit-piece/edit-piece.component'
 import { StockComponent } from './stocks/stocks.component';
 import { StockFormComponent } from './stocks/crudstock/addstock/add-stock.component';
 import { CommandeComponent } from './commande/commande.component';
-import { AddcommandeComponent } from './commande/crudcommande/addcommande/addcommande.component';
 import { LocationComponent } from './location/location.component';
 import { AddlocationComponent } from './location/crudlocation/addlocation/addlocation.component';
 import { UtilisationComponent } from './utilisation/utilisation.component';
@@ -37,8 +36,7 @@ const routes: Routes = [
 { path: "maj-stocks/:id", component: MajStockComponent },
 
 { path: "commande", component: CommandeComponent  },
-{ path: "addcommande", component: AddcommandeComponent  },
-{ path: "updatecommande/:id", component: AddcommandeComponent  },
+//{ path: "addcommande", component: AddcommandeComponent  },
 
 { path: "location", component: LocationComponent   },
 { path: "addlocation", component: AddlocationComponent  },

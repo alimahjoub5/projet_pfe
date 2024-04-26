@@ -38,4 +38,10 @@ export class FournisseurService {
     const url = `${this.apiUrl}/${fournisseurId}`;
     return this.http.delete<void>(url);
   }
+
+
+  getFournisseursByPiece(pieceId: string): Observable<any[]> {
+    const url = `${this.apiUrl}/fournisseurs/piece/${pieceId}`;
+    return this.http.get<any[]>(url);
+  }
 }

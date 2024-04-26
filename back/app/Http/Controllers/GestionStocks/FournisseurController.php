@@ -75,4 +75,19 @@ class FournisseurController extends Controller
         $fournisseur->delete();
         return response()->json(['message' => 'Fournisseur deleted successfully'], 200);
     }
+
+
+    public function getFournisseursByPiece($pieceId)
+    {
+        // Récupérer la pièce avec ses fournisseurs
+        $piece = Piece::with('fournisseurs')->find($pieceId);
+
+        if (!$piece) {
+            return response()->json(['error' => 'Pièce non trouvée'], 404);
+        }
+
+        // Renvoyer la liste des fournisseurs associés à cette pièce
+        return response()->json($piece->fournisseurs);
+    }
+
 }

@@ -72,6 +72,8 @@ Route::get('/fournisseurs/{id}', [FournisseurController::class, 'show']);
 Route::post('/fournisseurs', [FournisseurController::class, 'store']);
 Route::put('/fournisseurs/{id}', [FournisseurController::class, 'update']);
 Route::delete('/fournisseurs/{id}', [FournisseurController::class, 'destroy']);
+Route::get('fournisseurs/piece/{pieceId}', [FournisseurController::class, 'getFournisseursByPiece']);
+
 //--------------------------------------------------------------------------------------
 use App\Http\Controllers\GestionStocks\UtilisationPiecesController;
 
