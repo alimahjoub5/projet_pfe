@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
 import { EquipmentType } from 'src/app/core/models/equipement';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -48,6 +48,7 @@ export class StockFormComponent implements OnInit {
   eqId: number;
   idpiece: number;
   locname: number;
+  router: Router;
   constructor(
     private fb: FormBuilder,
     private equipmentService: EquipmentTypeService,
@@ -93,6 +94,7 @@ export class StockFormComponent implements OnInit {
     this.stockService.createStockPiece(stockPiece).subscribe(
       (response) => {
         console.log('Stock de pièces créé avec succès :', response);
+        this.router.navigate(['/stocks']);
         // Réinitialiser le formulaire après la soumission réussie
         this.stockPieceForm.reset();
       },

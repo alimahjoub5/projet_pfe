@@ -6,16 +6,41 @@ import { Piece } from '../../../models/GestionDeStocks/piece';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-piecelist',
   standalone: true,
   imports: [
-  TableModule,
-  CommonModule,
-  ButtonModule,
-  InputTextModule,
-  RouterModule
+    TableModule,
+    CommonModule,
+    ButtonModule,
+    InputTextModule,
+    RouterModule,
+    TableModule,
+    FileUploadModule,
+    FormsModule,
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+    ToolbarModule,
+    RatingModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule,
+    DialogModule,RouterModule
   ],
   templateUrl: './piecelist.component.html',
   styleUrl: './piecelist.component.scss'

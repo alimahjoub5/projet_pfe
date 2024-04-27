@@ -40,7 +40,8 @@ class UtilisationPiecesController extends Controller
               return response()->json(['message' => 'Utilisation de pièce non trouvée'], 404);
           }
   
-          $utilisation->utilisation_id = $request->input('utilisation_id');
+
+
           $utilisation->EquipmentTypeID = $request->input('EquipmentTypeID');
           $utilisation->piece_id = $request->input('piece_id');
           $utilisation->quantity_used = $request->input('quantity_used');
@@ -64,15 +65,13 @@ class UtilisationPiecesController extends Controller
           return response()->json(['message' => 'Utilisation de pièce supprimée avec succès'], 200);
       }
   
-  
-      // Méthode pour récupérer une utilisation de pièce spécifique par son ID
-      public function show($id)
-      {
-          $utilisation = UtilisationPiece::find($id);
-          if (!$utilisation) {
-              return response()->json(['message' => 'Utilisation de pièce non trouvée'], 404);
-          }
-  
-          return response()->json($utilisation, 200);
-      }
+    public function show($id)
+    {
+        $utilisation = UtilisationPiece::find($id);
+        if (!$utilisation) {
+            return response()->json(['message' => 'Utilisation de pièce non trouvée'], 404);
+        }
+
+        return response()->json($utilisation, 200);
+    }
 }

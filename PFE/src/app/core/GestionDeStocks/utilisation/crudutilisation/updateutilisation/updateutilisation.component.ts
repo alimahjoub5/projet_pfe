@@ -1,14 +1,31 @@
-import { UtilisationPieceService } from 'src/app/core/services/GestionDeStocks/utilisation-piece.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UtilisationPiece } from 'src/app/core/models/GestionDeStocks/UtilisationPiece';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Correction ici : ReactiveFormsModule est importé dans AppModule
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CommonModule } from '@angular/common';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { ToastModule } from 'primeng/toast';
+import { UtilisationPieceService } from 'src/app/core/services/GestionDeStocks/utilisation-piece.service';
+import { EquipmentType } from 'src/app/core/models/equipement';
+import { Piece } from 'src/app/core/models/GestionDeStocks/piece';
+import { MessageService } from 'primeng/api';
+
+import { AuthService } from 'src/app/core/services/auth.service';
+import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
+import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService.service';
+import { ButtonModule } from 'primeng/button';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UtilisationPiece } from 'src/app/core/models/GestionDeStocks/UtilisationPiece';
 
 @Component({
   selector: 'app-updateutilisation',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [ AutoCompleteModule,
+    FormsModule,ReactiveFormsModule,
+    CommonModule,
+    NgxSpinnerModule,
+    ButtonModule, 
+  ToastModule],
   templateUrl: './updateutilisation.component.html',
   styleUrl: './updateutilisation.component.scss'
 })
@@ -17,6 +34,8 @@ export class UpdateutilisationComponent implements OnInit {
   utilisationPieces: UtilisationPiece;
   utilisationForm: FormGroup;
   isLoading: boolean = false;
+  equipements: EquipmentType[];
+  pieces: Piece[];
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +46,7 @@ export class UpdateutilisationComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.utilisationId = +params.get('id');
+      this.utilisationId = +Number(params.get('id'));
       this.loadUtilisationPieces(this.utilisationId);
     });
 
@@ -47,7 +66,7 @@ export class UpdateutilisationComponent implements OnInit {
         this.patchFormValues();
       },
       error => {
-        console.error('Une erreur est survenue lors du chargement de l\'utilisation de pièces:', error);
+        console.error('Une erreur est survenue lors du chargement de la pièce:', error);
       }
     );
   }
@@ -63,19 +82,23 @@ export class UpdateutilisationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.utilisationForm.valid) {
+    if (this.utilisationForm.valid && this.utilisationId !== null && this.utilisationId !== undefined) {
       const formData = this.utilisationForm.value;
       this.isLoading = true;
       this.utilisationPiecesService.updateUtilisationPiece(this.utilisationId, formData).subscribe(
         () => {
+          console.log(this.utilisationPieces);
           this.isLoading = false;
-          this.router.navigate(['/utilisation']);
+          this.router.navigate(['/utilisation']); // Rediriger vers la liste des pièces après la mise à jour
         },
         error => {
           this.isLoading = false;
-          console.error('Une erreur est survenue lors de la mise à jour de l\'utilisation de pièces:', error);
+          console.error('Une erreur est survenue lors de la mise à jour de la pièce:', error);
         }
       );
+    } else {
+      console.error('Veuillez fournir une valeur valide pour utilisationId et remplir le formulaire correctement.');
     }
   }
+  
 }

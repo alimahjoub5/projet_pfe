@@ -7,6 +7,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-stocks',
@@ -16,8 +26,21 @@ import { InputTextModule } from 'primeng/inputtext';
     CommonModule,
     ButtonModule,
     InputTextModule,
+    RouterModule,
+    TableModule,
+    FileUploadModule,
     FormsModule,
-    RouterModule
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+    ToolbarModule,
+    RatingModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule,
+    DialogModule,RouterModule
   ],
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.scss'
@@ -63,7 +86,12 @@ export class StockComponent implements OnInit {
     // Implémentez la logique pour éditer un stock de pièces
   }
 
-  deleteStockPiece(stockId: number) {
-    // Implémentez la logique pour supprimer un stock de pièces
-  }
+  deleteStockPiece(stockPieces: StockPiece) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer  ?')) {
+      this.stockService.deleteStockPiece(stockPieces.stock_id)
+        .subscribe(() => {
+          this.loadStockPieces();
+        });
+    }  }
+ 
 }

@@ -30,8 +30,8 @@
         <td>{{ stockPiece.reserved_quantity }}</td>
         <td>{{ stockPiece.local }}</td>
         <td>
-          <button pButton type="button" icon="pi pi-pencil" class="p-button-warning" (click)="editStockPiece(stockPiece)"></button>
-          <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteStockPiece(stockPiece.stock_id)"></button>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  [routerLink]="['/maj-stock', stockPiece.utilisation_id]" routerLinkActive="router-link-active"></button>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteStockPiece(stockPiece)"></button>
         </td>
       </tr>
     </ng-template>

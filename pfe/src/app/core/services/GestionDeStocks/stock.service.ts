@@ -40,4 +40,6 @@ export class StockService {
     const url = `${this.apiUrl}/${stockId}`;
     return this.http.delete(url);
   }
+
+  
 }

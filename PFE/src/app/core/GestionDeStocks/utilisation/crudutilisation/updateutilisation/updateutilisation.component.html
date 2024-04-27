@@ -1,32 +1,35 @@
 <div class="container">
-    <h2>Modifier les données d'une utilisation de pièces</h2>
-    
-    <form [formGroup]="utilisationForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="EquipmentTypeID">ID de l'équipement</label>
-        <input type="number" formControlName="EquipmentTypeID" class="form-control" required>
-      </div> 
-      <div class="form-group">
-        <label for="piece_id">ID de la pièce</label>
-        <input type="number" formControlName="piece_id" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="quantity_used">Quantité utilisée</label>
-        <input type="number" formControlName="quantity_used" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="date_utilisation">Date d'utilisation</label>
-        <input type="date" formControlName="date_utilisation" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea formControlName="description" class="form-control"></textarea>
-      </div>
-      
-      <!-- Ajoutez d'autres champs du formulaire ici -->
-  
-      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
-      <a routerLink="/liste-utilisations-pieces" class="btn btn-secondary">Annuler</a>
-    </form>
-  </div>
+  <h2>Update</h2>
+  <p-toast></p-toast>
+  <form [formGroup]="utilisationForm" (ngSubmit)="onSubmit()" class="p-fluid">
+    <div class="p-field">
+      <label for="equipementSelect">Sélectionner un équipement</label>
+      <select id="equipementSelect" formControlName="EquipmentTypeID" class="p-inputtext p-d-block">
+        <option *ngFor="let equipement of equipements" [ngValue]="equipement?.EquipmentTypeID">{{ equipement?.TypeName }}</option>
+      </select>
+    </div>
+    <div class="p-field">
+      <label for="pieceSelect">Sélectionner une pièce :</label>
+      <select id="pieceSelect" formControlName="piece_id" class="p-inputtext p-d-block">
+        <option *ngFor="let piece of pieces" [ngValue]="piece?.piece_id">{{ piece?.nom_piece }}</option>
+      </select>
+    </div>
+
+    <div class="p-field">
+      <label for="quantity_used">Quantité utilisée</label>
+      <input type="text" id="quantity_used" formControlName="quantity_used" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="date_utilisation">Date d'utilisation</label>
+      <input type="date" id="date_utilisation" formControlName="date_utilisation" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <input type="text" id="description" formControlName="description" pInputText class="p-inputtext">
+    </div>
+    <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
+    <a routerLink="/utilisation"pButton class="p-button-secondary">Annuler</a>
+  </form>
+</div>
+
   

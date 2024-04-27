@@ -18,6 +18,7 @@ import { FournisseurComponent } from './fournisseur/fournisseur.component';
 import { UpdateutilisationComponent } from './utilisation/crudutilisation/updateutilisation/updateutilisation.component';
 import { EditfournisseurComponent } from './fournisseur/editfournisseur/editfournisseur.component';
 import { MajStockComponent } from './stocks/crudstock/maj-stock/maj-stock.component';
+import { UpdatecommandeComponent } from './commande/crudcommande/updatecommande/updatecommande.component';
 
 
 const routes: Routes = [
@@ -34,11 +35,11 @@ const routes: Routes = [
 
 { path: "stocks", component: StockComponent },
 { path: "addstocks", component: StockFormComponent },
-{ path: "maj-stocks/:id", component: MajStockComponent },
+{ path: "maj-stock/:id", component: MajStockComponent },
 
 { path: "commande", component: CommandeComponent  },
 { path: "addcommande", component: AddcommandeComponent  },
-{ path: "updatecommande/:id", component: AddcommandeComponent  },
+{ path: "updatecommande/:id", component: UpdatecommandeComponent   },
 
 { path: "location", component: LocationComponent   },
 { path: "addlocation", component: AddlocationComponent  },

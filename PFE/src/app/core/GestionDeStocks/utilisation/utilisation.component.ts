@@ -75,7 +75,8 @@ export class UtilisationComponent implements OnInit {
       this.filteredUtilisation = this.utilisations;
     } else {
       this.filteredUtilisation = this.utilisations.filter(utilisation => {
-        return utilisation.EquipmentTypeID.toString().toLowerCase().includes(value.toLowerCase()) || 
+        return
+        utilisation.EquipmentTypeID.toString().toLowerCase().includes(value.toLowerCase()) || 
         utilisation.piece_id.toString().toLowerCase().includes(value.toLowerCase()) ||
         utilisation.quantity_used.toString().toLowerCase().includes(value.toLowerCase()) ||
         utilisation.date_utilisation.toString().toLowerCase().includes(value.toLowerCase()) ||
