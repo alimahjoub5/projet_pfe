@@ -7,7 +7,6 @@ import { EditPieceComponent } from './crudpiece/edit-piece/edit-piece.component'
 import { StockComponent } from './stocks/stocks.component';
 import { StockFormComponent } from './stocks/crudstock/addstock/add-stock.component';
 import { CommandeComponent } from './commande/commande.component';
-import { AddcommandeComponent } from './commande/crudcommande/addcommande/addcommande.component';
 import { LocationComponent } from './location/location.component';
 import { AddlocationComponent } from './location/crudlocation/addlocation/addlocation.component';
 import { UtilisationComponent } from './utilisation/utilisation.component';
@@ -19,6 +18,7 @@ import { UpdateutilisationComponent } from './utilisation/crudutilisation/update
 import { EditfournisseurComponent } from './fournisseur/editfournisseur/editfournisseur.component';
 import { MajStockComponent } from './stocks/crudstock/maj-stock/maj-stock.component';
 import { UpdatecommandeComponent } from './commande/crudcommande/updatecommande/updatecommande.component';
+import { AddcommandeComponent } from './commande/crudcommande/addcommande/addcommande.component';
 
 
 const routes: Routes = [
@@ -40,6 +40,8 @@ const routes: Routes = [
 { path: "commande", component: CommandeComponent  },
 { path: "addcommande", component: AddcommandeComponent  },
 { path: "updatecommande/:id", component: UpdatecommandeComponent   },
+
+//{ path: "addcommande", component: AddcommandeComponent  },
 
 { path: "location", component: LocationComponent   },
 { path: "addlocation", component: AddlocationComponent  },

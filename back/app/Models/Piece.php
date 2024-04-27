@@ -22,9 +22,9 @@ class Piece extends Model
         'fournisseur_id',
     ];
 
-    public function fournisseur()
+    public function fournisseurs()
     {
-        return $this->belongsTo(Fournisseur::class, 'fournisseur_id');
+        return $this->hasMany(Fournisseur::class);
     }
 
     public function locations()
