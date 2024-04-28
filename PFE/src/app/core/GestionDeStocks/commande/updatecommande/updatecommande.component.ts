@@ -36,7 +36,7 @@ export class UpdatecommandeComponent {
   isLoading: boolean;
   fournisseurs: Fournisseur[];
   pieces: Piece[];
-
+commande:CommandeEnAttente[];
   constructor(
     private fb: FormBuilder,
     private fournisseurService: FournisseurService,

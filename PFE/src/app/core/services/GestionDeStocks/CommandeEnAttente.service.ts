@@ -23,7 +23,9 @@ export class CommandeEnAttenteService  {
   // Méthode pour récupérer une commande en attente par son ID
   getCommandeEnAttenteById(commandeId: number): Observable<CommandeEnAttente> {
     const url = `${this.apiUrl}/${commandeId}`;
-    return this.http.get<CommandeEnAttente>(url);
+    var a=this.http.get<CommandeEnAttente>(url);
+    console.log(a);
+    return a;
   }
 
   // Méthode pour créer une nouvelle commande en attente
