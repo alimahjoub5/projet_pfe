@@ -1,13 +1,31 @@
-<div class="row">
-    <div class="col-md-6">
-      <input type="text" pInputText placeholder="Rechercher" (input)="filter($event.target.value)" class="search-input">
-    </div>
-    <div class="col-md-6">
-      <button pButton type="button" icon="pi pi-plus" class="p-button-raised p-button-success" routerLink="/addstocks">
-        Ajouter un stock
-      </button>
-    </div>
-  </div>
+<div class="grid">
+  <div class="col-12">
+      <div class="card px-6 py-6">
+          <p-toast></p-toast>
+          <p-toolbar styleClass="mb-4">
+              <ng-template pTemplate="left">
+                  <div class="my-2">
+                      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addstock"></button>
+                      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                  </div>
+              </ng-template>
+
+              <ng-template pTemplate="right">
+                  <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                  <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+              </ng-template>
+          </p-toolbar>
+
+          <p-table [value]="stockPieces" [value]="filteredStockPieces" [rows]="10" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[5,10,20]">              <ng-template pTemplate="caption">
+                  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                      <h5 class="m-0">Gérer le Stock</h5>
+                      <span class="block mt-2 md:mt-0 p-input-icon-left">
+                          <i class="pi pi-search"></i>
+                          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                      </span>
+                  </div>
+             
+<hr>
 
   <p-table [value]="stockPieces" #dt>
     <ng-template pTemplate="header">
@@ -29,9 +47,12 @@
         <td>{{ stockPiece.quantity }}</td>
         <td>{{ stockPiece.reserved_quantity }}</td>
         <td>{{ stockPiece.local }}</td>
+      
         <td>
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  [routerLink]="['/maj-stock', stockPiece.utilisation_id]" routerLinkActive="router-link-active"></button>
-          <button pButton type="button" icon="pi pi-trash" class="p-button-danger" (click)="deleteStockPiece(stockPiece)"></button>
+          <!-- Bouton Modifier -->
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"  [routerLink]="['/maj-stock', stockPiece.stock_id]"routerLinkActive="router-link-active"></button>
+          <!-- Bouton Supprimer -->
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteStockPiece(stockPiece)"></button>
         </td>
       </tr>
     </ng-template>

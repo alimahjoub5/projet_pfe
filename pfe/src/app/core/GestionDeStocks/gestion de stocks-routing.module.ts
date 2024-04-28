@@ -17,8 +17,8 @@ import { FournisseurComponent } from './fournisseur/fournisseur.component';
 import { UpdateutilisationComponent } from './utilisation/crudutilisation/updateutilisation/updateutilisation.component';
 import { EditfournisseurComponent } from './fournisseur/editfournisseur/editfournisseur.component';
 import { MajStockComponent } from './stocks/crudstock/maj-stock/maj-stock.component';
-import { UpdatecommandeComponent } from './commande/crudcommande/updatecommande/updatecommande.component';
-import { AddcommandeComponent } from './commande/crudcommande/addcommande/addcommande.component';
+import { UpdatecommandeComponent } from './commande/updatecommande/updatecommande.component';
+import { AddcommandeComponent } from './commande/addcommande/addcommande.component';
 
 
 const routes: Routes = [
