@@ -1,13 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule ,Route, Router} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 import { CommandeEnAttente } from 'src/app/core/models/GestionDeStocks/CommandeEnAttente';
 import { Fournisseur } from 'src/app/core/models/GestionDeStocks/Fournisseur';
 import { Piece } from 'src/app/core/models/GestionDeStocks/piece';
@@ -27,6 +36,7 @@ import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService
     ButtonModule,
     FileUploadModule,
     RouterModule
+    
   ],
   templateUrl: './updatecommande.component.html',
   styleUrl: './updatecommande.component.scss'
@@ -36,7 +46,8 @@ export class UpdatecommandeComponent {
   isLoading: boolean;
   fournisseurs: Fournisseur[];
   pieces: Piece[];
-commande:CommandeEnAttente[];
+  commandeId: number;
+
   constructor(
     private fb: FormBuilder,
     private fournisseurService: FournisseurService,
@@ -65,8 +76,9 @@ commande:CommandeEnAttente[];
   }
 
   getCommandeDetails(): void {
-    const commandeId = +this.route.snapshot.paramMap.get('id');
-    this.commandeService.getCommandeEnAttenteById(commandeId).subscribe(
+    this.commandeId = +this.route.snapshot.paramMap.get('id');
+    
+    this.commandeService.getCommandeEnAttenteById(this.commandeId).subscribe(
       (commande: CommandeEnAttente) => {
         this.commandeform.patchValue(commande);
       },
@@ -91,14 +103,14 @@ commande:CommandeEnAttente[];
   onSubmit(): void {
     if (this.commandeform.valid) {
       const updatedCommande: CommandeEnAttente = this.commandeform.value;
-      const commandeId = +this.route.snapshot.paramMap.get('id');
-      updatedCommande.commande_id = commandeId;
-
+      updatedCommande.commande_id = this.commandeId;
+  
       this.isLoading = true;
-      this.commandeService.updateCommandeEnAttente(updatedCommande).subscribe(
+      this.commandeService.updateCommandeEnAttente(this.commandeId, updatedCommande).subscribe(
         (response: CommandeEnAttente) => {
           console.log('Commande mise à jour avec succès :', response);
           this.isLoading = false;
+          this.showSuccess(); // Appel de la méthode showSuccess pour afficher le message de succès
           this.router.navigate(['/liste-commandes']); // Rediriger vers la page de liste des commandes
         },
         (error: any) => {
@@ -108,9 +120,8 @@ commande:CommandeEnAttente[];
       );
     }
   }
-
+  
   showSuccess(): void {
     this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Commande mise à jour avec succès' });
   }
-
 }

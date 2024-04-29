@@ -6,40 +6,39 @@ import { CommandeEnAttente } from '../../models/GestionDeStocks/CommandeEnAttent
 @Injectable({
   providedIn: 'root'
 })
-export class CommandeEnAttenteService  {
+export class CommandeEnAttenteService {
   apiUrl = 'http://localhost:8000/api/commandes'; // Remplacez par l'URL de votre API
 
   constructor(private http: HttpClient) {}
 
+  // Enregistrer une commande en attente
   enregistrerCommande(commande: CommandeEnAttente): Observable<any> {
     return this.http.post(this.apiUrl, commande);
   }
  
-  // Méthode pour récupérer toutes les commandes en attente
+  // Récupérer toutes les commandes en attente
   getCommandesEnAttente(): Observable<CommandeEnAttente[]> {
     return this.http.get<CommandeEnAttente[]>(this.apiUrl);
   }
 
-  // Méthode pour récupérer une commande en attente par son ID
+  // Récupérer une commande en attente par son ID
   getCommandeEnAttenteById(commandeId: number): Observable<CommandeEnAttente> {
     const url = `${this.apiUrl}/${commandeId}`;
-    var a=this.http.get<CommandeEnAttente>(url);
-    console.log(a);
-    return a;
+    return this.http.get<CommandeEnAttente>(url);
   }
 
-  // Méthode pour créer une nouvelle commande en attente
+  // Créer une nouvelle commande en attente
   createCommandeEnAttente(commandeEnAttente: CommandeEnAttente): Observable<CommandeEnAttente> {
     return this.http.post<CommandeEnAttente>(this.apiUrl, commandeEnAttente);
   }
 
-  // Méthode pour mettre à jour une commande en attente existante
-  updateCommandeEnAttente(commandeEnAttente: CommandeEnAttente): Observable<CommandeEnAttente> {
-    const url = `${this.apiUrl}/${commandeEnAttente.commande_id}`;
-    return this.http.put<CommandeEnAttente>(url, commandeEnAttente);
+  // Mettre à jour une commande en attente existante
+  updateCommandeEnAttente(commande_id: number , updatedCommande: CommandeEnAttente): Observable<CommandeEnAttente> {
+    const url = `${this.apiUrl}/${commande_id}`;
+    return this.http.put<CommandeEnAttente>(url, updatedCommande);
   }
 
-  // Méthode pour supprimer une commande en attente
+  // Supprimer une commande en attente
   deleteCommandeEnAttente(commandeId: number): Observable<any> {
     const url = `${this.apiUrl}/${commandeId}`;
     return this.http.delete(url);
