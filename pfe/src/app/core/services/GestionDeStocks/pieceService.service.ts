@@ -35,6 +35,7 @@ export class PieceService {
 
   deletePiece(pieceId: number): Observable<void> {
     const url = `${this.apiUrl}/${pieceId}`;
+    
     return this.http.delete<void>(url);
   }
   // Autres méthodes pour mettre à jour, supprimer ou récupérer une seule pièce si nécessaire

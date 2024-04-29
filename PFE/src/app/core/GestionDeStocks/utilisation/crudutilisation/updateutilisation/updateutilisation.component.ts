@@ -75,9 +75,10 @@ export class UpdateutilisationComponent implements OnInit {
     );
   }
 
+ 
   getAllEquipements(): void {
-    this.equipementService.getAllEquipmentTypes().subscribe((response: any) => {
-      this.equipements = response.equipements;
+    this.equipementService.getAllEquipmentTypes().subscribe((equipements: EquipmentType[]) => {
+      this.equipements = equipements;
     });
   }
 

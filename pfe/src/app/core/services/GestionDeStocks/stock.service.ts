@@ -1,5 +1,3 @@
-// stock.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -19,8 +17,8 @@ export class StockService {
   }
 
   // Méthode pour récupérer un stock de pièces par son ID
-  getStockPieceById(stock_id: number): Observable<StockPiece> {
-    const url = `${this.apiUrl}/${stock_id}`;
+  getStockPieceById(stockId: number): Observable<StockPiece> {
+    const url = `${this.apiUrl}/${stockId}`;
     return this.http.get<StockPiece>(url);
   }
 
@@ -30,19 +28,16 @@ export class StockService {
   }
 
   // Méthode pour mettre à jour un stock de pièces existant
-  updateStockPiece(stockId: number ,  updatedStock: StockPiece): Observable<StockPiece> {
+  updateStockPiece(stockId: number, updatedStock: StockPiece): Observable<StockPiece> {
     const url = `${this.apiUrl}/${stockId}`;
-    var a=this.http.put<StockPiece>(url, updatedStock);
-    console.log(a);
-    return a;
+    return this.http.put<StockPiece>(url, updatedStock);
   }
 
+ 
 
   // Méthode pour supprimer un stock de pièces
   deleteStockPiece(stockId: number): Observable<any> {
     const url = `${this.apiUrl}/${stockId}`;
     return this.http.delete(url);
   }
-
-  
 }

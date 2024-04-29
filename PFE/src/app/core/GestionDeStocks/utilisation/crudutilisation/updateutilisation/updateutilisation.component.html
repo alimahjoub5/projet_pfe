@@ -8,6 +8,7 @@
         <option *ngFor="let equipement of equipements" [ngValue]="equipement?.EquipmentTypeID">{{ equipement?.TypeName }}</option>
       </select>
     </div>
+    
     <div class="p-field">
       <label for="pieceSelect">Sélectionner une pièce :</label>
       <select id="pieceSelect" formControlName="piece_id" class="p-inputtext p-d-block">

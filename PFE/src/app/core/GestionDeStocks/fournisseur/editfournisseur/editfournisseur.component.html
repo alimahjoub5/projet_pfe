@@ -1,9 +1,9 @@
 <div class="container">
-  <h2>Modifier local</h2>
+  <h2>Modifier Fournisseur</h2>
 
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="nom_fournisseur">Nom du local</label>
+      <label for="nom_fournisseur">Nom du fournisseur</label>
       <input type="text" [(ngModel)]="fournisseur.nom_fournisseur" name="nom_fournisseur" class="form-control">
     </div>
     <div class="form-group">
@@ -21,6 +21,6 @@
     <!-- Ajoutez d'autres champs du formulaire ici -->
 
     <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
-    <a routerLink="/location" class="btn btn-secondary">Annuler</a>
+    <a routerLink="/fournisseur"class="btn btn-secondary">Annuler</a>
   </form>
 </div>

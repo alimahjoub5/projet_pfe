@@ -89,11 +89,18 @@ export class PiecelistComponent implements OnInit {
     }
   }
   confirmDeletePiece(piece: Piece): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette pièce ?')) {
-      this.pieceService.deletePiece(piece.piece_id)
-        .subscribe(() => {
-          this.getpiece();
-        });
+    const confirmDelete = confirm('Êtes-vous sûr de vouloir supprimer cette pièce ?');
+    if (confirmDelete) {
+      this.pieceService.deletePiece(piece.piece_id).subscribe(
+        () => {
+          this.pieces = this.pieces.filter(p => p.piece_id !== piece.piece_id);
+          this.showDialog = false; // Fermer la boîte de dialogue si elle est ouverte
+        },
+        error => {
+          console.error('Erreur lors de la suppression de la pièce :', error);
+          // Afficher un message d'erreur à l'utilisateur si nécessaire
+        }
+      );
     }
   }
   

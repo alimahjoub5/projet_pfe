@@ -32,10 +32,11 @@ export class UtilisationPieceService {
  
 
   // Méthode pour mettre à jour une utilisation de pièce existante
-  updateUtilisationPiece(utilisationId: number,updateutilisation:UtilisationPiece): Observable<UtilisationPiece> {
-    const url = `${this.apiUrl}/${utilisationId}`;
-    return this.http.put<UtilisationPiece>(url, updateutilisation);
-  }
+ 
+ updateUtilisationPiece(utilisation_id: number , updateutilisation:UtilisationPiece): Observable<UtilisationPiece> {
+  const url = `${this.apiUrl}/${utilisation_id}`;
+  return this.http.put<UtilisationPiece>(url, updateutilisation);
+}
 
 
   // Méthode pour supprimer une utilisation de pièce
