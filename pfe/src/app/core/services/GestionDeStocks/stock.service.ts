@@ -19,8 +19,8 @@ export class StockService {
   }
 
   // Méthode pour récupérer un stock de pièces par son ID
-  getStockPieceById(stockId: number): Observable<StockPiece> {
-    const url = `${this.apiUrl}/${stockId}`;
+  getStockPieceById(stock_id: number): Observable<StockPiece> {
+    const url = `${this.apiUrl}/${stock_id}`;
     return this.http.get<StockPiece>(url);
   }
 
@@ -30,10 +30,13 @@ export class StockService {
   }
 
   // Méthode pour mettre à jour un stock de pièces existant
-  updateStockPiece(stockPiece: StockPiece): Observable<StockPiece> {
-    const url = `${this.apiUrl}/${stockPiece.stock_id}`;
-    return this.http.put<StockPiece>(url, stockPiece);
+  updateStockPiece(stockId: number ,  updatedStock: StockPiece): Observable<StockPiece> {
+    const url = `${this.apiUrl}/${stockId}`;
+    var a=this.http.put<StockPiece>(url, updatedStock);
+    console.log(a);
+    return a;
   }
+
 
   // Méthode pour supprimer un stock de pièces
   deleteStockPiece(stockId: number): Observable<any> {

@@ -34,7 +34,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './add-stock.component.html',
   styleUrls: ['./add-stock.component.scss'] // Correction de la propriété styleUrl en styleUrls
 })
-export class StockFormComponent implements OnInit {
+export class AddStockComponent implements OnInit {
   stockPieceForm: FormGroup;
   equipmentTypes: EquipmentType[];
   filteredEquipmentTypes: EquipmentType[];

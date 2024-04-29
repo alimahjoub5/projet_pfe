@@ -30,75 +30,85 @@ import { UtilisationPiece } from 'src/app/core/models/GestionDeStocks/Utilisatio
   styleUrl: './updateutilisation.component.scss'
 })
 export class UpdateutilisationComponent implements OnInit {
-  utilisationId: number;
-  utilisationPieces: UtilisationPiece;
   utilisationForm: FormGroup;
-  isLoading: boolean = false;
+  isLoading: boolean;
   equipements: EquipmentType[];
   pieces: Piece[];
+  utilisationId: number;
 
   constructor(
+    private fb: FormBuilder,
+    private equipementService: EquipmentTypeService ,
+    private pieceService: PieceService,
+    private utilisationService: UtilisationPieceService ,
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
-    private router: Router,
-    private utilisationPiecesService: UtilisationPieceService,
-    private formBuilder: FormBuilder
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.utilisationId = +Number(params.get('id'));
-      this.loadUtilisationPieces(this.utilisationId);
-    });
-
-    this.utilisationForm = this.formBuilder.group({
+    this.utilisationForm = this.fb.group({
       EquipmentTypeID: ['', Validators.required],
       piece_id: ['', Validators.required],
       quantity_used: ['', Validators.required],
       date_utilisation: ['', Validators.required],
-      description: ['']
+      description: [null, Validators.required],
+    
     });
+
+    this.getUtilisationDetails();
+    this.getAllEquipements();
+    this.getAllPieces();
   }
 
-  loadUtilisationPieces(id: number): void {
-    this.utilisationPiecesService.getUtilisationPieceById(id).subscribe(
-      (utilisationPieces: UtilisationPiece) => {
-        this.utilisationPieces = utilisationPieces;
-        this.patchFormValues();
+  getUtilisationDetails(): void {
+    this.utilisationId = +this.route.snapshot.paramMap.get('id');
+    
+    this.utilisationService.getUtilisationPieceById(this.utilisationId).subscribe(
+      (utilisation: UtilisationPiece) => {
+        this.utilisationForm.patchValue(utilisation);
       },
-      error => {
-        console.error('Une erreur est survenue lors du chargement de la pièce:', error);
+      (error: any) => {
+        console.error('Erreur lors de la récupération de la commande :', error);
       }
     );
   }
 
-  patchFormValues(): void {
-    this.utilisationForm.patchValue({
-      EquipmentTypeID: this.utilisationPieces.EquipmentTypeID,
-      piece_id: this.utilisationPieces.piece_id,
-      quantity_used: this.utilisationPieces.quantity_used,
-      date_utilisation: this.utilisationPieces.date_utilisation,
-      description: this.utilisationPieces.description
+  getAllEquipements(): void {
+    this.equipementService.getAllEquipmentTypes().subscribe((response: any) => {
+      this.equipements = response.equipements;
+    });
+  }
+
+  getAllPieces(): void {
+    this.pieceService.getAllPieces().subscribe((response: any) => {
+      this.pieces = response.pieces;
     });
   }
 
   onSubmit(): void {
-    if (this.utilisationForm.valid && this.utilisationId !== null && this.utilisationId !== undefined) {
-      const formData = this.utilisationForm.value;
+    if (this.utilisationForm.valid) {
+      const updatedUtilisation: UtilisationPiece = this.utilisationForm.value;
+      updatedUtilisation.utilisation_id = this.utilisationId;
+  
       this.isLoading = true;
-      this.utilisationPiecesService.updateUtilisationPiece(this.utilisationId, formData).subscribe(
-        () => {
-          console.log(this.utilisationPieces);
+      this.utilisationService.updateUtilisationPiece(this.utilisationId, updatedUtilisation).subscribe(
+        (response: UtilisationPiece) => {
+          console.log('UtilisationPiece mise à jour avec succès :', response);
           this.isLoading = false;
-          this.router.navigate(['/utilisation']); // Rediriger vers la liste des pièces après la mise à jour
+          this.showSuccess(); // Appel de la méthode showSuccess pour afficher le message de succès
+          this.router.navigate(['/utilisation']); // Rediriger vers la page de liste des commandes
         },
-        error => {
+        (error: any) => {
+          console.error('Erreur lors de la mise à jour de lutilisation :', error);
           this.isLoading = false;
-          console.error('Une erreur est survenue lors de la mise à jour de la pièce:', error);
         }
       );
-    } else {
-      console.error('Veuillez fournir une valeur valide pour utilisationId et remplir le formulaire correctement.');
     }
   }
   
+  showSuccess(): void {
+    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Commande mise à jour avec succès' });
+  }
 }

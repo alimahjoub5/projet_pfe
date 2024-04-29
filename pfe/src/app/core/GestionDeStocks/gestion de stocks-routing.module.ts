@@ -5,7 +5,7 @@ import { PieceFormComponent } from './crudpiece/addpiece/piece.component';
 import { PiecelistComponent } from './crudpiece/piecelist/piecelist.component';
 import { EditPieceComponent } from './crudpiece/edit-piece/edit-piece.component';
 import { StockComponent } from './stocks/stocks.component';
-import { StockFormComponent } from './stocks/crudstock/addstock/add-stock.component';
+import { AddStockComponent } from './stocks/crudstock/addstock/add-stock.component';
 import { CommandeComponent } from './commande/commande.component';
 import { LocationComponent } from './location/location.component';
 import { AddlocationComponent } from './location/crudlocation/addlocation/addlocation.component';
@@ -16,9 +16,9 @@ import { AddfournisseurComponent } from './fournisseur/addfournisseur/addfournis
 import { FournisseurComponent } from './fournisseur/fournisseur.component';
 import { UpdateutilisationComponent } from './utilisation/crudutilisation/updateutilisation/updateutilisation.component';
 import { EditfournisseurComponent } from './fournisseur/editfournisseur/editfournisseur.component';
-import { MajStockComponent } from './stocks/crudstock/maj-stock/maj-stock.component';
 import { UpdatecommandeComponent } from './commande/updatecommande/updatecommande.component';
 import { AddcommandeComponent } from './commande/addcommande/addcommande.component';
+import { MajStockComponent } from './stocks/crudstock/maj-stock/maj-stock.component';
 
 
 const routes: Routes = [
@@ -34,7 +34,7 @@ const routes: Routes = [
 { path: "majpiece/:id", component: EditPieceComponent },
 
 { path: "stocks", component: StockComponent },
-{ path: "addstocks", component: StockFormComponent },
+{ path: "addstock", component: AddStockComponent },
 { path: "maj-stock/:id", component: MajStockComponent },
 
 { path: "commande", component: CommandeComponent  },

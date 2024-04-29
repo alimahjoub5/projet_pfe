@@ -1,1 +1,37 @@
-efzezef
+<div class="container">
+  <h2>Modifier</h2>
+  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="p-fluid">
+    
+    <div class="p-field">
+      <label for="pieceSelect">Sélectionner une pièce :</label>
+      <select id="pieceSelect" formControlName="piece_id" class="p-inputtext p-d-block">
+        <option *ngFor="let piece of pieces" [ngValue]="piece?.piece_id">{{ piece?.nom_piece }}</option>
+      </select>
+    </div>
+
+    <div class="p-field">
+      <label for="equipementSelect">Sélectionner un équipement :</label>
+      <select id="equipementSelect" formControlName="EquipmentTypeID" class="p-inputtext p-d-block">
+        <option *ngFor="let equipement of equipements" [ngValue]="equipement?.equipment_id">{{ equipement?.TypeName }}</option>
+      </select>
+    </div>
+
+    <div class="p-field">
+      <label for="quantity">Quantité :</label>
+      <input type="number" id="quantity" formControlName="quantity" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="reserved_quantity">Quantité réservée :</label>
+      <input type="number" id="reserved_quantity" formControlName="reserved_quantity" pInputText class="p-inputtext">
+    </div>
+   
+  
+    <div class="p-field">
+      <label for="local">Local :</label>
+      <input type="text" id="local" formControlName="local" pInputText class="p-inputtext">
+    </div>
+ 
+    <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
+    <a routerLink="/stocks" class="btn btn-secondary">Annuler</a>
+  </form>
+</div>

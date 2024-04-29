@@ -4,7 +4,7 @@ import { StockService } from '../../services/GestionDeStocks/stock.service';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule ,Route} from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
@@ -27,20 +27,17 @@ import { ToolbarModule } from 'primeng/toolbar';
     ButtonModule,
     InputTextModule,
     RouterModule,
-    TableModule,
     FileUploadModule,
     FormsModule,
-    ButtonModule,
     RippleModule,
     ToastModule,
     ToolbarModule,
     RatingModule,
-    InputTextModule,
     InputTextareaModule,
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule,RouterModule
+    DialogModule,
   ],
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.scss'
@@ -81,17 +78,14 @@ export class StockComponent implements OnInit {
     this.searchText = '';
     this.filter('');
   }
-
-  editStockPiece(stockPiece: StockPiece) {
-    // Implémentez la logique pour éditer un stock de pièces
-  }
-
-  deleteStockPiece(stockPieces: StockPiece) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer  ?')) {
+  
+  
+  deleteStockPiece(stockPieces: StockPiece): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce stock ?')) {
       this.stockService.deleteStockPiece(stockPieces.stock_id)
         .subscribe(() => {
           this.loadStockPieces();
         });
-    }  }
- 
+    }
+  }
 }

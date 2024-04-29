@@ -111,7 +111,7 @@ export class UpdatecommandeComponent {
           console.log('Commande mise à jour avec succès :', response);
           this.isLoading = false;
           this.showSuccess(); // Appel de la méthode showSuccess pour afficher le message de succès
-          this.router.navigate(['/liste-commandes']); // Rediriger vers la page de liste des commandes
+          this.router.navigate(['/commande']); // Rediriger vers la page de liste des commandes
         },
         (error: any) => {
           console.error('Erreur lors de la mise à jour de la commande :', error);
