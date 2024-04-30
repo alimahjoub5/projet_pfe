@@ -2,7 +2,7 @@ export interface Task {
    
     TicketTaskID?: number;
     TicketID?: number;
-    CreatedBy?: string;
+    CreatedBy?: Number;
     CreatedOn: Date | string;
     ModifiedBy?: string;
     ModifiedOn: Date | string;

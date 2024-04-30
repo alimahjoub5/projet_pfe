@@ -13,137 +13,118 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { CommandeEnAttente } from 'src/app/core/models/GestionDeStocks/CommandeEnAttente';
+import { Fournisseur } from 'src/app/core/models/GestionDeStocks/Fournisseur';
+import { Piece } from 'src/app/core/models/GestionDeStocks/piece';
+import { CommandeEnAttenteService } from 'src/app/core/services/GestionDeStocks/CommandeEnAttente.service';
+import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
+import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService.service';
+import { TicketStatus } from 'src/app/core/models/ticketstatus';
+import { TicketStatusService } from 'src/app/core/services/ticketstatus.service';
+import { TaskService } from 'src/app/core/services/task.service';
+import { Task } from 'src/app/core/models/task';
 
 @Component({
   selector: 'app-createtasks',
   standalone: true,
   imports: [
-    AutoCompleteModule,
-    FormsModule,ReactiveFormsModule,
     CommonModule,
-    NgxSpinnerModule, 
-  ToastModule
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputNumberModule,
+    ButtonModule,
+    FileUploadModule,
+    RouterModule
   ],
     templateUrl: './createtasks.component.html',
   styleUrl: './createtasks.component.scss'
 })
 export class CreatetasksComponent implements OnInit {
+  taskform: FormGroup;
+  isLoading: boolean;
+  tickets: any;
+  status: TicketStatus[];
+  priorities: Priority[];
 
-  equipmentTypes: EquipmentType[] | undefined;
-  selectedEquipmentType: EquipmentType | null = null;
-  filteredEquipmentTypes: EquipmentType[] | undefined;
-
-  priorities: Priority[] | undefined;
-  form: FormGroup;
-  isLoading : boolean;
   constructor(
     private fb: FormBuilder,
-    private priorityService: PriorityService,
     private ticketService: TicketService,
-    private equipmentService: EquipmentTypeService,
+    private ticketStatusService: TicketStatusService,
+    private priorityService: PriorityService,
+    private taskService: TaskService,
     private spinner: NgxSpinnerService,
-    private messageService: MessageService,
-    private authservice: AuthService
-
-
+    private authservice : AuthService,
+    private messageService: MessageService
   ) {}
 
-  showSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'ticket créé avec succès' });
-  }
-
   ngOnInit(): void {
-    this.form = this.fb.group({
-      subject: ['', Validators.required],
-      description: [''],
-      priority: ['', Validators.required],
-      dueDate: ['', Validators.required],
-      equipmentTypeID: [null, Validators.required],
+    this.taskform = this.fb.group({
+      TicketID: [''],
+      StatusCodeID: [''],
+      AssigneeID: [null],
+      Subject: [''],
+      Description: [null],
+      PriorityID: [''],
+      DueDate: [''],
+      StartDate: [null],
+      EndDate: [null],
+      CompletedDate: [null]
     });
 
-    this.loadPriorities();
-    this.loadEquipmentTypes();
+    this.getAllTickets();
+    this.getAllStatus();
+    this.getAllPriorities();
   }
 
-  onSubmit(): void {
-    if (this.form.valid) {
-      this.isLoading=true;
-      this.spinner.show(); // Show the spinner
-      // Créer une nouvelle instance de Ticket en extrayant les valeurs du formulaire
-      const ticketData = this.form.value;
+  getAllTickets(): void {
+    this.ticketService.getAllTickets().subscribe((response: any) => {
+      this.tickets = response;
+    });
+  }
+
+  getAllStatus(): void {
+    this.ticketStatusService.getAllTicketStatuses().subscribe((response: any) => {
+      this.status = response;
+    });
+  }
+
+  getAllPriorities(): void {
+    this.priorityService.getAllPriorities().subscribe((response: any) => {
+      this.priorities = response;
+    });
+  }
   
-      // Créer une nouvelle instance de Ticket avec les données extraites
-      const ticket: Ticket = {
-        Subject: ticketData.subject,
-        Description: ticketData.description,
-        PriorityID: ticketData.priority,
-        DueDate: ticketData.dueDate,
-        EquipmentTypeID: ticketData.equipmentTypeID,
-        StartDate: ticketData.startDate,
-        EndDate: ticketData.endDate,
-        ClosedDate: ticketData.closedDate,
-        StatusCodeID : 2,
-        // D'autres propriétés si nécessaire
-        TicketID: null, // À remplir par le serveur
-        CreatedOn: null, // Définir la date et l'heure actuelles comme createdOn
-        CreatedBy: Number(this.authservice.getUserID()), // À remplir par le serveur
-        ModifiedOn: undefined,
-        ModifiedBy: null
-      };
-  console.log(ticket);
-      // Appeler le service pour ajouter le ticket
-      this.ticketService.addTicket(ticket).subscribe(
-        (response: any) => {
-          console.log('Ticket created successfully:', response);
-          this.spinner.hide(); // Hide the spinner when data is loaded
+  onSubmit(): void {
+    if (this.taskform.valid) {
+      const formData: Task = this.taskform.value;
+      this.isLoading = true;
+      formData.CreatedBy=Number(this.authservice.getUserID());
+      this.taskService.addTask(formData).subscribe(
+        (response: Task) => {
+          console.log('Tâche créée avec succès :', response);
+          this.isLoading = false;
           this.showSuccess();
+          this.taskform.reset(); // Déplacer la réinitialisation du formulaire ici pour éviter un reset avant le message de succès
         },
         (error: any) => {
-          console.error('Error creating ticket:', error);
+          console.error('Erreur lors de la création de la tâche :', error);
+          this.isLoading = false;
         }
       );
     } else {
-      console.error('Invalid form. Please check required fields.');
+      // Marquer tous les champs du formulaire comme touchés pour afficher les erreurs de validation
+      this.taskform.markAllAsTouched();
     }
   }
   
-  loadPriorities(): void {
-    this.priorityService.getAllPriorities().subscribe(
-      (priorities: Priority[]) => {
-        this.priorities = priorities;
-      },
-      (error: any) => {
-        console.log('Error loading priorities: ', error);
-      }
-    );
-  }
 
-  loadEquipmentTypes(): void {
-    this.equipmentService.getAllEquipmentTypes().subscribe(
-      (equipmentTypes: EquipmentType[]) => {
-        this.equipmentTypes = equipmentTypes;
-      },
-      (error: any) => {
-        console.error('Error fetching equipment types:', error);
-      }
-    );
-  }
-
-  filterEquipmentTypes(event: any): void {
-    let filtered: EquipmentType[] = [];
-    let query = event.query;
-
-    if (this.equipmentTypes) {
-      filtered = this.equipmentTypes.filter((equipmentType: EquipmentType) =>
-        equipmentType.TypeName.toLowerCase().startsWith(query.toLowerCase())
-      );
-    }
-
-    this.filteredEquipmentTypes = filtered;
-  }
-
-  onEquipmentTypeSelect(event: any): void {
-    this.selectedEquipmentType = event.value;
-    this.form.controls['equipmentTypeID'].setValue(this.selectedEquipmentType.EquipmentTypeID);
+  showSuccess(): void {
+    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Tâche créée avec succès' });
   }
 }

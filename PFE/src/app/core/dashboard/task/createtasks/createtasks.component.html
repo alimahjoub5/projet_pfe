@@ -1,49 +1,51 @@
-<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
-
-<p-toast></p-toast>
-
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-fluid">
-<div class="p-field">
-      <label for="subject">Sujet</label>
-      <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
-    </div>
+<div class="container">
+  <h2>Ajouter une tache</h2>
+  <form [formGroup]="taskform" (ngSubmit)="onSubmit()" class="p-fluid">
+    
     <div class="p-field">
-      <label for="description">Description</label>
-      <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
-    </div>
-    <div class="p-field">
-      <label for="priority">Priorité</label>
-      <select id="priority" formControlName="priority" class="p-dropdown" [required]="true">
-        <option value="" selected>selection</option>
-        <option *ngFor="let priority of priorities" [value]="priority.PriorityID">{{ priority.Name }}</option>
+      <label for="ticketSelect">Ticket :</label>
+      <select id="ticketSelect" formControlName="TicketID" class="p-inputtext p-d-block">
+        <option *ngFor="let ticket of tickets" [ngValue]="ticket?.TicketID">{{ ticket?.Subject }}</option>
       </select>
     </div>
-    
+    <div class="p-field">
+      <label for="statuSelect">Statut :</label>
+      <select id="statuSelect" formControlName="StatusCodeID" class="p-inputtext p-d-block">
+        <option *ngFor="let statu of status" [ngValue]="statu?.StatusCodeID">{{ statu?.StatusName }}</option>
+      </select>
+    </div>
 
     <div class="p-field">
-      <label for="dueDate">Date d'échéance</label>
-      <input type="date" id="dueDate" formControlName="dueDate" class="p-inputtext" required>
+      <label for="Subject">Sujet :</label>
+      <input type="text" id="Subject" formControlName="Subject" pInputText class="p-inputtext">
     </div>
-
-    <div>
-      <label for="equipmentTypeID">ID du type d'équipement</label>
-      <p-autoComplete 
-        [(ngModel)]="selectedEquipmentType" 
-        [suggestions]="filteredEquipmentTypes" 
-        (completeMethod)="filterEquipmentTypes($event)"
-        (onSelect)="onEquipmentTypeSelect($event)"
-        field="TypeName"
-        [dropdown]="true"
-        placeholder="Select an equipment"
-        id="equipmentTypeID" 
-        formControlName="equipmentTypeID" 
-        class="p-inputtext">
-      </p-autoComplete>
+    <div class="p-field">
+      <label for="Description">Description :</label>
+      <input type="text" id="Description" formControlName="Description" pInputText class="p-inputtext">
     </div>
-
-
-      <button type="submit" class="p-button p-button-primary"  >Soumettre</button>
- 
-    
+    <div class="p-field">
+      <label for="prioritySelect">Priorité :</label>
+      <select id="prioritySelect" formControlName="PriorityID" class="p-inputtext p-d-block">
+        <option *ngFor="let priority of priorities" [ngValue]="priority?.PriorityID">{{ priority?.Name }}</option>
+      </select>
+    </div>
+    <div class="p-field">
+      <label for="DueDate">Date d'échéance :</label>
+      <input type="date" id="DueDate" formControlName="DueDate" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="StartDate">Date de début :</label>
+      <input type="date" id="StartDate" formControlName="StartDate" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="EndDate">Date finale :</label>
+      <input type="date" id="EndDate" formControlName="EndDate" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="CompletedDate">Date complète :</label>
+      <input type="date" id="CompletedDate" formControlName="CompletedDate" pInputText class="p-inputtext">
+    </div>
+    <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
+    <a routerLink="/listtasks" pButton class="p-button-secondary">Annuler</a>
   </form>
-  <br>
+</div>

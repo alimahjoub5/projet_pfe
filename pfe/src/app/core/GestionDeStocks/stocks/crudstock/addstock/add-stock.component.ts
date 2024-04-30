@@ -36,17 +36,17 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class AddStockComponent implements OnInit {
   stockPieceForm: FormGroup;
-  equipmentTypes: EquipmentType[];
-  filteredEquipmentTypes: EquipmentType[];
-  selectedEquipmentType: EquipmentType;
-  filteredPieces: Piece[];
-  selectedPiece: Piece;
-  locations: Location[];
-  selectedLocation: Location;
-  value: any;
-  eqId: number;
-  idpiece: number;
-  locname: number;
+  equipmentTypes: EquipmentType[] = [];
+  filteredEquipmentTypes: EquipmentType[] = [];
+  selectedEquipmentType: EquipmentType | null = null;
+  filteredPieces: Piece[] = [];
+  selectedPiece: Piece | null = null;
+  locations: Location[] = [];
+  selectedLocation: Location | null = null;
+  value: number | undefined;
+  eqId: number | undefined;
+  idpiece: number | undefined;
+  locname: number | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -74,27 +74,31 @@ export class AddStockComponent implements OnInit {
 
   onSubmit(): void {
     const formData = this.stockPieceForm.value;
+    if (this.selectedPiece && this.selectedEquipmentType && this.selectedLocation) {
+      const stockPiece: StockPiece = {
+        piece_id: this.selectedPiece.piece_id,
+        equipment_id: this.selectedEquipmentType.EquipmentTypeID,
+        quantity: formData.quantity,
+        reserved_quantity: null,
+        local: this.selectedLocation.name,
+        created_by: Number(this.authService.getUserID()),
+        location_id: undefined
+      };
+      console.log(formData);
 
-    const stockPiece: StockPiece = {
-      piece_id: this.selectedPiece?.piece_id,
-      equipment_id: this.value,
-      quantity: formData.quantity,
-      reserved_quantity: null,
-      local: this.selectedLocation?.name,
-      created_by: Number(this.authService.getUserID()),
-      location_id: undefined
-    };
-
-    this.stockService.createStockPiece(stockPiece).subscribe(
-      (response) => {
-        console.log('Stock de pièces créé avec succès :', response);
-        this.router.navigate(['/stocks']);
-        this.stockPieceForm.reset();
-      },
-      (error) => {
-        console.error('Erreur lors de la création du stock de pièces :', error);
-      }
-    );
+      this.stockService.createStockPiece(stockPiece).subscribe(
+        (response) => {
+          console.log('Stock de pièces créé avec succès :', response);
+          this.router.navigate(['/stocks']);
+          this.stockPieceForm.reset();
+        },
+        (error) => {
+          console.error('Erreur lors de la création du stock de pièces :', error);
+        }
+      );
+    } else {
+      console.error('Veuillez sélectionner une pièce, un type d\'équipement et un emplacement.');
+    }
   }
 
   loadLocations(): void {
@@ -111,10 +115,23 @@ export class AddStockComponent implements OnInit {
   onLocationSelect(event: any): void {
     this.selectedLocation = event.value;
     if (this.selectedLocation) {
-      this.stockPieceForm.controls['local'].setValue(this.selectedLocation.name);
+      this.stockPieceForm.patchValue({
+        local: this.selectedLocation.name
+      });
       this.locname = this.selectedLocation.location_id;
     }
   }
+  
+  onPieceSelect(event: any): void {
+    this.selectedPiece = event.value;
+    if (this.selectedPiece) {
+      this.stockPieceForm.patchValue({
+        piece_id: this.selectedPiece.piece_id
+      });
+      this.idpiece = this.selectedPiece.piece_id;
+    }
+  }
+  
 
   loadEquipmentTypes(): void {
     this.equipmentService.getAllEquipmentTypes().subscribe(
@@ -155,13 +172,7 @@ export class AddStockComponent implements OnInit {
     this.filteredPieces = filtered;
   }
 
-  onPieceSelect(event: any): void {
-    this.selectedPiece = event.value;
-    if (this.selectedPiece) {
-      this.stockPieceForm.controls['piece_id'].setValue(this.selectedPiece.piece_id);
-      this.idpiece = this.selectedPiece.piece_id;
-    }
-  }
+
 
   filterEquipmentTypes(event: any): void {
     let filtered: EquipmentType[] = [];
