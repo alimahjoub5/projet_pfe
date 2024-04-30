@@ -6,14 +6,18 @@ use App\Models\CommandeEnAttente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Fournisseur;
+use App\Mail\CommandeNotification;
+use Illuminate\Support\Facades\Mail;
 
 class CommandeEnAttenteController extends Controller
 {
     public function index()
     {
-        $commandes = CommandeEnAttente::all();
+        $commandes = CommandeEnAttente::with('fournisseur')->get();
         return response()->json($commandes, 200);
     }
+    
 
     public function show($id)
     {
@@ -36,6 +40,18 @@ class CommandeEnAttenteController extends Controller
             'expected_delivery_date' => 'nullable|date',
             'actual_delivery_date' => 'nullable|date',
         ]);
+
+        // Envoyer un e-mail au fournisseur
+        $fournisseur = Fournisseur::find($request->fournisseur_id);
+    
+        $details = [
+            'nom_piece' => $request->nom_piece,
+            'date_livraison_prevue' => $request->date_livraison_prevue,
+            'total_commande' => $request->total_commande,
+            // Ajoutez d'autres détails ici si nécessaire
+        ];
+    
+        Mail::to($fournisseur->email)->send(new CommandeNotification($details));
 
         $commande = CommandeEnAttente::create($validatedData);
         return response()->json($commande, 201);
