@@ -13,39 +13,52 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { CommandeEnAttente } from 'src/app/core/models/GestionDeStocks/CommandeEnAttente';
+import { Fournisseur } from 'src/app/core/models/GestionDeStocks/Fournisseur';
+import { Piece } from 'src/app/core/models/GestionDeStocks/piece';
+import { CommandeEnAttenteService } from 'src/app/core/services/GestionDeStocks/CommandeEnAttente.service';
+import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
+import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService.service';
+import { TicketStatus } from 'src/app/core/models/ticketstatus';
 import { TicketStatusService } from 'src/app/core/services/ticketstatus.service';
 import { TaskService } from 'src/app/core/services/task.service';
-import { TicketStatus } from 'src/app/core/models/ticketstatus';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from 'src/app/core/models/task';
 @Component({
   selector: 'app-updatetasks',
   standalone: true,
   imports: [
-    AutoCompleteModule,
-    FormsModule,ReactiveFormsModule,
     CommonModule,
-    NgxSpinnerModule, 
-  ToastModule
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputNumberModule,
+    ButtonModule,
+    FileUploadModule,
+    RouterModule
   ],
   templateUrl: './updatetasks.component.html',
   styleUrl: './updatetasks.component.scss'
 })
 export class UpdatetasksComponent {
-
   taskform: FormGroup;
   isLoading: boolean;
-  Tickets: Ticket[];
-  Status: TicketStatus[];
+  tickets: Ticket[];
+  status: TicketStatus[];
   priorities: Priority[];
   taskId: number;
 
   constructor(
     private fb: FormBuilder,
     private ticketService: TicketService,
-    private ticketStatusService: TicketStatusService, // Correction de la variable ticketstatuService
+    private ticketStatusService: TicketStatusService,
     private priorityService: PriorityService,
     private taskService: TaskService,
+    private authService: AuthService,
     private messageService: MessageService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
@@ -54,16 +67,16 @@ export class UpdatetasksComponent {
 
   ngOnInit(): void {
     this.taskform = this.fb.group({
-      TicketID: ['', Validators.required],
-      StatusCodeID: ['', Validators.required],
-      AssigneeID: [null, Validators.required],
-      Subject: ['', Validators.required],
-      Description: [null, Validators.required],
-      PriorityID: ['', Validators.required],
-      DueDate: ['', Validators.required],
-      StartDate: [null, Validators.required],
-      EndDate: [null, Validators.required],
-      CompletedDate: [null, Validators.required],
+      TicketID: [''],
+      StatusCodeID: [''],
+      AssigneeID: [null],
+      Subject: [''],
+      Description: [null],
+      PriorityID: [''],
+      DueDate: [''],
+      StartDate: [null],
+      EndDate: [null],
+      CompletedDate: [null]
     });
 
     this.getTaskDetails();
@@ -80,44 +93,44 @@ export class UpdatetasksComponent {
         this.taskform.patchValue(task);
       },
       (error: any) => {
-        console.error('Erreur lors de la récupération de la tache :', error);
+        console.error('Erreur lors de la récupération de la tâche :', error);
       }
     );
   }
 
   getAllTickets(): void {
-    this.ticketService.getAllTickets().subscribe((response: any) => {
-      this.Tickets = response.Tickets;
+    this.ticketService.getAllTickets().subscribe((response: Ticket[]) => {
+      this.tickets = response;
     });
   }
 
   getAllStatus(): void {
-    this.ticketStatusService.getAllTicketStatuses().subscribe((response: any) => { // Correction de la variable ticketstatuService
-      this.Status = response.Status;
+    this.ticketStatusService.getAllTicketStatuses().subscribe((response: TicketStatus[]) => {
+      this.status = response;
     });
   }
 
   getAllPriorities(): void {
-    this.priorityService.getAllPriorities().subscribe((response: any) => {
-      this.priorities = response.priorities;
+    this.priorityService.getAllPriorities().subscribe((response: Priority[]) => {
+      this.priorities = response;
     });
   }
 
   onSubmit(): void {
     if (this.taskform.valid) {
-      const updatedtask: Task = this.taskform.value;
-      updatedtask.TicketTaskID = this.taskId;
+      const updatedTask: Task = this.taskform.value;
+      updatedTask.TicketTaskID = this.taskId;
   
       this.isLoading = true;
-      this.taskService.updateTask(this.taskId, updatedtask).subscribe(
+      this.taskService.updateTask(this.taskId, updatedTask).subscribe(
         (response: Task) => {
-          console.log('tache mise à jour avec succès :', response);
+          console.log('Tâche mise à jour avec succès :', response);
           this.isLoading = false;
-          this.showSuccess(); // Appel de la méthode showSuccess pour afficher le message de succès
-          this.router.navigate(['/listtasks']); // Rediriger vers la page de liste des commandes
+          this.showSuccess();
+          this.router.navigate(['/listtasks']);
         },
         (error: any) => {
-          console.error('Erreur lors de la mise à jour de la tache :', error);
+          console.error('Erreur lors de la mise à jour de la tâche :', error);
           this.isLoading = false;
         }
       );
@@ -125,6 +138,6 @@ export class UpdatetasksComponent {
   }
   
   showSuccess(): void {
-    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Commande mise à jour avec succès' });
+    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Tâche mise à jour avec succès' });
   }
 }

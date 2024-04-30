@@ -65,16 +65,16 @@ export class CreatetasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskform = this.fb.group({
-      TicketID: [''],
-      StatusCodeID: [''],
-      AssigneeID: [null],
-      Subject: [''],
-      Description: [null],
-      PriorityID: [''],
-      DueDate: [''],
-      StartDate: [null],
-      EndDate: [null],
-      CompletedDate: [null]
+      TicketID: ['', Validators.required],
+      StatusCodeID: ['', Validators.required],
+      AssigneeID: [null, Validators.required],
+      Subject: ['', Validators.required],
+      Description: [null, Validators.required],
+      PriorityID: ['', Validators.required],
+      DueDate: ['', Validators.required],
+      StartDate: [null, Validators.required],
+      EndDate: [null, Validators.required],
+      CompletedDate: [null, Validators.required]
     });
 
     this.getAllTickets();

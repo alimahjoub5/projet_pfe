@@ -1,55 +1,51 @@
 <div class="container">
-    <h2>Modifier tâche</h2>
-    <form [formGroup]="taskform" (ngSubmit)="onSubmit()" class="p-fluid">
-      <div class="p-field">
-        <label for="ticketSelect">Sélectionner un ticket :</label>
-        <select id="ticketSelect" formControlName="TicketID" class="p-inputtext p-d-block">
-          <option *ngFor="let ticket of Tickets" [ngValue]="ticket?.TicketID">{{ ticket?.Subject }}</option>
-        </select>
-      </div>
-      <div class="p-field">
-        <label for="StatutSelect">Sélectionner un statut :</label>
-        <select id="StatutSelect" formControlName="StatusCodeID" class="p-inputtext p-d-block">
-          <option *ngFor="let statut of Status" [ngValue]="statut?.StatusCodeID">{{ statut?.StatusName }}</option>
-        </select>
-      </div>
-      <div class="p-field">
-        <label for="AssigneeID">Assigné à :</label>
-        <input type="text" id="AssigneeID" formControlName="AssigneeID" class="p-inputtext">
-      </div>
-      
-      <div class="p-field">
-        <label for="Subject">Sujet :</label>
-        <input type="text" id="Subject" formControlName="Subject" class="p-inputtext">
-      </div>
-      <div class="p-field">
-        <label for="Description">Description :</label>
-        <input type="text" id="Description" formControlName="Description" class="p-inputtext">
-      </div>
-      <div class="p-field">
-        <label for="prioritySelect">Sélectionner une priorité :</label>
-        <select id="prioritySelect" formControlName="PriorityID" class="p-inputtext p-d-block">
-          <option *ngFor="let priority of priorities" [ngValue]="priority?.PriorityID">{{ priority?.Name }}</option>
-        </select>
-      </div>
-      <div class="p-field">
-        <label for="DueDate">Date d'échéance :</label>
-        <input type="date" id="DueDate" formControlName="DueDate" class="p-inputtext">
-      </div>
-      <div class="p-field">
-        <label for="StartDate">Date de début :</label>
-        <input type="date" id="StartDate" formControlName="StartDate" class="p-inputtext">
-      </div>
-      <div class="p-field">
-        <label for="EndDate">Date de fin :</label>
-        <input type="date" id="EndDate" formControlName="EndDate" class="p-inputtext">
-      </div>
-      <div class="p-field">
-        <label for="CompletedDate">Date de complétion :</label>
-        <input type="date" id="CompletedDate" formControlName="CompletedDate" class="p-inputtext">
-      </div>
-      <button type="submit" [disabled]="isLoading" class="p-button p-button-primary p-mr-2">Enregistrer</button>
-      <a routerLink="/listtasks" class="btn btn-secondary">Annuler</a>
-    </form>
-  </div>
-  
+  <h2>Ajouter une tache</h2>
+  <form [formGroup]="taskform" (ngSubmit)="onSubmit()" class="p-fluid">
+    
+    <div class="p-field">
+      <label for="ticketSelect">Ticket :</label>
+      <select id="ticketSelect" formControlName="TicketID" class="p-inputtext p-d-block">
+        <option *ngFor="let ticket of tickets" [ngValue]="ticket?.TicketID">{{ ticket?.Subject }}</option>
+      </select>
+    </div>
+    <div class="p-field">
+      <label for="statuSelect">Statut :</label>
+      <select id="statuSelect" formControlName="StatusCodeID" class="p-inputtext p-d-block">
+        <option *ngFor="let statu of status" [ngValue]="statu?.StatusCodeID">{{ statu?.StatusName }}</option>
+      </select>
+    </div>
+
+    <div class="p-field">
+      <label for="Subject">Sujet :</label>
+      <input type="text" id="Subject" formControlName="Subject" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="Description">Description :</label>
+      <input type="text" id="Description" formControlName="Description" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="prioritySelect">Priorité :</label>
+      <select id="prioritySelect" formControlName="PriorityID" class="p-inputtext p-d-block">
+        <option *ngFor="let priority of priorities" [ngValue]="priority?.PriorityID">{{ priority?.Name }}</option>
+      </select>
+    </div>
+    <div class="p-field">
+      <label for="DueDate">Date d'échéance :</label>
+      <input type="date" id="DueDate" formControlName="DueDate" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="StartDate">Date de début :</label>
+      <input type="date" id="StartDate" formControlName="StartDate" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="EndDate">Date finale :</label>
+      <input type="date" id="EndDate" formControlName="EndDate" pInputText class="p-inputtext">
+    </div>
+    <div class="p-field">
+      <label for="CompletedDate">Date complète :</label>
+      <input type="date" id="CompletedDate" formControlName="CompletedDate" pInputText class="p-inputtext">
+    </div>
+    <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
+    <a routerLink="/listtasks" pButton class="p-button-secondary">Annuler</a>
+  </form>
+</div>

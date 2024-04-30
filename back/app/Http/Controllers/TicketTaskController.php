@@ -46,7 +46,7 @@ class TicketTaskController extends Controller
         $request->validate([
             'TicketID' => 'exists:tickets,TicketID',
             'CreatedBy' => 'exists:users,UserID',
-            'StatusCodeID' => 'exists:ticket_statuses,StatusCodeID',
+            'StatusCodeID' => 'exists:ticket_status,StatusCodeID',
             'PriorityID' => 'exists:priorities,PriorityID',
             // Ajoutez d'autres règles de validation au besoin
         ]);
