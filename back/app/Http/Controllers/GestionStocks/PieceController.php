@@ -13,8 +13,7 @@ class PieceController extends Controller
     public function index()
     {
         // Récupérer toutes les pièces
-        $pieces = Piece::all();
-    
+        $pieces = Piece::with('fournisseurs')->get();    
         // Parcourir toutes les pièces et modifier l'URL de l'image
         foreach ($pieces as $piece) {
             // Modifier l'URL de l'image pour chaque pièce

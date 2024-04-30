@@ -50,7 +50,7 @@
             <td>{{ piece.material }}</td>
             <td>{{ piece.serial_number }}</td>
             <td>{{ piece.cost }}</td>
-            <td>{{ piece.fournisseur_id }}</td>
+            <td>{{ piece.fournisseurs[0].nom_fournisseur }}</td>
             <td>
               <!-- Bouton Modifier -->
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/majpiece', piece.piece_id]" routerLinkActive="router-link-active"></button>

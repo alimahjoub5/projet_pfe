@@ -14,7 +14,7 @@ class CommandeEnAttenteController extends Controller
 {
     public function index()
     {
-        $commandes = CommandeEnAttente::with('fournisseur')->get();
+        $commandes = CommandeEnAttente::with('fournisseur','piece')->get();
         return response()->json($commandes, 200);
     }
     

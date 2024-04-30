@@ -24,8 +24,10 @@ class Piece extends Model
 
     public function fournisseurs()
     {
-        return $this->hasMany(Fournisseur::class);
+        return $this->hasMany(Fournisseur::class, 'fournisseur_id', 'fournisseur_id');
     }
+    
+    
 
     public function locations()
     {

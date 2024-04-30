@@ -12,7 +12,7 @@ class UtilisationPiece extends Model
     protected $primaryKey = 'utilisation_id';
 
     protected $fillable = [
-        'equipment_id',
+        'EquipmentTypeID',
         'piece_id',
         'quantity_used',
         'date_utilisation',
@@ -21,8 +21,9 @@ class UtilisationPiece extends Model
 
     public function equipment()
     {
-        return $this->belongsTo(EquipmentType::class, 'equipment_id');
+        return $this->belongsTo(EquipmentType::class, 'EquipmentTypeID');
     }
+    
 
     public function piece()
     {

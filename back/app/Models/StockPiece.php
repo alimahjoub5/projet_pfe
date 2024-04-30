@@ -32,8 +32,6 @@ class StockPiece extends Model
         return $this->belongsTo(EquipmentType::class, 'equipment_id');
     }
 
-    
-
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');

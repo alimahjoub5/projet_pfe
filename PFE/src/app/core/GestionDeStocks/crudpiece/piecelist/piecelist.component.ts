@@ -63,6 +63,7 @@ export class PiecelistComponent implements OnInit {
       // Vérifie si la propriété 'pieces' existe et si elle est de type 'Piece[]'
       if (response && Array.isArray(response.pieces)) {
         this.pieces = response.pieces;
+        console.log(this.pieces);
       } else {
         console.error('La réponse de l\'API est invalide :', response);
       }
