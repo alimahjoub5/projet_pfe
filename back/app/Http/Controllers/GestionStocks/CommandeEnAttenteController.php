@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Fournisseur;
+use App\Models\Piece;
 use App\Mail\CommandeNotification;
 use Illuminate\Support\Facades\Mail;
 
@@ -34,28 +35,29 @@ class CommandeEnAttenteController extends Controller
             'commande_id' => 'required',
             'piece_id' => 'required',
             'requested_quantity' => 'required',
-            'order_date' => 'nullable|date',
-            'order_status' => 'required|string',
             'fournisseur_id' => 'required',
             'expected_delivery_date' => 'nullable|date',
-            'actual_delivery_date' => 'nullable|date',
         ]);
-
+    
         // Envoyer un e-mail au fournisseur
         $fournisseur = Fournisseur::find($request->fournisseur_id);
-    
+        
+        // Récupérer les détails de la pièce
+        $piece = Piece::find($request->piece_id);
+        
         $details = [
-            'nom_piece' => $request->nom_piece,
-            'date_livraison_prevue' => $request->date_livraison_prevue,
-            'total_commande' => $request->total_commande,
+            'nom_piece' => $piece->nom_piece,
+            'date_livraison_prevue' => $request->expected_delivery_date,
+            'total_commande' => $request->requested_quantity * $piece->cost,
             // Ajoutez d'autres détails ici si nécessaire
         ];
-    
+        
         Mail::to($fournisseur->email)->send(new CommandeNotification($details));
-
+    
         $commande = CommandeEnAttente::create($validatedData);
         return response()->json($commande, 201);
     }
+    
 
     public function update(Request $request, $id)
     {

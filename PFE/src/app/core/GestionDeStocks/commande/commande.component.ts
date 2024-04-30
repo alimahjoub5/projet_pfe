@@ -16,12 +16,13 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommandeEnAttente } from '../../models/GestionDeStocks/CommandeEnAttente';
 import { CommandeEnAttenteService } from '../../services/GestionDeStocks/CommandeEnAttente.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-commande',
   standalone: true,
   imports: [
-       
+    CommonModule,   
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -95,5 +96,58 @@ export class CommandeComponent implements OnInit {
           this.getutilisation();
         });
     }
+  }
+
+  confirmerCommande(commande: CommandeEnAttente) {
+    // Mettre à jour le statut de la commande dans la base de données ou effectuer toute autre action nécessaire
+    commande.order_status = 'livree'; // Supposons que 'livree' est le nouveau statut pour une commande confirmée
+    commande.actual_delivery_date = this.getFormattedDate(); // remplir actual_delivery_date avec la date et l'heure actuelles
+
+    this.commandeservice.updateCommandeEnAttente(commande.commande_id,commande).subscribe(
+      (response) => {
+        console.log('Commande confirmée avec succès !');
+
+        this.getutilisation();
+
+        // Mettez à jour votre interface utilisateur si nécessaire
+      },
+      (error) => {
+        console.error('Erreur lors de la confirmation de la commande : ', error);
+        // Gérer l'erreur ici
+      }
+    );
+  }
+
+  annulerCommande(commande: CommandeEnAttente) {
+    // Mettre à jour le statut de la commande dans la base de données ou effectuer toute autre action nécessaire
+    commande.order_status = 'Annuler'; // Supposons que 'livree' est le nouveau statut pour une commande confirmée
+    this.commandeservice.updateCommandeEnAttente(commande.commande_id,commande).subscribe(
+      (response) => {
+        console.log('Commande Annuler avec succès !');
+        this.getutilisation();
+
+        // Mettez à jour votre interface utilisateur si nécessaire
+      },
+      (error) => {
+        console.error('Erreur lors de la confirmation de la commande : ', error);
+        // Gérer l'erreur ici
+      }
+    );
+ 
+  }
+
+
+  getFormattedDate(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = this.padNumber(now.getMonth() + 1);
+    const day = this.padNumber(now.getDate());
+    const hour = this.padNumber(now.getHours());
+    const minute = this.padNumber(now.getMinutes());
+    const second = this.padNumber(now.getSeconds());
+    return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+  }
+  padNumber(number: number): string {
+    return (number < 10 ? '0' : '') + number;
   }
 }

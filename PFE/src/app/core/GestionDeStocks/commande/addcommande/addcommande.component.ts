@@ -51,11 +51,8 @@ export class AddcommandeComponent implements OnInit {
     this.commandeform = this.fb.group({
       piece_id: [null, Validators.required],
       requested_quantity: [null, Validators.required],
-      order_date: ['', Validators.required],
-      order_status: ['', Validators.required],
       fournisseur_id: ['', Validators.required],
       expected_delivery_date: ['', Validators.required],
-      actual_delivery_date: ['', Validators.required],
 
     });
     
@@ -80,12 +77,12 @@ export class AddcommandeComponent implements OnInit {
       const formData: CommandeEnAttente = {
         piece_id: this.commandeform.get('piece_id').value,
         requested_quantity: this.commandeform.get('requested_quantity').value,
-        order_date: this.commandeform.get('order_date').value,
-        order_status: this.commandeform.get('order_status').value,
+        order_date: null,
         fournisseur_id: this.commandeform.get('fournisseur_id').value,
         expected_delivery_date: this.commandeform.get('expected_delivery_date').value,
-        actual_delivery_date: this.commandeform.get('actual_delivery_date').value,
-        commande_id: 0
+        actual_delivery_date: null,
+        commande_id: 0,
+        order_status: null
       };
   
       this.isLoading = true;

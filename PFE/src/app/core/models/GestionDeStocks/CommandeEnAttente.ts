@@ -6,7 +6,7 @@ export interface CommandeEnAttente {
   order_status: string;
   fournisseur_id: number;
   expected_delivery_date?: Date | null;
-  actual_delivery_date?: Date | null;
+  actual_delivery_date?: Date | String |null;
   created_at?: Date | null;
   updated_at?: Date | null;
 }

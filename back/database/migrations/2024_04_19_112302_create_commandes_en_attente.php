@@ -11,8 +11,8 @@ class CreateCommandesEnAttente extends Migration
             $table->id('commande_id');
             $table->unsignedBigInteger('piece_id');
             $table->integer('requested_quantity');
-            $table->date('order_date');
-            $table->string('order_status', 50);
+            $table->timestamp('order_date')->default(DB::raw('CURRENT_TIMESTAMP')); // Utilisez timestamp au lieu de date
+            $table->enum('order_status', ['en_attente', 'Annuler', 'livree'])->default('en_attente');
             $table->unsignedBigInteger('fournisseur_id');
             $table->date('expected_delivery_date')->nullable();
             $table->date('actual_delivery_date')->nullable();

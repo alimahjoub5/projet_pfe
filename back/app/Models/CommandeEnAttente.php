@@ -17,11 +17,11 @@ class CommandeEnAttente extends Model
         'piece_id',
         'requested_quantity',
         'order_date',
+        
         'order_status',
         'fournisseur_id',
         'expected_delivery_date',
         'actual_delivery_date',
-       
     ];
 
     public function piece()
@@ -33,5 +33,5 @@ class CommandeEnAttente extends Model
     {
         return $this->belongsTo(Fournisseur::class, 'fournisseur_id');
     }
-    
+
 }
