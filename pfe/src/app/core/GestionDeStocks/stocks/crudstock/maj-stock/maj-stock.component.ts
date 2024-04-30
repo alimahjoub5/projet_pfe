@@ -61,7 +61,8 @@ export class MajStockComponent implements OnInit {
     private messageService: MessageService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authservice : AuthService
   ) {}
 
   ngOnInit(): void {
@@ -108,7 +109,7 @@ export class MajStockComponent implements OnInit {
     if (this.stockForm.valid) {
       const updatedStock: StockPiece = this.stockForm.value;
       updatedStock.stock_id = this.stockId;
-  
+      updatedStock.modify_by= Number(this.authservice.getUserID()),
       this.isLoading = true;
       this.stockService.updateStockPiece(this.stockId, updatedStock).subscribe(
         (response: StockPiece) => {

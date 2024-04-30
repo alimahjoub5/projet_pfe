@@ -25,7 +25,6 @@ class StockPieceController extends Controller
             'piece_id' => 'required',
             'equipment_id' => 'required',
             'quantity' => 'required',
-            'reserved_quantity' => 'required', // Ajout de la validation pour reserved_quantity
             'local' => 'required',
             'created_by' => 'required',
         ]);
@@ -48,7 +47,6 @@ class StockPieceController extends Controller
             'quantity' => 'required',
             'reserved_quantity' => 'required',
             'local' => 'required',
-            'created_by' => 'required',
             'modify_by' => 'required',
         ]);
 
