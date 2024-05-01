@@ -33,7 +33,6 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="stock_id">Stock ID <p-sortIcon field="stock_id"></p-sortIcon></th>
         <th pSortableColumn="piece_id">Piece <p-sortIcon field="piece_id"></p-sortIcon></th>
         <th pSortableColumn="equipment_id">Equipment<p-sortIcon field="equipment_id"></p-sortIcon></th>
         <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
@@ -47,7 +46,6 @@
         <td>
           <p-tableCheckbox [value]="stockPiece"></p-tableCheckbox>
       </td>
-        <td>{{ stockPiece.stock_id }}</td>
         <td>{{ stockPiece.piece.nom_piece }}</td>
         <td>{{ stockPiece.equipment.TypeName}}</td>
         <td>{{ stockPiece.quantity }}</td>
