@@ -16,11 +16,13 @@ class CreateCommandesEnAttente extends Migration
             $table->unsignedBigInteger('fournisseur_id');
             $table->date('expected_delivery_date')->nullable();
             $table->date('actual_delivery_date')->nullable();
+            $table->string('facture_url')->nullable(); // Champ facture_url ajouté
             $table->timestamps();
-
+        
             $table->foreign('piece_id')->references('piece_id')->on('pieces');
             $table->foreign('fournisseur_id')->references('fournisseur_id')->on('fournisseurs');
         });
+        
     }
 
     public function down()

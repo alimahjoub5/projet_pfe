@@ -11,6 +11,9 @@ use App\Models\Piece;
 use App\Mail\CommandeNotification;
 use Illuminate\Support\Facades\Mail;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class CommandeEnAttenteController extends Controller
 {
     public function index()
@@ -91,4 +94,7 @@ class CommandeEnAttenteController extends Controller
         $commande->delete();
         return response()->json(null, 204);
     }
+
+
+
 }
