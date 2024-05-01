@@ -97,6 +97,22 @@
               <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-disabled" disabled></button>
             </ng-container>
           </td>
+
+          <td>
+            <!-- Si le lien vers le PDF de la facture est disponible -->
+            <ng-container *ngIf="commande.pdf_link">
+                <!-- Bouton pour consulter le facture -->
+                <button pButton type="button" icon="pi pi-file" class="p-button-rounded p-button-info" title="Consulter le facture" (click)="consulterFacture(commande.pdf_link)"></button>
+            </ng-container>
+        
+            <!-- Si le lien vers le PDF de la facture n'est pas disponible -->
+            <ng-container *ngIf="!commande.pdf_link">
+                <!-- Afficher un bouton désactivé avec une classe spécifique -->
+                <button pButton type="button" icon="pi pi-file" class="p-button-rounded p-button-disabled" disabled></button>
+            </ng-container>
+        </td>
+        
+        
           
         </tr>
       </ng-template>

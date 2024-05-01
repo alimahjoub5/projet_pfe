@@ -59,6 +59,7 @@ export class CommandeComponent implements OnInit {
     this.commandeservice.getCommandesEnAttente().subscribe(response => {
       if (response && Array.isArray(response)) {
         this.Commandes = response; 
+        console.log(this.Commandes);
       } else {
         console.error('La réponse de l\'API est invalide :', response);
       }
@@ -117,7 +118,9 @@ export class CommandeComponent implements OnInit {
       }
     );
   }
-
+  consulterFacture(pdfLink: string): void {
+    window.open(pdfLink, '_blank');
+}
   annulerCommande(commande: CommandeEnAttente) {
     // Mettre à jour le statut de la commande dans la base de données ou effectuer toute autre action nécessaire
     commande.order_status = 'Annuler'; // Supposons que 'livree' est le nouveau statut pour une commande confirmée
