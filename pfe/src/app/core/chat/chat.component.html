@@ -1,0 +1,8 @@
+<!-- chat-list.component.html -->
+<div class="chat-list">
+    <div *ngFor="let message of messages" class="message" [ngClass]="{'received': message.type === 'received', 'sent': message.type === 'sent'}">
+      <div class="message-content">{{ message.content }}</div>
+      <div class="message-time">{{ message.time | date: 'shortTime' }}</div>
+    </div>
+  </div>
+  

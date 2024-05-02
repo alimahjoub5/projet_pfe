@@ -6,6 +6,7 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { TestComponent } from './test/test.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { AuthGuard } from './auth.guard';
+import { ChatComponent } from './core/chat/chat.component';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { AuthGuard } from './auth.guard';
                 ]
             },
             {path : "login", component: LoginComponent},
+            {path : "chat", component: ChatComponent},
             {path : "testo", component: TestComponent ,canActivate : [AuthGuard]},
 
             { path: 'authen', loadChildren: () => import('./core/auth/auth-routing.module').then(m => m.AuthRoutingModule)},
