@@ -55,6 +55,29 @@ Route::get('/commandes/{id}', [CommandeEnAttenteController::class, 'show']);
 Route::post('/commandes', [CommandeEnAttenteController::class, 'store']);
 Route::put('/commandes/{id}', [CommandeEnAttenteController::class, 'update']);
 Route::delete('/commandes/{id}', [CommandeEnAttenteController::class, 'destroy']);
+
+use Illuminate\Support\Facades\File;
+
+Route::get('pdf/{fileName}', function ($fileName) {
+    $filePath = storage_path('app/pdf/' . $fileName);
+
+
+
+    // Lecture du fichier PDF
+    $file = File::get($filePath);
+
+    // Création d'une réponse HTTP avec le contenu du fichier PDF
+    $response = new \Illuminate\Http\Response($file, 200);
+
+    // Spécification du type de contenu comme application/pdf
+    $response->header('Content-Type', 'application/pdf');
+
+    // Retourne la réponse HTTP avec le fichier PDF
+    return $response;
+});
+
+
+
 //location------------------------------------------------------------------------
 use App\Http\Controllers\GestionStocks\LocationController;
 

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Storage;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Support\Facades\URL;
-
 class CommandeEnAttenteController extends Controller
 {
 
@@ -28,7 +27,8 @@ class CommandeEnAttenteController extends Controller
             // Si vous avez stocké le PDF dans le stockage Laravel
             if ($commande->facture_url) {
                 // Construire le chemin complet du fichier PDF
-                $pdfPath = asset($commande->facture_url);
+                $pdfPath = asset("api/
+                ".$commande->facture_url);
             }
     
             // Ajouter le lien du PDF à la commande
@@ -91,14 +91,15 @@ class CommandeEnAttenteController extends Controller
             // You can store the PDF in storage or any other location as per your requirement
     
             // Send email with PDF attachment
-            Mail::to($fournisseur->email)->send(new CommandeNotification($invoiceData, $pdfPath));
+            //Mail::to($fournisseur->email)->send(new CommandeNotification($invoiceData, $pdfPath));
             $validatedData["facture_url"]=$pdfPath;
             // Create pending order
             $commande = CommandeEnAttente::create($validatedData);
     
             return response()->json(['commande' => $commande, 'pdf_path' => $pdfPath], 201);
         }
-    
+
+        
         private function generatePdf($data)
         {
             // Generate PDF logic
@@ -109,13 +110,16 @@ class CommandeEnAttenteController extends Controller
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
             $output = $dompdf->output();
-    
-            // Store PDF
-            $filePath = '/pdf/pdf' . uniqid() . '.pdf'; // Path to store PDF
-            Storage::put($filePath, $output);
-    
+        
+            // Store PDF in the storage folder
+            $fileName = uniqid() . '.pdf'; // Generate a unique file name
+            $filePath = 'pdf/' . $fileName; // Path to store PDF in the storage folder
+            Storage::put($filePath, $output); // Save the PDF to the storage folder
+        
             return $filePath;
         }
+        
+        
     
     
     

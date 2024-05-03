@@ -1,0 +1,24 @@
+/* chat-list.component.scss */
+.chat-list {
+    .message {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      &.sent {
+        background-color: #DCF8C6;
+        align-self: flex-end;
+      }
+      &.received {
+        background-color: #EAEAEA;
+      }
+      .message-content {
+        font-size: 14px;
+      }
+      .message-time {
+        font-size: 10px;
+        color: #666;
+        margin-top: 5px;
+      }
+    }
+  }
+  
