@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ChatService {
 
-  private baseUrl = 'http://localhost:8000/api/chat';
+  private baseUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) { }
 
@@ -29,4 +29,8 @@ export class ChatService {
         })
       );
   }
+  checkConversation(userId1: string, userId2: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/check-conversation/${userId1}/${userId2}`);
+  }
+
 }
