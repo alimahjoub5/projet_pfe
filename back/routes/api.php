@@ -10,7 +10,7 @@ use App\Http\Controllers\TechnicianGroupController;
 use App\Http\Controllers\UsersTechnicianGroupsController;
 use App\Http\Controllers\TicketTaskController;
 use App\Http\Controllers\TicketStatusController;
-
+use App\Http\Controllers\ChatMessageController;
 // ----------Gestion De stock---------------------------------
 
 
@@ -207,4 +207,6 @@ Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsControlle
 
 });
 
-
+Route::get('/check-conversation/{userId1}/{userId2}', [ChatMessageController::class,'checkConversation']);
+Route::post('/chat/send-message', [ChatMessageController::class,'sendMessage']);
+Route::get('/chat/get-messages/{senderId}/{recipientId}', [ChatMessageController::class,'getMessages']);
