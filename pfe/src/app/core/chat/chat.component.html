@@ -1,17 +1,37 @@
-<div class="card"  style="height: 100vh;">
-  <p-splitter 
-      [panelSizes]="[25, 75]" 
-      [style]="{ height: '350px' }"
-      styleClass="mb-5">
-          <ng-template pTemplate>
-              <div class="col flex align-items-center justify-content-center">
-                  Panel 1
-              </div>
-          </ng-template>
-          <ng-template pTemplate>
-              <div class="col flex align-items-center justify-content-center">
-                  Panel 2
-              </div>
-          </ng-template>
-  </p-splitter>
-</div>
+<div style="display: flex; height: 100vh;">
+    <div style="width: 20%; min-width: 200px; background-color: #f5f5f5; padding: 10px;">
+      <div class="conversation-list">
+        Liste de conversations
+      </div>
+    </div>
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div class="name-container" style="background-color: #0084ff; color: #fff; padding: 5px 10px; height: 20px;">
+        <span class="person-name">Nom de la personne</span>
+      </div>
+      <div style="flex: 1; overflow-y: auto; padding: 10px;">
+        <div class="message-bubble" style="background-color: #d3e0ff; color: #000; max-width: 70%; padding: 10px; margin: 10px; border-radius: 10px; word-wrap: break-word;">
+          <p>
+            Lorem ipsum dolor sit amet...
+          </p>
+        </div>
+        <div class="message-bubble mine" style="background-color: #0084ff; color: #fff; max-width: 70%; padding: 10px; margin: 10px; border-radius: 10px; word-wrap: break-word; align-self: flex-end;">
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
+          </p>
+        </div>
+        <div class="message-bubble" style="background-color: #d3e0ff; color: #000; max-width: 70%; padding: 10px; margin: 10px; border-radius: 10px; word-wrap: break-word;">
+          <p class="m-0">
+            At vero eos et accusamus et iusto odio dignissimos...
+          </p>
+        </div>
+        <!-- Ajoutez d'autres messages ici -->
+      </div>
+      <div class="message-input-container" style="display: flex; align-items: center; padding: 10px; background-color: #f0f2f5; border-top: 1px solid #ccc;">
+        <input type="text" placeholder="Écrire un message..." class="message-input" style="flex-grow: 1; padding: 8px; border: none; border-radius: 20px; background-color: #fff; outline: none;">
+        <button class="send-button" style="margin-left: 10px; padding: 8px 12px; border: none; border-radius: 20px; background-color: #0084ff; color: #fff; cursor: pointer; transition: background-color 0.3s ease;">
+          <i class="pi pi-send" style="margin-right: 5px;"></i> Envoyer
+        </button>
+      </div>
+    </div>
+  </div>
+  

@@ -9,7 +9,9 @@ import { SplitterModule } from 'primeng/splitter';
   styleUrl: './chat.component.scss'
 })
 export class ChatComponent implements OnInit {
- 
+  panel2Resizable: boolean = false;
+  panel3Resizable: boolean = false;
+  panel4Resizable: boolean = false;
     // Add more messages as needed
   constructor() { }
 
