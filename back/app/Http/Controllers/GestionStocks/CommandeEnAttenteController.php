@@ -27,8 +27,7 @@ class CommandeEnAttenteController extends Controller
             // Si vous avez stocké le PDF dans le stockage Laravel
             if ($commande->facture_url) {
                 // Construire le chemin complet du fichier PDF
-                $pdfPath = asset("api/
-                ".$commande->facture_url);
+                $pdfPath = asset("api/".$commande->facture_url);
             }
     
             // Ajouter le lien du PDF à la commande
@@ -94,7 +93,7 @@ class CommandeEnAttenteController extends Controller
             //Mail::to($fournisseur->email)->send(new CommandeNotification($invoiceData, $pdfPath));
             $validatedData["facture_url"]=$pdfPath;
             // Create pending order
-            $commande = CommandeEnAttente::create($validatedData);
+           $commande = CommandeEnAttente::create($validatedData);
     
             return response()->json(['commande' => $commande, 'pdf_path' => $pdfPath], 201);
         }
