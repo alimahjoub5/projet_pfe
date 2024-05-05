@@ -1,0 +1,48 @@
+<div style="display: flex; height: 100vh;">
+
+  
+  <div style="width: 20%; min-width: 200px; background-color: #f5f5f5; padding: 10px;">
+    <div class="conversation-list">
+      Liste de conversations
+  
+      <div *ngFor="let user of usersWithConversation">
+        <div *ngIf="user.UserID !== userId">
+          <button (click)="loadMessagesWithUser(user.UserID)">{{ user.Username }}</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div class="name-container" style="background-color: #0084ff; color: #fff; padding: 5px 10px; height: 20px;">
+        <span class="person-name">{{nomprenom}}</span>
+      </div>
+      <div style="flex: 1; overflow-y: auto; padding: 10px;">
+
+          <div *ngFor="let message of messages" class="message-bubble" [ngClass]="{'mine': message.SenderID === userId}"
+            [style.background-color]="message.SenderID === userId ? '#0084ff' : '#d3e0ff'"
+            [style.color]="message.SenderID === userId ? '#fff' : '#000'">
+            <p>{{ message.MessageContent }}</p>
+          </div>
+
+        
+        <!-- Ajoutez d'autres messages ici -->
+      </div>
+
+      <!-- Message input -->
+<div class="message-input-container" style="display: flex; align-items: center; padding: 10px; background-color: #f0f2f5; border-top: 1px solid #ccc;">
+  <input type="text" placeholder="Écrire un message..." class="message-input" style="flex-grow: 1; padding: 8px; border: none; border-radius: 20px; background-color: #fff; outline: none;" [(ngModel)]="message">
+  <button class="send-button" style="margin-left: 10px; padding: 8px 12px; border: none; border-radius: 20px; background-color: #0084ff; color: #fff; cursor: pointer; transition: background-color 0.3s ease;" (click)="sendMessage()">
+    <i class="pi pi-send" style="margin-right: 5px;"></i> Envoyer
+  </button>
+</div>
+
+
+
+
+    </div>
+  </div>
+  

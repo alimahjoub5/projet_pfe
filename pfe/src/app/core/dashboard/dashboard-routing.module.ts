@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from 'src/app/auth.guard';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   { path: "about", component: AboutComponent ,canActivate : [AuthGuard]},
+  {path : "chat", component: ChatComponent,canActivate : [AuthGuard]},
 
 ];
 

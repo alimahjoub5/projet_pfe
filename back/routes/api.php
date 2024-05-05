@@ -208,5 +208,5 @@ Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsControlle
 });
 
 Route::get('/check-conversation/{userId1}/{userId2}', [ChatMessageController::class,'checkConversation']);
-Route::post('/send-message', [ChatMessageController::class,'sendMessage']);
-Route::get('/get-messages/{senderId}/{recipientId}', [ChatMessageController::class,'getMessages']);
+Route::post('/sendMessage', [ChatMessageController::class,'sendMessage']);
+Route::get('/getMessages/{senderId}/{recipientId}', [ChatMessageController::class,'getMessages']);
