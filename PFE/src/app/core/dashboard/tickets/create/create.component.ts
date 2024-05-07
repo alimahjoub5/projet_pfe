@@ -89,7 +89,7 @@ export class CreateComponent implements OnInit {
         ModifiedOn: undefined,
         ModifiedBy: null
       };
-      // Appeler le service pour ajouter le ticket
+      console.log(ticket);      // Appeler le service pour ajouter le ticket
       this.ticketService.addTicket(ticket).subscribe(
         (response: any) => {
           console.log('Ticket created successfully:', response);
@@ -141,8 +141,10 @@ export class CreateComponent implements OnInit {
   }
 
   onEquipmentTypeSelect(event: any): void {
-    this.selectedEquipmentType = event.value;
-    this.form.controls['equipmentTypeID'].setValue(this.selectedEquipmentType.TypeName);
-    this.value.setValue(this.selectedEquipmentType.EquipmentTypeID);
+    console.log(event.value);
+    this.form.controls['equipmentTypeID'].setValue(event.value.TypeName);
+    this.value= event.value.EquipmentTypeID;
+    console.log(this.value);
+
   }
 }

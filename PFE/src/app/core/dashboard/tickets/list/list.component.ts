@@ -71,13 +71,38 @@ isLoading: boolean;
 
   //--------------------------------------------------------------------------------------
 
+  getPriorityColor(priorityID: string): string {
+    switch (priorityID) {
+      case 'haute':
+        return 'high-priority'; // classe CSS correspondant à haute priorité
+      case 'normale':
+        return 'normal-priority'; // classe CSS correspondant à priorité normale
+      case 'basse':
+        return 'low-priority'; // classe CSS correspondant à basse priorité
+      default:
+        return ''; // classe CSS par défaut ou vide si la priorité n'est pas définie
+    }
+  }
+  
   
 
-  getSeverity(): string {
-    // Logic to determine severity based on status code ID
-    return ''; // Return appropriate severity string
+  getSeverity(statusCodeID: string): string {
+    switch (statusCodeID) {
+      case 'nouveau':
+        return 'info'; // ou 'light', selon votre style
+      case 'assigné':
+        return 'warning';
+      case 'en_cours':
+        return 'primary';
+      case 'résolu':
+        return 'success';
+      case 'fermé':
+        return 'dark';
+      default:
+        return 'info'; // Valeur par défaut pour les cas non traités
+    }
   }
-
+  
 
   
   //--------------------------------------------------------------------------------------------

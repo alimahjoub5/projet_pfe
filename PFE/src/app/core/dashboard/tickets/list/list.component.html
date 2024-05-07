@@ -1,81 +1,83 @@
-<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true" *ngIf="isLoading"></ngx-spinner>
 
 <!-- Your other content goes here -->
 <div class="card flex justify-content-center" *ngIf="!isLoading">
-<!-- Search bar -->
-<div class="col-sm-4">
-    <div class="search-box">
-        <i class="material-icons"></i>
-        <input type="text" class="form-control" placeholder="Rechercher...">
+    <!-- Search bar -->
+    <div class="col-sm-4">
+        <div class="search-box">
+            <i class="material-icons"></i>
+            <input type="text" class="form-control" placeholder="Rechercher...">
+        </div>
     </div>
-</div>
-<p-toast></p-toast>
+    <p-toast></p-toast>
 
-<!-- Bouton pour ajouter un ticket -->
-<p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
+    <!-- Bouton pour ajouter un ticket -->
+    <p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
 
-<!-- Tableau pour afficher les tickets -->
-<p-table #dt1 [value]="tickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
-    [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">
+    <!-- Tableau pour afficher les tickets -->
+    <p-table #dt1 [value]="tickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
+        [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">
 
-    <!-- En-tête du tableau -->
-    <ng-template pTemplate="header">
-        <tr>
-            <th pSortableColumn="Subject" style="width:25%">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
-            <th pSortableColumn="Description" style="width:25%">Description <p-sortIcon field="Description"></p-sortIcon></th>
-            <th pSortableColumn="EquipmentTypeName" style="width:25%">Equipments <p-sortIcon field="EquipmentTypeName"></p-sortIcon></th>
-            <th pSortableColumn="DueDate" style="width:25%">Date d'échéance<p-sortIcon field="DueDate"></p-sortIcon></th>
-            <th pSortableColumn="priorityName" style="width:25%">Priorité <p-sortIcon field="priorityName"></p-sortIcon></th>
-            <th pSortableColumn="StatusCodeID" style="width:25%">Statut <p-sortIcon field="StatusCodeID"></p-sortIcon></th>
-            <th>Action</th>
-        </tr>
-    </ng-template>
-  
-    <!-- Corps du tableau -->
-    <ng-template pTemplate="body" let-ticket>
-        <tr [pSelectableRow]="ticket">
-            <td>
-                <span class="p-column-title">Sujet</span>
-                {{ ticket.Subject }}
-            </td>
-            <td>
-                <span class="p-column-title">Description</span>
-                <span class="ml-1 vertical-align-middle">{{ ticket.Description }}</span>
-            </td>
-            <td>
-                <span class="p-column-title">Equipments</span>
-                <span class="ml-1 vertical-align-middle">{{ ticket.EquipmentTypeName }}</span>
-            </td>
-            <td>
-                <span class="p-column-title">Equipments</span>
-                <span class="ml-1 vertical-align-middle">{{ ticket.DueDate }}</span>
-            </td>
-            <td>
-                <span class="p-column-title">Priorité</span>
-                <span class="ml-1 vertical-align-middle">{{ ticket.PriorityName }}</span>
-            </td>
-            <td>
-                <span class="p-column-title">Statut</span>
-                <p-tag [value]="ticket.StatusCodeID" [severity]="getSeverity(ticket.StatusCodeID)"></p-tag>
-            </td>
+        <!-- En-tête du tableau -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Subject" style="width:25%">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
+                <th pSortableColumn="Description" style="width:25%">Description <p-sortIcon field="Description"></p-sortIcon></th>
+                <th pSortableColumn="EquipmentTypeName" style="width:25%">Equipments <p-sortIcon field="EquipmentTypeName"></p-sortIcon></th>
+                <th pSortableColumn="DueDate" style="width:25%">Date d'échéance<p-sortIcon field="DueDate"></p-sortIcon></th>
+                <th pSortableColumn="PriorityID" style="width:25%">Priorité <p-sortIcon field="PriorityID"></p-sortIcon></th>
+                <th pSortableColumn="StatusCodeID" style="width:25%">Statut <p-sortIcon field="StatusCodeID"></p-sortIcon></th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+      
+        <!-- Corps du tableau -->
+        <ng-template pTemplate="body" let-ticket>
+            <tr [pSelectableRow]="ticket" [ngClass]="{ 'new-ticket': ticket.StatusCodeID === 'nouveau' }">
+                <td>
+                    <span class="p-column-title">Sujet</span>
+                    {{ ticket.Subject }}
+                </td>
+                <td>
+                    <span class="p-column-title">Description</span>
+                    <span class="ml-1 vertical-align-middle">{{ ticket.Description }}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Equipments</span>
+                    <span class="ml-1 vertical-align-middle">{{ ticket.EquipmentTypeName }}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Date d'échéance</span>
+                    <span class="ml-1 vertical-align-middle">{{ ticket.DueDate }}</span>
+                </td>
+                <td [ngClass]="getPriorityColor(ticket.PriorityID)">
+                    <span class="p-column-title">Priorité</span>
+                    <span class="ml-1 vertical-align-middle">{{ ticket.PriorityID }}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Statut</span>
+                    <span class="ml-1 vertical-align-middle">{{ ticket.StatusCodeID }}</span>
+                </td>
+        
+                <td>
+                    <a [routerLink]="['/ticket-details', ticket.TicketID]" class="view" title="View" data-toggle="tooltip">
+                        <i class="material-icons">&#xE417;</i>
+                    </a>
+                    <a [routerLink]="['/updatetickets', ticket.TicketID]" class="edit" title="Edit" data-toggle="tooltip">
+                        <i class="material-icons">&#xE254;</i>
+                    </a>
+                    <a (click)="confirmDelete(ticket)" class="delete" title="Supprimer" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+        </ng-template>
+        
 
-            <td>
-                <a [routerLink]="['/ticket-details', ticket.TicketID]" class="view" title="View" data-toggle="tooltip">
-                    <i class="material-icons">&#xE417;</i>
-                  </a>
-                  <a [routerLink]="['/updatetickets', ticket.TicketID]" class="edit" title="Edit" data-toggle="tooltip">
-                    <i class="material-icons">&#xE254;</i>
-                  </a>
-                <a (click)="confirmDelete(ticket)" class="delete" title="Supprimer" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-            </td>
-        </tr>
-    </ng-template>
 
-    <!-- Message affiché lorsque le tableau est vide -->
-    <ng-template pTemplate="emptymessage">
-        <tr>
-            <td colspan="5">Aucun ticket trouvé.</td>
-        </tr>
-    </ng-template>
-</p-table>
+        <!-- Message affiché lorsque le tableau est vide -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">Aucun ticket trouvé.</td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>

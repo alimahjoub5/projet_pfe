@@ -15,7 +15,9 @@
       <label for="priority">Priorité</label>
       <select id="priority" formControlName="priority" class="p-dropdown" [required]="true">
         <option value="" selected>selection</option>
-        <option *ngFor="let priority of priorities" [value]="priority.PriorityID">{{ priority.Name }}</option>
+          <option value="haute">Haute</option>
+          <option value="normale">Normale</option>
+          <option value="basse">Basse</option>
       </select>
     </div>
     

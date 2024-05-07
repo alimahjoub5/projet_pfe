@@ -6,6 +6,24 @@
 
 
 
+/* Classe pour haute priorité */
+.high-priority {
+    color: red; /* Couleur du texte */
+    font-weight: bold; /* Texte en gras */
+  }
+  
+  /* Classe pour priorité normale */
+  .normal-priority {
+    color: black; /* Couleur du texte */
+  }
+  
+  /* Classe pour basse priorité */
+  .low-priority {
+    color: green; /* Couleur du texte */
+  }
+  
+
+
 /* Style pour les éléments <input> dans les cellules de la table */
 table input[type="text"] {
     width: 100%; /* Prend la largeur totale de la cellule */
