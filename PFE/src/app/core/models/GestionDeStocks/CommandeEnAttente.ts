@@ -1,4 +1,7 @@
 export interface CommandeEnAttente {
+  stock_piece?: any;
+  piece?
+  fournisseur?: any;
   commande_id: number;
   piece_id: number;
   requested_quantity: number;

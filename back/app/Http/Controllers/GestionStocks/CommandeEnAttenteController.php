@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Fournisseur;
 use App\Models\Piece;
+use App\Models\StockPiece;
 use App\Mail\CommandeNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -19,25 +20,38 @@ class CommandeEnAttenteController extends Controller
 
     public function index()
     {
-        $commandes = CommandeEnAttente::with('fournisseur', 'piece')->get();
+        // Retrieve all CommandeEnAttente instances
+        $commandes = CommandeEnAttente::all();
     
-        // Ajouter le lien du fichier PDF à chaque commande
-        $commandes->transform(function ($commande) {
-            $pdfPath = ''; // Chemin du fichier PDF
-            // Si vous avez stocké le PDF dans le stockage Laravel
+        // Iterate through each CommandeEnAttente instance
+        foreach ($commandes as $commande) {
+            // Retrieve the associated Fournisseur for the CommandeEnAttente instance
+            $fournisseur = $commande->fournisseur;
+    
+            // Retrieve the associated Piece for the CommandeEnAttente instance
+            $piece = $commande->piece;
+    
+            // Retrieve the associated StockPiece for the Piece
+            $stockPiece = $piece->stockPiece;
+    
+            // Add the PDF link to the CommandeEnAttente instance
+            $pdfPath = '';
             if ($commande->facture_url) {
-                // Construire le chemin complet du fichier PDF
                 $pdfPath = asset("api/".$commande->facture_url);
             }
-    
-            // Ajouter le lien du PDF à la commande
             $commande->pdf_link = $pdfPath;
     
-            return $commande;
-        });
+            // Add the Fournisseur, Piece, and StockPiece to the CommandeEnAttente instance
+            $commande->fournisseur = $fournisseur;
+            $commande->piece = $piece;
+            $commande->stock_piece = $stockPiece;
+        }
     
+        // Return the CommandeEnAttente instances as JSON response
         return response()->json($commandes, 200);
     }
+    
+           
     
     
 
@@ -90,7 +104,7 @@ class CommandeEnAttenteController extends Controller
             // You can store the PDF in storage or any other location as per your requirement
     
             // Send email with PDF attachment
-            //Mail::to($fournisseur->email)->send(new CommandeNotification($invoiceData, $pdfPath));
+            Mail::to($fournisseur->email)->send(new CommandeNotification($invoiceData, $pdfPath));
             $validatedData["facture_url"]=$pdfPath;
             // Create pending order
            $commande = CommandeEnAttente::create($validatedData);

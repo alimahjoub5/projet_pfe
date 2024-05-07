@@ -17,6 +17,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { CommandeEnAttente } from '../../models/GestionDeStocks/CommandeEnAttente';
 import { CommandeEnAttenteService } from '../../services/GestionDeStocks/CommandeEnAttente.service';
 import { CommonModule } from '@angular/common';
+import { StockService } from '../../services/GestionDeStocks/stock.service';
 
 @Component({
   selector: 'app-commande',
@@ -49,7 +50,9 @@ export class CommandeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private commandeservice: CommandeEnAttenteService) { }
+    private commandeservice: CommandeEnAttenteService,
+    private stockPieceService: StockService
+    ) { }
 
   ngOnInit(): void {
     this.getutilisation();
@@ -104,12 +107,11 @@ export class CommandeComponent implements OnInit {
     commande.order_status = 'livree'; // Supposons que 'livree' est le nouveau statut pour une commande confirmée
     commande.actual_delivery_date = this.getFormattedDate(); // remplir actual_delivery_date avec la date et l'heure actuelles
 
-    this.commandeservice.updateCommandeEnAttente(commande.commande_id,commande).subscribe(
+    this.commandeservice.updateCommandeEnAttente(commande.commande_id, commande).subscribe(
       (response) => {
         console.log('Commande confirmée avec succès !');
-
+        this.updateStockQuantity(commande.stock_piece.stock_id, commande.requested_quantity, '1'); // Mettre à jour le stock
         this.getutilisation();
-
         // Mettez à jour votre interface utilisateur si nécessaire
       },
       (error) => {
@@ -118,6 +120,20 @@ export class CommandeComponent implements OnInit {
       }
     );
   }
+
+  updateStockQuantity(pieceId: number, quantity: number, modifyBy: string) {
+    this.stockPieceService.updateStockQuantity(pieceId, quantity, modifyBy).subscribe(
+      (response) => {
+        console.log('Stock mis à jour avec succès !');
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour du stock : ', error);
+        // Gérer l'erreur ici
+      }
+    );
+  }
+
+
   consulterFacture(pdfLink: string): void {
     window.open(pdfLink, '_blank');
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { StockPiece } from '../../models/GestionDeStocks/StockPiece';
 
 @Injectable({
@@ -33,11 +33,22 @@ export class StockService {
     return this.http.put<StockPiece>(url, updatedStock);
   }
 
- 
-
   // Méthode pour supprimer un stock de pièces
   deleteStockPiece(stockId: number): Observable<any> {
     const url = `${this.apiUrl}/${stockId}`;
     return this.http.delete(url);
+  }
+
+  // Méthode pour mettre à jour la quantité d'un stock de pièces
+  updateStockQuantity(stockPieceId: number, quantity: number, modifyBy: string): Observable<any> {
+    const url = `${this.apiUrl}/stock/${stockPieceId}`; // Utilisation de l'URL correcte
+    const body = { quantity, modify_by: modifyBy };
+
+    return this.http.put(url, body)
+      .pipe(
+        catchError(error => {
+          throw error;
+        })
+      );
   }
 }

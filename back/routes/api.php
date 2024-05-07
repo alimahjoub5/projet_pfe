@@ -46,6 +46,8 @@ use App\Http\Controllers\GestionStocks\StockPieceController;
     Route::get('/{stockPiece}', [StockPieceController::class, 'show']);
     Route::put('/{stockPiece}', [StockPieceController::class, 'update']);
     Route::delete('/{stockPiece}', [StockPieceController::class, 'destroy']);
+    Route::put('/stock/{stockPiece}',  [StockPieceController::class,'updateStockQuantity']);
+
 });
 //commandeEnAttente---------------------------------------------------------
 use App\Http\Controllers\GestionStocks\CommandeEnAttenteController;

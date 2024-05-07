@@ -25,7 +25,8 @@ class StockPiece extends Model
     public function piece()
     {
         return $this->belongsTo(Piece::class, 'piece_id');
-    }
+    }    
+
 
     public function equipment()
     {

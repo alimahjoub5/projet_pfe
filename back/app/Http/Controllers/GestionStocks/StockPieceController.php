@@ -62,4 +62,25 @@ class StockPieceController extends Controller
 
         return response()->json(null, 204);
     }
+
+
+
+    public function updateStockQuantity(Request $request, StockPiece $stockPiece)
+    {
+        $validatedData = $request->validate([
+            'quantity' => 'required|numeric', // Assurez-vous que la quantité est un nombre
+            'modify_by' => 'required|string', // Assurez-vous que le modificateur est une chaîne de caractères
+        ]);
+    
+        $oldStock = $stockPiece->quantity;
+        $newStock = $validatedData['quantity'];
+    
+        // Mettre à jour le stock en tenant compte de l'ancienne quantité et de la nouvelle quantité
+        $stockPiece->update([
+            'quantity' => $oldStock + $newStock,
+            'modify_by' => $validatedData['modify_by'],
+        ]);
+    
+        return response()->json($stockPiece, 200);
+    }
 }

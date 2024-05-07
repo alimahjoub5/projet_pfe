@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 class Piece extends Model
 {
     use HasFactory;
@@ -26,11 +28,15 @@ class Piece extends Model
     {
         return $this->hasMany(Fournisseur::class, 'fournisseur_id', 'fournisseur_id');
     }
-    
-    
 
     public function locations()
     {
         return $this->hasMany(Location::class);
     }
+
+    public function stockPiece()
+    {
+        return $this->hasOne(StockPiece::class, 'piece_id');
+    }
+    
 }
