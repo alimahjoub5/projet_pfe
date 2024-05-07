@@ -89,7 +89,7 @@ selectedAssignType: string;
       switch (priorityName.toLowerCase()) {
         case 'haute':
           return 'red'; // Rouge pour haute priorité
-        case 'moyenne':
+        case 'normale':
           return 'orange'; // Orange pour moyenne priorité
         case 'basse':
           return 'green'; // Vert pour basse priorité

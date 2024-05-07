@@ -20,7 +20,7 @@ class CreateTicketsTable extends Migration
             $table->dateTime('CreatedOn')->nullable();
             $table->unsignedBigInteger('ModifiedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
-            $table->enum('StatusCodeID', ['nouveau', 'assigné', 'en_cours', 'résolu', 'fermé'])->default('nouveau')->change();
+            $table->enum('StatusCodeID', ['nouveau', 'assigné','planifié', 'en_cours', 'résolu', 'cloturé'])->default('nouveau')->change();
             $table->unsignedBigInteger('AssigneeID')->nullable();
             $table->string('Subject', 100);
             $table->text('Description')->nullable();

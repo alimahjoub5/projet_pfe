@@ -16,7 +16,7 @@
           <tr [style.color]="getPriorityColor(ticket.PriorityName)">
             <td>{{ ticket.Subject }}</td>
             <td>{{ ticket.Description }}</td>
-            <td>{{ ticket.PriorityName }}</td>
+            <td>{{ ticket.PriorityID }}</td>
               <td>
                 {{ ticket.AssigneeID ? ticket.username : (ticket.GroupName ? ticket.GroupName : 'Non assigné') }}
               </td>

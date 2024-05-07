@@ -52,7 +52,7 @@ export class UpdateutilisationComponent implements OnInit {
       EquipmentTypeID: ['', Validators.required],
       piece_id: ['', Validators.required],
       quantity_used: ['', Validators.required],
-      date_utilisation: ['', Validators.required],
+      date_utilisation: [{disabled: true}], // Disabled initially
       description: [null, Validators.required],
     
     });
@@ -101,9 +101,11 @@ export class UpdateutilisationComponent implements OnInit {
           this.showSuccess(); // Appel de la méthode showSuccess pour afficher le message de succès
           this.router.navigate(['/utilisation']); // Rediriger vers la page de liste des commandes
         },
-        (error: any) => {
-          console.error('Erreur lors de la mise à jour de lutilisation :', error);
+        error => {
+          // Afficher le message d'erreur retourné par l'API
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
           this.isLoading = false;
+
         }
       );
     }

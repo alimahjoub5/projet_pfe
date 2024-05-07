@@ -48,8 +48,7 @@ export class AddutilisationComponent implements OnInit {
       EquipmentTypeID: [null, Validators.required],
       piece_id: [null, Validators.required],
       quantity_used: ['', Validators.required],
-      date_utilisation: ['', Validators.required],
-      description: [''],
+      description: ['', Validators.required],
     });
     
     this.getAllEquipements();
@@ -75,7 +74,6 @@ export class AddutilisationComponent implements OnInit {
       formData.append('EquipmentTypeID', this.utilisationform.get('EquipmentTypeID').value);
       formData.append('piece_id', this.utilisationform.get('piece_id').value);
       formData.append('quantity_used', this.utilisationform.get('quantity_used').value);
-      formData.append('date_utilisation', this.utilisationform.get('date_utilisation').value);
       formData.append('description', this.utilisationform.get('description').value);
 
       this.isLoading = true;

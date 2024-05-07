@@ -20,13 +20,9 @@
       <input type="text" id="quantity_used" formControlName="quantity_used" pInputText class="p-inputtext">
     </div>
     <div class="p-field">
-      <label for="date_utilisation">Date d'utilisation</label>
-      <input type="date" id="date_utilisation" formControlName="date_utilisation" pInputText class="p-inputtext">
-    </div>
-    <div class="p-field">
       <label for="description">Description</label>
-      <input type="text" id="description" formControlName="description" pInputText class="p-inputtext">
-    </div>
+        <textarea rows="rows" id="description" formControlName="description" cols="cols" pInputTextarea class="p-inputtext"></textarea>
+      </div>
     <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
     <a routerLink="/liste-utilisations-pieces" pButton class="p-button-secondary">Annuler</a>
   </form>
