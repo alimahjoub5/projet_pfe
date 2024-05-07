@@ -18,20 +18,22 @@ class CreateTicketsTable extends Migration
             $table->id('TicketID');
             $table->unsignedBigInteger('CreatedBy');
             $table->dateTime('CreatedOn')->nullable();
-            $table->unsignedBigInteger('ModifiedBy');
+            $table->unsignedBigInteger('ModifiedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
-            $table->unsignedBigInteger('StatusCodeID');
+            $table->enum('StatusCodeID', ['nouveau', 'assigné', 'en_cours', 'résolu', 'fermé']); // Exemple de valeurs d'état pour un ticket dans un système GMAO
             $table->unsignedBigInteger('AssigneeID')->nullable();
             $table->string('Subject', 100);
             $table->text('Description')->nullable();
-            $table->unsignedBigInteger('PriorityID');
+            $table->enum('PriorityID', ['basse', 'normale', 'haute']); // Exemple de valeurs de priorité pour un ticket dans un système GMAO
             $table->unsignedBigInteger('GroupID')->nullable();
+            $table->unsignedBigInteger('SocieteID')->nullable();
             $table->unsignedBigInteger('EquipmentTypeID')->nullable();
             $table->dateTime('StartDate')->nullable();
             $table->dateTime('EndDate')->nullable();
             $table->date('DueDate');
             $table->dateTime('ClosedDate')->nullable();
 
+            $table->foreign('SocieteID')->references('SocieteID')->on('societe');
             $table->foreign('CreatedBy')->references('UserID')->on('users');
             $table->foreign('ModifiedBy')->references('UserID')->on('users');
             $table->foreign('StatusCodeID')->references('StatusCodeID')->on('ticket_status');

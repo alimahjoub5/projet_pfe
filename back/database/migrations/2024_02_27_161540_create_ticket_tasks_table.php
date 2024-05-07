@@ -18,13 +18,13 @@ class CreateTicketTasksTable extends Migration
             $table->unsignedBigInteger('TicketID');
             $table->unsignedBigInteger('CreatedBy');
             $table->dateTime('CreatedOn')->nullable();
-            $table->unsignedBigInteger('ModifiedBy');
+            $table->unsignedBigInteger('ModifiedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
-            $table->unsignedBigInteger('StatusCodeID');
+            $table->enum('StatusCodeID', ['nouveau', 'assigné', 'en_cours', 'résolu', 'fermé'])->change();
             $table->unsignedBigInteger('AssigneeID')->nullable();
             $table->string('Subject', 100);
             $table->text('Description')->nullable();
-            $table->unsignedBigInteger('PriorityID');
+            $table->enum('PriorityID', ['basse', 'normale', 'haute'])->change();
             $table->date('DueDate');
             $table->dateTime('StartDate')->nullable();
             $table->dateTime('EndDate')->nullable();
@@ -33,9 +33,7 @@ class CreateTicketTasksTable extends Migration
             $table->foreign('TicketID')->references('TicketID')->on('tickets')->onDelete('cascade');
             $table->foreign('CreatedBy')->references('UserID')->on('users');
             $table->foreign('ModifiedBy')->references('UserID')->on('users');
-            $table->foreign('StatusCodeID')->references('StatusCodeID')->on('ticket_status');
             $table->foreign('AssigneeID')->references('UserID')->on('users');
-            $table->foreign('PriorityID')->references('PriorityID')->on('priorities');
         });
     }
 
