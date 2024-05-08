@@ -1,0 +1,81 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addsociete"></button>
+                        <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+                    </div>
+                </ng-template>
+  
+                <ng-template pTemplate="right">
+                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+  
+            <p-table [value]="societes" [value]="filteredSocietes" [rows]="10" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[5,10,20]">              <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Gérer les societes</h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+  <div class="row">
+      <div class="col-md-6">
+        <input type="text" pInputText placeholder="Rechercher" (input)="filter($event.target.value)" class="search-input">
+      </div>
+      <div class="col-md-6">
+        <button pButton type="button" icon="pi pi-plus" class="p-button-raised p-button-success" routerLink="/addsociete">
+          Ajouter une societe
+        </button>
+      </div>
+    </div>
+    <!-- Tableau -->
+    
+      <!-- Entêtes de colonne -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+  
+          <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
+          <th pSortableColumn="address">Adresse <p-sortIcon field="address"></p-sortIcon></th>
+          <th pSortableColumn="city">Ville <p-sortIcon field="city"></p-sortIcon></th>
+          <th pSortableColumn="phone">Télephone <p-sortIcon field="phone"></p-sortIcon></th>
+          <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="website">Site Web<p-sortIcon field="website"></p-sortIcon></th>
+
+
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <!-- Corps du tableau -->
+      <ng-template pTemplate="body" let-societe>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="societe"></p-tableCheckbox>
+        </td>
+          <td>{{ societe.name }}</td>
+          <td>{{ societe.address }}</td>
+          <td>{{ societe.city }}</td>
+          <td>{{ societe.phone }}</td>
+          <td>{{ societe.email }}</td>
+          <td>{{ societe.website }}</td>
+          
+
+          <td>
+            <!-- Bouton Modifier -->
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatesociete', societe.SocieteID]" routerLinkActive="router-link-active"></button>
+            <!-- Bouton Supprimer -->
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click)="confirmDeleteSocietes(societe)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    

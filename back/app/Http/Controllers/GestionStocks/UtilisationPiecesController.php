@@ -13,10 +13,9 @@ class UtilisationPiecesController extends Controller
 
     public function index()
     {
-        $stockPieces = UtilisationPiece::with('piece','equipment')->get();
+        $stockPieces = UtilisationPiece::with('piece', 'equipment')->get();
         return response()->json($stockPieces);
     }
-    
 
       // Méthode pour créer une nouvelle utilisation de pièce
       public function store(Request $request)

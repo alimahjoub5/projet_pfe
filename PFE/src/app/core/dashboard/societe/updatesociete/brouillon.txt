@@ -1,0 +1,67 @@
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.SocieteID = +params.get('id');
+      this.loadsoc(this.SocieteID);
+    });
+
+    this.societeForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', Validators.required],
+      website: ['', Validators.required],
+      contact_person: ['', Validators.required],
+      contact_phone: ['', Validators.required],
+      contact_email: ['', Validators.required],
+
+      // Ajoutez d'autres champs du formulaire selon vos besoins
+    });
+  }
+
+  loadsoc(id: number): void {
+    this.socservice.getSocieteById(id).subscribe(
+      (societe: Societe) => {
+        this.societe = societe;
+        // Pré-remplir le formulaire avec les données de la pièce
+        this.societeForm.patchValue({
+          name: this.societe.name,
+          address: this.societe.address,
+          city: this.societe.city,
+          country: this.societe.country,
+          phone: this.societe.phone,
+          email: this.societe.email,
+          website: this.societe.website,
+          contact_person: this.societe.contact_person,
+          contact_phone: this.societe.contact_phone,
+          contact_email: this.societe.contact_email,
+
+          // Assurez-vous d'ajouter d'autres champs ici si nécessaire
+        });
+      },
+      error => {
+        console.error('Une erreur est survenue lors du chargement de la pièce:', error);
+      }
+    );
+  }
+
+  onSubmit(): void {
+    if (this.societeForm.valid) {
+      const formData = this.societeForm.value;
+      this.isLoading = true;
+      this.socservice .updateSociete(this.SocieteID, formData).subscribe(
+        () => {
+          this.isLoading = false;
+          // Rediriger vers la liste des pièces après la mise à jour
+          this.router.navigate(['/listsociete']);
+        },
+        error => {
+          this.isLoading = false;
+          console.error('Une erreur est survenue lors de la mise à jour du local:', error);
+        }
+      );
+    }
+  }
+}

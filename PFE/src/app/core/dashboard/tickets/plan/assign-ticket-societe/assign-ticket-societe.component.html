@@ -1,0 +1,14 @@
+<div class="p-col-12">
+    <label for="societe">Societe:</label>
+    <p-autoComplete 
+      [(ngModel)]="selectedSociete" 
+      [suggestions]="filteredSociete" 
+      (completeMethod)="filterSociete($event)"
+      (onSelect)="onSocieteSelect($event)"
+      field="name" 
+      [dropdown]="true"
+      placeholder="Select a societe">
+    </p-autoComplete>
+  </div>
+
+  

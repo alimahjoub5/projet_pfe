@@ -11,6 +11,8 @@ use App\Http\Controllers\UsersTechnicianGroupsController;
 use App\Http\Controllers\TicketTaskController;
 use App\Http\Controllers\TicketStatusController;
 use App\Http\Controllers\ChatMessageController;
+use App\Http\Controllers\SocieteController;
+
 // ----------Gestion De stock---------------------------------
 
 
@@ -203,12 +205,21 @@ Route::post('/user-technician-groups/assign-user', [UsersTechnicianGroupsControl
 Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
 
-
-
+//chat
+Route::get('/check-conversation/{userId1}/{userId2}', [ChatMessageController::class,'checkConversation']);
+Route::post('/sendMessage', [ChatMessageController::class,'sendMessage']);
+Route::get('/getMessages/{senderId}/{recipientId}', [ChatMessageController::class,'getMessages']);
+//societe
 
 
 });
 
-Route::get('/check-conversation/{userId1}/{userId2}', [ChatMessageController::class,'checkConversation']);
-Route::post('/sendMessage', [ChatMessageController::class,'sendMessage']);
-Route::get('/getMessages/{senderId}/{recipientId}', [ChatMessageController::class,'getMessages']);
+
+
+
+
+Route::get('/societes', [SocieteController::class, 'index']);
+Route::get('/societes/{id}', [SocieteController::class, 'show']);
+Route::post('/societes', [SocieteController::class, 'store']);
+Route::put('/societes/{id}', [SocieteController::class, 'update']);
+Route::get('/societes/{id}', [SocieteController::class, 'destroy']);

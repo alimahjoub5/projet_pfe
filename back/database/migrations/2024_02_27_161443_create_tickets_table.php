@@ -20,7 +20,7 @@ class CreateTicketsTable extends Migration
             $table->dateTime('CreatedOn')->nullable();
             $table->unsignedBigInteger('ModifiedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
-            $table->enum('StatusCodeID', ['nouveau', 'assigné','planifié', 'en_cours', 'résolu', 'cloturé'])->default('nouveau')->change();
+            $table->enum('StatusCodeID', ['nouveau', 'assigne','planifie', 'en_cours', 'resolu', 'cloture'])->default('nouveau');
             $table->unsignedBigInteger('AssigneeID')->nullable();
             $table->string('Subject', 100);
             $table->text('Description')->nullable();
@@ -36,9 +36,7 @@ class CreateTicketsTable extends Migration
             $table->foreign('SocieteID')->references('SocieteID')->on('societe');
             $table->foreign('CreatedBy')->references('UserID')->on('users');
             $table->foreign('ModifiedBy')->references('UserID')->on('users');
-            $table->foreign('StatusCodeID')->references('StatusCodeID')->on('ticket_status');
             $table->foreign('AssigneeID')->references('UserID')->on('users');
-            $table->foreign('PriorityID')->references('PriorityID')->on('priorities');
             $table->foreign('GroupID')->references('GroupID')->on('technician_groups');
             $table->foreign('EquipmentTypeID')->references('EquipmentTypeID')->on('equipment_types');
         });

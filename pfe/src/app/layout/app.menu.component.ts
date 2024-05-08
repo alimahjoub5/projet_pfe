@@ -36,7 +36,7 @@ export class AppMenuComponent implements OnInit {
                     items: [
                       { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/userlist'] }, // Nouvelle icône pour Utilisateurs
                      { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] }, // Nouvelle icône pour Groupes
-                      { label: 'Entité', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/'] }, // Nouvelle icône pour Entité
+                      { label: 'Sociéte', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listsociete'] }, // Nouvelle icône pour Entité
                      { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/'] }, // Nouvelle icône pour Profils
                      { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }, // Nouvelle icône pour File d'attente des notifications
                     ]

@@ -77,7 +77,7 @@ export class AddStockComponent implements OnInit {
     if (this.selectedPiece && this.selectedEquipmentType && this.selectedLocation) {
       const stockPiece: StockPiece = {
         piece_id: this.selectedPiece.piece_id,
-        equipment_id: this.selectedEquipmentType.EquipmentTypeID,
+        equipment_id: this.eqId,
         quantity: formData.quantity,
         reserved_quantity: null,
         local: this.selectedLocation.name,
@@ -192,10 +192,11 @@ export class AddStockComponent implements OnInit {
   }
 
   onEquipmentTypeSelect(event: any): void {
+    console.log(event.value);
     this.selectedEquipmentType = event.value;
     if (this.selectedEquipmentType) {
       this.stockPieceForm.controls['equipment_id'].setValue(this.selectedEquipmentType.TypeName);
-      this.eqId = this.selectedEquipmentType.EquipmentTypeID;
+      this.eqId = event.value.EquipmentTypeID;
     }
   }
 }
