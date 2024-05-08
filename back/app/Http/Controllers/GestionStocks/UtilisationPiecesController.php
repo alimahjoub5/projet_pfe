@@ -18,37 +18,46 @@ class UtilisationPiecesController extends Controller
     }
     
 
-      // Méthode pour créer une nouvelle utilisation de pièce
-      public function store(Request $request)
-      {
-          // Valider les données de la requête
-          $request->validate([
-              'EquipmentTypeID' => 'required',
-              'piece_id' => 'required',
-              'quantity_used' => 'required|numeric|min:1',
-              // Ajoutez d'autres règles de validation si nécessaire
-          ]);
-  
-          // Créer une instance de UtilisationPiece
-          $utilisation = new UtilisationPiece();
-          $utilisation->EquipmentTypeID = $request->input('EquipmentTypeID');
-          $utilisation->piece_id = $request->input('piece_id');
-          $utilisation->quantity_used = $request->input('quantity_used');
-          $utilisation->date_utilisation = now();
-          $utilisation->description = $request->input('description');
-  
-          // Enregistrer l'utilisation de la pièce
-          $utilisation->save();
-  
-          // Mettre à jour le stock de pièces
-          $stockPiece = StockPiece::where('piece_id', $request->input('piece_id'))->firstOrFail();
-          $reservedQuantity = $stockPiece->reserved_quantity + $request->input('quantity_used');
-          $stockPiece->reserved_quantity = $reservedQuantity;
-          $stockPiece->quantity -= $request->input('quantity_used');
-          $stockPiece->save();
-  
-          return response()->json(['message' => 'Utilisation de pièce créée avec succès'], 201);
-      }
+    public function store(Request $request)
+    {
+        // Valider les données de la requête
+        $request->validate([
+            'EquipmentTypeID' => 'required',
+            'piece_id' => 'required',
+            'quantity_used' => [
+                'required',
+                'numeric',
+                'min:1',
+                // La quantité utilisée ne doit pas être supérieure à la quantité disponible dans le stock
+                function ($attribute, $value, $fail) use ($request) {
+                    $stockPiece = StockPiece::where('piece_id', $request->input('piece_id'))->firstOrFail();
+                    if ($value > $stockPiece->quantity) {
+                        $fail('La quantité utilisée ne peut pas être supérieure à la quantité disponible dans le stock.');
+                    }
+                },
+            ],
+            // Ajoutez d'autres règles de validation si nécessaire
+        ]);
+
+        // Créer une instance de UtilisationPiece
+        $utilisation = new UtilisationPiece();
+        $utilisation->EquipmentTypeID = $request->input('EquipmentTypeID');
+        $utilisation->piece_id = $request->input('piece_id');
+        $utilisation->quantity_used = $request->input('quantity_used');
+        $utilisation->date_utilisation = now();
+        $utilisation->description = $request->input('description');
+
+        // Enregistrer l'utilisation de la pièce
+        $utilisation->save();
+
+        // Mettre à jour le stock de pièces
+        $stockPiece = StockPiece::where('piece_id', $request->input('piece_id'))->firstOrFail();
+        $stockPiece->reserved_quantity += $request->input('quantity_used');
+        $stockPiece->quantity -= $request->input('quantity_used');
+        $stockPiece->save();
+
+        return response()->json(['message' => 'Utilisation de pièce créée avec succès'], 201);
+    }
   
       // Méthode pour mettre à jour une utilisation de pièce existante
       public function update(Request $request, $id)

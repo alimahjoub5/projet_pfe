@@ -11,6 +11,9 @@ use App\Mail\TechnicianAssignedToTicket;
 
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Password;
+
+
 class UserController extends Controller
 {
     public function index()
@@ -185,5 +188,39 @@ class UserController extends Controller
     }
 }
     
+
+
+public function resetPasswordRequest(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+    ]);
+
+    $response = Password::sendResetLink($request->only('email'));
+
+    return $response == Password::RESET_LINK_SENT
+                ? response()->json(['message' => 'Email sent with password reset link'], 200)
+                : response()->json(['message' => 'Unable to send reset link'], 500);
+}
+
+public function resetPassword(Request $request, $token)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|confirmed|min:6',
+        'token' => 'required|string',
+    ]);
+
+    $response = Password::reset($request->only('email', 'password', 'password_confirmation', 'token'), function ($user, $password) {
+        $user->forceFill([
+            'password' => Hash::make($password)
+        ])->save();
+    });
+
+    return $response == Password::PASSWORD_RESET
+                ? response()->json(['message' => 'Password reset successfully'], 200)
+                : response()->json(['message' => 'Unable to reset password'], 500);
+}
+
     
 }
