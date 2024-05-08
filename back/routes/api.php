@@ -28,6 +28,9 @@ use App\Http\Controllers\SocieteController;
 |
 */
 Route::post('login', [UserController::class, 'login']);
+Route::post('password/reset', [UserController::class,'resetPasswordRequest']);
+Route::post('password/reset/{token}', [UserController::class,'resetPassword']);
+
 // routes/api.php
 
 use App\Http\Controllers\GestionStocks\PieceController;

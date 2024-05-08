@@ -69,6 +69,10 @@ export class AddutilisationComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.utilisationform.invalid) {
+      this.messageService.add({severity:'error', summary:'Erreur', detail:'Veuillez remplir tous les champs correctement.'});
+      return;
+    }
     if (this.utilisationform.valid) {
       const formData = new FormData();
       formData.append('EquipmentTypeID', this.utilisationform.get('EquipmentTypeID').value);
@@ -84,9 +88,11 @@ export class AddutilisationComponent implements OnInit {
           this.isLoading = false;
           this.showSuccess(); // Call the success message method
         },
-        (error: any) => {
-          console.error('Erreur lors de la création de l\'utilisation :', error);
+        error => {
+          // Afficher le message d'erreur retourné par l'API
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
           this.isLoading = false;
+
         }
       );
     }
