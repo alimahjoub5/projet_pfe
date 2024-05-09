@@ -2,8 +2,8 @@
     <label for="societe">Societe:</label>
     <p-autoComplete 
       [(ngModel)]="selectedSociete" 
-      [suggestions]="filteredSociete" 
-      (completeMethod)="filterSociete($event)"
+      [suggestions]="filteredSocietes" 
+      (completeMethod)="filterSocietes($event)"
       (onSelect)="onSocieteSelect($event)"
       field="name" 
       [dropdown]="true"

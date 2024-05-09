@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\TechnicianGroup;
 use App\Models\User;
-
+use App\Models\Societe;
 
 class TicketController extends Controller
 {
@@ -116,5 +116,39 @@ class TicketController extends Controller
         }
     }
     
+        public function assignTicketToSociete(Request $request, $ticketId)
+        {
+            // Validation des données de la requête
+            $request->validate([
+                'SocieteID' => 'required|exists:societe,SocieteID'
+            ]);
     
+            try {
+// Recherche du ticket
+$ticket = Ticket::findOrFail($ticketId);
+if (!$ticket) {
+    return response()->json(['message' => 'Ticket not found'], 404);
 }
+
+// Recherche du groupe
+$soc = Societe::findOrFail($request->SocieteID);
+if (!$soc) {
+    return response()->json(['message' => 'Societe not found'], 404);
+}
+
+// Attribution du groupe au ticket
+$ticket->update(['SocieteID' => $soc->SocieteID]);
+if (!$ticket->wasChanged()) {
+    return response()->json(['message' => 'Failed to assign ticket to societe'], 500);
+}
+
+// Réponse JSON si la mise à jour a réussi
+return response()->json(['message' => 'Ticket assigned to societe successfully'], 200);
+
+} catch (\Exception $e) {
+                // Réponse JSON si une erreur se produit
+                return response()->json(['message' => 'Failed to assign ticket to societe', 'error' => $e->getMessage()], 500);
+            }
+        }
+    }
+    

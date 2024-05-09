@@ -41,6 +41,6 @@ export class SocieteService {
   assignTicketToSociete(ticketId: number, id: number): Observable<any> {
     const url = `${this.apiUrl}/tickets/${ticketId}/assign-to-societe`;
     const headers = this.authService.includeAuthToken();
-    return this.http.post<any>(url, { group_id: id }, headers);
+    return this.http.put<any>(url, { SocieteID: id }, headers);
   }
 }

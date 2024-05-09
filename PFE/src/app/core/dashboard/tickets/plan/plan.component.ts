@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { AssignTicketTechnicianComponent } from './assign-ticket-technician/assign-ticket-technician.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { AssignTicketSocieteComponent } from './assign-ticket-societe/assign-ticket-societe.component';
 
 @Component({
   selector: 'app-plan',
@@ -25,7 +26,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
     AutoCompleteModule,
     RadioButtonModule,
     AssignTicketTechnicianComponent,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AssignTicketSocieteComponent
 
   ],
   templateUrl: './plan.component.html',
@@ -35,85 +37,78 @@ import { AuthService } from 'src/app/core/services/auth.service';
   ],
 })
 export class PlanComponent {
-  @ViewChild(AssignTicketGroupComponent) assignTicketGroupComponent: AssignTicketGroupComponent;
-  @ViewChild(AssignTicketTechnicianComponent) AssignTicketTechnicianComponent: AssignTicketTechnicianComponent;
+  
+  @ViewChild(AssignTicketGroupComponent) assignTicketGroupComponent: AssignTicketGroupComponent | undefined;
+  @ViewChild(AssignTicketTechnicianComponent) assignTicketTechnicianComponent: AssignTicketTechnicianComponent | undefined;
+  @ViewChild(AssignTicketSocieteComponent) assignTicketSocieteComponent: AssignTicketSocieteComponent | undefined;
 
   selectedTicketId: string | undefined;
-
-
-    tickets: Ticket[];
-  isLoading: boolean;
+  tickets: Ticket[] = [];
+  isLoading: boolean = false;
   displayAssignDialog: boolean = false;
-selectedAssignType: string;
+  selectedAssignType: string = '';
 
-  showAssignDialog(ticketId: string) {
+  constructor(
+    private ticketService: TicketService,
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadTickets();
+  }
+
+  loadTickets() {
+    this.isLoading = true;
+    this.spinner.show(); // Afficher le spinner
+    this.ticketService.getAllTickets().subscribe(
+      (tickets: Ticket[]) => {
+        this.tickets = tickets;
+        this.spinner.hide(); // Masquer le spinner lorsque les données sont chargées
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error occurred while loading tickets:', error);
+        this.spinner.hide(); // Masquer le spinner en cas d'erreur
+        this.isLoading = false;
+      }
+    );
+  }
+
+  getPriorityColor(priorityName: string): string {
+    switch (priorityName.toLowerCase()) {
+      case 'haute':
+        return 'red';
+      case 'normale':
+        return 'orange';
+      case 'basse':
+        return 'green';
+      default:
+        return 'black';
+    }
+  }
+
+  onSubmit(event: Event): void {
+    if (this.selectedAssignType === 'technician' && this.assignTicketTechnicianComponent) {
+      this.assignTicketTechnicianComponent.saveSelectedTechnician();
+    } else if (this.selectedAssignType === 'group' && this.assignTicketGroupComponent) {
+      this.assignTicketGroupComponent.saveSelectedGroupe();
+    } else if (this.selectedAssignType === 'societe' && this.assignTicketSocieteComponent) {
+      this.assignTicketSocieteComponent.saveSelectedSociete();
+    }
+    event.preventDefault(); // Empêcher le rafraîchissement de la page
+    this.displayAssignDialog = false; // Masquer la boîte de dialogue
+    this.loadTickets(); // Recharger les tickets après la modification
+  }
+
+  onCancel(event: Event): void {
+    this.displayAssignDialog = false; // Cacher la boîte de dialogue
+    // Autres actions d'annulation...
+  }
+
+  showAssignDialog(ticketId: string): void {
     this.selectedTicketId = ticketId;
     this.displayAssignDialog = true;
   }
-
-
-  hideAssignDialog(): void {
-    this.displayAssignDialog = false;
-  }
-    constructor(
-      private ticketService: TicketService,
-      private messageService: MessageService,
-      private spinner: NgxSpinnerService,
-      private authservice:AuthService
-    ) { }
-    ngOnInit(): void {
-      this.loadTickets();
-    }
-  
-    loadTickets() {
-      this.isLoading=true;
-      this.spinner.show(); // Show the spinner
-      setTimeout(() => {
-        this.ticketService.getAllTickets().subscribe(
-          (tickets: Ticket[]) => {
-            this.tickets = tickets;
-          },
-          (error) => {
-            console.log('Error occurred while loading tickets:', error);
-          }
-        );
-        this.spinner.hide(); // Hide the spinner when data is loaded
-      }, 2000);
-      this.isLoading=false;
-    }
-
-  //--------------------------------------------------------------
-    
-    getPriorityColor(priorityName: string): string {
-      // Définissez les couleurs pour chaque priorité
-      switch (priorityName.toLowerCase()) {
-        case 'haute':
-          return 'red'; // Rouge pour haute priorité
-        case 'normale':
-          return 'orange'; // Orange pour moyenne priorité
-        case 'basse':
-          return 'green'; // Vert pour basse priorité
-        default:
-          return 'black'; // Couleur par défaut pour les autres priorités
-      }
-    }
-
-    onSubmit(event: Event) {
-      if (this.selectedAssignType === 'technician') {
-        this.AssignTicketTechnicianComponent.saveSelectedTechnician();
-      } else if (this.selectedAssignType === 'group') {
-        this.assignTicketGroupComponent.saveSelectedGroupe();
-      }
-      event.preventDefault(); // Empêcher le rafraîchissement de la page
-      this.displayAssignDialog = false; // Masquer la boîte de dialogue
-      this.loadTickets();
-    }
-    
-    onCancel(event: Event) {
-      // Réinitialiser les valeurs ou effectuer d'autres actions en cas d'annulation
-      this.displayAssignDialog = false; // Cacher la boîte de dialogue
-      // Autres actions d'annulation...
-    }
-  }
-  
-
+}
