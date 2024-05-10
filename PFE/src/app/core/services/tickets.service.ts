@@ -12,9 +12,9 @@ export class TicketService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  getAllTickets(): Observable<Ticket[]> {
+  getAllTickets(): Observable<any> {
     const headers = this.authService.includeAuthToken();
-    return this.http.get<Ticket[]>(`${this.apiUrl}/tickets`, headers);
+    return this.http.get<any>(`${this.apiUrl}/tickets`, headers);
   }
 
   getTicketById(id: number): Observable<Ticket> {

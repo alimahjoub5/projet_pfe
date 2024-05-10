@@ -9,6 +9,7 @@ export interface Ticket {
     Subject: string;
     Description?: string | null;
     PriorityID: number;
+    SocieteID?: number | null ; 
     GroupID?: number | null;
     EquipmentTypeID?: number | null;
     StartDate?: Date | null;

@@ -63,8 +63,9 @@ export class PlanComponent {
     this.isLoading = true;
     this.spinner.show(); // Afficher le spinner
     this.ticketService.getAllTickets().subscribe(
-      (tickets: Ticket[]) => {
+      (tickets: any) => {
         this.tickets = tickets;
+        console.log(tickets);
         this.spinner.hide(); // Masquer le spinner lorsque les données sont chargées
         this.isLoading = false;
       },

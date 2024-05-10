@@ -12,7 +12,7 @@ class TicketController extends Controller
 {
     public function getTicket()
     {
-        $tickets = Ticket::with(['technicianGroup', 'priority', 'EquipmentType', 'users'])->get();
+        $tickets = Ticket::with(['technicianGroup', 'priority', 'EquipmentType', 'users','Societe'])->get();
     
         // Mapper les tickets pour inclure le nom du groupe, le nom de la priorité et le nom de l'équipement
         $ticketsWithGroupNamePriorityAndEquipment = $tickets->map(function ($ticket) {
@@ -25,6 +25,7 @@ class TicketController extends Controller
                 'StatusCodeID' => $ticket->StatusCodeID,
                 'AssigneeID' => $ticket->AssigneeID,
                 'Subject' => $ticket->Subject,
+                'SocieteID' => $ticket->SocieteID,
                 'Description' => $ticket->Description,
                 'PriorityID' => $ticket->PriorityID,
                 'GroupID' => $ticket->GroupID,
@@ -33,6 +34,7 @@ class TicketController extends Controller
                 'EndDate' => $ticket->EndDate,
                 'DueDate' => $ticket->DueDate,
                 'ClosedDate' => $ticket->ClosedDate,
+                'name' => $ticket->Societe ? $ticket->Societe->name : 'Non assigné',
                 'GroupName' => $ticket->technicianGroup ? $ticket->technicianGroup->GroupName : 'Non assigné',
                 'PriorityName' => $ticket->priority ? $ticket->priority->Name : 'Non défini',
                 'EquipmentTypeName' => $ticket->EquipmentType ? $ticket->EquipmentType->TypeName : 'Non défini', // Ajouter le nom de l'équipement ou 'Non défini' s'il n'y a pas d'équipement assigné

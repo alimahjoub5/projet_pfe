@@ -19,6 +19,7 @@ class Ticket extends Model
         'ModifiedBy',
         'ModifiedOn',
         'StatusCodeID',
+        'SocieteID',
         'AssigneeID',
         'Subject',
         'Description',
@@ -59,6 +60,11 @@ class Ticket extends Model
     public function users()
     {
         return $this->belongsTo(User::class, 'AssigneeID'); // Si un ticket est associé à un seul utilisateur
+
+    }
+    public function Societe()
+    {
+        return $this->belongsTo(Societe::class, 'SocieteID'); // Si un ticket est associé à un seul utilisateur
 
     }
 }

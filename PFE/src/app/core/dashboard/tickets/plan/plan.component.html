@@ -18,11 +18,33 @@
           <td>{{ ticket.Description }}</td>
           <td>{{ ticket.PriorityID }}</td>
           <td>
-            {{ ticket.AssigneeID ? ticket.username : (ticket.GroupName ? ticket.GroupName : 'Non assigné') }}
+         
+            <ng-container *ngIf="ticket.username !== 'Non assigné'; else showUsername">
+              {{ ticket.username }}
+            </ng-container>
+            <ng-template #showUsername>
+              <ng-container *ngIf="ticket.GroupName !== 'Non assigné'; else showGroupName">
+                {{ ticket.GroupName }}
+              </ng-container>
+            </ng-template>
+            <ng-template #showGroupName>
+              <ng-container *ngIf="ticket.name !== 'Non assigné'; else showNonAssigned">
+                {{ ticket.name }}
+              </ng-container>
+            </ng-template>
+            <ng-template #showNonAssigned>
+              Non assigné
+            </ng-template>
+            
+            
+
           </td>
+          
+          
+          
           <td>
             <button type="button" (click)="showAssignDialog(ticket.TicketID)" class="p-button p-component p-button-icon-only" 
-              [disabled]="ticket.GroupName !== 'Non assigné' || ticket.username !== 'Non assigné'">
+              [disabled]="ticket.GroupName !== 'Non assigné' || ticket.username !== 'Non assigné' || ticket.name !== 'Non assigné'">
               <span class="p-button-icon pi pi-user"></span> <!-- Icône d'utilisateur, remplacez 'pi pi-user' par l'icône de votre choix -->
             </button>
           </td>
