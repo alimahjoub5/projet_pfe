@@ -225,5 +225,5 @@ Route::get('/societes', [SocieteController::class, 'index']);
 Route::get('/societes/{id}', [SocieteController::class, 'show']);
 Route::post('/societes', [SocieteController::class, 'store']);
 Route::put('/societes/{id}', [SocieteController::class, 'update']);
-Route::get('/societes/{id}', [SocieteController::class, 'destroy']);
+Route::delete('/societes/{id}', [SocieteController::class, 'destroy']);
 Route::put('/societes/tickets/{ticketId}/assign-to-societe', [TicketController::class, 'assignTicketToSociete']);

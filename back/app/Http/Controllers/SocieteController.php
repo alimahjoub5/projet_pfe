@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Societe;
-///win nhot warini fama hedha w mta soc
+
 class SocieteController extends Controller
 {
     /**

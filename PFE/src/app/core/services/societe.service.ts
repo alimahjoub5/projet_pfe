@@ -18,9 +18,9 @@ export class SocieteService {
     return this.http.get<Societe[]>(this.apiUrl);
   }
 
-  getSocieteById(id: number): Observable<Societe> {
+  getSocieteById(id: number): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Societe>(url);
+    return this.http.get<any>(url);
   }
 
   createSociete(societe: any): Observable<any> {
@@ -29,13 +29,14 @@ export class SocieteService {
   
   
 
-  updateSociete(id: number, updateSociete : Societe): Observable<Societe> {
-    const url = `${this.apiUrl}/${id}`;
+
+  updateSociete(societeId: number, updateSociete : any): Observable<any> {
+    const url = `${this.apiUrl}/${societeId}`;
     return this.http.put<Societe>(url, updateSociete);
   }
 
-  deleteSociete(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
+  deleteSociete(societeId: number): Observable<void> {
+    const url = `${this.apiUrl}/${societeId}`;
     return this.http.delete<void>(url);
   }
   assignTicketToSociete(ticketId: number, id: number): Observable<any> {

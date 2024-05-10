@@ -1,1 +1,35 @@
-<p>updatesociete works!</p>
+<div class="container">
+    <h2>Modifier Societe</h2>
+  
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Nom de la societe</label>
+        <input type="text" [(ngModel)]="societe.name" name="name" class="form-control" disabled>
+      </div>
+      <div class="form-group">
+        <label for="address">Adresse</label>
+        <input type="text" [(ngModel)]="societe.address" name="address" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="city">Ville</label>
+        <input type="text" [(ngModel)]="societe.city" name="city" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="phone">Télephone</label>
+        <input type="text" [(ngModel)]="societe.phone" name="phone" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" [(ngModel)]="societe.email" name="email" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="website">Site web</label>
+        <input type="text" [(ngModel)]="societe.website" name="website" class="form-control">
+      </div>
+      <!-- Ajoutez d'autres champs du formulaire ici -->
+  
+      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
+      <a routerLink="/listsociete"class="btn btn-secondary">Annuler</a>
+    </form>
+  </div>
+  

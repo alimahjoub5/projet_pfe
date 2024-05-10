@@ -70,8 +70,10 @@
           
 
           <td>
-            <!-- Bouton Modifier -->
-            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatesociete', societe.SocieteID]" routerLinkActive="router-link-active"></button>
+            <a [routerLink]="['/updatesociete',societe.SocieteID]"  class="edit" title="Edit" data-toggle="tooltip">
+              <i class="material-icons">&#xE254;</i>
+            </a>
+         
             <!-- Bouton Supprimer -->
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click)="confirmDeleteSocietes(societe)"></button>
           </td>
