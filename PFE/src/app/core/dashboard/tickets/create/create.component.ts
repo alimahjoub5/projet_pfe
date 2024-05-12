@@ -62,6 +62,9 @@ Priorit: any[] = [
   
   // Ajoutez d'autres options de paiement au besoin
 ];
+
+
+
 @ViewChild(AssignTicketGroupComponent) assignTicketGroupComponent: AssignTicketGroupComponent | undefined;
 @ViewChild(AssignTicketTechnicianComponent) assignTicketTechnicianComponent: AssignTicketTechnicianComponent | undefined;
 @ViewChild(AssignTicketSocieteComponent) assignTicketSocieteComponent: AssignTicketSocieteComponent | undefined;
@@ -69,6 +72,7 @@ Priorit: any[] = [
 displayAssignDialog: boolean = false;
 selectedAssignType: string = '';
 selectedOption: any;
+  valueFromA: any;
 
 
   constructor(
@@ -78,8 +82,7 @@ selectedOption: any;
     private equipmentService: EquipmentTypeService,
     private spinner: NgxSpinnerService,
     private messageService: MessageService,
-    private authservice: AuthService
-
+    private authservice: AuthService,
 
   ) {}
 
@@ -91,6 +94,7 @@ selectedOption: any;
     this.form = this.fb.group({
       subject: ['', Validators.required],
       description: ['',Validators.required],
+      assignType: ['',Validators.required],
       priority: ['', Validators.required],
       TicketType : ['', Validators.required],
       selectedEquipmentType: [null, Validators.required],

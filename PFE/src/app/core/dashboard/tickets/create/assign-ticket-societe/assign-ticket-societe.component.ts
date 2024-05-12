@@ -14,7 +14,7 @@ import { SocieteService } from 'src/app/core/services/societe.service';
 })
 export class AssignTicketSocieteComponent implements OnInit {
   @Input() ticketId: string | undefined;
-  societes: Societe[] | undefined;
+  societes: Societe | undefined;
   selectedSociete: Societe | null = null;
   filteredSocietes: Societe[] | undefined;
 
@@ -22,8 +22,9 @@ export class AssignTicketSocieteComponent implements OnInit {
 
   ngOnInit(): void {
     this.societeService.getAllSocietes().subscribe(
-      (societes: Societe[]) => {
+      (societes: Societe) => {
         this.societes = societes;
+        console.log(societes)
       },
       (error) => {
         console.error('Error fetching societes:', error);

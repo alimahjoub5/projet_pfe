@@ -33,9 +33,39 @@
   <!-- Le contenu du dialogue -->
 <p-dialog header="Assignation" [(visible)]="displayAssignDialog" [modal]="true" [style]="{ 'width': '50%' }">
   <!-- Contenu du dialogue -->
-  <div class="p-field">
-    <h5>Contenu du dialogue</h5>
-    <!-- Ajoutez ici les éléments de formulaire, les boutons, etc., que vous souhaitez afficher dans le dialogue -->
+  <div class="dialog-content p-fluid">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <div class="p-field-radiobutton">
+          <label for="assignType">Assign To:</label>
+          <div class="p-grid p-formgrid">
+            <div class="p-col">
+              <p-radioButton formControlName="assignType" id="technician" value="technician" [(ngModel)]="selectedAssignType"></p-radioButton>
+              <label for="technician">Technician</label>
+            </div>
+            <div class="p-col">
+              <p-radioButton formControlName="assignType" id="group" value="group" [(ngModel)]="selectedAssignType"></p-radioButton>
+              <label for="group">Group</label>
+            </div>
+            <div class="p-col">
+              <p-radioButton formControlName="assignType" id="societe" value="societe" [(ngModel)]="selectedAssignType"></p-radioButton>
+              <label for="societe">Societe</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12">
+        <div *ngIf="form.value.assignType === 'technician'">
+          <app-assign-ticket-technician [ticketId]="selectedTicketId" [selectedTechnician]="selectedTechnician"></app-assign-ticket-technician>
+        </div>
+        <div *ngIf="form.value.assignType === 'group'">
+          <app-assign-ticket-group [ticketId]="selectedTicketId" [selectedGroup]="selectedGroup"></app-assign-ticket-group>
+        </div>
+        <div *ngIf="form.value.assignType === 'societe'">
+          <app-assign-ticket-societe [ticketId]="selectedTicketId" [selectedSociete]="selectedSociete"></app-assign-ticket-societe>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Pied de page du dialogue avec des boutons pour soumettre ou annuler -->

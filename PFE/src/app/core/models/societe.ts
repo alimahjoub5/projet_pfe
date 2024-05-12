@@ -1,6 +1,7 @@
 // societe.model.ts
 
 export interface Societe {
+    filter(arg0: (societe: any) => any): Societe[];
     SocieteID?: number;
     name: string;
     address?: string | null;

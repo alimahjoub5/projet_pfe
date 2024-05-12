@@ -14,8 +14,8 @@ export class SocieteService {
 
   constructor(private http: HttpClient , private authService: AuthService) { }
 
-  getAllSocietes(): Observable<Societe[]> {
-    return this.http.get<Societe[]>(this.apiUrl);
+  getAllSocietes(): Observable<Societe> {
+    return this.http.get<Societe>(this.apiUrl);
   }
 
   getSocieteById(id: number): Observable<any> {
