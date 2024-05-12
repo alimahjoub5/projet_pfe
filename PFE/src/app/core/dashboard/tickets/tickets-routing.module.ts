@@ -4,7 +4,6 @@ import { ListComponent } from './list/list.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { CreateComponent } from './create/create.component';
 import { StatusComponent } from './status/status.component';
-import { PlanComponent } from './plan/plan.component';
 import { AuthGuard } from 'src/app/auth.guard';
 import { UpdateticketsComponent } from './updatetickets/updatetickets.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
@@ -24,10 +23,10 @@ const routes: Routes = [
     component: ListComponent,
     canActivate : [AuthGuard]
   },
-  {
+  /*{
     path: "plan",
     component: PlanComponent,canActivate : [AuthGuard]
-  },
+  },*/
   {
     path: "status",
     component: StatusComponent,canActivate : [AuthGuard]

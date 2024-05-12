@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TechnicianGroup;
+use App\Models\Priority;
+use App\Models\EquipmentType;
+use App\Models\User;
+use App\Models\Societe;
+
 class Ticket extends Model
 {
     use HasFactory;
@@ -27,8 +32,6 @@ class Ticket extends Model
         'GroupID',
         'EquipmentTypeID',
         'StartDate',
-        'EndDate',
-        'DueDate',
         'ClosedDate',
     ];
 
@@ -36,18 +39,17 @@ class Ticket extends Model
         'CreatedOn',
         'ModifiedOn',
         'StartDate',
-        'EndDate',
-        'DueDate',
         'ClosedDate',
     ];
 
  
     // Relations éventuelles à définir ici
     // Relation avec le groupe
-    public function TechnicianGroup()
+    public function technicianGroup()
     {
         return $this->belongsTo(TechnicianGroup::class, 'GroupID', 'GroupID'); // Assurez-vous que 'GroupID' correspond à la clé primaire de votre table de groupes
     }
+
     public function priority()
     {
         return $this->belongsTo(Priority::class, 'PriorityID');
@@ -57,14 +59,14 @@ class Ticket extends Model
     {
         return $this->belongsTo(EquipmentType::class, 'EquipmentTypeID');
     }
+
     public function users()
     {
         return $this->belongsTo(User::class, 'AssigneeID'); // Si un ticket est associé à un seul utilisateur
-
     }
-    public function Societe()
-    {
-        return $this->belongsTo(Societe::class, 'SocieteID'); // Si un ticket est associé à un seul utilisateur
 
+    public function societe()
+    {
+        return $this->belongsTo(Societe::class, 'SocieteID'); // Si un ticket est associé à une seule société
     }
 }

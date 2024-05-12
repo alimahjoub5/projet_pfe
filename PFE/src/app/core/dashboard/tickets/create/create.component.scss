@@ -32,3 +32,23 @@
     }
 
 
+
+    .dialog-header {
+      background-color: #007ad9; /* Couleur de fond de l'en-tête */
+      color: #fff; /* Couleur du texte de l'en-tête */
+  }
+  .dialog-footer {
+    display: flex;
+    justify-content: space-between;
+  
+    .p-col {
+      flex: 1;
+      margin-right: 10px; // Ajoutez un espace entre les boutons si nécessaire
+    }
+  
+    // Appliquer des styles spécifiques aux boutons si nécessaire
+    .p-button {
+      width: 100%;
+    }
+  }
+  

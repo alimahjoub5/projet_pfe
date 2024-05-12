@@ -16,22 +16,26 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id('TicketID');
-            $table->unsignedBigInteger('CreatedBy');
-            $table->dateTime('CreatedOn')->nullable();
-            $table->unsignedBigInteger('ModifiedBy')->nullable();
-            $table->dateTime('ModifiedOn')->nullable();
-            $table->enum('StatusCodeID', ['nouveau', 'assigne','planifie', 'en_cours', 'resolu', 'cloture'])->default('nouveau');
-            $table->unsignedBigInteger('AssigneeID')->nullable();
             $table->string('Subject', 100);
             $table->text('Description')->nullable();
-            $table->enum('PriorityID', ['basse', 'normale', 'haute']); // Exemple de valeurs de priorité pour un ticket dans un système GMAO
+            $table->enum('StatusCodeID', ['nouveau','planifie', 'en_cours', 'resolu', 'cloture'])->default('nouveau');
+            $table->enum('PriorityID', ['basse', 'normale', 'haute']);
+            
             $table->unsignedBigInteger('GroupID')->nullable();
             $table->unsignedBigInteger('SocieteID')->nullable();
             $table->unsignedBigInteger('EquipmentTypeID')->nullable();
-            $table->dateTime('StartDate')->nullable();
-            $table->dateTime('EndDate')->nullable();
-            $table->date('DueDate');
+            $table->unsignedBigInteger('AssigneeID')->nullable();
+
+            $table->dateTime('StartDate')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->dateTime('ClosedDate')->nullable();
+            $table->enum('StatusValidation', ['true', 'false'])->default('false');
+            $table->enum('TicketType', ['curative', 'préventive'])->nullable();
+            $table->dateTime('ModifiedOn')->nullable();
+
+            $table->unsignedBigInteger('CreatedBy');
+            $table->dateTime('CreatedOn')->nullable();
+            $table->unsignedBigInteger('ModifiedBy')->nullable();
+
 
             $table->foreign('SocieteID')->references('SocieteID')->on('societe');
             $table->foreign('CreatedBy')->references('UserID')->on('users');

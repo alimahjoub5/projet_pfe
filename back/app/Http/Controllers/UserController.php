@@ -10,7 +10,6 @@ use App\Mail\AccountCreated;
 use App\Mail\TechnicianAssignedToTicket;
 
 use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Support\Facades\Password;
 
 
@@ -190,6 +189,7 @@ class UserController extends Controller
     
 
 
+
 public function resetPasswordRequest(Request $request)
 {
     $request->validate([
@@ -199,9 +199,11 @@ public function resetPasswordRequest(Request $request)
     $response = Password::sendResetLink($request->only('email'));
 
     return $response == Password::RESET_LINK_SENT
-                ? response()->json(['message' => 'Email sent with password reset link'], 200)
-                : response()->json(['message' => 'Unable to send reset link'], 500);
+        ? response()->json(['message' => 'Email sent with password reset link'], 200)
+        : response()->json(['message' => 'Unable to send reset link'], 500);
 }
+
+
 
 public function resetPassword(Request $request, $token)
 {

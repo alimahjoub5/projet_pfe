@@ -1,0 +1,14 @@
+<div class="p-col-12">
+    <label for="group">Group:</label>
+    <p-autoComplete 
+      [(ngModel)]="selectedGroupe" 
+      [suggestions]="filteredGroupe" 
+      (completeMethod)="filterGroupe($event)"
+      (onSelect)="onGroupeSelect($event)"
+      field="GroupName" 
+      [dropdown]="true"
+      placeholder="Select a group">
+    </p-autoComplete>
+  </div>
+
+  

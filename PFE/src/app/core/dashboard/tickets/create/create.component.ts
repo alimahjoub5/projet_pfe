@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Correction ici : ReactiveFormsModule est importé dans AppModule
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { Priority } from 'src/app/core/models/Priority';
@@ -13,6 +13,13 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { DropdownModule } from 'primeng/dropdown';
+import { AssignTicketGroupComponent } from './assign-ticket-group/assign-ticket-group.component';
+import { AssignTicketSocieteComponent } from './assign-ticket-societe/assign-ticket-societe.component';
+import { AssignTicketTechnicianComponent } from './assign-ticket-technician/assign-ticket-technician.component';
+import { DialogModule } from 'primeng/dialog';
+import { RadioButtonModule } from 'primeng/radiobutton';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -23,18 +30,47 @@ import { AuthService } from 'src/app/core/services/auth.service';
     FormsModule,ReactiveFormsModule,
     CommonModule,
     NgxSpinnerModule, // Correction ici : ReactiveFormsModule est importé dans AppModule
-  ToastModule
-  ]
+  ToastModule,
+  SelectButtonModule,
+  DropdownModule,
+  DialogModule,
+  AssignTicketGroupComponent,
+  AssignTicketSocieteComponent,
+  AssignTicketTechnicianComponent ,
+  RadioButtonModule,
+  DialogModule,
+  AutoCompleteModule,
+]
 })
 export class CreateComponent implements OnInit {
   equipmentTypes: EquipmentType[] | undefined;
   selectedEquipmentType: EquipmentType | null = null;
   filteredEquipmentTypes: EquipmentType[] | undefined;
 
-  priorities: Priority[] | undefined;
   form: FormGroup;
   isLoading : boolean;
   value: any;
+  choix: any[] = [
+    { name: 'Curative', value: 'curative' },
+    { name: 'Préventive', value: 'préventive' },
+    // Ajoutez d'autres options de paiement au besoin
+  ];
+Priorit: any[] = [
+  { name: 'Haute', value: 'haute' },
+  { name: 'Normale', value: 'normale' },
+  { name: 'Basse', value: 'basse' },
+  
+  // Ajoutez d'autres options de paiement au besoin
+];
+@ViewChild(AssignTicketGroupComponent) assignTicketGroupComponent: AssignTicketGroupComponent | undefined;
+@ViewChild(AssignTicketTechnicianComponent) assignTicketTechnicianComponent: AssignTicketTechnicianComponent | undefined;
+@ViewChild(AssignTicketSocieteComponent) assignTicketSocieteComponent: AssignTicketSocieteComponent | undefined;
+
+displayAssignDialog: boolean = false;
+selectedAssignType: string = '';
+selectedOption: any;
+
+
   constructor(
     private fb: FormBuilder,
     private priorityService: PriorityService,
@@ -54,13 +90,13 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       subject: ['', Validators.required],
-      description: [''],
+      description: ['',Validators.required],
       priority: ['', Validators.required],
-      dueDate: ['', Validators.required],
-      equipmentTypeID: [null, Validators.required],
+      TicketType : ['', Validators.required],
+      selectedEquipmentType: [null, Validators.required],
+
     });
 
-    this.loadPriorities();
     this.loadEquipmentTypes();
   }
 
@@ -81,6 +117,7 @@ export class CreateComponent implements OnInit {
         StartDate: ticketData.startDate,
         EndDate: ticketData.endDate,
         ClosedDate: ticketData.closedDate,
+        TicketType : ticketData.TicketType,
         StatusCodeID : 1,
         // D'autres propriétés si nécessaire
         TicketID: null, // À remplir par le serveur
@@ -105,16 +142,7 @@ export class CreateComponent implements OnInit {
     }
   }
   
-  loadPriorities(): void {
-    this.priorityService.getAllPriorities().subscribe(
-      (priorities: Priority[]) => {
-        this.priorities = priorities;
-      },
-      (error: any) => {
-        console.log('Error loading priorities: ', error);
-      }
-    );
-  }
+
 
   loadEquipmentTypes(): void {
     this.equipmentService.getAllEquipmentTypes().subscribe(
@@ -146,5 +174,27 @@ export class CreateComponent implements OnInit {
     this.value= event.value.EquipmentTypeID;
     console.log(this.value);
 
+  }
+
+
+  onSubmit1(): void {
+    if (this.selectedAssignType === 'technician' && this.assignTicketTechnicianComponent) {
+      this.assignTicketTechnicianComponent.saveSelectedTechnician();
+    } else if (this.selectedAssignType === 'group' && this.assignTicketGroupComponent) {
+      this.assignTicketGroupComponent.saveSelectedGroupe();
+    } else if (this.selectedAssignType === 'societe' && this.assignTicketSocieteComponent) {
+      this.assignTicketSocieteComponent.saveSelectedSociete();
+    }
+    event.preventDefault(); // Empêcher le rafraîchissement de la page
+    this.displayAssignDialog = false; // Masquer la boîte de dialogue
+  }
+  
+
+  onCancel(): void {
+    this.displayAssignDialog = false; // Cacher la boîte de dialogue
+    // Autres actions d'annulation...
+  }
+  showAssignDialog(): void {
+    this.displayAssignDialog = true;
   }
 }

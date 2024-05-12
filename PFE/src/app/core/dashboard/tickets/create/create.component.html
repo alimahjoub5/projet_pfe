@@ -3,49 +3,72 @@
 <p-toast></p-toast>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-fluid">
+  <div class="p-field">
+    <label for="subject">Sujet</label>
+    <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
+  </div>
+  <div class="p-field">
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
+  </div>
+  <div class="p-field">
+    <label for="priority">Priorité</label>
+    <p-dropdown 
+      id="priority" 
+      [options]="Priorit" 
+      formControlName="priority"
+      optionLabel="name" 
+      [required]="true"
+      placeholder="Selection un Priorité" 
+    ></p-dropdown>
+  </div>
+
+  <div class="p-field">
+    <h5>Type d'intervention</h5>
+    <p-selectButton [options]="choix" formControlName="TicketType" optionLabel="name"></p-selectButton>
+  </div>
+
+
+
+  <!-- Le contenu du dialogue -->
+<p-dialog header="Assignation" [(visible)]="displayAssignDialog" [modal]="true" [style]="{ 'width': '50%' }">
+  <!-- Contenu du dialogue -->
+  <div class="p-field">
+    <h5>Contenu du dialogue</h5>
+    <!-- Ajoutez ici les éléments de formulaire, les boutons, etc., que vous souhaitez afficher dans le dialogue -->
+  </div>
+
+  <!-- Pied de page du dialogue avec des boutons pour soumettre ou annuler -->
+  <div class="p-dialog-footer">
+    <button type="button" class="p-button p-button-success" (click)="onSubmit1()">Valider</button>
+    <button type="button" class="p-button p-button-danger" (click)="onCancel()">Annuler</button>
+  </div>
+</p-dialog>
+
+<!-- Bouton pour ouvrir le dialogue -->
 <div class="p-field">
-      <label for="subject">Sujet</label>
-      <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
-    </div>
-    <div class="p-field">
-      <label for="description">Description</label>
-      <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
-    </div>
-    <div class="p-field">
-      <label for="priority">Priorité</label>
-      <select id="priority" formControlName="priority" class="p-dropdown" [required]="true">
-        <option value="" selected>selection</option>
-          <option value="haute">Haute</option>
-          <option value="normale">Normale</option>
-          <option value="basse">Basse</option>
-      </select>
-    </div>
-    
-
-    <div class="p-field">
-      <label for="dueDate">Date d'échéance</label>
-      <input type="date" id="dueDate" formControlName="dueDate" class="p-inputtext" required>
-    </div>
-
-    <div>
-      <label for="equipmentTypeID">ID du type d'équipement</label>
-      <p-autoComplete 
-        [(ngModel)]="selectedEquipmentType" 
-        [suggestions]="filteredEquipmentTypes" 
-        (completeMethod)="filterEquipmentTypes($event)"
-        (onSelect)="onEquipmentTypeSelect($event)"
-        field="TypeName"
-        [dropdown]="true"
-        placeholder="Select an equipment"
-        id="equipmentTypeID" 
-        formControlName="equipmentTypeID" 
-        class="p-inputtext">
-      </p-autoComplete>
-    </div>
+  <h5>Associée</h5>
+  <button type="button" (click)="showAssignDialog()" class="p-button p-component p-button-icon-only">
+    <span class="p-button-icon pi pi-user"></span>
+  </button>
+</div>
 
 
-      <button type="submit" class="p-button p-button-primary"  >Soumettre</button>
- 
-    
-  </form>
-  <br>
+
+  <div class="p-field">
+    <label for="equipmentTypeID">type d'équipement</label>
+    <p-autoComplete 
+      [suggestions]="filteredEquipmentTypes" 
+      (completeMethod)="filterEquipmentTypes($event)"
+      (onSelect)="onEquipmentTypeSelect($event)"
+      field="TypeName"
+      [dropdown]="true"
+      placeholder="Select an equipment"
+      id="equipmentTypeID" 
+      formControlName="selectedEquipmentType" 
+      class="p-inputtext"
+    ></p-autoComplete>
+  </div>
+
+  <button type="submit" class="p-button p-button-primary">Soumettre</button>
+</form>
