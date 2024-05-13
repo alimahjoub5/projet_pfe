@@ -25,7 +25,7 @@ export class TicketService {
     return this.http.get<Ticket>(`${this.apiUrl}/ticket/${id}`, headers);
   }
 
-  addTicket(ticketData: any): Observable<any> {
+  addTicket(ticketData: Ticket): Observable<any> {
     const headers = this.authService.includeAuthToken();
     return this.http.post(`${this.apiUrl}/addTicket`, ticketData, headers);
   }

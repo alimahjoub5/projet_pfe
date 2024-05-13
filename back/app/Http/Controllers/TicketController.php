@@ -72,6 +72,7 @@ class TicketController extends Controller
         $ticketData = [
             'Subject' => $request->input('Subject'),
             'Description' => $request->input('Description'),
+            'TicketType' => $request->input('TicketType'),
             'AssigneeID' => $request->input('AssigneeID'),
             'SocieteID' => $request->input('SocieteID'),
             'GroupID' => $request->input('GroupID'),

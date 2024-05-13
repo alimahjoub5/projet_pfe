@@ -32,6 +32,7 @@ class Ticket extends Model
         'GroupID',
         'EquipmentTypeID',
         'StartDate',
+        'TicketType',
         'ClosedDate',
     ];
 

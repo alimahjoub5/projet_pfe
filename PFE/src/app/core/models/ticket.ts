@@ -15,7 +15,7 @@ export interface Ticket {
     StartDate?: Date | null;
     ClosedDate?: Date | null;
     StatusValidation: boolean; // Assuming enum-like behavior
-    TicketType: 'curative' | 'préventive'; // Assuming enum-like behavior
+    TicketType: string; // Assuming enum-like behavior
     DueDate: Date;
     EquipmentTypeName?: string | null;
     PriorityName?: string | null;
