@@ -27,6 +27,8 @@ use App\Http\Controllers\SocieteController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('ticket/last', [TicketController::class, 'getLastId']);
+
 Route::post('login', [UserController::class, 'login']);
 Route::post('password/reset', [UserController::class,'resetPasswordRequest']);
 Route::post('password/reset/{token}', [UserController::class,'resetPassword']);

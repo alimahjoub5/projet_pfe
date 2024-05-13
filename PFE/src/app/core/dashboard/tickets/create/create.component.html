@@ -4,6 +4,9 @@
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-fluid">
   <div class="p-field">
+    <label for="id">Ticket N° {{id}}</label>
+  </div>
+  <div class="p-field">
     <label for="subject">Sujet</label>
     <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
   </div>

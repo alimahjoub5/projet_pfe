@@ -58,6 +58,16 @@ class TicketController extends Controller
         }
         return response()->json($ticket, 200); // Correction ici pour retourner $ticket sans utiliser find()
     }
+    
+    
+    public function getLastId()
+    {
+        $lastId = Ticket::latest('TicketID')->value('TicketID');
+        return response()->json([$lastId]);
+    }
+    
+
+
 
     public function addTicket(Request $request){
         $ticket = Ticket::create($request->all());

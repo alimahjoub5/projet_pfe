@@ -73,6 +73,7 @@ displayAssignDialog: boolean = false;
 selectedAssignType: string = '';
 selectedOption: any;
   valueFromA: any;
+id: any;
 
 
   constructor(
@@ -91,6 +92,10 @@ selectedOption: any;
   }
 
   ngOnInit(): void {
+    this.ticketService.getLastID().subscribe(
+      (response: any) => {
+       this.id=Number(response)+1;
+      });
     this.form = this.fb.group({
       subject: ['', Validators.required],
       description: ['',Validators.required],
