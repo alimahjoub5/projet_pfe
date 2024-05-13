@@ -78,9 +78,12 @@ selectedOption: any;
   valueFromA: any;
 id: any;
 isDisable; boolean;
-societe : Societe ;
-technician : User;
-group : Groupe;
+societe : Societe =null ;
+technician : User =null;
+group : Groupe = null;
+  technicien: number;
+  soc: number;
+  grp: any;
 
   constructor(
     private fb: FormBuilder,
@@ -100,7 +103,7 @@ group : Groupe;
   ngOnInit(): void {
     this.ticketService.getLastID().subscribe(
       (response: any) => {
-       this.id=Number(response)+1;
+       this.id=Number(response);
       });
       //-------------------------------------
     this.form = this.fb.group({
@@ -128,9 +131,9 @@ group : Groupe;
         TicketID: null,
         Subject: ticketData.subject,
         Description: ticketData.description,
-        AssigneeID: this.technician.UserID,
-        SocieteID: this.societe.SocieteID,
-        GroupID: this.group.GroupID,
+        AssigneeID: Number(this.technicien),
+        SocieteID: Number(this.soc),
+        GroupID: Number(this.grp),
         PriorityID: ticketData.priority.value,
         TicketType: ticketData.TicketType.value,
         EquipmentTypeID: this.value,
@@ -209,18 +212,20 @@ group : Groupe;
     // Faites quelque chose avec la société sélectionnée
     console.log('Societe selected:', selectedSociete);
     this.societe=selectedSociete;
+    this.soc=selectedSociete.SocieteID;
   }
  
   onGroupeSelected(selectedSociete: Groupe) {
     // Faites quelque chose avec la société sélectionnée
     console.log('Societe selected:', selectedSociete);
     this.group=selectedSociete;
+    this.selectedSociete.GroupID;
   }
 
   onTechnicianSelected(selectedTechnician: User) {
     // Faites quelque chose avec la société sélectionnée
     console.log('Societe selected:', selectedTechnician);
     this.technician=selectedTechnician;
-    console.log(this.technician)
+    this.technicien=selectedTechnician.UserID;
   }
 }
