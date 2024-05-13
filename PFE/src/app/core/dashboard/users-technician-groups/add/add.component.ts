@@ -16,7 +16,7 @@ import { UsersTechnicianGroupsService } from 'src/app/core/services/user-tech.se
 })
 export class AddComponent implements OnInit {
 
-  groupes: Groupe[] = [];
+  groupes: Groupe[];
   selectedGroupe: number | undefined;
   users: User[] = [];
   selectedUser: number | undefined;

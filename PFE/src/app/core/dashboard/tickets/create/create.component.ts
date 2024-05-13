@@ -20,6 +20,9 @@ import { AssignTicketSocieteComponent } from './assign-ticket-societe/assign-tic
 import { AssignTicketTechnicianComponent } from './assign-ticket-technician/assign-ticket-technician.component';
 import { DialogModule } from 'primeng/dialog';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { Societe } from 'src/app/core/models/societe';
+import { Groupe } from 'src/app/core/models/groupe';
+import { User } from 'src/app/core/models/User';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -74,7 +77,10 @@ selectedAssignType: string = '';
 selectedOption: any;
   valueFromA: any;
 id: any;
-
+isDisable; boolean;
+societe : Societe ;
+technician : User;
+group : Groupe;
 
   constructor(
     private fb: FormBuilder,
@@ -96,6 +102,7 @@ id: any;
       (response: any) => {
        this.id=Number(response)+1;
       });
+      //-------------------------------------
     this.form = this.fb.group({
       subject: ['', Validators.required],
       description: ['',Validators.required],
@@ -118,24 +125,22 @@ id: any;
   
       // Créer une nouvelle instance de Ticket avec les données extraites
       const ticket: Ticket = {
+        TicketID: null,
         Subject: ticketData.subject,
         Description: ticketData.description,
-        PriorityID: ticketData.priority,
-        DueDate: ticketData.dueDate,
+        AssigneeID: this.technician.UserID,
+        SocieteID: this.societe.SocieteID,
+        GroupID: this.group.GroupID,
+        PriorityID: ticketData.priority.value,
+        TicketType: ticketData.TicketType.value,
         EquipmentTypeID: this.value,
-        StartDate: ticketData.startDate,
-        EndDate: ticketData.endDate,
-        ClosedDate: ticketData.closedDate,
-        TicketType : ticketData.TicketType,
-        StatusCodeID : 1,
-        // D'autres propriétés si nécessaire
-        TicketID: null, // À remplir par le serveur
-        CreatedOn: null, // Définir la date et l'heure actuelles comme createdOn
-        CreatedBy: Number(this.authservice.getUserID()), // À remplir par le serveur
-        ModifiedOn: undefined,
-        ModifiedBy: null
-      };
-      console.log(ticket);      // Appeler le service pour ajouter le ticket
+        CreatedBy: Number(this.authservice.getUserID()),
+        ModifiedBy: null,
+        StatusCodeID: 'nouveau',
+        StatusValidation: false,
+        DueDate: null
+      }
+    console.log(ticket);      // Appeler le service pour ajouter le ticket
       this.ticketService.addTicket(ticket).subscribe(
         (response: any) => {
           console.log('Ticket created successfully:', response);
@@ -179,7 +184,7 @@ id: any;
 
   onEquipmentTypeSelect(event: any): void {
     console.log(event.value);
-    this.form.controls['equipmentTypeID'].setValue(event.value.TypeName);
+    this.form.controls['selectedEquipmentType'].setValue(event.value.TypeName);
     this.value= event.value.EquipmentTypeID;
     console.log(this.value);
 
@@ -187,23 +192,35 @@ id: any;
 
 
   onSubmit1(): void {
-    if (this.selectedAssignType === 'technician' && this.assignTicketTechnicianComponent) {
-      this.assignTicketTechnicianComponent.saveSelectedTechnician();
-    } else if (this.selectedAssignType === 'group' && this.assignTicketGroupComponent) {
-      this.assignTicketGroupComponent.saveSelectedGroupe();
-    } else if (this.selectedAssignType === 'societe' && this.assignTicketSocieteComponent) {
-      this.assignTicketSocieteComponent.saveSelectedSociete();
-    }
-    event.preventDefault(); // Empêcher le rafraîchissement de la page
-    this.displayAssignDialog = false; // Masquer la boîte de dialogue
+    this.displayAssignDialog = false;
+    this.isDisable=true;
   }
   
 
   onCancel(): void {
     this.displayAssignDialog = false; // Cacher la boîte de dialogue
-    // Autres actions d'annulation...
   }
   showAssignDialog(): void {
     this.displayAssignDialog = true;
+  }
+  selectedSociete
+
+  onSocieteSelected(selectedSociete: Societe) {
+    // Faites quelque chose avec la société sélectionnée
+    console.log('Societe selected:', selectedSociete);
+    this.societe=selectedSociete;
+  }
+ 
+  onGroupeSelected(selectedSociete: Groupe) {
+    // Faites quelque chose avec la société sélectionnée
+    console.log('Societe selected:', selectedSociete);
+    this.group=selectedSociete;
+  }
+
+  onTechnicianSelected(selectedTechnician: User) {
+    // Faites quelque chose avec la société sélectionnée
+    console.log('Societe selected:', selectedTechnician);
+    this.technician=selectedTechnician;
+    console.log(this.technician)
   }
 }

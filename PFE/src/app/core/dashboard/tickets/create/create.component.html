@@ -29,8 +29,8 @@
   <div class="p-field">
     <h5>Type d'intervention</h5>
     <p-selectButton [options]="choix" formControlName="TicketType" optionLabel="name"></p-selectButton>
+  
   </div>
-
 
 
   <!-- Le contenu du dialogue -->
@@ -59,13 +59,13 @@
       </div>
       <div class="p-col-12">
         <div *ngIf="form.value.assignType === 'technician'">
-          <app-assign-ticket-technician [ticketId]="selectedTicketId" [selectedTechnician]="selectedTechnician"></app-assign-ticket-technician>
+          <app-assign-ticket-technician (userSelected)="onTechnicianSelected($event)"></app-assign-ticket-technician>
         </div>
         <div *ngIf="form.value.assignType === 'group'">
-          <app-assign-ticket-group [ticketId]="selectedTicketId" [selectedGroup]="selectedGroup"></app-assign-ticket-group>
+          <app-assign-ticket-group (groupeSelected)="onGroupeSelected($event)"></app-assign-ticket-group>
         </div>
         <div *ngIf="form.value.assignType === 'societe'">
-          <app-assign-ticket-societe [ticketId]="selectedTicketId" [selectedSociete]="selectedSociete"></app-assign-ticket-societe>
+          <app-assign-ticket-societe (societeSelected)="onSocieteSelected($event)"></app-assign-ticket-societe>
         </div>
       </div>
     </div>
@@ -81,13 +81,30 @@
 <!-- Bouton pour ouvrir le dialogue -->
 <div class="p-field">
   <h5>Associée</h5>
-  <button type="button" (click)="showAssignDialog()" class="p-button p-component p-button-icon-only">
+  <button type="button" (click)="showAssignDialog()" [disabled]="isDisable" class="p-button p-component p-button-icon-only">
     <span class="p-button-icon pi pi-user"></span>
   </button>
+</div>
+<br>
+<!-- Display selected values -->
+<div class="selected-values-grid" *ngIf="societe || technician || group">
+  <div class="selected-value-item" *ngIf="societe">
+    <span class="label">Selected Societe:</span>
+    <span class="value">{{ societe.name }}</span>
+  </div>
+  <div class="selected-value-item" *ngIf="technician">
+    <span class="label">Selected Technician:</span>
+    <span class="value">{{ technician.Username }}</span>
+  </div>
+  <div class="selected-value-item" *ngIf="group">
+    <span class="label">Selected Groupe:</span>
+    <span class="value">{{ group.GroupName }}</span>
+  </div>
 </div>
 
 
 
+<br>
   <div class="p-field">
     <label for="equipmentTypeID">type d'équipement</label>
     <p-autoComplete 

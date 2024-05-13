@@ -67,12 +67,29 @@ class TicketController extends Controller
     }
     
 
-
-
     public function addTicket(Request $request){
-        $ticket = Ticket::create($request->all());
+        // Extracting the required fields from the request
+        $ticketData = [
+            'Subject' => $request->input('Subject'),
+            'Description' => $request->input('Description'),
+            'AssigneeID' => $request->input('AssigneeID'),
+            'SocieteID' => $request->input('SocieteID'),
+            'GroupID' => $request->input('GroupID'),
+            'PriorityID' => $request->input('PriorityID'),
+            'EquipmentTypeID' => $request->input('EquipmentTypeID'),
+            'CreatedBy' => $request->input('CreatedBy'),
+            'ModifiedBy' => $request->input('ModifiedBy'),
+            'StatusCodeID' => $request->input('StatusCodeID'),
+            // Add other fields if necessary
+        ];
+    
+        // Create a new ticket with the extracted data
+        $ticket = Ticket::create($ticketData);
+    
+        // Return the created ticket as JSON response with status code 201
         return response()->json($ticket, 201);
     }
+
 
     public function updateTicket(Request $request, $id){ // Ajouter $id en paramètre
         $ticket = Ticket::find($id);

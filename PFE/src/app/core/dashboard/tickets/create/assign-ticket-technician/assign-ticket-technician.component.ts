@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { User } from 'src/app/core/models/User';
@@ -11,7 +11,11 @@ import { UserService } from 'src/app/core/services/user-service.service';
   templateUrl: './assign-ticket-technician.component.html',
   styleUrl: './assign-ticket-technician.component.scss'
 })
-export class AssignTicketTechnicianComponent {
+export class AssignTicketTechnicianComponent implements OnInit{
+  
+  @Output() userSelected = new EventEmitter<User>();
+
+
   @Input() ticketId: string | undefined;
   Technicians: User[] | undefined;
   selectedTechnician: User | null = null;
@@ -45,25 +49,12 @@ export class AssignTicketTechnicianComponent {
 
   onTechnicianSelect(event: any) {
     this.selectedTechnician = event.value;
+    this.userSelected.emit(this.selectedTechnician); // Émettre la valeur sélectionnée vers le parent
   }
 
+
   saveSelectedTechnician() {
-    if (this.selectedTechnician && this.ticketId) {
-      // Envoyer une requête pour affecter le ticket à l'utilisateur sélectionné
-      this.userService.assignTechnicianToTicket(Number(this.ticketId), this.selectedTechnician.UserID).subscribe(
-        (response) => {
-          console.log('Technician assigned to ticket successfully:', response);
-          // Gérer la réponse ici, par exemple, afficher un message de succès à l'utilisateur
-        },
-        (error) => {
-          console.error('Failed to assign technician to ticket:', error);
-          // Gérer l'erreur ici, par exemple, afficher un message d'erreur à l'utilisateur
-        }
-      );
-    } else {
-      console.warn('No ticket or technician selected.');
-      // Vous pouvez gérer le cas où aucun ticket ou technicien n'est sélectionné, comme afficher un message à l'utilisateur pour sélectionner un technicien.
-    }
+   
   }
   
 

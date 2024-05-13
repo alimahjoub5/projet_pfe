@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { Societe } from 'src/app/core/models/societe';
@@ -13,6 +13,8 @@ import { SocieteService } from 'src/app/core/services/societe.service';
   ],
 })
 export class AssignTicketSocieteComponent implements OnInit {
+  @Output() societeSelected = new EventEmitter<Societe>();
+
   @Input() ticketId: string | undefined;
   societes: Societe | undefined;
   selectedSociete: Societe | null = null;
@@ -30,7 +32,11 @@ export class AssignTicketSocieteComponent implements OnInit {
         console.error('Error fetching societes:', error);
       }
     );
-    console.log(this.ticketId);
+  }
+
+  onSocieteSelect(event: any) {
+    this.selectedSociete = event.value;
+    this.societeSelected.emit(this.selectedSociete); // Émettre la valeur sélectionnée vers le parent
   }
 
   filterSocietes(event: any) {
@@ -46,9 +52,7 @@ export class AssignTicketSocieteComponent implements OnInit {
     this.filteredSocietes = filtered;
   }
 
-  onSocieteSelect(event: any) {
-    this.selectedSociete = event.value;
-  }
+
 
   saveSelectedSociete() {
     if (this.selectedSociete && this.ticketId) {

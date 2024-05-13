@@ -1,24 +1,24 @@
 export interface Ticket {
     TicketID: number;
     CreatedBy: number;
-    CreatedOn?: Date;
+    CreatedOn?: Date | null;
     ModifiedBy: number;
-    ModifiedOn?: Date;
-    StatusCodeID: number;
-    AssigneeID?: number | null;
+    ModifiedOn?: Date | null;
+    StatusCodeID: 'nouveau' | 'planifie' | 'en_cours' | 'resolu' | 'cloture'; // Assuming enum-like behavior
+    AssigneeID: number | null;
     Subject: string;
     Description?: string | null;
-    PriorityID: number;
-    SocieteID?: number | null ; 
-    GroupID?: number | null;
+    PriorityID: 'basse' | 'normale' | 'haute'; // Assuming enum-like behavior
+    SocieteID: number | null;
+    GroupID: number | null;
     EquipmentTypeID?: number | null;
     StartDate?: Date | null;
-    EndDate?: Date | null;
-    DueDate: Date;
-    TicketType:string;
     ClosedDate?: Date | null;
-    EquipmentTypeName? : string |null;
-    PriorityName? : string | null;
-    GroupName? : string| null;
-    username? :string ;  //for user display name
+    StatusValidation: boolean; // Assuming enum-like behavior
+    TicketType: 'curative' | 'préventive'; // Assuming enum-like behavior
+    DueDate: Date;
+    EquipmentTypeName?: string | null;
+    PriorityName?: string | null;
+    GroupName?: string | null;
+    username?: string; // for user display name
 }
