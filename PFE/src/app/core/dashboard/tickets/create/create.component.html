@@ -6,14 +6,23 @@
   <div class="p-field">
     <label for="id">Ticket N° {{id}}</label>
   </div>
+  
+  
   <div class="p-field">
-    <label for="subject">Sujet</label>
-    <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
+    <label for="equipmentTypeID">Equipement</label>
+    <p-autoComplete 
+      [suggestions]="filteredEquipmentTypes" 
+      (completeMethod)="filterEquipmentTypes($event)"
+      (onSelect)="onEquipmentTypeSelect($event)"
+      field="TypeName"
+      [dropdown]="true"
+      placeholder="Select an equipment"
+      id="equipmentTypeID" 
+      formControlName="selectedEquipmentType" 
+      class="p-inputtext"
+    ></p-autoComplete>
   </div>
-  <div class="p-field">
-    <label for="description">Description</label>
-    <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
-  </div>
+  
   <div class="p-field">
     <label for="priority">Priorité</label>
     <p-dropdown 
@@ -27,11 +36,18 @@
   </div>
 
   <div class="p-field">
-    <h5>Type d'intervention</h5>
+    <h5>Quelle est la nature de l'intervention ?</h5>
     <p-selectButton [options]="choix" formControlName="TicketType" optionLabel="name"></p-selectButton>
   
   </div>
-
+  <div class="p-field">
+    <label for="subject">Titre</label>
+    <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
+  </div>
+  <div class="p-field">
+    <label for="description">Description de l'intervention (optionnel)</label>
+    <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
+  </div>
 
   <!-- Le contenu du dialogue -->
 <p-dialog header="Assignation" [(visible)]="displayAssignDialog" [modal]="true" [style]="{ 'width': '50%' }">
@@ -104,21 +120,7 @@
 
 
 
-<br>
-  <div class="p-field">
-    <label for="equipmentTypeID">type d'équipement</label>
-    <p-autoComplete 
-      [suggestions]="filteredEquipmentTypes" 
-      (completeMethod)="filterEquipmentTypes($event)"
-      (onSelect)="onEquipmentTypeSelect($event)"
-      field="TypeName"
-      [dropdown]="true"
-      placeholder="Select an equipment"
-      id="equipmentTypeID" 
-      formControlName="selectedEquipmentType" 
-      class="p-inputtext"
-    ></p-autoComplete>
-  </div>
+
 
   <button type="submit" class="p-button p-button-primary">Soumettre</button>
 </form>
