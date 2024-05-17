@@ -1,24 +1,23 @@
+/* Bouton personnalisé */
+.custom-button {
+    background-color: #4CAF50; /* Couleur de fond */
+    border: none; /* Supprime la bordure */
+    color: white; /* Couleur du texte */
+    padding: 12px 24px; /* Espacement intérieur */
+    text-align: center; /* Alignement du texte */
+    text-decoration: none; /* Supprime la décoration du texte */
+    display: inline-block; /* Affichage en ligne */
+    font-size: 16px; /* Taille de la police */
+    margin: 4px 2px; /* Marge extérieure */
+    transition-duration: 0.4s; /* Durée de transition */
+    cursor: pointer; /* Curseur pointer */
+    border-radius: 8px; /* Bordures arrondies */
+}
 
-  
-    .custom-button {
-        background-color: #4CAF50; /* Couleur de fond */
-        border: none; /* Supprime la bordure */
-        color: white; /* Couleur du texte */
-        padding: 12px 24px; /* Espacement intérieur */
-        text-align: center; /* Alignement du texte */
-        text-decoration: none; /* Supprime la décoration du texte */
-        display: inline-block; /* Affichage en ligne */
-        font-size: 16px; /* Taille de la police */
-        margin: 4px 2px; /* Marge extérieure */
-        transition-duration: 0.4s; /* Durée de transition */
-        cursor: pointer; /* Curseur pointer */
-        border-radius: 8px; /* Bordures arrondies */
-    }
-
-    .custom-button:hover {
-        background-color: #45a049; /* Couleur de fond au survol */
-        color: white; /* Couleur du texte au survol */
-    }
+.custom-button:hover {
+    background-color: #45a049; /* Couleur de fond au survol */
+    color: white; /* Couleur du texte au survol */
+}
 
 /* Style pour les éléments <input> dans les cellules de la table */
 table input[type="text"] {
@@ -35,10 +34,24 @@ table input[type="text"]:focus {
     outline: none; /* Supprime la bordure de mise au point par défaut */
     border-color: #007bff; /* Change la couleur de la bordure lorsque l'élément est en focus */
 }
-table input[type="text"]:focus {
-    outline: none; /* Supprime la bordure de mise au point par défaut */
-    border-color: #007bff; /* Change la couleur de la bordure lorsque l'élément est en focus */
+
+/* Style pour le champ de recherche personnalisé avec une icône */
+.custom-search-input {
+    position: relative;
 }
+
+.custom-search-input__input {
+    padding-left: 2.5rem; /* Ajustez la valeur en fonction de la taille de l'icône */
+}
+
+.custom-search-input i {
+    position: absolute;
+    left: 1rem; /* Ajustez la valeur pour positionner l'icône à gauche du champ de recherche */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666; /* couleur de l'icône */
+}
+
     .view i {
         color: blue; /* Couleur pour l'icône "View" */
     }
@@ -114,3 +127,19 @@ table input[type="text"]:focus {
         background-color: #ffcdd2; /* Changez la couleur du fond selon votre préférence */
 
       }
+      .custom-search-input {
+        position: relative;
+      }
+      
+      .custom-search-input__input {
+        padding-left: 2.5rem; /* ajustez la valeur en fonction de la taille de l'icône */
+      }
+      
+      .custom-search-input i {
+        position: absolute;
+        left: 1rem; /* ajustez la valeur pour positionner l'icône à gauche du champ de recherche */
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666; /* couleur de l'icône */
+      }
+      

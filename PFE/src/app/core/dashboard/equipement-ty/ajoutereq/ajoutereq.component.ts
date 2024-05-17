@@ -1,11 +1,17 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EquipmentType } from 'src/app/core/models/equipement'; // Assurez-vous que le chemin d'importation est correct
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service'; // Assurez-vous que le chemin d'importation est correct
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { DialogModule } from 'primeng/dialog';
+import { CommonModule } from '@angular/common';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-ajoutereq',
  
@@ -13,12 +19,23 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./ajoutereq.component.scss'],
 
   standalone : true,
-  imports : [ReactiveFormsModule,DropdownModule,CheckboxModule  ]
+  imports : [ReactiveFormsModule,
+    DropdownModule,
+    CheckboxModule,   
+     NgxSpinnerModule,
+     DialogModule,
+     AutoCompleteModule,
+     FormsModule,
+     CommonModule,
+   ToastModule,
+]
 })
 export class AjoutereqComponent implements OnInit{
   equipmentForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private equipmentService: EquipmentTypeService,
+  constructor(private fb: FormBuilder, private equipmentService: EquipmentTypeService,      private spinner: NgxSpinnerService,
+    private messageService: MessageService,
+
     private authservice : AuthService) {
     this.equipmentForm = this.fb.group({
       TypeName: ['', Validators.required],
@@ -39,7 +56,9 @@ export class AjoutereqComponent implements OnInit{
 
   ngOnInit(): void {
   }
-
+  showSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'equipement créé avec succès' });
+  }
   onSubmit(): void {
     if (this.equipmentForm.invalid) {
       return;
@@ -66,7 +85,10 @@ export class AjoutereqComponent implements OnInit{
       .subscribe(
         response => {
           console.log('Equipment added successfully:', response);
+          this.showSuccess();
+          this.spinner.hide();
           this.equipmentForm.reset();
+
         },
         error => {
           console.error('Error adding equipment:', error);

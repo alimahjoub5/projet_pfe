@@ -25,11 +25,10 @@
           </div>
         </ng-template>
         <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="FirstName">First Name <p-sortIcon field="FirstName"></p-sortIcon></th>
-                    <th pSortableColumn="LastName">Last Name <p-sortIcon field="LastName"></p-sortIcon></th>
-                    <th pSortableColumn="Email">Email <p-sortIcon field="Email"></p-sortIcon></th>
-                    <th pSortableColumn="Username">Username <p-sortIcon field="Username"></p-sortIcon></th>
+                <tr>                   <th pSortableColumn="LastName">Nom <p-sortIcon field="LastName"></p-sortIcon></th>
+                    <th pSortableColumn="FirstName">Prénom <p-sortIcon field="FirstName"></p-sortIcon></th>
+                    <th pSortableColumn="Email">Adresse Email <p-sortIcon field="Email"></p-sortIcon></th>
+                    <th pSortableColumn="Username">Nom d'utilisateur <p-sortIcon field="Username"></p-sortIcon></th>
                     <th pSortableColumn="Role">Role <p-sortIcon field="Role"></p-sortIcon></th>
                     <th pSortableColumn="Active">Active <p-sortIcon field="Active"></p-sortIcon></th>
                     <th>Action</th>
@@ -37,29 +36,24 @@
             </ng-template>
             <ng-template pTemplate="body" let-user>
                 <tr  [ngClass]="{'user-blocked': !user.Active}">
+                  <td>{{ user.LastName }}</td>
+
                     <td>{{ user.FirstName }}</td>
-                    <td>{{ user.LastName }}</td>
                     <td>{{ user.Email }}</td>
                     <td>{{ user.Username }}</td>
                     <td>{{ user.Role }}</td>
                     <td>{{ user.Active }}</td>
                     <td>
-                      <a *ngIf="user.Active" [routerLink]="['/user-detail', user.UserID]" class="view" title="View" data-toggle="tooltip">
-                        <i class="material-icons text-primary">&#xE417;</i> <!-- Icône de vue avec la couleur primaire -->
-                      </a>
-                      <a [routerLink]="['/update', user.UserID]" *ngIf="user.Active" class="edit" title="Edit" data-toggle="tooltip">
-                        <i class="material-icons text-success">&#xE254;</i> <!-- Icône d'édition avec la couleur de succès -->
-                      </a>
-                      <button *ngIf="user.Active" (click)="deleteUser(user.UserID)" class="material-icons text-danger" title="Delete" data-toggle="tooltip">
-                        &#xE872; <!-- Icône de suppression avec la couleur d'erreur -->
+                      <button pButton pRipple icon="pi pi-eye" *ngIf="user.Active" class="p-button-rounded p-button-info mr-2" [routerLink]="['/user-detail', user.UserID]" routerLinkActive="router-link-active"></button>
+                    
+                      <button pButton pRipple icon="pi pi-pencil" *ngIf="user.Active" class="p-button-rounded p-button-success mr-2" [routerLink]="['/update', user.UserID]" routerLinkActive="router-link-active"></button>
+                    
+                      <button *ngIf="user.Active" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-warning" title="Block" data-toggle="tooltip" (click)="toggleUserStatus(user)">
                       </button>
-                      <button *ngIf="user.Active" (click)="toggleUserStatus(user)" title="{{ user.Active ? 'Bloquer' : 'Débloquer' }}" data-toggle="tooltip">
-                        <i class="material-icons text-warning">{{ user.Active ? 'block' : 'unlock' }}</i> <!-- Icône de blocage ou de déblocage avec la couleur d'avertissement -->
-                      </button>
-                      <button *ngIf="!user.Active" (click)="toggleUserStatus(user)" title="Débloquer" data-toggle="tooltip">
-                        <i class="material-icons text-info">unlock</i> <!-- Icône de déblocage avec la couleur d'information -->
+                      <button *ngIf="!user.Active" pButton pRipple icon="pi pi-unlock" class="p-button-rounded p-button-danger" title="Unlock" data-toggle="tooltip" (click)="toggleUserStatus(user)">
                       </button>
                     </td>
+                    
                     
                     
                     

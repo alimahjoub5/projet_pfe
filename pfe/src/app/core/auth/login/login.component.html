@@ -1,34 +1,42 @@
-<div class="container">
-  <h2>Connexion</h2>
-  <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
-    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-
-    <div class="form-group row">
-      <label for="email" class="col-sm-3 col-form-label">Email :</label>
-      <div class="col-sm-9">
-        <input type="email" formControlName="email" class="form-control" id="email">
-        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-          <div *ngIf="email.errors?.required">L'email est requis.</div>
-          <div *ngIf="email.errors?.email">L'email doit être valide.</div>
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+  <div class="flex flex-column align-items-center justify-content-center">
+    <div style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+      <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+        <div class="text-center mb-5">
+          <h2>Se Connecter</h2>
         </div>
-      </div>
-    </div>
 
-    <div class="form-group row">
-      <label for="password" class="col-sm-3 col-form-label">Mot de passe :</label>
-      <div class="col-sm-9">
-        <input type="password" formControlName="password" class="form-control" id="password">
-        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
-          <div *ngIf="password.errors?.required">Le mot de passe est requis.</div>
-          <div *ngIf="password.errors?.minlength">Le mot de passe doit avoir au moins 6 caractères.</div>
-        </div>
-      </div>
-    </div>
+        <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()" class="w-full max-w-md">
+          <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
 
-    <div class="form-group row">
-      <div class="col-sm-9 offset-sm-3">
-        <button type="submit" class="btn btn-primary">Se connecter</button>
+          <div class="mb-5">
+            <label for="email" class="block text-900 text-xl font-medium mb-2">Email :</label>
+            <input type="email" formControlName="email" class="form-control w-full p-3" id="email" placeholder="Email address">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+              <div *ngIf="email.errors?.required">L'email est requis.</div>
+              <div *ngIf="email.errors?.email">L'email doit être valide.</div>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <label for="password" class="block text-900 text-xl font-medium mb-2">Mot de passe :</label>
+            <input type="password" formControlName="password" class="form-control w-full p-3" id="password" placeholder="Mot de passe">
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+              <div *ngIf="password.errors?.required">Le mot de passe est requis.</div>
+              <div *ngIf="password.errors?.minlength">Le mot de passe doit avoir au moins 6 caractères.</div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center">
+              <p-checkbox id="rememberme1" [binary]="true" class="mr-2"></p-checkbox>
+              <label for="rememberme1">Se souvenir de moi</label>
+            </div>
+            <a href="#" class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Mot de passe oublié ?</a>
+          </div>
+          <button pButton pRipple label="Se Connecter" class="w-full p-3 text-xl"></button>
+        </form>
       </div>
     </div>
-  </form>
+  </div>
 </div>

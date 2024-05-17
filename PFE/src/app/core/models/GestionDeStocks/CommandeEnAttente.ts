@@ -1,6 +1,6 @@
 export interface CommandeEnAttente {
   stock_piece?: any;
-  piece?
+  piece? :any;
   fournisseur?: any;
   commande_id: number;
   piece_id: number;

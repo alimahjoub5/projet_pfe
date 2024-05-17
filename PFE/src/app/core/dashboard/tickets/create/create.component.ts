@@ -23,6 +23,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { Societe } from 'src/app/core/models/societe';
 import { Groupe } from 'src/app/core/models/groupe';
 import { User } from 'src/app/core/models/User';
+import { PrimeNGConfig } from 'primeng/api';
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -41,7 +43,7 @@ import { User } from 'src/app/core/models/User';
   AssignTicketSocieteComponent,
   AssignTicketTechnicianComponent ,
   RadioButtonModule,
-  DialogModule,
+  
   AutoCompleteModule,
 ]
 })
@@ -93,6 +95,7 @@ group : Groupe = null;
     private spinner: NgxSpinnerService,
     private messageService: MessageService,
     private authservice: AuthService,
+    private primengConfig: PrimeNGConfig
 
   ) {}
 
@@ -101,6 +104,8 @@ group : Groupe = null;
   }
 
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
+
     this.ticketService.getLastID().subscribe(
       (response: any) => {
        this.id=Number(response);

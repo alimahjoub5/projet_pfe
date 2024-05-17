@@ -56,7 +56,7 @@ priorities: any;
         this.submitted = false;
         this.productDialog = true;
     }
-
+    
     deleteSelectedProducts() {
         this.deleteProductsDialog = true;
     }

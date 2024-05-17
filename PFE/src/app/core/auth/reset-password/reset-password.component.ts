@@ -12,7 +12,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { RouterModule, Routes } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-reset-password',
   standalone: true,
   imports: [FormsModule,
     CommonModule,
@@ -21,19 +21,11 @@ import { RouterModule, Routes } from '@angular/router';
     CheckboxModule,
     InputTextModule,
     PasswordModule,
-    RouterModule
-  ],
-  templateUrl: './login.component.html',
-  styles: [`
-  :host ::ng-deep .pi-eye,
-  :host ::ng-deep .pi-eye-slash {
-      transform:scale(1.6);
-      margin-right: 1rem;
-      color: var(--primary-color) !important;
-  }
-`]})
-export class LoginComponent implements OnInit {
-[x: string]: any;
+  RouterModule],
+  templateUrl: './reset-password.component.html',
+  styleUrl: './reset-password.component.scss'
+})
+export class ResetPasswordComponent implements OnInit {
 
 
   credentialsForm: FormGroup;

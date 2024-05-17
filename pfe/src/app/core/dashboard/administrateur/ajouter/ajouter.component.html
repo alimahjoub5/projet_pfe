@@ -1,29 +1,35 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
 
     <div class="form-field">
-        <label for="firstName">First Name:</label>
+        <label for="firstName">Prénom</label>
         <input type="text" id="firstName" formControlName="FirstName" pInputText>
     </div>
     <div class="form-field">
-        <label for="lastName">Last Name:</label>
+        <label for="lastName">Nom</label>
         <input type="text" id="lastName" formControlName="LastName" pInputText>
     </div>
     <div class="form-field">
-        <label for="email">Email:</label>
+        <label for="email">Adresse Email:</label>
         <input type="email" id="email" formControlName="Email" pInputText>
     </div>
     <div class="form-field">
-        <label for="username">Username:</label>
+        <label for="username">Nom d'utilisation:</label>
         <input type="text" id="username" formControlName="Username" pInputText>
     </div>
     <div class="form-field">
-        <label for="password">Password:</label>
+        <label for="password">Mot de passe:</label>
         <input type="password" id="password" formControlName="Password" pPassword>
     </div>
-    <div class="form-field">
+    <div class="form-group">
         <label for="role">Role:</label>
-        <p-dropdown id="role" formControlName="Role" [options]="roles" [showClear]="true"></p-dropdown>
-    </div>
+        <p-dropdown 
+          id="role" 
+          formControlName="Role" 
+          [options]="roles" 
+          [showClear]="true">
+        </p-dropdown>
+      </div>
+      
 
     <button type="submit" [disabled]="userForm.invalid" pButton>Add User</button>
 </form>
