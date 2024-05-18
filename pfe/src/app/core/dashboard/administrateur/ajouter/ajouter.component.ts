@@ -5,19 +5,23 @@ import { UserService } from 'src/app/core/services/user-service.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-ajouter',
   templateUrl: './ajouter.component.html',
   styleUrls: ['./ajouter.component.scss'],
   standalone : true,
-  imports : [ReactiveFormsModule,DropdownModule,CheckboxModule  ]
+  imports : [ReactiveFormsModule,DropdownModule,CheckboxModule,ToastModule  ]
 })
 export class AjouterComponent implements OnInit {
   userForm: FormGroup;
   roles: any[]; // Define roles array
   constructor(private formBuilder: FormBuilder, private userService: UserService,
-    private authservice : AuthService) { 
+    private authservice : AuthService,
+    private messageService :MessageService
+  ) { 
 
 
 
@@ -79,10 +83,15 @@ export class AjouterComponent implements OnInit {
           console.log('User added successfully:', response);
           // Réinitialiser le formulaire après l'ajout réussi
           this.userForm.reset();
+           // Afficher le message d'erreur retourné par l'API
+           this.messageService.add({severity:'success', summary:'success', detail:'error.error.message'});
+ 
+
         },
         error => {
-          console.error('Error adding user:', error);
-        }
+ // Afficher le message d'erreur retourné par l'API
+ this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+}
       );
   }
 }

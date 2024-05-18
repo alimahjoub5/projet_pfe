@@ -1,7 +1,6 @@
 <ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<!-- Your other content goes here -->
 <div class="grid">
   <div class="col-12">
     <div class="card px-6 py-6">
@@ -18,51 +17,45 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="users" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <p-table #dt [value]="users" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['LastName','FirstName','Email','Username','Role']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
           <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <h5 class="m-0">Gérer les utilisateurs</h5>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
-                <tr>                   <th pSortableColumn="LastName">Nom <p-sortIcon field="LastName"></p-sortIcon></th>
-                    <th pSortableColumn="FirstName">Prénom <p-sortIcon field="FirstName"></p-sortIcon></th>
-                    <th pSortableColumn="Email">Adresse Email <p-sortIcon field="Email"></p-sortIcon></th>
-                    <th pSortableColumn="Username">Nom d'utilisateur <p-sortIcon field="Username"></p-sortIcon></th>
-                    <th pSortableColumn="Role">Role <p-sortIcon field="Role"></p-sortIcon></th>
-                    <th pSortableColumn="Active">Active <p-sortIcon field="Active"></p-sortIcon></th>
-                    <th>Action</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-user>
-                <tr  [ngClass]="{'user-blocked': !user.Active}">
-                  <td>{{ user.LastName }}</td>
-
-                    <td>{{ user.FirstName }}</td>
-                    <td>{{ user.Email }}</td>
-                    <td>{{ user.Username }}</td>
-                    <td>{{ user.Role }}</td>
-                    <td>{{ user.Active }}</td>
-                    <td>
-                      <button pButton pRipple icon="pi pi-eye" *ngIf="user.Active" class="p-button-rounded p-button-info mr-2" [routerLink]="['/user-detail', user.UserID]" routerLinkActive="router-link-active"></button>
-                    
-                      <button pButton pRipple icon="pi pi-pencil" *ngIf="user.Active" class="p-button-rounded p-button-success mr-2" [routerLink]="['/update', user.UserID]" routerLinkActive="router-link-active"></button>
-                    
-                      <button *ngIf="user.Active" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-warning" title="Block" data-toggle="tooltip" (click)="toggleUserStatus(user)">
-                      </button>
-                      <button *ngIf="!user.Active" pButton pRipple icon="pi pi-unlock" class="p-button-rounded p-button-danger" title="Unlock" data-toggle="tooltip" (click)="toggleUserStatus(user)">
-                      </button>
-                    </td>
-                    
-                    
-                    
-                    
-            </ng-template>
-
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="7">No user found.</td>
-                </tr>
-            </ng-template>
-        </p-table>
-        </div>
+          <tr>
+            <th pSortableColumn="LastName">Nom <p-sortIcon field="LastName"></p-sortIcon></th>
+            <th pSortableColumn="FirstName">Prénom <p-sortIcon field="FirstName"></p-sortIcon></th>
+            <th pSortableColumn="Email">Adresse Email <p-sortIcon field="Email"></p-sortIcon></th>
+            <th pSortableColumn="Username">Nom d'utilisateur <p-sortIcon field="Username"></p-sortIcon></th>
+            <th pSortableColumn="Role">Role <p-sortIcon field="Role"></p-sortIcon></th>
+            <th pSortableColumn="Active">Active <p-sortIcon field="Active"></p-sortIcon></th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr [ngClass]="{'user-blocked': !user.Active}">
+            <td>{{ user.LastName }}</td>
+            <td>{{ user.FirstName }}</td>
+            <td>{{ user.Email }}</td>
+            <td>{{ user.Username }}</td>
+            <td>{{ user.Role }}</td>
+            <td>{{ user.Active }}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-eye" *ngIf="user.Active" class="p-button-rounded p-button-info mr-2" [routerLink]="['/user-detail', user.UserID]" routerLinkActive="router-link-active"></button>
+              <button pButton pRipple icon="pi pi-pencil" *ngIf="user.Active" class="p-button-rounded p-button-success mr-2" [routerLink]="['/update', user.UserID]" routerLinkActive="router-link-active"></button>
+              <button *ngIf="user.Active" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-warning" title="Block" data-toggle="tooltip" (click)="toggleUserStatus(user)"></button>
+              <button *ngIf="!user.Active" pButton pRipple icon="pi pi-unlock" class="p-button-rounded p-button-danger" title="Unlock" data-toggle="tooltip" (click)="toggleUserStatus(user)"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="7">No user found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
