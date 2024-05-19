@@ -28,7 +28,9 @@ export class AjouterComponent implements OnInit {
     this.roles = [
       { label: 'Admin', value: 'Admin' },
       { label: 'Technician', value: 'Technician' },
-      { label: 'Manager', value: 'Manager' }
+      { label: 'Manager', value: 'Manager' },
+      { label: 'Magasinier', value: 'stockHolder'}
+      
     ];
 
     // Initialize form with FormBuilder

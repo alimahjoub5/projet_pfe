@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('Email', 100);
             $table->string('Username', 50);
             $table->string('Password', 100);
-            $table->enum('Role', ['Admin', 'Technician', 'Manager']);
+            $table->enum('Role', ['Admin', 'Technician', 'Manager','stockHolder']);
             $table->tinyInteger('Active')->default(1);
             $table->dateTime('CreatedOn')->nullable();
             $table->integer('CreatedBy')->nullable();

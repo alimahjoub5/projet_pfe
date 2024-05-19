@@ -1,61 +1,103 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../core/services/auth.service";
+import { LayoutService } from "./service/app.layout.service";
 
 @Component({
   selector: 'app-menu',
-  standalone: true,
-  imports: [CommonModule, RouterModule, MenuModule],
   templateUrl: './app.menu.component.html',
 })
-export class AppMenuComponent {
-  menuItems: MenuItem[] = [
-    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
-    { label: 'Chat', icon: 'pi pi-fw pi-home', routerLink: ['/chat'] },
-    {
-      label: 'Tickets', icon: 'pi pi-fw pi-check-square',
-      items: [
-        { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
-        { label: 'Liste de tickets', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
-        { label: 'Planifier une intervention', icon: 'pi pi-calendar', routerLink: ['/plan'] },
-        { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-question', routerLink: ['/status'] },
-        { label: 'Archiver les tickets', icon: 'pi pi-fw pi-briefcase', routerLink: ['/archive'] }
-      ]
-    },
-    {
-      label: 'Administrateur', icon: 'pi pi-fw pi-check-square',
-      items: [
-        { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/userlist'] },
-        { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] },
-        { label: 'Société', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listsociete'] },
-        { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/profil'] },
-        { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }
-      ]
-    },
-    {
-      label: 'Outils', icon: 'pi pi-fw pi-check-square',
-      items: [
-        { label: 'Équipement', icon: 'pi pi-fw pi-desktop', routerLink: ['/eqlist'] },
-        { label: 'Priorité', icon: 'pi pi-fw pi-sort-numeric-up-alt', routerLink: ['/prioritylist'] },
-        { label: 'Tâches de ticket', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listtasks'] },
-        { label: 'Statut des tickets', icon: 'pi pi-fw pi-info-circle', routerLink: ['/liststatus'] },
-        { label: 'Groupes de techniciens', icon: 'pi pi-fw pi-users', routerLink: ['/listt'] }
-      ]
-    },
-    {
-      label: 'Gestion de Stock', icon: 'pi pi-fw pi-check-square',
-      items: [
-        { label: 'Gérer les fournisseurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/fournisseur'] },
-        { label: 'Gérer les commandes', icon: 'pi pi-fw pi-shopping-cart', routerLink: ['/commande'] },
-        { label: 'Gérer les pièces', icon: 'pi pi-fw pi-cog', routerLink: ['/piecelist'] },
-        { label: 'Gérer le stock', icon: 'pi pi-fw pi-briefcase', routerLink: ['/stocks'] },
-        { label: 'Gérer les locaux', icon: 'pi pi-fw pi-home', routerLink: ['/location'] },
-        { label: 'Gérer l\'utilisation des pièces', icon: 'pi pi-fw pi-sitemap', routerLink: ['/utilisation'] }
-      ]
+
+
+export class AppMenuComponent implements OnInit {
+
+  model: any[] = [];
+
+  constructor(private layoutService: LayoutService, private authService: AuthService) { }
+
+  ngOnInit() {
+    const userRole = this.authService.getRole();
+
+    this.model = [
+      {
+        label: 'Main',
+        items: [
+          { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
+          { label: 'Chat', icon: 'pi pi-fw pi-comments', routerLink: ['/chat'] }
+        ]
+      },
+
+    ];
+
+    if (userRole === 'Admin') {
+      this.model.push(
+        {
+          label: 'Tickets',
+          items: [
+            { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
+            { label: 'Liste de tickets', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
+            { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
+            { label: 'Archiver les tickets', icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] }
+          ]
+        },
+        {
+
+        label: 'Administrateur',
+        items: [
+          { label: 'Utilisateurs', icon: 'pi pi-fw pi-user', routerLink: ['/userlist'] },
+          { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] },
+          { label: 'Société', icon: 'pi pi-fw pi-building', routerLink: ['/listsociete'] },
+          { label: "Profils", icon: 'pi pi-fw pi-id-card', routerLink: ['/profil'] },
+          { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }
+        ]
+      });
     }
-  ];
+
+    if (userRole === 'Technician') {
+      this.model.push(
+        {
+         label: 'Tickets',
+          items: [
+            { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
+            { label: 'Liste de tickets', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
+            { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
+            { label: 'Archiver les tickets', icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] }
+          ]
+        },
+        {
+        label: 'Outils',
+        items: [
+          { label: 'Équipement', icon: 'pi pi-fw pi-desktop', routerLink: ['/eqlist'] },
+          { label: 'Priorité', icon: 'pi pi-fw pi-sort-amount-up', routerLink: ['/prioritylist'] },
+          { label: 'Tâches de ticket', icon: 'pi pi-fw pi-calendar', routerLink: ['/listtasks'] },
+          { label: 'Statut des tickets', icon: 'pi pi-fw pi-info-circle', routerLink: ['/liststatus'] },
+          { label: 'Groupes de techniciens', icon: 'pi pi-fw pi-users', routerLink: ['/listt'] }
+        ]
+      },
+      {
+      label: 'Gestion de Stock',
+      items: [
+      { label: 'Gérer l\'utilisation des pièces', icon: 'pi pi-fw pi-sitemap', routerLink: ['/utilisation'] }
+      ]}
+      );
+    }
+
+    if (userRole === 'stockHolder') {
+      this.model.push({
+        label: 'Gestion de Stock',
+        items: [
+          { label: 'Gérer les fournisseurs', icon: 'pi pi-fw pi-truck', routerLink: ['/fournisseur'] },
+          { label: 'Gérer les commandes', icon: 'pi pi-fw pi-shopping-cart', routerLink: ['/commande'] },
+          { label: 'Gérer les pièces', icon: 'pi pi-fw pi-cog', routerLink: ['/piecelist'] },
+          { label: 'Gérer le stock', icon: 'pi pi-fw pi-briefcase', routerLink: ['/stocks'] },
+          { label: 'Gérer les locaux', icon: 'pi pi-fw pi-home', routerLink: ['/location'] },
+        ]
+      });
+    }
+  }
+}
+
+
+    
 
 
             
@@ -200,5 +242,5 @@ export class AppMenuComponent {
             //     ]
             // }
         
-    }
+    
 

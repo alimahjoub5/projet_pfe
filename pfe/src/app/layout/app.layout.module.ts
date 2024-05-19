@@ -23,9 +23,10 @@ import { AppLayoutComponent } from "./app.layout.component";
         AppMenuitemComponent,
         AppTopBarComponent,
         AppFooterComponent,
-        
         AppSidebarComponent,
         AppLayoutComponent,
+        AppMenuComponent ,
+
     ],
     imports: [
         BrowserModule,
@@ -35,7 +36,7 @@ import { AppLayoutComponent } from "./app.layout.component";
         InputTextModule,
         SidebarModule,
         BadgeModule,
-        AppMenuComponent,
+
         RadioButtonModule,
         InputSwitchModule,
         RippleModule,
