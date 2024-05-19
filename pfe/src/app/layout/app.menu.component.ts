@@ -1,76 +1,64 @@
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { LayoutService } from './service/app.layout.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
 
 @Component({
-    selector: 'app-menu',
-    templateUrl: './app.menu.component.html'
+  selector: 'app-menu',
+  standalone: true,
+  imports: [CommonModule, RouterModule, MenuModule],
+  templateUrl: './app.menu.component.html',
 })
-export class AppMenuComponent implements OnInit {
+export class AppMenuComponent {
+  menuItems: MenuItem[] = [
+    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
+    { label: 'Chat', icon: 'pi pi-fw pi-home', routerLink: ['/chat'] },
+    {
+      label: 'Tickets', icon: 'pi pi-fw pi-check-square',
+      items: [
+        { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
+        { label: 'Liste de tickets', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
+        { label: 'Planifier une intervention', icon: 'pi pi-calendar', routerLink: ['/plan'] },
+        { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-question', routerLink: ['/status'] },
+        { label: 'Archiver les tickets', icon: 'pi pi-fw pi-briefcase', routerLink: ['/archive'] }
+      ]
+    },
+    {
+      label: 'Administrateur', icon: 'pi pi-fw pi-check-square',
+      items: [
+        { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/userlist'] },
+        { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] },
+        { label: 'Société', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listsociete'] },
+        { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/profil'] },
+        { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }
+      ]
+    },
+    {
+      label: 'Outils', icon: 'pi pi-fw pi-check-square',
+      items: [
+        { label: 'Équipement', icon: 'pi pi-fw pi-desktop', routerLink: ['/eqlist'] },
+        { label: 'Priorité', icon: 'pi pi-fw pi-sort-numeric-up-alt', routerLink: ['/prioritylist'] },
+        { label: 'Tâches de ticket', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listtasks'] },
+        { label: 'Statut des tickets', icon: 'pi pi-fw pi-info-circle', routerLink: ['/liststatus'] },
+        { label: 'Groupes de techniciens', icon: 'pi pi-fw pi-users', routerLink: ['/listt'] }
+      ]
+    },
+    {
+      label: 'Gestion de Stock', icon: 'pi pi-fw pi-check-square',
+      items: [
+        { label: 'Gérer les fournisseurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/fournisseur'] },
+        { label: 'Gérer les commandes', icon: 'pi pi-fw pi-shopping-cart', routerLink: ['/commande'] },
+        { label: 'Gérer les pièces', icon: 'pi pi-fw pi-cog', routerLink: ['/piecelist'] },
+        { label: 'Gérer le stock', icon: 'pi pi-fw pi-briefcase', routerLink: ['/stocks'] },
+        { label: 'Gérer les locaux', icon: 'pi pi-fw pi-home', routerLink: ['/location'] },
+        { label: 'Gérer l\'utilisation des pièces', icon: 'pi pi-fw pi-sitemap', routerLink: ['/utilisation'] }
+      ]
+    }
+  ];
 
-    model: any[] = [];
 
-    constructor(public layoutService: LayoutService) { }
-
-    ngOnInit() {
-        this.model = [
-            {
-
-                label: 'Home',
-                items: [
-                  { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/home'] },
-                  { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/chat'] },
-                    {label: 'Tickets', icon: 'pi pi-fw pi-check-square',
-                 items: [
-                 { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
-                 { label: 'liste de ticket', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
-                 { label: 'Planifier une intervention', icon: 'pi pi-calendar', routerLink: ['/plan'] },
-                 { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-question', routerLink: ['/status'] },
-                 { label: 'Archiver les tickets', icon: 'pi pi-fw pi-briefcase', routerLink: ['/archive'] },
-
-                 ]
-                 },
-                 {
-                    label: 'Administrateur',
-                    icon: 'pi pi-fw pi-check-square',
-                    items: [
-                      { label: 'Utilisateurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/userlist'] }, // Nouvelle icône pour Utilisateurs
-                     { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] }, // Nouvelle icône pour Groupes
-                      { label: 'Sociéte', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listsociete'] }, // Nouvelle icône pour Entité
-                     { label: "Profils", icon: 'pi pi-fw pi-question-circle', routerLink: ['/profil'] }, // Nouvelle icône pour Profils
-                     { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }, // Nouvelle icône pour File d'attente des notifications
-                    ]
-                  },
-                  {
-                    
-                        label: 'Outils',
-                        icon: 'pi pi-fw pi-check-square',
-                        items: [
-                          { label: 'Equipement', icon: 'pi pi-fw pi-desktop', routerLink: ['/eqlist'] }, // Icône mise à jour pour Equipement
-                          { label: 'Priority', icon: 'pi pi-fw pi-sort-numeric-up-alt', routerLink: ['/prioritylist'] }, // Icône mise à jour pour Priority
-                          { label: 'Ticket Task', icon: 'pi pi-fw pi-calendar-plus', routerLink: ['/listtasks'] }, // Icône maintenue pour Ticket Task
-                          { label: 'Ticket Status', icon: 'pi pi-fw pi-info-circle', routerLink: ['/liststatus'] }, // Icône mise à jour pour Ticket Status
-                          { label: 'Users Technician Groups', icon: 'pi pi-fw pi-users', routerLink: ['/listt'] }, // Icône mise à jour pour Users Technician Groups
-                        ]
-                      },
-
-                      {
-                        label: 'Gestion de Stock',
-                        icon: 'pi pi-fw pi-check-square',
-                        items: [
-                          { label: 'Gérer les fournisseurs', icon: 'pi pi-fw pi-user-plus', routerLink: ['/fournisseur'] }, // Icône mise à jour pour Equipement
-                          { label: 'Gérer les commandes', icon: 'pi pi-fw pi-shopping-cart', routerLink: ['/commande'] }, // Icône mise à jour pour Priority
-                          { label: 'Gérer les pièces', icon: 'pi pi-fw pi-cog', routerLink: ['/piecelist'] }, // Icône mise à jour pour Ticket Task
-                          { label: 'Gérer le stock', icon: 'pi pi-fw pi-briefcase', routerLink: ['/stocks'] }, // Icône mise à jour pour Ticket Status
-                          { label: 'Gérer locaux', icon: 'pi pi-fw pi-home', routerLink: ['/location'] }, // Icône mise à jour pour Users Technician Groups
-                          { label: 'Gérer utilisation pièce', icon: 'pi pi-fw pi-sitemap', routerLink: ['/utilisation'] }, // Icône mise à jour pour Users Technician Groups
-                        ]
-                      }
-                      
-                      
-                  
-                ],
-            },
+            
             // {
             //     label: 'UI Components',
             //     items: [
@@ -211,6 +199,6 @@ export class AppMenuComponent implements OnInit {
             //         }
             //     ]
             // }
-        ];
+        
     }
-}
+
