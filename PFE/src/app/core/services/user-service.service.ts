@@ -67,4 +67,7 @@ export class UserService {
     return this.http.put<any>(`${this.apiUrl}/tickets/${ticketId}/assign-technician`, { UserID: userId },headers);
   }
   
+  
+  
+  
 }

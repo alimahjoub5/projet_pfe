@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountCreated;
 use App\Mail\TechnicianAssignedToTicket;
+use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -187,7 +188,31 @@ class UserController extends Controller
     }
 }
     
+public function resetPassword(Request $request)
+{
+    // Valider l'adresse email
+    $request->validate([
+        'email' => 'required|email|exists:users,Email',
+    ]);
 
+    // Trouver l'utilisateur par adresse email
+    $user = User::where('Email', $request->email)->first();
+
+    // Générer un nouveau mot de passe
+    $newPassword = Str::random(10);
+
+    // Mettre à jour le mot de passe de l'utilisateur dans la base de données
+    $user->Password = Hash::make($newPassword);
+    $user->save();
+
+    // Envoyer un email avec le nouveau mot de passe
+    Mail::send('emails.password-reset', ['user' => $user, 'newPassword' => $newPassword], function ($message) use ($user) {
+        $message->to($user->Email);
+        $message->subject('Votre nouveau mot de passe');
+    });
+
+    return response()->json(['message' => 'Le mot de passe a été réinitialisé et envoyé par email.']);
+}
 
     
 }

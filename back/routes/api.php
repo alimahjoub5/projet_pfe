@@ -30,8 +30,8 @@ use App\Http\Controllers\SocieteController;
 Route::get('ticket/last', [TicketController::class, 'getLastId']);
 
 Route::post('login', [UserController::class, 'login']);
-Route::post('password/reset', [UserController::class,'resetPasswordRequest']);
-Route::post('password/reset/{token}', [UserController::class,'resetPassword']);
+Route::post('/reset-password', [UserController::class, 'resetPassword']);
+
 
 // routes/api.php
 
@@ -229,3 +229,4 @@ Route::post('/societes', [SocieteController::class, 'store']);
 Route::put('/societes/{id}', [SocieteController::class, 'update']);
 Route::delete('/societes/{id}', [SocieteController::class, 'destroy']);
 Route::put('/societes/tickets/{ticketId}/assign-to-societe', [TicketController::class, 'assignTicketToSociete']);
+

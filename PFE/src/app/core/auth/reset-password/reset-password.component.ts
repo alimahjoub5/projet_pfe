@@ -10,6 +10,8 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { RouterModule, Routes } from '@angular/router';
+import { PasswordResetService } from '../../services/passwordReset.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,68 +27,30 @@ import { RouterModule, Routes } from '@angular/router';
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
+
 export class ResetPasswordComponent implements OnInit {
-
-
   credentialsForm: FormGroup;
-errorMessage: string ="";
+  errorMessage: string = '';
 
-  constructor(private authService: AuthService, private fb: FormBuilder,public layoutService: LayoutService,private router:Router) {
-    this.credentialsForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
-    
-  }
+  constructor(private fb: FormBuilder, private passwordResetService: PasswordResetService) { }
+
   ngOnInit(): void {
-    // Vérifier si l'utilisateur est déjà connecté
-    if (this.authService.isLoggedIn()) {
-      // Si l'utilisateur est connecté, rediriger vers une autre page, par exemple le tableau de bord
-      this.router.navigate(['/home']);
-    }
+    this.credentialsForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
   onSubmit(): void {
     if (this.credentialsForm.valid) {
-      // Envoyer les informations de connexion au service d'authentification
-      const credentials = this.credentialsForm.value;
-      this.authService.login(credentials)
-      .subscribe(
+      this.passwordResetService.resetPassword(this.credentialsForm.value.email).subscribe(
         response => {
-          // Traitement de la réponse
-          console.log('Réponse de connexion:', response);
-          // Rediriger l'utilisateur vers une page appropriée, par exemple, le tableau de bord
-          this.router.navigate(['/home']);
+          this.errorMessage = 'Le mot de passe a été réinitialisé et envoyé par email.';
         },
         error => {
-          // Gestion des erreurs d'authentification
-          console.error('Erreur de connexion:', error);
-          if (error.status === 401) {
-            // Si l'erreur est due à des informations d'identification invalides, afficher un message d'erreur
-            this.errorMessage = 'Adresse e-mail ou mot de passe incorrect.';
-          } else {
-            // Pour d'autres erreurs, afficher un message générique
-            this.errorMessage = 'Une erreur est survenue lors de la tentative de connexion. Veuillez réessayer.';
-          }
+          this.errorMessage = 'Une erreur s\'est produite lors de la réinitialisation du mot de passe.';
+          console.error('Erreur:', error);
         }
       );
-      
-    } else {
-      // Afficher les erreurs de validation dans le formulaire
-      this.markFormGroupTouched(this.credentialsForm);
     }
   }
-
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
-      }
-    });
-  }
-
-  get email() { return this.credentialsForm.get('email'); }
-  get password() { return this.credentialsForm.get('password'); }
 }
