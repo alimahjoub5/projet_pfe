@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\TechnicianGroup;
 use App\Models\User;
 use App\Models\Societe;
+use App\Models\TicketDates;
 
 class TicketController extends Controller
 {
@@ -70,6 +71,7 @@ class TicketController extends Controller
     public function addTicket(Request $request){
         // Extracting the required fields from the request
         $ticketData = [
+
             'Subject' => $request->input('Subject'),
             'Description' => $request->input('Description'),
             'TicketType' => $request->input('TicketType'),
@@ -81,12 +83,17 @@ class TicketController extends Controller
             'CreatedBy' => $request->input('CreatedBy'),
             'ModifiedBy' => $request->input('ModifiedBy'),
             'StatusCodeID' => $request->input('StatusCodeID'),
-            // Add other fields if necessary
+            'TicketID' =>$request->input('TicketID')
         ];
-    
+        $data=['TicketID' =>$request->input('TicketID'),
+        'datedemande' =>null,
+        'datepriseencharge'=>null,
+        'datedereparage'=>null,
+        'datedevalidation'=>null,
+    ];
         // Create a new ticket with the extracted data
         $ticket = Ticket::create($ticketData);
-    
+        $date = TicketDates::create($data);
         // Return the created ticket as JSON response with status code 201
         return response()->json($ticket, 201);
     }
@@ -180,5 +187,28 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
                 return response()->json(['message' => 'Failed to assign ticket to societe', 'error' => $e->getMessage()], 500);
             }
         }
-    }
-    
+
+
+        //----------------------------------------------------------------------------------------------
+
+
+        public function update($request, $id)
+        {
+            $request->validate([
+                'TicketID' => 'required|exists:tickets,TicketID',
+                'datedemande' => 'required|date',
+                'datepriseencharge' => 'nullable|date',
+                'datedereparage' => 'nullable|date',
+                'datedevalidation' => 'nullable|date',
+            ]);
+        
+            $date = TicketDates::where('TicketID', $id)->firstOrFail();
+            $date->update($request->all());
+        
+        }
+
+
+
+
+
+}

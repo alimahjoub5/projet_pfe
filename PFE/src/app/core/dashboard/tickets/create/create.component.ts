@@ -108,7 +108,7 @@ group : Groupe = null;
 
     this.ticketService.getLastID().subscribe(
       (response: any) => {
-       this.id=Number(response);
+       this.id=Number(response)+1;
       });
       //-------------------------------------
     this.form = this.fb.group({
@@ -133,7 +133,7 @@ group : Groupe = null;
   
       // Créer une nouvelle instance de Ticket avec les données extraites
       const ticket: Ticket = {
-        TicketID: null,
+        TicketID: this.id,
         Subject: ticketData.subject,
         Description: ticketData.description,
         AssigneeID: Number(this.technicien),

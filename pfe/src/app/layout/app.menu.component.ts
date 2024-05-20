@@ -52,15 +52,22 @@ export class AppMenuComponent implements OnInit {
       });
     }
 
-    if (userRole === 'Technician') {
+    if (userRole === 'Manager') {
       this.model.push(
         {
-         label: 'Tickets',
+          label:'Calendrier',
+          items:[
+            { label: 'Calendrier', icon: 'pi pi-fw pi-calendar', routerLink: ['/calendar'] },
+  
+          ]
+        },
+        {
+         label: 'Intervention',
           items: [
-            { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
-            { label: 'Liste de tickets', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
-            { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
-            { label: 'Archiver les tickets', icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] }
+          { label: 'Créer une intervention', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
+          { label: 'Liste des interventions', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
+          { label: "Suivre l'état de l'intervention", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
+          { label: "L'archive des interventions", icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] }
           ]
         },
         {
@@ -68,16 +75,16 @@ export class AppMenuComponent implements OnInit {
         items: [
           { label: 'Équipement', icon: 'pi pi-fw pi-desktop', routerLink: ['/eqlist'] },
           { label: 'Priorité', icon: 'pi pi-fw pi-sort-amount-up', routerLink: ['/prioritylist'] },
-          { label: 'Tâches de ticket', icon: 'pi pi-fw pi-calendar', routerLink: ['/listtasks'] },
-          { label: 'Statut des tickets', icon: 'pi pi-fw pi-info-circle', routerLink: ['/liststatus'] },
+          { label: "Tâches de l'intervention", icon: 'pi pi-fw pi-calendar', routerLink: ['/listtasks'] },
           { label: 'Groupes de techniciens', icon: 'pi pi-fw pi-users', routerLink: ['/listt'] }
         ]
       },
       {
       label: 'Gestion de Stock',
       items: [
-      { label: 'Gérer l\'utilisation des pièces', icon: 'pi pi-fw pi-sitemap', routerLink: ['/utilisation'] }
-      ]}
+        { label: 'Gérer les fournisseurs', icon: 'pi pi-fw pi-truck', routerLink: ['/fournisseur'] },
+        { label: 'Gérer les commandes', icon: 'pi pi-fw pi-shopping-cart', routerLink: ['/commande'] },
+        { label: 'Gérer le stock', icon: 'pi pi-fw pi-briefcase', routerLink: ['/stocks'] },      ]}
       );
     }
 
@@ -93,8 +100,43 @@ export class AppMenuComponent implements OnInit {
         ]
       });
     }
-  }
-}
+    
+
+    if (userRole === 'Technician') {
+      this.model.push({
+        label:'Calendrier',
+        items:[
+          { label: 'Calendrier', icon: 'pi pi-fw pi-calendar', routerLink: ['/calendar'] },
+
+        ]
+      },
+      {
+        label:'Groupes',
+        items:[
+          { label: 'Consulter le Groupe', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] },
+
+        ]
+      },
+      {
+        label: 'Gestion des interventions',
+        items: [
+          { label: 'Créer une intervention', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
+          { label: 'Liste des interventions', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
+          { label: "Suivre l'état de l'intervention", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
+          { label: "L'archive des interventions", icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] }
+        ]
+      },
+      {
+      label: 'Gestion de Stock',
+      items: [
+      { label: 'Gérer l\'utilisation des pièces', icon: 'pi pi-fw pi-sitemap', routerLink: ['/utilisation'] }
+      ]}
+    );
+    }
+  }}
+  
+ 
+
 
 
     

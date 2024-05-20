@@ -24,6 +24,7 @@ import { MessageService } from 'primeng/api';
 import { AuthInterceptor } from './core/services/intercepteur/auth.interceptor';
 import { AuthService } from './core/services/auth.service';
 import { UsersTechnicianGroupsService } from './core/services/user-tech.service';
+import { FullCalendarModule } from '@fullcalendar/angular';
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule
@@ -45,6 +46,8 @@ import { UsersTechnicianGroupsService } from './core/services/user-tech.service'
         MessageService,
         AuthService,
         UsersTechnicianGroupsService,
+        FullCalendarModule,
+
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true } // Enregistrez l'intercepteur
      
     ],
