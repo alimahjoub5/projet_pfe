@@ -4,7 +4,7 @@ export interface Ticket {
     CreatedOn?: Date | null;
     ModifiedBy: number;
     ModifiedOn?: Date | null;
-    StatusCodeID: 'nouveau' | 'planifie' | 'en_cours' | 'resolu' | 'cloture'; // Assuming enum-like behavior
+    StatusCodeID: 'nouveau' | 'planifie' | 'en_cours' | 'Annuler' | 'resolu' | 'cloture'; // Assuming enum-like behavior
     AssigneeID: number | null;
     Subject: string;
     Description?: string | null;
