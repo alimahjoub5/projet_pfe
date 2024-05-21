@@ -1,1 +1,105 @@
-<p>plannifier works!</p>
+<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true" *ngIf="isLoading"></ngx-spinner>
+
+<div class="card flex justify-content-center" *ngIf="!isLoading">
+    <!-- Search bar -->
+    <div class="col-sm-4">
+        <div class="search-box">
+            <i class="material-icons"></i>
+            <input type="text" class="form-control" placeholder="Rechercher...">
+        </div>
+    </div>
+    <p-toast></p-toast>
+
+    <!-- Bouton pour ajouter un ticket -->
+    <p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
+
+    <!-- Tableau pour afficher les tickets -->
+    <p-table #dt1 [value]="tickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
+        [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">
+
+        <!-- En-tête du tableau -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="Subject" style="width:20%">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
+                <th pSortableColumn="Description" style="width:20%">Description <p-sortIcon field="Description"></p-sortIcon></th>
+                <th pSortableColumn="EquipmentTypeName" style="width:20%">Équipements <p-sortIcon field="EquipmentTypeName"></p-sortIcon></th>
+                <th pSortableColumn="DueDate" style="width:20%">Date d'échéance <p-sortIcon field="DueDate"></p-sortIcon></th>
+                <th pSortableColumn="PriorityID" style="width:10%">Priorité <p-sortIcon field="PriorityID"></p-sortIcon></th>
+                <th pSortableColumn="StatusCodeID" style="width:10%">Statut <p-sortIcon field="StatusCodeID"></p-sortIcon></th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+      
+        <!-- Corps du tableau -->
+        <ng-template pTemplate="body" let-ticket>
+            <tr [pSelectableRow]="ticket">
+                <td>
+                    <span class="p-column-title">Sujet</span>
+                    {{ ticket.Subject }}
+                </td>
+                <td>
+                    <span class="p-column-title">Description</span>
+                    {{ ticket.Description }}
+                </td>
+                <td>
+                    <span class="p-column-title">Équipements</span>
+                    {{ ticket.EquipmentTypeName }}
+                </td>
+                <td>
+                    <span class="p-column-title">Date d'échéance</span>
+                    {{ ticket.DueDate }}
+                </td>
+                <td [ngClass]="getPriorityColor(ticket.PriorityID)">
+                    <span class="p-column-title">Priorité</span>
+                    {{ ticket.PriorityID }}
+                </td>
+                <td>
+                    <span class="p-column-title">Statut</span>
+                    {{ ticket.StatusCodeID }}
+                </td>
+        
+                <td>
+                    <button *ngIf="!ticket.isScheduled" pButton type="button" icon="pi pi-calendar" label="Planifier" (click)="openSchedulePopup(ticket)"></button>
+                    <a *ngIf="ticket.isScheduled" [routerLink]="['/ticket-details', ticket.TicketID]" class="view" title="View" data-toggle="tooltip">
+                        <i class="material-icons">&#xE417;</i>
+                    </a>
+                    <a *ngIf="ticket.isScheduled" [routerLink]="['/updatetickets', ticket.TicketID]" class="edit" title="Edit" data-toggle="tooltip">
+                        <i class="material-icons">&#xE254;</i>
+                    </a>
+                    <a *ngIf="ticket.isScheduled" (click)="confirmDelete(ticket)" class="delete" title="Supprimer" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+        </ng-template>
+
+        <!-- Message affiché lorsque le tableau est vide -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="7">Aucun ticket trouvé.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!-- Popup de planification -->
+<p-dialog header="Planification d'une intervention" [(visible)]="displayScheduleDialog" [modal]="true" [responsive]="true" [style]="{width: '30vw'}">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="scheduledDate">Date de l'intervention</label>
+            <p-calendar id="scheduledDate" [(ngModel)]="selectedTicket.scheduledDate" dateFormat="dd/mm/yy" showIcon="true" [showTime]="false"></p-calendar>
+        </div>
+        <div class="p-field" *ngIf="showTime">
+            <label for="scheduledTime">Heure de l'intervention</label>
+            <p-calendar id="scheduledTime" [(ngModel)]="selectedTicket.scheduledTime" showIcon="true" [showTime]="true" [timeOnly]="true"></p-calendar>
+        </div>
+        <div class="p-field">
+            <label>Choisir l'heure</label>
+            <p-toggleButton [(ngModel)]="showTime" onLabel="Oui" offLabel="Non"></p-toggleButton>
+        </div>
+    </div>
+    <p-footer>
+        <p-button label="Planifier" icon="pi pi-check" (click)="scheduleTicket()"></p-button>
+        <p-button label="Annuler" icon="pi pi-times" (click)="displayScheduleDialog=false" class="ui-button-secondary"></p-button>
+    </p-footer>
+</p-dialog>
+
+

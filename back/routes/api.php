@@ -116,6 +116,7 @@ Route::put('/utilisation/{id}', [UtilisationPiecesController::class, 'update']);
 Route::delete('/utilisation/{id}', [UtilisationPiecesController::class, 'destroy']);
 //---------------------------------------------------------------------------------------
 
+Route::get('ticketdate', [TicketController::class, 'getDate']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Routes protégées

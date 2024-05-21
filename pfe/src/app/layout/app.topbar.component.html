@@ -17,11 +17,11 @@
     </button>
 
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button class="p-link layout-topbar-button">
+        <button class="p-link layout-topbar-button" routerLink="/calendar">
             <i class="pi pi-calendar"></i>
             <span>Calendar</span>
         </button>
-        <button class="p-link layout-topbar-button">
+        <button routerLink="/profil" class="p-link layout-topbar-button">
             <i class="pi pi-user"></i>
             <span>{{name}}</span>
         </button>

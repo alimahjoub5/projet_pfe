@@ -7,6 +7,7 @@ import { StatusComponent } from './status/status.component';
 import { AuthGuard } from 'src/app/auth.guard';
 import { UpdateticketsComponent } from './updatetickets/updatetickets.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { PlannifierComponent } from './plannifier/plannifier.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,11 @@ const routes: Routes = [
   {
     path: "list",
     component: ListComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: "planifie",
+    component: PlannifierComponent,
     canActivate : [AuthGuard]
   },
   /*{

@@ -13,7 +13,6 @@ class TicketDates extends Model
 
     protected $fillable = [
         'TicketID',
-        'datedemande',
         'datepriseencharge',
         'datedereparage',
         'datedevalidation',

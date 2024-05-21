@@ -192,6 +192,13 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
         //----------------------------------------------------------------------------------------------
 
 
+        public function getDate()
+        {
+            $ticketDates = TicketDates::all();
+            return response()->json($ticketDates);
+        }
+
+
         public function update($request, $id)
         {
             $request->validate([
