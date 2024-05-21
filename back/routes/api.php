@@ -145,6 +145,8 @@ Route::put('/users/{userId}/status', [UserController::class, 'toggleStatus']);
 Route::get('technicians', [UserController::class,'getTechnicien']);
 Route::get('users/{userID}/username', [UserController::class, 'getUsername']);
 Route::put('users/tickets/{ticketId}/assign-technician', [UserController::class, 'assignTechnicianToTicket']);
+Route::put('users/changePassword/{userId}', [UserController::class, 'changePassword']);
+Route::post('/users/skip-password-reset/{userId}', [UserController::class, 'skipPasswordReset']);
 
 
 // equipement type api routes

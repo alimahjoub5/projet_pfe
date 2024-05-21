@@ -22,6 +22,8 @@ export class AuthService {
     localStorage.setItem('Username', response.User);
     localStorage.setItem('Role', response.Role);
     localStorage.setItem('timestamp', now.toString());
+    localStorage.setItem('password_reset_requested', response.password_reset_requested);
+    
         })
       );
   }

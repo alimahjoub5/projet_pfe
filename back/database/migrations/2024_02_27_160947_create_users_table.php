@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('CreatedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
+            $table->boolean('password_reset_requested')->default(false);
             $table->timestamps();
         });
     }

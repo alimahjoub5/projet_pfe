@@ -26,6 +26,7 @@ class User extends AuthenticatableUser implements Authenticatable
         'Active',
         'CreatedOn',
         'CreatedBy',
+        'password_reset_requested',
         'ModifiedOn',
         'ModifiedBy',
     ];

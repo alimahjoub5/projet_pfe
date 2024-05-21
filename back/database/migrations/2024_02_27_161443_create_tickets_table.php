@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
             $table->id('TicketID');
             $table->string('Subject', 100);
             $table->text('Description')->nullable();
-            $table->enum('StatusCodeID', ['nouveau','planifie', 'en_cours', 'resolu', 'cloture'])->default('nouveau');
+            $table->enum('StatusCodeID', ['nouveau','planifie', 'en_cours', 'resolu','Annuler', 'cloture'])->default('nouveau');
             $table->enum('PriorityID', ['basse', 'normale', 'haute']);
             
             $table->unsignedBigInteger('GroupID')->nullable();

@@ -64,7 +64,11 @@ errorMessage: string ="";
           // Traitement de la réponse
           console.log('Réponse de connexion:', response);
           // Rediriger l'utilisateur vers une page appropriée, par exemple, le tableau de bord
+          if (response.password_reset_requested==true){
+            this.router.navigate(['/newpassword']);
+          }else{
           this.router.navigate(['/home']);
+          }
         },
         error => {
           // Gestion des erreurs d'authentification

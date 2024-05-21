@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountCreated;
 use App\Mail\TechnicianAssignedToTicket;
 use Illuminate\Support\Str;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
@@ -120,6 +119,7 @@ class UserController extends Controller
                 'UserID' => $user->UserID,
                 'User' => $user->FirstName.' '.$user->LastName,
                 'Role' => $user->Role,
+                'password_reset_requested' => $user->password_reset_requested,
             ]);
         }
     
@@ -205,6 +205,9 @@ public function resetPassword(Request $request)
     $user->Password = Hash::make($newPassword);
     $user->save();
 
+    // Mettre à jour l'état du champ password_reset_requested
+    $user->update(['password_reset_requested' => true]);
+
     // Envoyer un email avec le nouveau mot de passe
     Mail::send('emails.password-reset', ['user' => $user, 'newPassword' => $newPassword], function ($message) use ($user) {
         $message->to($user->Email);
@@ -214,5 +217,52 @@ public function resetPassword(Request $request)
     return response()->json(['message' => 'Le mot de passe a été réinitialisé et envoyé par email.']);
 }
 
-    
+public function changePassword(Request $request, $userId)
+{
+    // Retrieve the user by ID
+    $user = User::find($userId);
+
+    // Check if the user exists
+    if (!$user) {
+        return response()->json(['error' => 'User not found'], 404);
+    }
+
+    // Validate request data
+    $request->validate([
+        'password' => 'required|string|min:8',
+        'confirmPassword' => 'required|string|same:password',
+    ]);
+
+    // Change the user's password
+    $user->update([
+        'Password' => Hash::make($request->password),
+        'password_reset_requested' => false
+    ]);
+
+    return response()->json(['message' => 'Password changed successfully'], 200);
 }
+
+
+public function skipPasswordReset($userId)
+{
+    // Trouver l'utilisateur par son ID
+    $user = User::find($userId);
+
+    // Vérifier si l'utilisateur existe
+    if (!$user) {
+        return response()->json(['error' => 'User not found'], 404);
+    }
+
+    // Mettre à jour le champ password_reset_requested à false
+    $user->update(['password_reset_requested' => false]);
+
+    return response()->json(['message' => 'Password reset request skipped successfully']);
+}
+
+
+
+
+}
+
+
+    

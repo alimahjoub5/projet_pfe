@@ -67,7 +67,17 @@ export class UserService {
     return this.http.put<any>(`${this.apiUrl}/tickets/${ticketId}/assign-technician`, { UserID: userId },headers);
   }
   
+
+changePassword(password: string, confirmPassword: string) {
+  const headers = this.authService.includeAuthToken();
+  const userId = this.authService.getUserID();
+  return this.http.put(`${this.apiUrl}/changePassword/${userId}`, { password, confirmPassword },headers);
+}
   
-  
+skipPasswordReset() {
+  const headers = this.authService.includeAuthToken();
+  const userId = this.authService.getUserID();
+  return this.http.post(`${this.apiUrl}/skip-password-reset/${userId}`, {},headers);
+}
   
 }
