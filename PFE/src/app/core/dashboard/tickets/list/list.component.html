@@ -15,7 +15,7 @@
     <p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
 
     <!-- Tableau pour afficher les tickets -->
-    <p-table #dt1 [value]="tickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
+    <p-table #dt1 [value]="filteredTickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
         [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">
 
         <!-- En-tête du tableau -->

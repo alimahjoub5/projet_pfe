@@ -32,6 +32,7 @@ import { ToastModule } from 'primeng/toast';
 export class ListComponent implements OnInit {
   tickets: Ticket[] = [];
 isLoading: boolean;
+filteredTickets: Ticket[] = [];
 
 //---------------------------------------------------------------
 
@@ -52,22 +53,26 @@ isLoading: boolean;
 
 //---------------------------------------------------------------------------------------
 
-  loadTickets() {
-    this.isLoading=true;
-    this.spinner.show(); // Show the spinner
-    setTimeout(() => {
-      this.ticketService.getAllTickets().subscribe(
-        (tickets: Ticket[]) => {
-          this.tickets = tickets;
-        },
-        (error) => {
-          console.log('Error occurred while loading tickets:', error);
-        }
-      );
-      this.spinner.hide(); // Hide the spinner when data is loaded
-    }, 2000);
-    this.isLoading=false;
-  }
+loadTickets() {
+  this.isLoading = true;
+  this.ticketService.getAllTickets().subscribe(
+    (tickets: Ticket[]) => {
+      this.tickets = tickets;
+      this.filteredTickets = this.filterTickets();
+      this.isLoading = false;
+    },
+    (error) => {
+      console.log('Error occurred while loading tickets:', error);
+      this.isLoading = false;
+    }
+  );
+}
+filterTickets(): Ticket[] {
+  // Filtrer les tickets pour exclure les statuts "Cloture", "Annuler" et "Resolu"
+  return this.tickets.filter(ticket =>
+    ticket.StatusCodeID !== 'cloture' &&
+    ticket.StatusCodeID !== 'Annuler'  );
+}
 
   //--------------------------------------------------------------------------------------
 
