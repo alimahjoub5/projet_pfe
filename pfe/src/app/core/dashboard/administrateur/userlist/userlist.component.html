@@ -44,8 +44,9 @@
             <td>{{ user.Active }}</td>
             <td>
               <button pButton pRipple icon="pi pi-eye" *ngIf="user.Active" class="p-button-rounded p-button-info mr-2" [routerLink]="['/user-detail', user.UserID]" routerLinkActive="router-link-active"></button>
+             <div>
               <button pButton pRipple icon="pi pi-pencil" *ngIf="user.Active" class="p-button-rounded p-button-success mr-2" [routerLink]="['/update', user.UserID]" routerLinkActive="router-link-active"></button>
-              <button *ngIf="user.Active" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-warning" title="Block" data-toggle="tooltip" (click)="toggleUserStatus(user)"></button>
+              </div><button *ngIf="user.Active" pButton pRipple icon="pi pi-lock" class="p-button-rounded p-button-warning" title="Block" data-toggle="tooltip" (click)="toggleUserStatus(user)"></button>
               <button *ngIf="!user.Active" pButton pRipple icon="pi pi-unlock" class="p-button-rounded p-button-danger" title="Unlock" data-toggle="tooltip" (click)="toggleUserStatus(user)"></button>
             </td>
           </tr>

@@ -30,15 +30,7 @@ export class AppMenuComponent implements OnInit {
 
     if (userRole === 'Admin') {
       this.model.push(
-        {
-          label: 'Tickets',
-          items: [
-            { label: 'Créer un ticket', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
-            { label: 'Liste de tickets', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
-            { label: "Suivre l'état du ticket", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
-            { label: 'Archiver les tickets', icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] }
-          ]
-        },
+     
         {
 
         label: 'Administrateur',

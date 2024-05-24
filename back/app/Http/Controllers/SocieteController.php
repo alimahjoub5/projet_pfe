@@ -29,14 +29,11 @@ class SocieteController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'address' => 'nullable',
-            'city' => 'nullable',
             'country' => 'nullable',
             'phone' => 'nullable',
             'email' => 'nullable|email',
             'website' => 'nullable|url',
-            'contact_person' => 'nullable',
-            'contact_phone' => 'nullable',
-            'contact_email' => 'nullable|email',
+           
         ]);
 
         $societe = Societe::create($validatedData);
