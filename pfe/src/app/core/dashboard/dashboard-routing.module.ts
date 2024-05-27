@@ -17,7 +17,6 @@ const routes: Routes = [
   {path : "chat", component: ChatComponent,canActivate : [AuthGuard]},
   {path : "profil", component: ProfilComponent,canActivate : [AuthGuard]},
   {path : "calendar", component: CalendarComponent,canActivate : [AuthGuard]},
-  {path : "newpassword", component: NewPasswordComponent,canActivate : [AuthGuard]},
 
 ];
 

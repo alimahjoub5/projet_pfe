@@ -1,28 +1,42 @@
 <div class="container">
-  <h2>Ajouter une commande</h2>
+  <h2>Ajouter des commandes</h2>
   <form [formGroup]="commandeform" (ngSubmit)="onSubmit()" class="p-fluid">
-    
-    <div class="p-field">
-      <label for="pieceSelect">Sélectionner les pièces :</label>
-      <p-multiSelect id="pieceSelect" formControlName="pieces" [options]="pieces" optionLabel="nom_piece"></p-multiSelect>
+    <div formArrayName="commandes" *ngFor="let commande of commandes.controls; let i = index" class="commande-container">
+      <div [formGroupName]="i" class="commande-group">
+        <h3>Commande {{i + 1}}</h3>
+
+        <div class="p-field" [ngClass]="{'p-error': commande.get('piece_id').invalid && (commande.get('piece_id').dirty || commande.get('piece_id').touched)}">
+          <label for="pieceSelect-{{i}}">Sélectionner les pièces :</label>
+          <p-multiSelect id="pieceSelect-{{i}}" formControlName="piece_id" [options]="pieces" optionLabel="nom_piece" class="w-full"></p-multiSelect>
+          <div *ngIf="commande.get('piece_id').invalid && (commande.get('piece_id').dirty || commande.get('piece_id').touched)" class="p-error">Sélectionner une pièce est obligatoire</div>
+        </div>
+
+        <div class="p-field" [ngClass]="{'p-error': commande.get('requested_quantity').invalid && (commande.get('requested_quantity').dirty || commande.get('requested_quantity').touched)}">
+          <label for="requested_quantity-{{i}}">Quantité demandée</label>
+          <input type="text" id="requested_quantity-{{i}}" formControlName="requested_quantity" pInputText class="p-inputtext w-full">
+          <div *ngIf="commande.get('requested_quantity').invalid && (commande.get('requested_quantity').dirty || commande.get('requested_quantity').touched)" class="p-error">La quantité demandée est obligatoire</div>
+        </div>
+
+        <div class="p-field" [ngClass]="{'p-error': commande.get('fournisseur_id').invalid && (commande.get('fournisseur_id').dirty || commande.get('fournisseur_id').touched)}">
+          <label for="fournisseurSelect-{{i}}">Sélectionner un fournisseur :</label>
+          <p-dropdown id="fournisseurSelect-{{i}}" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur" class="w-full"></p-dropdown>
+          <div *ngIf="commande.get('fournisseur_id').invalid && (commande.get('fournisseur_id').dirty || commande.get('fournisseur_id').touched)" class="p-error">Sélectionner un fournisseur est obligatoire</div>
+        </div>
+
+        <div class="p-field" [ngClass]="{'p-error': commande.get('expected_delivery_date').invalid && (commande.get('expected_delivery_date').dirty || commande.get('expected_delivery_date').touched)}">
+          <label for="expected_delivery_date-{{i}}">Date de la livraison attendue</label>
+          <input type="date" id="expected_delivery_date-{{i}}" formControlName="expected_delivery_date" pInputText class="p-inputtext w-full">
+          <div *ngIf="commande.get('expected_delivery_date').invalid && (commande.get('expected_delivery_date').dirty || commande.get('expected_delivery_date').touched)" class="p-error">La date de livraison est obligatoire</div>
+        </div>
+
+        <button type="button" (click)="removeCommande(i)" pButton class="p-button-danger p-mr-2">Supprimer</button>
+      </div>
     </div>
 
-    <div class="p-field">
-      <label for="requested_quantity">Quantité demandée</label>
-      <input type="text" id="requested_quantity" formControlName="requested_quantity" pInputText class="p-inputtext">
+    <div class="button-group">
+      <button type="button" (click)="addCommande()" pButton class="p-button-secondary p-mr-2">Ajouter une commande</button>
+      <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
+      <a routerLink="/commande" pButton class="p-button-secondary">Annuler</a>
     </div>
-
-    <div class="p-field">
-      <label for="fournisseurSelect">Sélectionner un fournisseur :</label>
-      <p-dropdown id="fournisseurSelect" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur"></p-dropdown>
-    </div>
-
-    <div class="p-field">
-      <label for="expected_delivery_date">Date de la livraison attendue</label>
-      <input type="date" id="expected_delivery_date" formControlName="expected_delivery_date" pInputText class="p-inputtext">
-    </div>
-
-    <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
-    <a routerLink="/commande" pButton class="p-button-secondary">Annuler</a>
   </form>
 </div>

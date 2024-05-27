@@ -28,8 +28,8 @@ export class CommandeEnAttenteService {
   }
 
   // Créer une nouvelle commande en attente
-  createCommandeEnAttente(commandeEnAttente: CommandeEnAttente): Observable<CommandeEnAttente> {
-    return this.http.post<CommandeEnAttente>(this.apiUrl, commandeEnAttente);
+  createCommandeEnAttente(commandeEnAttente: CommandeEnAttente[]): Observable<CommandeEnAttente[]> {
+    return this.http.post<CommandeEnAttente[]>(this.apiUrl, commandeEnAttente);
   }
 
   // Mettre à jour une commande en attente existante

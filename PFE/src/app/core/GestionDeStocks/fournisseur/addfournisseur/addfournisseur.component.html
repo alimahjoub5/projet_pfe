@@ -1,26 +1,37 @@
 <!-- piece-form.component.html -->
-<form [formGroup]="fournisseurform"  (ngSubmit)="onSubmit()">
+<form [formGroup]="fournisseurform" (ngSubmit)="onSubmit()">
     <div class="p-fluid">
         <div class="p-field">
             <label for="nom_fournisseur">Nom du fournisseur</label>
-            <input type="text" id="nom_fournisseur" formControlName="nom_fournisseur" pInputText>
+            <input type="text" id="nom_fournisseur" formControlName="nom_fournisseur" pInputText />
+            <div *ngIf="fournisseurform.get('nom_fournisseur').invalid && fournisseurform.get('nom_fournisseur').touched" class="p-error">
+                Le nom du fournisseur est requis.
+            </div>
         </div>
         <div class="p-field">
             <label for="adresse">Adresse</label>
-            <input type="text" id="adresse" formControlName="adresse" pInputText>
+            <input type="text" id="adresse" formControlName="adresse" pInputText />
+            <div *ngIf="fournisseurform.get('adresse').invalid && fournisseurform.get('adresse').touched" class="p-error">
+                L'adresse est requise.
+            </div>
         </div>
         <div class="p-field">
             <label for="email">Email</label>
-            <input type="text" id="email" formControlName="email" pInputText>
+            <input type="email" id="email" formControlName="email" pInputText />
+            <div *ngIf="fournisseurform.get('email').invalid && fournisseurform.get('email').touched" class="p-error">
+                Une adresse email valide est requise.
+            </div>
         </div>
         <div class="p-field">
-            <label for="telephone">Telephone</label>
-            <input type="text" id="telephone" formControlName="telephone" pInputText>
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" formControlName="telephone" pInputText />
+            <div *ngIf="fournisseurform.get('telephone').invalid && fournisseurform.get('telephone').touched" class="p-error">
+                Le numéro de téléphone est requis.
+            </div>
         </div>
-       
     </div>
-    <button type="submit" pButton label="Enregistrer"></button>
-    <a routerLink="/fournisseur"class="btn btn-secondary">Annuler</a>
-  
-  </form>
-  
+    <div class="p-d-flex p-jc-between p-ai-center">
+        <button type="submit" pButton label="Enregistrer" class="p-button-success" [disabled]="fournisseurform.invalid"></button>
+        <a routerLink="/fournisseur" class="p-button p-component p-button-secondary">Annuler</a>
+    </div>
+</form>

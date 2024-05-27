@@ -7,6 +7,7 @@ import { TestComponent } from './test/test.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { AuthGuard } from './auth.guard';
 import { ResetPasswordComponent } from './core/auth/reset-password/reset-password.component';
+import { NewPasswordComponent } from './core/auth/new-password/new-password.component';
 
 @NgModule({
     imports: [
@@ -48,6 +49,7 @@ import { ResetPasswordComponent } from './core/auth/reset-password/reset-passwor
             },
             {path : "login", component: LoginComponent},
             {path : "resetpassword", component: ResetPasswordComponent},
+            {path : "newpassword", component: NewPasswordComponent,canActivate : [AuthGuard]},
 
             {path : "testo", component: TestComponent ,canActivate : [AuthGuard]},
 

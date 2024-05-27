@@ -7,11 +7,13 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule } from '@angular/router';
 import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
+import { FieldsetModule } from 'primeng/fieldset';
 @Component({
   selector: 'app-addfournisseur',
   standalone: true,
   imports: [
   CommonModule,
+  FieldsetModule,
   FormsModule,
   ReactiveFormsModule,
   InputTextModule,
@@ -27,13 +29,12 @@ export class AddfournisseurComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private fournisseurservice: FournisseurService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.fournisseurform = this.fb.group({
-      nom_fournisseur: [''],
-      adresse:[''],
-      email:[''],
-      telephone:[''],
-
+      nom_fournisseur: ['', Validators.required],
+      adresse: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      telephone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     });
   }
   onSubmit() {
