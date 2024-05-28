@@ -11,17 +11,28 @@ import { PriorityService } from 'src/app/core/services/priority.service';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastModule } from 'primeng/toast';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   imports: [
-    TableModule,
+    FormsModule,
+    ButtonModule,
+     ReactiveFormsModule, 
+    AutoCompleteModule,
+    TableModule,DialogModule,
     ToolbarModule,
+    ToastModule,
+    ConfirmDialogModule,
+    SplitButtonModule,
     RouterModule,
-    CommonModule,
     NgxSpinnerModule,
-    ToastModule
+CommonModule
   ],
   templateUrl: './list.component.html',
   providers: [MessageService, ConfirmationService
