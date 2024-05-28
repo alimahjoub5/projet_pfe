@@ -1,5 +1,6 @@
 
-<h2>Mettre à jour un utilisateur</h2>
+<p-toast></p-toast>
+<h2>Mettre à jour un equipement</h2>
 <form (ngSubmit)="updateEquipmentType()" #updateForm="ngForm">
   <div class="form-group">
     <label for="TypeName">Prénom</label>
@@ -10,15 +11,15 @@
     <input type="text" class="form-control" id="Description" name="Description" [(ngModel)]="equipementtype.Description" required>
   </div>
   <div class="form-group">
-    <label for="Manufacturer">Manufacturer</label>
+    <label for="Manufacturer">Fabricant</label>
     <input type="text" class="form-control" id="Manufacturer" name="Manufacturer" [(ngModel)]="equipementtype.Manufacturer" required>
   </div>
   <div class="form-group">
-    <label for="ModelNumber">Model Number</label>
+    <label for="ModelNumber">Numero de model</label>
     <input type="text" class="form-control" id="ModelNumber" name="ModelNumber" [(ngModel)]="equipementtype.ModelNumber" required>
   </div>
   <div class="form-group">
-    <label for="SerialNumber">Serial Number</label>
+    <label for="SerialNumber">Numero de serie</label>
     <input type="text" class="form-control" id="SerialNumber" name="SerialNumber" [(ngModel)]="equipementtype.SerialNumber" required>
   </div>
   <button type="submit" class="btn btn-primary">Mettre à jour</button>

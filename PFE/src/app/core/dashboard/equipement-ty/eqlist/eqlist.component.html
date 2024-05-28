@@ -25,13 +25,11 @@
         </ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="TypeName">Type <p-sortIcon field="TypeName"></p-sortIcon></th>
+            <th pSortableColumn="TypeName">Nom de l'équipment <p-sortIcon field="TypeName"></p-sortIcon></th>
             <th pSortableColumn="Description">Description <p-sortIcon field="Description"></p-sortIcon></th>
-            <th pSortableColumn="Manufacturer">Fabricant <p-sortIcon field="Manufacturer"></p-sortIcon></th>
             <th pSortableColumn="ModelNumber">Numéro de modèle <p-sortIcon field="ModelNumber"></p-sortIcon></th>
             <th pSortableColumn="SerialNumber">Numéro de série <p-sortIcon field="SerialNumber"></p-sortIcon></th>
             <th pSortableColumn="InstallationDate">Date d'installation <p-sortIcon field="InstallationDate"></p-sortIcon></th>
-            <th pSortableColumn="WarrantyExpiration">Expiration de la garantie <p-sortIcon field="WarrantyExpiration"></p-sortIcon></th>
             <th>Action</th>
           </tr>
         </ng-template>
@@ -39,21 +37,17 @@
           <tr>
             <td>{{ equipment.TypeName }}</td>
             <td>{{ equipment.Description }}</td>
-            <td>{{ equipment.Manufacturer }}</td>
             <td>{{ equipment.ModelNumber }}</td>
             <td>{{ equipment.SerialNumber }}</td>
             <td>{{ equipment.InstallationDate }}</td>
-            <td>{{ equipment.WarrantyExpiration }}</td>
             <td>
-              <a [routerLink]="['/equipement-detail', equipment.EquipmentTypeID]" class="view" title="View" data-toggle="tooltip">
-                <i class="material-icons">&#xE417;</i>
-              </a> 
-              <a [routerLink]="['/update-eq', equipment.EquipmentTypeID]"  class="edit" title="Edit" data-toggle="tooltip">
-                <i class="material-icons">&#xE254;</i>
-              </a>
+              <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/equipement-detail', equipment.EquipmentTypeID]" routerLinkActive="router-link-active"></button>
+              <div>
+               <button pButton pRipple icon="pi pi-pencil"class="p-button-rounded p-button-success mr-2" [routerLink]="['/update-eq', equipment.EquipmentTypeID]" routerLinkActive="router-link-active"></button>
+             
               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEquipment(equipment.EquipmentTypeID)"></button>
-            </td>
-          </tr>
+          
+       </div>
         </ng-template>
       
         

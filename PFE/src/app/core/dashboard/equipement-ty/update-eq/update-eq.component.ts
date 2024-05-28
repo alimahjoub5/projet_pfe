@@ -5,10 +5,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
 import { EquipmentType } from 'src/app/core/models/equipement';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-update-eq',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,
+    DropdownModule,
+    CheckboxModule,   
+     NgxSpinnerModule,
+     DialogModule,
+     AutoCompleteModule,
+     ReactiveFormsModule,
+     FormsModule,
+     ToastModule,
+     CommonModule,
+   ToastModule,],
   templateUrl: './update-eq.component.html',
   styleUrl: './update-eq.component.scss'
 })
@@ -20,7 +37,9 @@ export class UpdateEqComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private Equipmenttypeservice: EquipmentTypeService
+    private Equipmenttypeservice: EquipmentTypeService,
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
@@ -31,13 +50,18 @@ export class UpdateEqComponent {
       });
     });
   }
+  showSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'equipement a été modifié avec succès' });
 
+  }
   updateEquipmentType(): void {
     this.Equipmenttypeservice.updateEquipmentType(Number(this.EquipmentTypeID),this.equipementtype).subscribe(updateEquipmentType => {
       console.log('Equipement updated successfully:', updateEquipmentType);
+      this.spinner.hide();
+      this.showSuccess();
       // Rediriger vers la page de détails de l'utilisateur mis à jour
-      this.router.navigate(['equipement-detail/', this.EquipmentTypeID]);
     });
+
   }
 
 
