@@ -12,7 +12,6 @@
     <p-toast></p-toast>
 
     <!-- Bouton pour ajouter un ticket -->
-    <p-button label="Ajouter un ticket" icon="pi pi-plus" [rounded]="true" [routerLink]="['/create']" routerLinkActive="router-link-active" styleClass="custom-button"></p-button>
 
     <!-- Tableau pour afficher les tickets -->
     <p-table #dt1 [value]="filteredTickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
@@ -58,16 +57,14 @@
                     <span class="p-column-title">Statut</span>
                     <span class="ml-1 vertical-align-middle">{{ ticket.StatusCodeID }}</span>
                 </td>
-        
-                <td>
-                    <a [routerLink]="['/ticket-details', ticket.TicketID]" class="view" title="View" data-toggle="tooltip">
-                        <i class="material-icons">&#xE417;</i>
-                    </a>
-                    <a [routerLink]="['/updatetickets', ticket.TicketID]" class="edit" title="Edit" data-toggle="tooltip">
-                        <i class="material-icons">&#xE254;</i>
-                    </a>
-                    <a (click)="confirmDelete(ticket)" class="delete" title="Supprimer" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
+        <td> 
+                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/ticket-details', ticket.TicketID]"routerLinkActive="router-link-active"></button>
+                <div>
+                 <button pButton pRipple icon="pi pi-pencil"class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatetickets', ticket.TicketID]" routerLinkActive="router-link-active"></button>
+               
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDelete(ticket)"></button>
+            
+         </div></td>
             </tr>
         </ng-template>
         
