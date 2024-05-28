@@ -1,0 +1,51 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+  
+    .p-field {
+      grid-column: span 12;
+  
+      @media (min-width: 768px) {
+        &.p-col-6 {
+          grid-column: span 6;
+        }
+      }
+  
+      label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+  
+      .p-inputtext, .p-dropdown, .p-calendar {
+        width: 100%;
+      }
+    }
+  
+    .p-button-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      button, a {
+        width: 48%;
+      }
+    }
+  }
+  

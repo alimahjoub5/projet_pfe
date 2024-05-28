@@ -34,7 +34,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     MultiSelectModule
   ],
   templateUrl: './addcommande.component.html',
-  styleUrl: './addcommande.component.scss'
+  styleUrls: ['./addcommande.component.scss']
 })
 export class AddcommandeComponent implements OnInit {
   commandeform: FormGroup;
@@ -91,7 +91,6 @@ export class AddcommandeComponent implements OnInit {
   getAllPieces(): void {
     this.pieceservice.getAllPieces().subscribe((response: any) => {
       this.pieces = response.pieces;
-      console.log(this.pieces);
     });
   }
 
@@ -99,23 +98,21 @@ export class AddcommandeComponent implements OnInit {
     try {
       if (this.commandeform.valid) {
         const formData = this.commandeform.value.commandes.map((commande: any) => {
-          // Extrait l'identifiant de la pièce (supposant qu'il y a toujours au moins un élément dans le tableau)
-          const pieceId = commande.piece_id.length > 0 ? commande.piece_id[0].piece_id : null;
-  
-          // Extrait l'identifiant du fournisseur
-          const fournisseurId = commande.fournisseur_id ? commande.fournisseur_id.fournisseur_id : null;
-  
+          const pieceId = Array.isArray(commande.piece_id) && commande.piece_id.length > 0 ? commande.piece_id[0] : null;
+          const fournisseurId = commande.fournisseur_id ? commande.fournisseur_id : null;
+          console.log(pieceId)
           return {
+            
             ...commande,
-            piece_id: pieceId,
-            fournisseur_id: fournisseurId,
+            piece_id: pieceId.piece_id,
+            fournisseur_id: fournisseurId.fournisseur_id,
             order_date: new Date(),
             order_status: 'pending',
             commande_id: 0,
             actual_delivery_date: null
           };
         });
-  
+console.log(formData)
         this.isLoading = true;
         this.commandeservice.createCommandeEnAttente(formData).subscribe(
           (response: CommandeEnAttente[]) => {
@@ -124,12 +121,11 @@ export class AddcommandeComponent implements OnInit {
             this.commandes.clear();
             this.addCommande();
             this.isLoading = false;
-            this.showSuccess(); // Appeler la méthode de message de succès
+            this.showSuccess();
           },
           (error: any) => {
             console.error('Erreur lors de la création des commandes en attente :', error);
             this.isLoading = false;
-            throw error; // Lancer l'erreur pour la capturer dans le bloc catch
           }
         );
       } else {
@@ -140,10 +136,8 @@ export class AddcommandeComponent implements OnInit {
       console.error('Une erreur est survenue lors de la création des commandes en attente :', error);
     }
   }
-  
-  
 
-  validateAllFormFields(formGroup: FormGroup) {
+  validateAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormArray) {

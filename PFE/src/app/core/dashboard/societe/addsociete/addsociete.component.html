@@ -1,34 +1,31 @@
 <!-- piece-form.component.html -->
-<form [formGroup]="societeForm" (ngSubmit)="onSubmit()">
-    <div class="p-fluid">
-        <div class="p-field">
-            <label for="name">Nom de la societe</label>
-            <input type="text" id="name" formControlName="name" pInputText>
-        </div>
-        <div class="p-field">
-            <label for="address">Adresse</label>
-            <input type="text" id="address" formControlName="address" pInputText>
-        </div>
-        <div class="p-field">
-            <label for="city">Ville</label>
-            <input type="text" id="city" formControlName="city" pInputText>
-        </div>
-        <div class="p-field">
-            <label for="phone">Téléphone</label>
-            <input type="text" id="phone" formControlName="phone" pInputText>
-        </div>
-        <div class="p-field">
-            <label for="email">Email</label>
-            <input type="text" id="email" formControlName="email" pInputText>
-        </div>
-        <div class="p-field">
-            <label for="website">Site web</label>
-            <input type="text" id="website" formControlName="website" pInputText>
-        </div>
-
+<form [formGroup]="societeForm" (ngSubmit)="onSubmit()" class="societe-form">
+    <div class="form-field">
+        <label for="name">Nom de la société</label>
+        <input type="text" id="name" formControlName="name" pInputText>
     </div>
-    <button type="submit" pButton label="Enregistrer"></button>
-    <a routerLink="/listsociete" class="btn btn-secondary">Annuler</a>
-  
-  </form>
-  
+    <div class="form-field">
+        <label for="address">Adresse</label>
+        <input type="text" id="address" formControlName="address" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="city">Ville</label>
+        <input type="text" id="city" formControlName="city" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="phone">Téléphone</label>
+        <input type="text" id="phone" formControlName="phone" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" pInputText>
+    </div>
+    <div class="form-field">
+        <label for="website">Site web</label>
+        <input type="text" id="website" formControlName="website" pInputText>
+    </div>
+    <div class="form-actions">
+        <button type="submit" pButton label="Enregistrer" class="p-button-success"></button>
+        <a routerLink="/listsociete" class="p-button p-button-secondary">Annuler</a>
+    </div>
+</form>

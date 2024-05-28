@@ -72,9 +72,9 @@ class CommandeEnAttenteController extends Controller
         public function store(Request $request)
         {
             $validatedData = $request->validate([
-                'piece_id' => 'required',
-                'requested_quantity' => 'required',
                 'fournisseur_id' => 'required',
+                'requested_quantity' => 'required',
+                'piece_id' => 'required',
                 'expected_delivery_date' => 'nullable|date',
             ]);
     

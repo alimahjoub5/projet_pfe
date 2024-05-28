@@ -1,0 +1,63 @@
+/* piece-form.component.scss */
+.societe-form {
+    .form-field {
+        margin-bottom: 1rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            transition: border-color 0.3s;
+
+            &:focus {
+                border-color: #007ad9;
+                outline: none;
+            }
+        }
+    }
+
+    .form-actions {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+
+        button[type="submit"],
+        a {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        button[type="submit"] {
+            background-color: #007ad9;
+            color: #fff;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: darken(#007ad9, 10%);
+            }
+        }
+
+        a {
+            margin-left: 1rem;
+            color: #007ad9;
+            transition: color 0.3s;
+
+            &:hover {
+                color: darken(#007ad9, 10%);
+            }
+        }
+    }
+}

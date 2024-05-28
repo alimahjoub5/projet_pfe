@@ -1,48 +1,56 @@
-<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="user-form">
-    <div class="form-field">
-        <label for="TypeName">Type Name:</label>
+<!-- equipment-form.component.html -->
+<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="equipment-form p-fluid p-grid">
+    <p-toast></p-toast>
+    
+    <div class="form-field p-col-12 p-md-6">
+        <label for="TypeName">Nom du Equipement :</label>
         <input type="text" id="TypeName" formControlName="TypeName" pInputText>
     </div>
 
-    <div class="form-field">
-        <label for="Description">Description:</label>
-        <textarea id="Description" formControlName="Description" pInputTextarea rows="5" cols="68"></textarea>
+    <div class="form-field p-col-12">
+        <label for="Description">Description :</label>
+        <textarea id="Description" formControlName="Description" pInputTextarea rows="5"></textarea>
     </div>
 
-    <div class="form-field">
-        <label for="Manufacturer">Manufacturer:</label>
+    <div class="form-field p-col-12 p-md-6">
+        <label for="Manufacturer">Fabricant :</label>
         <input type="text" id="Manufacturer" formControlName="Manufacturer" pInputText>
     </div>
 
-    <div class="form-field">
-        <label for="ModelNumber">Model Number:</label>
+    <div class="form-field p-col-12 p-md-6">
+        <label for="ModelNumber">Numéro de Modèle :</label>
         <input type="text" id="ModelNumber" formControlName="ModelNumber" pInputText>
     </div>
 
-    <div class="form-field">
-        <label for="SerialNumber">Serial Number:</label>
+    <div class="form-field p-col-12 p-md-6">
+        <label for="SerialNumber">Numéro de Série :</label>
         <input type="text" id="SerialNumber" formControlName="SerialNumber" pInputText>
     </div>
 
-    <div class="form-field">
-        <label for="InstallationDate">Installation Date:</label>
+    <div class="form-field p-col-12 p-md-6">
+        <label for="InstallationDate">Date d'Installation :</label>
         <input type="date" id="InstallationDate" formControlName="InstallationDate" pInputText>
     </div>
-
-    <div class="form-field">
-        <label for="WarrantyExpiration">Warranty Expiration:</label>
+<!--
+    <div class="form-field p-col-12 p-md-6">
+        <label for="WarrantyExpiration">Expiration de la Garantie :</label>
         <input type="date" id="WarrantyExpiration" formControlName="WarrantyExpiration" pInputText>
     </div>
 
-    <div class="form-field">
-        <label for="MaintenanceInterval">Maintenance Interval (in months):</label>
+    <div class="form-field p-col-12 p-md-6">
+        <label for="MaintenanceInterval">Intervalle de Maintenance (en mois) :</label>
         <input type="number" id="MaintenanceInterval" formControlName="MaintenanceInterval" pInputText>
     </div>
 
-    <div class="form-field">
-        <label for="LastMaintenanceDate">Last Maintenance Date:</label>
+    <div class="form-field p-col-12 p-md-6">
+        <label for="LastMaintenanceDate">Date de Dernière Maintenance :</label>
         <input type="date" id="LastMaintenanceDate" formControlName="LastMaintenanceDate" pInputText>
     </div>
-
-    <button type="submit" [disabled]="equipmentForm.invalid">Add Equipment</button>
+-->
+<div class="form-field p-col-12">
+    <button type="submit" [disabled]="equipmentForm.invalid" pButton icon="pi pi-plus">Ajouter Équipement</button>
+</div>    
+<div class="form-field p-col-12">
+    <button type="submit" pButton icon="pi pi-call">Annuler</button>
+</div>
 </form>

@@ -13,7 +13,7 @@
 
         <div class="p-field" [ngClass]="{'p-error': commande.get('requested_quantity').invalid && (commande.get('requested_quantity').dirty || commande.get('requested_quantity').touched)}">
           <label for="requested_quantity-{{i}}">Quantité demandée</label>
-          <input type="text" id="requested_quantity-{{i}}" formControlName="requested_quantity" pInputText class="p-inputtext w-full">
+          <input type="number" id="requested_quantity-{{i}}" formControlName="requested_quantity" pInputText class="p-inputtext w-full">
           <div *ngIf="commande.get('requested_quantity').invalid && (commande.get('requested_quantity').dirty || commande.get('requested_quantity').touched)" class="p-error">La quantité demandée est obligatoire</div>
         </div>
 
