@@ -1,14 +1,11 @@
-<h2>Mettre à jour un ticket</h2>
+<h2>Mettre à jour un Intervention</h2>
 <form (ngSubmit)="updateTicket()" #updateForm="ngForm">
  
   <div class="form-group">
     <label for="Subject">Sujet</label>
     <input type="text" class="form-control" id="Subject" name="Subject" [(ngModel)]="ticket.Subject" required>
   </div>
-  <div class="form-group">
-    <label for="AssigneeID">Assigné à</label>
-    <input type="number" class="form-control" id="AssigneeID" name="AssigneeID" [(ngModel)]="ticket.AssigneeID">
-  </div> 
+
 
 
   <div class="form-group">
@@ -16,17 +13,13 @@
     <textarea class="form-control" id="Description" name="Description" [(ngModel)]="ticket.Description"></textarea>
   </div>
 
-
-  <div class="form-group">
-    <label for="DueDate">Date d'échéance</label>
-    <input type="date" class="form-control" id="DueDate" name="DueDate" [(ngModel)]="ticket.DueDate" required>
-  </div>
-
-  <div class="form-group">
-    <label for="ClosedDate">Date de clôture</label>
-    <input type="date" class="form-control" id="ClosedDate" name="ClosedDate" [(ngModel)]="ticket.ClosedDate">
-  </div>
-
+  
+    <label for="AssigneeID">Assigné à</label>
+    <div class="p-field">
+      <button type="button" (click)="showAssignDialog()" [disabled]="isDisable" class="p-button p-component p-button-icon-only">
+        <span class="p-button-icon pi pi-user"></span>
+      </button>
+    </div> <br>
   
   <button type="submit" class="btn btn-primary">Mettre à jour</button>
 </form>

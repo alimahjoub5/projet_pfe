@@ -13,6 +13,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './updatetickets.component.scss'
 })
 export class UpdateticketsComponent implements OnInit {
+isDisable: any;
+showAssignDialog() {
+throw new Error('Method not implemented.');
+}
 
   ticket: Ticket;
   ticketID: string;

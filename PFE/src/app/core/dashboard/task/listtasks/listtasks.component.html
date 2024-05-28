@@ -1,9 +1,8 @@
 <ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
 
-<!-- Your other content goes here -->
 <div class="grid">
   <div class="col-12">
-    <div class="card px-6 py-6">
+    <div class="card p-6">
       <p-toast></p-toast>
       <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
@@ -17,73 +16,56 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="tasks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <p-table #dt [value]="tasks" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['Subject','Description','StatusName']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
           <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <h5 class="m-0">Gérer les tâches</h5>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="Subject">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>               
-                <th pSortableColumn="Description">Description <p-sortIcon field="Description"></p-sortIcon></th>                
-                <th pSortableColumn="Subject">Ticket <p-sortIcon field="Subject"></p-sortIcon></th>
-                <th pSortableColumn="StatusName">Status <p-sortIcon field="StatusName"></p-sortIcon></th>
-                <th pSortableColumn="AssigneeID">Assignee a <p-sortIcon field="AssigneeID"></p-sortIcon></th>
-                <th pSortableColumn="priorityName">Priorité <p-sortIcon field="priorityName"></p-sortIcon></th>
-               
-
-                <th>Action</th>
-            </tr>
+          <tr>
+            <th pSortableColumn="Subject">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
+            <th pSortableColumn="Description">Description <p-sortIcon field="Description"></p-sortIcon></th>
+            <th pSortableColumn="StartDate">Date Début <p-sortIcon field="StartDate"></p-sortIcon></th>
+            <th pSortableColumn="EndDate">Date Fin <p-sortIcon field="EndDate"></p-sortIcon></th>
+            <th>Action</th>
+          </tr>
         </ng-template>
         <ng-template pTemplate="body" let-task>
           <tr [pSelectableRow]="task">
-
-            <tr>
-                <td>
-                  <span class="p-column-title">Sujet</span>
-                  {{ task.Subject }}
-              </td>
-              <td>
-                  <span class="p-column-title">Rapport</span>
-                  <span class="ml-1 vertical-align-middle">{{ task.Description }}</span>
-              </td>
-              <td>
-                  <span class="p-column-title">ticket</span>
-                  <span class="ml-1 vertical-align-middle"><a [routerLink]="['/ticket-details', task.TicketID]">{{ task.ticketname.subject }}</a></span>
-              </td>
-              <td>
-                <span class="p-column-title">Assigné a</span>
-                <span class="ml-1 vertical-align-middle">{{ task.StatusName.statusName }}</span>
+            <td>
+              <span class="p-column-title">Sujet</span>
+              {{ task.Subject }}
             </td>
-              <td>
-                  <span class="p-column-title">statut</span>
-                  <span class="ml-1 vertical-align-middle">{{task.AssigneeName.username}}</span>
-              </td>
-              <td>
-                  <span class="p-column-title">Priorité</span>
-                  <span class="ml-1 vertical-align-middle">{{ task.PriorityName }}</span>
-              </td>
-           
-
-                <td>
+            <td>
+              <span class="p-column-title">Description</span>
+              {{ task.Description }}
+            </td>
+            <td>
+              <span class="p-column-title">Date Début</span>
+              {{ task.StartDate  }}
+            </td>
+            <td>
+              <span class="p-column-title">Date Fin</span>
+              {{ task.EndDate }}
+            </td>
+            <td>
               <div class="flex">
-                <a [routerLink]="['/tasks-details', task.TicketTaskID]" class="view" title="View" data-toggle="tooltip">
-                    <i class="material-icons">&#xE417;</i>
-                  </a>
-                  <a [routerLink]="['/updatetasks', task.TicketTaskID]"  class="edit" title="Edit" data-toggle="tooltip">
-                    <i class="material-icons">&#xE254;</i>
-                  </a>
-                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteTask(task.TicketTaskID)"></button>
-            </div>
+                <a [routerLink]="['/tasks-details', task.TicketTaskID]" class="view" title="View">
+                  <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-success" style="margin-right: 5px;"></button>
+                </a>
+                <a [routerLink]="['/updatetasks', task.TicketTaskID]" class="edit" title="Edit">
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-info" style="margin-right: 5px;"></button>
+                </a>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteTask(task.TicketTaskID)"></button>
+              </div>
             </td>
+            
           </tr>
         </ng-template>
-      
-        
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="8">Aucune tâche trouvée.</td>
+            <td colspan="5">Aucune tâche trouvée.</td>
           </tr>
         </ng-template>
       </p-table>

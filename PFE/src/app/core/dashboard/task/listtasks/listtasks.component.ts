@@ -41,7 +41,7 @@ CommonModule],
   providers: [MessageService, ConfirmationService ],
 })
 export class ListtasksComponent implements OnInit {
-  tasks: Task;
+  tasks: any;
   cols: any;
   isLoading: boolean;
 
@@ -55,10 +55,35 @@ export class ListtasksComponent implements OnInit {
               private ticketstatusservice: TicketStatusService
   ) {}
 
-  ngOnInit(): void {
-
-    this.spinner.show(); // Show the spinner
-    this.loadTasks();
+  ngOnInit() {
+    // Initialiser le tableau de tâches avec des valeurs statiques
+    this.tasks = [
+      {
+        id: 1,
+        Subject: "Réparation des ordinateurs",
+        Description: 'Remplacer le disque dur défectueux par un nouveau disque SSD',
+        StartDate: "08/02/2024, 8:00",
+        EndDate: "09/02/2024, 15:00"
+      },
+      {
+        id: 2,
+        Subject: 'Installation de logiciel de sécurité',
+        Description: 'Installer et configurer un logiciel antivirus sur le serveur principal',
+        StartDate: "09/02/2024, 13:00",
+        EndDate: "05/02/2024, 16:00"
+      },
+      {
+        id: 3,
+        Subject: 'Maintenance réseau',
+        Description: 'Vérifier et résoudre les problèmes de connectivité réseau dans le bureau',
+        StartDate: "10/02/2024, 8:00",
+        EndDate: "12/02/2024, 12:00"
+      }
+      // Vous pouvez ajouter autant d'éléments que nécessaire
+    ];
+  
+    //this.spinner.show(); // Show the spinner
+    //this.loadTasks();
   }
 
 //---------------------------------------------------------------------------------------
