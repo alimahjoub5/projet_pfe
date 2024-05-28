@@ -127,6 +127,7 @@ group : Groupe = null;
   onSubmit(): void {
     if (this.form.valid) {
       this.isLoading=true;
+      this.showSuccess();
       this.spinner.show(); // Show the spinner
       // Créer une nouvelle instance de Ticket en extrayant les valeurs du formulaire
       const ticketData = this.form.value;
