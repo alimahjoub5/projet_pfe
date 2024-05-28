@@ -1,37 +1,50 @@
 <div class="container">
   <h2>Modifier le stock</h2>
-  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="p-fluid">
+  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="p-fluid form-grid">
     
-    <div class="p-field">
+    <div class="p-field p-col-12 p-md-6">
       <label for="pieceSelect">Sélectionner une pièce :</label>
-      <select id="pieceSelect" formControlName="piece_id" class="p-inputtext p-d-block">
-        <option *ngFor="let piece of pieces" [ngValue]="piece?.piece_id">{{ piece?.nom_piece }}</option>
-      </select>
+      <p-dropdown 
+        id="pieceSelect" 
+        [options]="pieces" 
+        optionLabel="nom_piece" 
+        optionValue="piece_id" 
+        placeholder="Sélectionner une pièce"
+        formControlName="piece_id" 
+        [style]="{ width: '100%' }">
+      </p-dropdown>
     </div>
 
-    <div class="p-field">
+    <div class="p-field p-col-12 p-md-6">
       <label for="equipementSelect">Sélectionner un équipement :</label>
-      <select id="equipementSelect" formControlName="EquipmentTypeID" class="p-inputtext p-d-block">
-        <option *ngFor="let equipement of equipements" [ngValue]="equipement?.equipment_id">{{ equipement?.TypeName }}</option>
-      </select>
+      <p-dropdown 
+        id="equipementSelect" 
+        [options]="equipements" 
+        optionLabel="TypeName" 
+        optionValue="equipment_id" 
+        placeholder="Sélectionner un équipement"
+        formControlName="EquipmentTypeID" 
+        [style]="{ width: '100%' }">
+      </p-dropdown>
     </div>
 
-    <div class="p-field">
+    <div class="p-field p-col-12 p-md-6">
       <label for="quantity">Quantité :</label>
-      <input type="number" id="quantity" formControlName="quantity" pInputText class="p-inputtext">
+      <input type="number" id="quantity" formControlName="quantity" pInputNumber class="p-inputtext">
     </div>
-    <div class="p-field">
+    <div class="p-field p-col-12 p-md-6">
       <label for="reserved_quantity">Quantité réservée :</label>
-      <input type="number" id="reserved_quantity" formControlName="reserved_quantity" pInputText class="p-inputtext">
+      <input type="number" id="reserved_quantity" formControlName="reserved_quantity" pInputNumber class="p-inputtext">
     </div>
-   
   
-    <div class="p-field">
+    <div class="p-field p-col-12 p-md-12">
       <label for="local">Local :</label>
       <input type="text" id="local" formControlName="local" pInputText class="p-inputtext">
     </div>
  
-    <button type="submit" [disabled]="isLoading" pButton class="p-button-primary p-mr-2">Enregistrer</button>
-    <a routerLink="/stocks" class="btn btn-secondary">Annuler</a>
+    <div class="p-col-12 p-mt-2 p-button-group">
+      <button type="submit" [disabled]="isLoading" pButton label="Enregistrer" class="p-button p-button-primary"></button>
+      <a routerLink="/stocks" pButton label="Annuler" class="p-button p-button-secondary"></a>
+    </div>
   </form>
 </div>

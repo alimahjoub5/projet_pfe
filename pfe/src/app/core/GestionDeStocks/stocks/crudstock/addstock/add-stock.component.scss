@@ -1,123 +1,50 @@
-/* stock-form.component.scss */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-.p-field {
-    margin-bottom: 20px;
-  
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-  
-    input[type='text'],
-    input[type='number'] {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-  
-    .p-error {
-      color: red;
-      font-size: 12px;
-    }
-  }
-  
-  button[type='submit'] {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button[type='submit']:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Style pour le champ d'upload d'image */
-  .p-fileupload-choose,
-  .p-fileupload-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .p-fileupload-choose input[type='file'] {
-    display: none;
-  }
-  
-  .p-fileupload-choose button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .p-fileupload-choose button:hover {
-    background-color: #0056b3;
-  }
-  
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
 
-  /* stock-form.component.scss */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
 
-#image_piece {
-    display: none; /* Cacher l'élément d'entrée de fichier, car nous allons utiliser un style personnalisé */
-  }
-  
-  .image-upload-container {
-    position: relative;
-    margin-bottom: 20px;
-  }
-  
-  .image-upload-label {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-block;
-  }
-  
-  .image-preview {
-    max-width: 100%;
-    max-height: 200px; /* Ajustez la hauteur maximale selon vos besoins */
-    margin-top: 10px;
-  }
-  
-  .p-error {
-    color: red;
-    font-size: 12px;
-  }
-
-  
   .p-field {
-    margin-bottom: 20px; // Ajoute un espacement entre chaque champ
+    grid-column: span 12;
+
+    @media (min-width: 768px) {
+      &.p-col-6 {
+        grid-column: span 6;
+      }
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .p-inputtext, .p-dropdown, .p-autocomplete {
+      width: 100%;
+    }
   }
-  
-  label {
-    font-weight: bold; // Met en gras le texte du label
+
+  .p-button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button, a {
+      width: 48%;
+    }
   }
-  
-  textarea {
-    width: 100%; // Prend la largeur maximale disponible
-    height: 100px; // Hauteur par défaut de la zone de texte
-    padding: 10px; // Ajoute de l'espace à l'intérieur de la zone de texte
-    border: 1px solid #ccc; // Ajoute une bordure légère
-    border-radius: 5px; // Ajoute un coin arrondi à la bordure
-    font-size: 16px; // Taille de police par défaut
-  }
-  
-  textarea.ng-invalid {
-    border-color: #ff0000; // Change la couleur de la bordure en rouge pour les champs invalides
-  }
-  
-  .p-error {
-    color: #ff0000; // Change la couleur du texte en rouge pour les messages d'erreur
-  }
-  
+}
