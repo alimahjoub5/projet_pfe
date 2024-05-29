@@ -23,7 +23,6 @@
                 <th pSortableColumn="Subject" style="width:25%">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
                 <th pSortableColumn="Description" style="width:25%">Description <p-sortIcon field="Description"></p-sortIcon></th>
                 <th pSortableColumn="EquipmentTypeName" style="width:25%">Equipments <p-sortIcon field="EquipmentTypeName"></p-sortIcon></th>
-                <th pSortableColumn="DueDate" style="width:25%">Date d'échéance<p-sortIcon field="DueDate"></p-sortIcon></th>
                 <th pSortableColumn="PriorityID" style="width:25%">Priorité <p-sortIcon field="PriorityID"></p-sortIcon></th>
                 <th pSortableColumn="StatusCodeID" style="width:25%">Statut <p-sortIcon field="StatusCodeID"></p-sortIcon></th>
                 <th>Action</th>
@@ -45,10 +44,7 @@
                     <span class="p-column-title">Equipments</span>
                     <span class="ml-1 vertical-align-middle">{{ ticket.EquipmentTypeName }}</span>
                 </td>
-                <td>
-                    <span class="p-column-title">Date d'échéance</span>
-                    <span class="ml-1 vertical-align-middle">{{ ticket.DueDate }}</span>
-                </td>
+
                 <td [ngClass]="getPriorityColor(ticket.PriorityID)">
                     <span class="p-column-title">Priorité</span>
                     <span class="ml-1 vertical-align-middle">{{ ticket.PriorityID }}</span>

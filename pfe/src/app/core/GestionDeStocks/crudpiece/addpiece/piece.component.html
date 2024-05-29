@@ -38,9 +38,9 @@
           <label for="cost">Coût</label>
           <input type="number" id="cost" formControlName="cost" pInputNumber>
       </div>
-      <div class="p-field">
-          <label for="fournisseur_id">ID du fournisseur</label>
-          <input type="number" id="fournisseur_id" formControlName="fournisseur_id" pInputNumber>
+      <div class="p-field" >
+        <label for="fournisseurSelect">Sélectionner un fournisseur :</label>
+        <p-dropdown id="fournisseurSelect" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur" class="w-full"></p-dropdown>
       </div>
   </div>
   <button type="submit" pButton label="Enregistrer"></button>

@@ -7,6 +7,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule } from '@angular/router';
 import { PieceService } from '../../../services/GestionDeStocks/pieceService.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
 
 @Component({
   selector: 'app-stocks',
@@ -14,6 +16,7 @@ import { PieceService } from '../../../services/GestionDeStocks/pieceService.ser
   imports: [
     CommonModule,
     FormsModule,
+    DropdownModule,
     ReactiveFormsModule,
     InputTextModule,
     InputNumberModule,
@@ -26,10 +29,13 @@ import { PieceService } from '../../../services/GestionDeStocks/pieceService.ser
 })
 export class PieceFormComponent implements OnInit {
   pieceForm: FormGroup;
+fournisseurs: any;
 
-  constructor(private fb: FormBuilder, private pieceService: PieceService) { }
+  constructor(private fb: FormBuilder, private pieceService: PieceService, 
+    private fournisseurService : FournisseurService) { }
 
   ngOnInit(): void {
+    this.getAllFournisseurs();
     this.pieceForm = this.fb.group({
       nom_piece: [''],
       description: [''],
@@ -43,7 +49,11 @@ export class PieceFormComponent implements OnInit {
     });
   }
   
-
+  getAllFournisseurs(): void {
+    this.fournisseurService.getFournisseurs().subscribe((response: any) => {
+      this.fournisseurs = response.fournisseurs;
+    });
+  }
   onSubmit() {
     const formData = new FormData();
     formData.append('nom_piece', this.pieceForm.get('nom_piece').value);
@@ -53,7 +63,7 @@ export class PieceFormComponent implements OnInit {
     formData.append('fabrication_date', this.pieceForm.get('fabrication_date').value);
     formData.append('expiration_date', this.pieceForm.get('expiration_date').value);
     formData.append('cost', this.pieceForm.get('cost').value);
-    formData.append('fournisseur_id', this.pieceForm.get('fournisseur_id').value);
+    formData.append('fournisseur_id', this.pieceForm.get('fournisseur_id').value.fournisseur_id);
     const file = this.pieceForm.get('image_piece').value;
     formData.append('image_piece', file, file.name);
 
