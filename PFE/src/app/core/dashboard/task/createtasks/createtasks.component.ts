@@ -13,7 +13,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -28,6 +28,9 @@ import { TicketStatus } from 'src/app/core/models/ticketstatus';
 import { TicketStatusService } from 'src/app/core/services/ticketstatus.service';
 import { TaskService } from 'src/app/core/services/task.service';
 import { Task } from 'src/app/core/models/task';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-createtasks',
@@ -40,91 +43,63 @@ import { Task } from 'src/app/core/models/task';
     InputNumberModule,
     ButtonModule,
     FileUploadModule,
-    RouterModule
+    RouterModule,
+    DropdownModule,
+    CalendarModule,
+    ButtonModule,
+    CheckboxModule
   ],
     templateUrl: './createtasks.component.html',
   styleUrl: './createtasks.component.scss'
 })
 export class CreatetasksComponent implements OnInit {
-  taskform: FormGroup;
-  isLoading: boolean;
-  tickets: any;
-  status: TicketStatus[];
-  priorities: Priority[];
+  ticketTaskForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private ticketService: TicketService,
-    private ticketStatusService: TicketStatusService,
-    private priorityService: PriorityService,
-    private taskService: TaskService,
-    private spinner: NgxSpinnerService,
-    private authservice : AuthService,
-    private messageService: MessageService
-  ) {}
-
-  ngOnInit(): void {
-    this.taskform = this.fb.group({
-      TicketID: ['', Validators.required],
-      StatusCodeID: ['', Validators.required],
-      AssigneeID: [null, Validators.required],
-      Subject: ['', Validators.required],
-      Description: [null, Validators.required],
-      PriorityID: ['', Validators.required],
-      DueDate: ['', Validators.required],
-      StartDate: [null, Validators.required],
-      EndDate: [null, Validators.required],
-      CompletedDate: [null, Validators.required]
-    });
-
-    this.getAllTickets();
-    this.getAllStatus();
-    this.getAllPriorities();
-  }
-
-  getAllTickets(): void {
-    this.ticketService.getAllTickets().subscribe((response: any) => {
-      this.tickets = response;
-    });
-  }
-
-  getAllStatus(): void {
-    this.ticketStatusService.getAllTicketStatuses().subscribe((response: any) => {
-      this.status = response;
-    });
-  }
-
-  getAllPriorities(): void {
-    this.priorityService.getAllPriorities().subscribe((response: any) => {
-      this.priorities = response;
-    });
-  }
+  statusOptions = [
+    { label: 'Nouveau', value: 'nouveau' },
+    { label: 'Assigné', value: 'assigné' },
+    { label: 'En cours', value: 'en_cours' },
+    { label: 'Résolu', value: 'résolu' },
+    { label: 'Fermé', value: 'fermé' }
+  ];
+  priorityOptions = [
+    { label: 'Basse', value: 'basse' },
+    { label: 'Normale', value: 'normale' },
+    { label: 'Haute', value: 'haute' }
+  ];
   
+  ticketId : any;
+
+  constructor(private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private auth: AuthService
+    ) {
+      this.ticketTaskForm = this.fb.group({
+        subject: [''],
+        description: [''],
+        statusCodeID: [''],
+        changeStatus: [false] // Assurez-vous que cette ligne est incluse pour initialiser le contrôle de case à cocher.
+      });
+      
+  }
+username:any;
+  ngOnInit(): void {
+    this.ticketId = Number(this.route.snapshot.paramMap.get('id'));
+  this.username= this.auth.getUsername();
+
+  }
+
   onSubmit(): void {
-    if (this.taskform.valid) {
-      const formData: Task = this.taskform.value;
-      this.isLoading = true;
-      formData.CreatedBy=Number(this.authservice.getUserID());
-      this.taskService.addTask(formData).subscribe(
-        (response: Task) => {
-          console.log('Tâche créée avec succès :', response);
-          this.isLoading = false;
-          this.showSuccess();
-          this.taskform.reset(); // Déplacer la réinitialisation du formulaire ici pour éviter un reset avant le message de succès
-        },
-        (error: any) => {
-          console.error('Erreur lors de la création de la tâche :', error);
-          this.isLoading = false;
-        }
-      );
-    } else {
-      // Marquer tous les champs du formulaire comme touchés pour afficher les erreurs de validation
-      this.taskform.markAllAsTouched();
+    if (this.ticketTaskForm.valid) {
+      const taskData = this.ticketTaskForm.value;
+      taskData.ticketId = this.ticketId;
+      taskData.AssigneeID= this.auth.getUserID();
+      // Envoyer les données du formulaire au backend ou autre traitement
+      console.log(taskData);
     }
   }
-  
 
-  showSuccess(): void {
-    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Tâche créée avec succès' });
+  onCancel(): void {
+    // Handle form cancellation
   }
 }

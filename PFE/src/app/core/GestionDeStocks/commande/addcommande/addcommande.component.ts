@@ -98,23 +98,31 @@ export class AddcommandeComponent implements OnInit {
     try {
       if (this.commandeform.valid) {
         const formData = this.commandeform.value.commandes.map((commande: any) => {
-          const pieceId = Array.isArray(commande.piece_id) && commande.piece_id.length > 0 ? commande.piece_id[0] : null;
+          // Ensure pieceId and fournisseurId are not null
+          const pieceId = commande.piece_id ? commande.piece_id : null;
           const fournisseurId = commande.fournisseur_id ? commande.fournisseur_id : null;
-          console.log(pieceId)
+  
+          // Log values for debugging
+          console.log('Piece ID:', pieceId);
+          console.log('Fournisseur ID:', fournisseurId);
+  
+          // Return structured object, handling possible null values
           return {
-            
-            ...commande,
-            piece_id: pieceId.piece_id,
-            fournisseur_id: fournisseurId.fournisseur_id,
+            piece_id: pieceId ? pieceId.piece_id : null,
+            fournisseur_id: fournisseurId ? fournisseurId.fournisseur_id : null,
             order_date: new Date(),
+            requested_quantity: commande.requested_quantity, // Utilisation de la quantité demandée de la commande actuelle
             order_status: 'pending',
             commande_id: 0,
             actual_delivery_date: null
           };
         });
-console.log(formData)
+  
+        // Log formData for debugging
+        console.log('Form Data:', formData);
+  
         this.isLoading = true;
-        this.commandeservice.createCommandeEnAttente(formData).subscribe(
+        this.commandeservice.enregistrerCommande(formData).subscribe(
           (response: CommandeEnAttente[]) => {
             console.log('Commandes en attente créées avec succès :', response);
             this.commandeform.reset();
@@ -136,7 +144,8 @@ console.log(formData)
       console.error('Une erreur est survenue lors de la création des commandes en attente :', error);
     }
   }
-
+  
+  
   validateAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
@@ -147,6 +156,8 @@ console.log(formData)
       }
     });
   }
+  
+  
 
   showSuccess(): void {
     this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Commandes créées avec succès' });

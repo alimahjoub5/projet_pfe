@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Facture</title>
+    <title>Bon de Commande</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,14 +20,14 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        .invoice-details table {
+        .order-details table {
             width: 100%;
         }
-        .invoice-details table td {
+        .order-details table td {
             padding: 5px;
             border: none;
         }
-        .invoice-details table .title {
+        .order-details table .title {
             font-size: 18px;
             font-weight: bold;
         }
@@ -45,16 +45,7 @@
             border: 1px solid #000;
             text-align: left;
         }
-        .total {
-            text-align: right;
-            margin-top: 20px;
-        }
-        .total h3 {
-            margin: 0;
-            font-weight: bold;
-            font-size: 20px;
-        }
-        .fournisseur-details,
+        .supplier-details,
         .delivery-details {
             margin-top: 20px;
         }
@@ -63,13 +54,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h2>Facture</h2>
+            <h2>Bon de Commande</h2>
         </div>
-        <div class="invoice-details">
+        <div class="order-details">
             <table>
                 <tr>
-                    <td class="title">Numéro de facture:</td>
-                    <td>{{ $numero_facture }}</td>
+                    <td class="title">Numéro de commande:</td>
+                    <td>{{ $numero_commande }}</td>
                 </tr>
                 <tr>
                     <td class="title">Date:</td>
@@ -78,36 +69,29 @@
             </table>
         </div>
         <div class="items">
-            <h3>Détails de la facture:</h3>
+            <h3>Détails de la commande:</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Produit</th>
-                        <th>Prix unitaire</th>
                         <th>Quantité</th>
-                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{ $nom_piece }}</td>
-                        <td>{{ $prix_unitaire }}</td>
                         <td>{{ $quantite }}</td>
-                        <td>{{ $total }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="fournisseur-details">
+        <div class="supplier-details">
             <h3>Détails du fournisseur:</h3>
             <p>Nom du fournisseur: {{ $fournisseur }}</p>
         </div>
         <div class="delivery-details">
             <h3>Détails de la livraison:</h3>
             <p>Date de livraison prévue: {{ $expected_delivery_date }}</p>
-        </div>
-        <div class="total">
-            <h3>Total: {{ $total }}</h3>
         </div>
     </div>
 </body>

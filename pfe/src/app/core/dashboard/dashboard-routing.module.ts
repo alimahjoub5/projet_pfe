@@ -7,6 +7,7 @@ import { ChatComponent } from './chat/chat.component';
 import { ProfilComponent } from './profil/profil.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { NewPasswordComponent } from '../auth/new-password/new-password.component';
+import { CreatetasksComponent } from './task/createtasks/createtasks.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path : "chat", component: ChatComponent,canActivate : [AuthGuard]},
   {path : "profil", component: ProfilComponent,canActivate : [AuthGuard]},
   {path : "calendar", component: CalendarComponent,canActivate : [AuthGuard]},
+  { path: 'task/:id', component: CreatetasksComponent, canActivate: [AuthGuard] }
 
 ];
 

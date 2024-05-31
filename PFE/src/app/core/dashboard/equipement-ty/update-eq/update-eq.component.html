@@ -1,26 +1,35 @@
+<!-- update-equipment-form.component.html -->
+<form [formGroup]="updateForm" (ngSubmit)="updateEquipmentType()" class="equipment-form p-fluid p-grid">
+  <p-toast></p-toast>
+  
+  <h2 class="p-col-12">Mettre à jour un équipement</h2>
+  
+  <div class="form-field p-col-12 p-md-6">
+      <label for="TypeName">Prénom</label>
+      <input type="text" id="TypeName" formControlName="TypeName" pInputText>
+  </div>
 
-<p-toast></p-toast>
-<h2>Mettre à jour un equipement</h2>
-<form (ngSubmit)="updateEquipmentType()" #updateForm="ngForm">
-  <div class="form-group">
-    <label for="TypeName">Prénom</label>
-    <input type="text" class="form-control" id="TypeName" name="TypeName" [(ngModel)]="equipementtype.TypeName" required>
+  <div class="form-field p-col-12">
+      <label for="Description">Description</label>
+      <textarea id="Description" formControlName="Description" pInputTextarea rows="5"></textarea>
   </div>
-  <div class="form-group">
-    <label for="Description">Description</label>
-    <input type="text" class="form-control" id="Description" name="Description" [(ngModel)]="equipementtype.Description" required>
+
+  <div class="form-field p-col-12 p-md-6">
+      <label for="Manufacturer">Fabricant</label>
+      <input type="text" id="Manufacturer" formControlName="Manufacturer" pInputText>
   </div>
-  <div class="form-group">
-    <label for="Manufacturer">Fabricant</label>
-    <input type="text" class="form-control" id="Manufacturer" name="Manufacturer" [(ngModel)]="equipementtype.Manufacturer" required>
+
+  <div class="form-field p-col-12 p-md-6">
+      <label for="ModelNumber">Numéro de modèle</label>
+      <input type="text" id="ModelNumber" formControlName="ModelNumber" pInputText>
   </div>
-  <div class="form-group">
-    <label for="ModelNumber">Numero de model</label>
-    <input type="text" class="form-control" id="ModelNumber" name="ModelNumber" [(ngModel)]="equipementtype.ModelNumber" required>
+
+  <div class="form-field p-col-12 p-md-6">
+      <label for="SerialNumber">Numéro de série</label>
+      <input type="text" id="SerialNumber" formControlName="SerialNumber" pInputText>
   </div>
-  <div class="form-group">
-    <label for="SerialNumber">Numero de serie</label>
-    <input type="text" class="form-control" id="SerialNumber" name="SerialNumber" [(ngModel)]="equipementtype.SerialNumber" required>
+
+  <div class="form-field p-col-12">
+      <button type="submit" [disabled]="updateForm.invalid" pButton >Mettre à jour</button>
   </div>
-  <button type="submit" class="btn btn-primary">Mettre à jour</button>
 </form>

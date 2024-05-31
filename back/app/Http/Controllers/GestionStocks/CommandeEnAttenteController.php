@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use App\Mail\CommandeNotification;
 
@@ -71,6 +72,8 @@ class CommandeEnAttenteController extends Controller
     
         public function store(Request $request)
         {
+            Log::info($request);
+
             $validatedData = $request->validate([
                 'fournisseur_id' => 'required',
                 'requested_quantity' => 'required',
@@ -110,8 +113,8 @@ class CommandeEnAttenteController extends Controller
             $validatedData["facture_url"]=$pdfPath;
             // Create pending order
            $commande = CommandeEnAttente::create($validatedData);
-    
-            return response()->json(['commande' => $commande, 'pdf_path' => $pdfPath], 201);
+
+           return response()->json(['commande' => $commande, 'pdf_path' => $pdfPath], 201);
         }
 
         

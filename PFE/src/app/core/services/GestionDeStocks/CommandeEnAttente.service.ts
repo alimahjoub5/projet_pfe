@@ -13,7 +13,7 @@ export class CommandeEnAttenteService {
 
   // Enregistrer une commande en attente
   enregistrerCommande(commande: CommandeEnAttente): Observable<any> {
-    return this.http.post(this.apiUrl, commande);
+    return this.http.post(this.apiUrl+"/store", commande);
   }
  
   // Récupérer toutes les commandes en attente
@@ -29,7 +29,7 @@ export class CommandeEnAttenteService {
 
   // Créer une nouvelle commande en attente
   createCommandeEnAttente(commandeEnAttente: any[]): Observable<any[]> {
-    return this.http.post<any[]>(this.apiUrl, commandeEnAttente);
+    return this.http.post<any[]>(this.apiUrl+"/store", commandeEnAttente);
   }
 
   // Mettre à jour une commande en attente existante

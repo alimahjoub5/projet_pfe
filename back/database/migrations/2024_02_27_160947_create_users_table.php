@@ -17,17 +17,25 @@ class CreateUsersTable extends Migration
             $table->id('UserID');
             $table->string('FirstName', 50);
             $table->string('LastName', 50);
-            $table->string('Email', 100);
-            $table->string('Username', 50);
+            $table->string('Email', 100)->unique();
+            $table->string('Username', 50)->unique();
             $table->string('Password', 100);
-            $table->enum('Role', ['Admin', 'Technician', 'Manager','stockHolder']);
+            $table->enum('Role', ['Admin', 'Technician', 'Manager', 'stockHolder']);
             $table->tinyInteger('Active')->default(1);
             $table->dateTime('CreatedOn')->nullable();
-            $table->integer('CreatedBy')->nullable();
+            $table->unsignedBigInteger('CreatedBy')->nullable();
             $table->dateTime('ModifiedOn')->nullable();
-            $table->integer('ModifiedBy')->nullable();
+            $table->unsignedBigInteger('ModifiedBy')->nullable();
             $table->boolean('password_reset_requested')->default(false);
+
             $table->timestamps();
+
+            $table->foreign('CreatedBy')->references('UserID')->on('users')->onDelete('set null');
+            $table->foreign('ModifiedBy')->references('UserID')->on('users')->onDelete('set null');
+
+            $table->index(['Role']);
+            $table->index(['CreatedBy']);
+            $table->index(['ModifiedBy']);
         });
     }
 

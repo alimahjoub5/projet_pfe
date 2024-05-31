@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Piece } from '../../../models/GestionDeStocks/piece';
 import { PieceService } from '../../../services/GestionDeStocks/pieceService.service';
 import { CommonModule } from '@angular/common';
+import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-edit-piece',
@@ -12,7 +14,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule, // Importez FormsModule ici
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    DropdownModule
   ],
   templateUrl: './edit-piece.component.html',
   styleUrls: ['./edit-piece.component.scss']
@@ -22,12 +25,14 @@ export class EditPieceComponent implements OnInit {
   piece: Piece;
   pieceForm: FormGroup;
   isLoading: boolean = false;
+  fournisseurs: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private pieceService: PieceService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private fournisseurService : FournisseurService
   ) {}
 
   ngOnInit(): void {
@@ -35,9 +40,9 @@ export class EditPieceComponent implements OnInit {
       this.pieceId = +params.get('id');
       this.loadPiece(this.pieceId);
     });
-
+this.getAllFournisseurs();
     this.pieceForm = this.formBuilder.group({
-      nom_piece: ['', Validators.required],
+      nom_piece: [{value : '',disabled: true}],
       description: ['', Validators.required],
       material: ['', Validators.required],
       serial_number: ['', Validators.required],
@@ -46,19 +51,24 @@ export class EditPieceComponent implements OnInit {
       // Ajoutez d'autres champs du formulaire selon vos besoins
     });
   }
-
+  getAllFournisseurs(): void {
+    this.fournisseurService.getFournisseurs().subscribe((response: any) => {
+      this.fournisseurs = response.fournisseurs;
+    });
+  }
   loadPiece(id: number): void {
     this.pieceService.getPieceById(id).subscribe(
-      (piece: Piece) => {
+      (piece: any) => {
         this.piece = piece;
+        console.log(piece)
         // Pré-remplir le formulaire avec les données de la pièce
         this.pieceForm.patchValue({
-          nom_piece: this.piece.nom_piece,
-          description: this.piece.description,
-          material: this.piece.material,
-          serial_number: this.piece.serial_number,
-          cost: this.piece.cost,
-          fournisseur_id: this.piece.fournisseur_id
+          nom_piece: piece.nom_piece,
+          description: piece.description,
+          material: piece.material,
+          serial_number: piece.serial_number,
+          cost: piece.cost,
+          fournisseur_id: piece.fournisseurs[0].nom_fournisseur
           // Assurez-vous d'ajouter d'autres champs ici si nécessaire
         });
       },
@@ -70,7 +80,8 @@ export class EditPieceComponent implements OnInit {
 
   onSubmit(): void {
     if (this.pieceForm.valid) {
-      const formData = this.pieceForm.value;
+      var formData = this.pieceForm.value;
+      console.log(formData)
       this.isLoading = true;
       this.pieceService.updatePiece(this.pieceId, formData).subscribe(
         () => {

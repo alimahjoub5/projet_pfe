@@ -72,7 +72,7 @@ class PieceController extends Controller
     // Méthode pour afficher une seule pièce
     public function show($id)
     {
-        $piece = Piece::findOrFail($id);
+        $piece = Piece::with('fournisseurs')->findOrFail($id);   
         return response()->json($piece);
     }
 
@@ -81,7 +81,6 @@ class PieceController extends Controller
     {
         // Valider les données du formulaire
         $validator = Validator::make($request->all(), [
-            'nom_piece' => 'required|string',
             'description' => 'nullable|string',
             'material' => 'nullable|string',
             'serial_number' => 'nullable|string',
@@ -99,7 +98,6 @@ class PieceController extends Controller
         $piece = Piece::findOrFail($id);
     
         // Mettre à jour les champs de la pièce
-        $piece->nom_piece = $request->nom_piece;
         $piece->description = $request->description;
         $piece->material = $request->material;
         $piece->serial_number = $request->serial_number;

@@ -4,7 +4,7 @@
     <form [formGroup]="pieceForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="nom_piece">Nom de la pièce</label>
-        <input type="text" formControlName="nom_piece" class="form-control">
+        <input type="text" [disabled]="true" formControlName="nom_piece" class="form-control">
       </div>
       <div class="form-group">
         <label for="description">Description</label>
@@ -22,9 +22,9 @@
         <label for="cost">Coût</label>
         <input type="number" formControlName="cost" class="form-control">
       </div>
-      <div class="form-group">
-        <label for="fournisseur_id">Nom du fournisseur</label>
-        <input type="number" formControlName="fournisseur_id" class="form-control">
+      <div class="form-group" >
+        <label for="fournisseurSelect">Sélectionner un fournisseur :</label>
+        <p-dropdown id="fournisseurSelect" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur" class="w-full"></p-dropdown>
       </div>
       <!-- Ajoutez d'autres champs du formulaire ici -->
   

@@ -7,7 +7,7 @@
 
         <div class="p-field" [ngClass]="{'p-error': commande.get('piece_id').invalid && (commande.get('piece_id').dirty || commande.get('piece_id').touched)}">
           <label for="pieceSelect-{{i}}">Sélectionner les pièces :</label>
-          <p-multiSelect id="pieceSelect-{{i}}" formControlName="piece_id" [options]="pieces" optionLabel="nom_piece" class="w-full"></p-multiSelect>
+          <p-dropdown id="pieceSelect-{{i}}" formControlName="piece_id" [options]="pieces" optionLabel="nom_piece" class="w-full" [ngModel]="commande.get('piece_id').value"></p-dropdown>
           <div *ngIf="commande.get('piece_id').invalid && (commande.get('piece_id').dirty || commande.get('piece_id').touched)" class="p-error">Sélectionner une pièce est obligatoire</div>
         </div>
 
@@ -19,7 +19,7 @@
 
         <div class="p-field" [ngClass]="{'p-error': commande.get('fournisseur_id').invalid && (commande.get('fournisseur_id').dirty || commande.get('fournisseur_id').touched)}">
           <label for="fournisseurSelect-{{i}}">Sélectionner un fournisseur :</label>
-          <p-dropdown id="fournisseurSelect-{{i}}" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur" class="w-full"></p-dropdown>
+          <p-dropdown id="fournisseurSelect-{{i}}" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur" class="w-full" [ngModel]="commande.get('fournisseur_id').value"></p-dropdown>
           <div *ngIf="commande.get('fournisseur_id').invalid && (commande.get('fournisseur_id').dirty || commande.get('fournisseur_id').touched)" class="p-error">Sélectionner un fournisseur est obligatoire</div>
         </div>
 

@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { PieceService } from '../../../services/GestionDeStocks/pieceService.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-stocks',
@@ -17,6 +19,7 @@ import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fourni
     CommonModule,
     FormsModule,
     DropdownModule,
+    ToastModule,
     ReactiveFormsModule,
     InputTextModule,
     InputNumberModule,
@@ -32,7 +35,7 @@ export class PieceFormComponent implements OnInit {
 fournisseurs: any;
 
   constructor(private fb: FormBuilder, private pieceService: PieceService, 
-    private fournisseurService : FournisseurService) { }
+    private fournisseurService : FournisseurService, private messageservice : MessageService) { }
 
   ngOnInit(): void {
     this.getAllFournisseurs();
@@ -70,10 +73,11 @@ fournisseurs: any;
     this.pieceService.createPiece(formData).subscribe(
       (response) => {
         console.log('Piece créée avec succès :', response);
+        this.messageservice.add({severity: 'success', summary: 'Succès', detail: 'Pièce créée avec succès'});
         this.pieceForm.reset();
       },
       (error) => {
-        console.error('Erreur lors de la création de la pièce :', error);
+        this.messageservice.add({severity: 'error', summary: 'Erreur', detail: error.message});
       }
     );
   }

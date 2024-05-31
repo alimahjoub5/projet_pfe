@@ -61,7 +61,7 @@ use App\Http\Controllers\GestionStocks\CommandeEnAttenteController;
 
 Route::get('/commandes', [CommandeEnAttenteController::class, 'index']);
 Route::get('/commandes/{id}', [CommandeEnAttenteController::class, 'show']);
-Route::post('/commandes', [CommandeEnAttenteController::class, 'store']);
+Route::post('/commandes/store', [CommandeEnAttenteController::class, 'store']);
 Route::put('/commandes/{id}', [CommandeEnAttenteController::class, 'update']);
 Route::delete('/commandes/{id}', [CommandeEnAttenteController::class, 'destroy']);
 
