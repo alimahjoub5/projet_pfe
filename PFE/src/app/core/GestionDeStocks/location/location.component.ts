@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
 import { LocationService } from '../../services/GestionDeStocks/location.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router'; // Modifier RouterModule en Router
 import { Location } from '../../models/GestionDeStocks/Location';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -22,25 +22,25 @@ import { ToolbarModule } from 'primeng/toolbar';
   selector: 'app-location',
   standalone: true,
   imports: [
-  TableModule,
-  CommonModule,
-  ButtonModule,
-  InputTextModule,
-  RouterModule,
-  TableModule,
-  FileUploadModule,
-  FormsModule,
-  ButtonModule,
-  RippleModule,
-  ToastModule,
-  ToolbarModule,
-  RatingModule,
-  InputTextModule,
-  InputTextareaModule,
-  DropdownModule,
-  RadioButtonModule,
-  InputNumberModule,
-  DialogModule,RouterModule
+    TableModule,
+    CommonModule,
+    ButtonModule,
+    InputTextModule,
+    RouterModule,
+    TableModule,
+    FileUploadModule,
+    FormsModule,
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+    ToolbarModule,
+    RatingModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule,
+    DialogModule,RouterModule
   ],
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss']

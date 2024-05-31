@@ -48,14 +48,8 @@
                 </td>
         
                 <td>
-                    <button *ngIf="!ticket.isScheduled" pButton type="button" icon="pi pi-calendar" label="Planifier" (click)="openSchedulePopup(ticket)"></button>
-                    <a *ngIf="ticket.isScheduled" [routerLink]="['/ticket-details', ticket.TicketID]" class="view" title="View" data-toggle="tooltip">
-                        <i class="material-icons">&#xE417;</i>
-                    </a>
-                    <a *ngIf="ticket.isScheduled" [routerLink]="['/updatetickets', ticket.TicketID]" class="edit" title="Edit" data-toggle="tooltip">
-                        <i class="material-icons">&#xE254;</i>
-                    </a>
-                    <a *ngIf="ticket.isScheduled" (click)="confirmDelete(ticket)" class="delete" title="Supprimer" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                    <button *ngIf="!ticket.isScheduled" pButton type="button" icon="pi pi-pencil" label="Modifier Etat" (click)="openSchedulePopup(ticket)" class="p-button p-button-success"></button>
+                    
                 </td>
             </tr>
         </ng-template>
@@ -70,28 +64,24 @@
 </div>
 
 <!-- Popup de planification -->
-<p-dialog header="Planification d'une intervention" [(visible)]="displayScheduleDialog" [modal]="true" [responsive]="true" [style]="{width: '30vw'}">
+<!-- Popup de planification -->
+<p-dialog header="Modification de l'état" [(visible)]="displayScheduleDialog" [modal]="true" [responsive]="true" [style]="{width: '30vw'}">
     <div class="p-fluid">
-        <div class="p-field">
-            <label for="scheduledDate">Date de l'intervention</label>
-            <p-calendar id="scheduledDate" [(ngModel)]="selectedTicket.scheduledDate" dateFormat="dd/mm/yy" showIcon="true" [showTime]="false"></p-calendar>
-        </div>
-        <div class="p-field" *ngIf="showTime">
-            <label for="scheduledTime">Heure de l'intervention</label>
-            <p-calendar id="scheduledTime" [(ngModel)]="selectedTicket.scheduledTime" showIcon="true" [showTime]="true" [timeOnly]="true"></p-calendar>
-        </div>
-        <div class="p-field">
-            <label>Choisir l'heure</label>
-            <p-toggleButton [(ngModel)]="showTime" onLabel="Oui" offLabel="Non"></p-toggleButton>
-        </div>
+        <!-- Formulaire de modification d'état -->
+        <form (ngSubmit)="updateTicketState(selectedTicket)" class="p-fluid">
+            <div class="p-field">
+                <label for="newState">Nouvel état :</label>
+                <input type="text" id="newState" [(ngModel)]="selectedTicket.newState" class="p-inputtext">
+            </div>
+            <!-- Autres champs de modification d'état si nécessaire -->
+
+            <!-- Boutons de soumission et d'annulation du formulaire -->
+            <p-footer>
+                <p-button label="Modifier" icon="pi pi-check" type="submit" class="modifier-button separated-button"></p-button>
+                <p-button label="Annuler" icon="pi pi-times" (click)="displayScheduleDialog=false" class="annuler-button ui-button-secondary separated-button"></p-button>
+            </p-footer>
+        </form>
     </div>
-   
-    <p-footer>
-        <p-button label="Planifier" icon="pi pi-check" (click)="scheduleTicket()" class="planifier-button separated-button"></p-button>
-        <p-button label="Annuler" icon="pi pi-times" (click)="displayScheduleDialog=false" class="annuler-button ui-button-secondary separated-button"></p-button>
-    </p-footer>
-    
-    
 </p-dialog>
 
 

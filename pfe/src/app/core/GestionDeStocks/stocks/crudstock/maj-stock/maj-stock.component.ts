@@ -66,6 +66,11 @@ export class MajStockComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
+    this.getStockDetails();
+    this.getAllEquipements();
+    this.getAllPieces();
+    
     this.stockForm = this.fb.group({
       piece_id: ['', Validators.required],
       equipment_id: ['', Validators.required],
@@ -74,9 +79,7 @@ export class MajStockComponent implements OnInit {
       local: ['', Validators.required]
     });
 
-    this.getStockDetails();
-    this.getAllEquipements();
-    this.getAllPieces();
+    
   }
 
   getStockDetails(): void {

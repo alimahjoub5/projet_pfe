@@ -1,6 +1,7 @@
 <!-- piece-form.component.html -->
 <form [formGroup]="fournisseurform" (ngSubmit)="onSubmit()">
     <div class="p-fluid">
+        <h2> Ajouter un fournisseur</h2>
         <div class="p-field">
             <label for="nom_fournisseur">Nom du fournisseur</label>
             <input type="text" id="nom_fournisseur" formControlName="nom_fournisseur" pInputText />

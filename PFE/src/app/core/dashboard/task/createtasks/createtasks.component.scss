@@ -48,4 +48,119 @@
       }
     }
   }
+  @import 'primeng/resources/primeng.min.css';
+// styles.scss
+.p-field {
+    margin-bottom: 20px;
+  }
+  
+  .p-field label {
+    font-weight: bold;
+    display: block;
+  }
+  
+  .p-inputtext, .p-dropdown {
+    width: 100%;
+  }
+  
+  .p-button {
+    margin-top: 20px;
+    width: 120px;
+    justify-content: center;
+  }
+
+   
+
+    .p-button-primary {
+        /* Ajoutez ici les styles spécifiques pour le bouton primaire */
+        background-color: #007bff; /* Changement de la couleur de fond */
+        color: #ffffff; /* Changement de la couleur du texte */
+        border: 1px solid #007bff; /* Changement de la couleur de la bordure */
+        border-radius: 5px; /* Ajout d'arrondi aux coins */
+        padding: 10px 20px; /* Ajout de rembourrage pour un aspect plus spacieux */
+        cursor: pointer; /* Curseur indiquant que le bouton est cliquable */
+    }
+
+
+    .selected-values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .selected-value-item {
+      display: flex;
+      align-items: center;
+    }
+    
+    .label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    
+    .value {
+      flex: 1;
+    }
+    
+
+
+    .dialog-header {
+      background-color: #007ad9; /* Couleur de fond de l'en-tête */
+      color: #fff; /* Couleur du texte de l'en-tête */
+  }
+  .dialog-footer {
+    display: flex;
+    justify-content: space-between;
+  
+    .p-col {
+      flex: 1;
+      margin-right: 10px; // Ajoutez un espace entre les boutons si nécessaire
+    }
+  
+    // Appliquer des styles spécifiques aux boutons si nécessaire
+    .p-button {
+      width: 100%;
+    }
+    .p-field {
+  margin-bottom: 1rem;
+}
+
+.p-fluid {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-fluid {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.ui-autocomplete {
+  width: 100%;
+}
+
+  }
+  
   

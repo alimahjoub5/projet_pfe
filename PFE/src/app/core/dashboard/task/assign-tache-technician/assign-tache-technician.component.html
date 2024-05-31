@@ -1,0 +1,13 @@
+
+<div class="p-col-12">
+    <label for="group">Technicien:</label>
+    <p-autoComplete 
+  [(ngModel)]="selectedTechnician" 
+  [suggestions]="filteredTechnicians" 
+  (completeMethod)="filterTechnicians($event)"
+  (onSelect)="onTechnicianSelect($event)"
+  field="Username" 
+  [dropdown]="true"
+  placeholder="Select a technician">
+</p-autoComplete>
+  </div>

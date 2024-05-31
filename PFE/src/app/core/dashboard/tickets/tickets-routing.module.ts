@@ -8,6 +8,7 @@ import { AuthGuard } from 'src/app/auth.guard';
 import { UpdateticketsComponent } from './updatetickets/updatetickets.component';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { PlannifierComponent } from './plannifier/plannifier.component';
+import {  ModifieretatComponent } from './modifier-etat/modifier-etat.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: "planifie",
     component: PlannifierComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: "ModifierEtat",
+    component: ModifieretatComponent,
     canActivate : [AuthGuard]
   },
   /*{

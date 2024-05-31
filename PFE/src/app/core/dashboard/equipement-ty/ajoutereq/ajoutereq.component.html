@@ -3,7 +3,7 @@
     <p-toast></p-toast>
     
     <div class="form-field p-col-12 p-md-6">
-        <label for="TypeName">Nom du Equipement :</label>
+        <label for="TypeName">Nom de l'Equipement :</label>
         <input type="text" id="TypeName" formControlName="TypeName" pInputText>
     </div>
 
@@ -37,15 +37,7 @@
         <input type="date" id="WarrantyExpiration" formControlName="WarrantyExpiration" pInputText>
     </div>
 
-    <div class="form-field p-col-12 p-md-6">
-        <label for="MaintenanceInterval">Intervalle de Maintenance (en mois) :</label>
-        <input type="number" id="MaintenanceInterval" formControlName="MaintenanceInterval" pInputText>
-    </div>
-
-    <div class="form-field p-col-12 p-md-6">
-        <label for="LastMaintenanceDate">Date de Dernière Maintenance :</label>
-        <input type="date" id="LastMaintenanceDate" formControlName="LastMaintenanceDate" pInputText>
-    </div>
+  
 
 <div class="form-field p-col-12">
     <button type="submit" [disabled]="equipmentForm.invalid" pButton icon="pi pi-plus">Ajouter Équipement</button>

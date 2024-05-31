@@ -60,6 +60,10 @@ export class AppMenuComponent implements OnInit {
           { label: 'Liste des interventions', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
           { label: "Suivre l'état de l'intervention", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
           { label: "L'historique des interventions", icon: 'pi pi-fw pi-file-o', routerLink: ['/archive'] },
+          { label: "Planifier des interventions", icon: 'pi pi-fw pi-archive', routerLink: ['/planifie'] },
+          { label: "Modifier l'\état de l'intervention", icon: 'pi pi-fw pi-archive', routerLink: ['/ModifierEtat'] },
+
+
         ]
         },
         {
@@ -115,7 +119,9 @@ export class AppMenuComponent implements OnInit {
           { label: 'Créer une intervention', icon: 'pi pi-fw pi-plus', routerLink: ['/create'] },
           { label: 'Liste des interventions', icon: 'pi pi-fw pi-list', routerLink: ['/list'] },
           { label: "Suivre l'état de l'intervention", icon: 'pi pi-fw pi-info', routerLink: ['/status'] },
-          { label: "L'historique des interventions", icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] }
+          { label: "L'historique des interventions", icon: 'pi pi-fw pi-archive', routerLink: ['/archive'] },
+          { label: "Modifier l'\état de l'intervention", icon: 'pi pi-fw pi-archive', routerLink: ['/ModifierEtat'] },
+
         ]
       },
       {

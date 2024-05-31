@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { StockPiece } from '../../models/GestionDeStocks/StockPiece';
 import { StockService } from '../../services/GestionDeStocks/stock.service';
-import { TableModule } from 'primeng/table';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule ,Route} from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -27,17 +27,20 @@ import { ToolbarModule } from 'primeng/toolbar';
     ButtonModule,
     InputTextModule,
     RouterModule,
+    TableModule,
     FileUploadModule,
     FormsModule,
+    ButtonModule,
     RippleModule,
     ToastModule,
     ToolbarModule,
     RatingModule,
+    InputTextModule,
     InputTextareaModule,
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule,
+    DialogModule,RouterModule
   ],
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.scss'

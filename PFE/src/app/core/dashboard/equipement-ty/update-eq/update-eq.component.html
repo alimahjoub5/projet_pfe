@@ -3,7 +3,7 @@
 <h2>Mettre à jour un equipement</h2>
 <form (ngSubmit)="updateEquipmentType()" #updateForm="ngForm">
   <div class="form-group">
-    <label for="TypeName">Prénom</label>
+    <label for="TypeName">Nom de l'équipement</label>
     <input type="text" class="form-control" id="TypeName" name="TypeName" [(ngModel)]="equipementtype.TypeName" required>
   </div>
   <div class="form-group">

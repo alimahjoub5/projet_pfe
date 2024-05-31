@@ -56,13 +56,13 @@
           <p-tableCheckbox [value]="location"></p-tableCheckbox>
       </td>
         <td>{{ location.name }}</td>
-       
         <td>
           <!-- Bouton Modifier -->
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatelocation', location.location_id]" routerLinkActive="router-link-active"></button>
           <!-- Bouton Supprimer -->
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"(click)="confirmDeleteLocations(location)"></button>
-        </td>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeleteLocations(location)"></button>
+      </td>
+        
       </tr>
     </ng-template>
   </p-table>

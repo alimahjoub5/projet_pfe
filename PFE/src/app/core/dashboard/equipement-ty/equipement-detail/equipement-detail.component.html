@@ -5,10 +5,10 @@
       
     
       <button (click)="printDocument()" class="btn-print">Imprimer</button>
-    <h2>Equipement Details</h2>
+    <h2>Les détails d'un équipement</h2>
   
     <div class="detail-row">
-      <label> Name: </label>
+      <label> Nom de l'équipement: </label>
       <span>{{ equipment.TypeName }}</span>
     </div>
   
@@ -43,12 +43,12 @@
     </div>
   
     <div class="detail-row">
-      <label>Interval de maintenance</label>
-      <span>{{ equipment.MaintenanceInterval }}</span>
+      <label>Interval de :</label>
+      <span>{{ equipment.MaintenanceInterval }} mois</span>
     </div>
   
     <div class="detail-row">
-      <label>Date de derniere maintenance </label>
+      <label>Date de derniere maintenance :</label>
       <span>{{ equipment.LastMaintenanceDate }}</span>
     </div>
   
