@@ -25,6 +25,9 @@ class TicketController extends Controller
                 'ModifiedOn' => $ticket->ModifiedOn,
                 'StatusCodeID' => $ticket->StatusCodeID,
                 'AssigneeID' => $ticket->AssigneeID,
+                'datepriseencharge' => $ticket->datepriseencharge,
+                'datedereparage' => $ticket->datedereparage,
+                'datedevalidation' => $ticket->datedevalidation,
                 'Subject' => $ticket->Subject,
                 'SocieteID' => $ticket->SocieteID,
                 'Description' => $ticket->Description,
@@ -99,14 +102,20 @@ class TicketController extends Controller
     }
 
 
-    public function updateTicket(Request $request, $id){ // Ajouter $id en paramètre
+    public function updateTicket(Request $request, $id)
+    {
         $ticket = Ticket::find($id);
+    
         if(is_null($ticket)){
             return response()->json(['message'=> 'Ticket not found'], 404);
         }
-        $ticket->update($request->all()); // Correction ici pour utiliser la méthode update() sur $ticket
+    
+        $ticket->fill($request->all()); // Use fill() method to update only fillable fields
+        $ticket->save(); // Save the changes
+    
         return response()->json($ticket, 200);
     }
+    
 
     public function deleteTicket($id){ // Ajouter $id en paramètre
         $ticket = Ticket::find($id);
@@ -213,6 +222,41 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
             $date->update($request->all());
         
         }
+
+        //------------------------------------------------------------------------------
+
+        // Update datepriseencharge
+        public function updateDatePriseEnCharge(Request $request, $id)
+        {
+            $request->validate([
+                'datepriseencharge' => 'required|date',
+            ]);
+        
+            $ticket = Ticket::findOrFail($id);
+            $ticket->datepriseencharge = $request->datepriseencharge;
+            $ticket->StatusCodeID = 'en_cours'; // Correction ici
+        
+            $ticket->save();
+        
+            return response()->json(['message' => 'Date prise en charge updated successfully'], 200);
+        }
+        
+
+    // Update datedereparage and datedevalidation
+    public function updateDates(Request $request, $id)
+    {
+        $request->validate([
+            'datedereparage' => 'required|date',
+            'datedevalidation' => 'required|date',
+        ]);
+
+        $ticket = Ticket::findOrFail($id);
+        $ticket->datedereparage = $request->datedereparage;
+        $ticket->datedevalidation = $request->datedevalidation;
+        $ticket->save();
+
+        return response()->json(['message' => 'Dates updated successfully'], 200);
+    }
 
 
 

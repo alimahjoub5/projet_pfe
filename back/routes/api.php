@@ -132,6 +132,9 @@ Route::put('updateTicket/{id}', [TicketController::class, 'updateTicket']);
 Route::delete('deleteTicket/{id}', [TicketController::class, 'deleteTicket']);
 Route::get('ticket/{ticketID}/name', [TicketController::class, 'getTicketName']);
 Route::post('tickets/{ticketId}/assign-to-group', [TicketController::class, 'assignTicketToGroup']);
+Route::put('/tickets/{id}/datepriseencharge', [TicketController::class, 'updateDatePriseEnCharge']);
+Route::put('/tickets/{id}/dates', [TicketController::class, 'updateDates']);
+
 
 // user controller routes
 

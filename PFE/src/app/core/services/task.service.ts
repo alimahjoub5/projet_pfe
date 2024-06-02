@@ -23,7 +23,7 @@ export class TaskService {
     return this.http.get<Task>(`${this.apiUrl}/ticket-tasks/${id}`, headers);
   }
 
-  addTask(task: Task): Observable<Task> {
+  addTask(task: any): Observable<any> {
     const headers = this.authService.includeAuthToken();
     return this.http.post<Task>(`${this.apiUrl}/ticket-tasks`, task, headers);
   }

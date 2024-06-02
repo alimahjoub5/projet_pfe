@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TicketTask;
+use App\Models\Ticket;
 
 class TicketTaskController extends Controller
 {
@@ -27,13 +28,22 @@ class TicketTaskController extends Controller
         $request->validate([
             'TicketID' => 'required|exists:tickets,TicketID',
             'CreatedBy' => 'required|exists:users,UserID',
-            'StatusCodeID' => 'required|exists:ticket_status,StatusCodeID',
-            'PriorityID' => 'required|exists:priorities,PriorityID',
-            // Ajoutez d'autres règles de validation au besoin
+            // Add other validation rules as needed
         ]);
-
+    
+        // Create the ticket task
         $task = TicketTask::create($request->all());
-        return response()->json($task, 201);
+    
+        // Find the ticket by its ID
+        $ticket = Ticket::findOrFail($request->TicketID);
+    if ($request->StatusCodeID!=null){
+        $ticket->update([
+            'StatusCodeID' => $request->StatusCodeID,
+            'datedereparage' => now() // Utilisation de la fonction now() de Laravel pour obtenir la date et l'heure actuelles
+        ]);
+    }
+        // Return the created task along with the updated ticket
+        return response()->json(['task' => $task, 'ticket' => $ticket], 201);
     }
 
     public function update(Request $request, $id)

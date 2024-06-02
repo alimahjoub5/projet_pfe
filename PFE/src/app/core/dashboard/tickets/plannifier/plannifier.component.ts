@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MessageService } from "primeng/api";
 import { CalendarModule } from "primeng/calendar";
 import { DialogModule } from "primeng/dialog";
 import { DropdownModule } from "primeng/dropdown";
@@ -39,8 +40,9 @@ export class PlannifierComponent {
   selectedTicket: any = {};
   technicians: any[] = []; // Charger les techniciens disponibles
   showTime: boolean = false; // Ajout de showTime
+  confirmMode: boolean;
 
-  constructor(private ticketService: TicketService) { }
+  constructor(private ticketService: TicketService , private messageService : MessageService) { }
 
   ngOnInit() {
     this.loadTickets();
@@ -49,10 +51,15 @@ export class PlannifierComponent {
 
   loadTickets() {
     this.ticketService.getAllTickets().subscribe(data => {
-      this.tickets = data;
+      // Filtrer les tickets dont le champ datepriseencharge est null
+      this.tickets = data.filter(ticket => ticket.datepriseencharge === null);
       this.isLoading = false;
     });
   }
+  
+  
+  
+  
 
   loadTechnicians() {
     // Implémentez la méthode pour charger les techniciens depuis votre service
@@ -65,15 +72,38 @@ export class PlannifierComponent {
 
   openSchedulePopup(ticket) {
     this.selectedTicket = ticket;
-    this.selectedTicket.scheduledDate = new Date(); // Initialiser avec la date actuelle ou une valeur spécifique
+    this.selectedTicket.scheduledDate = new Date();
+    this.selectedTicket.isScheduled = true; // Assurez-vous de définir isScheduled sur true lors de l'ouverture du popup de planification
     this.displayScheduleDialog = true;
+    this.confirmMode = false; // Ajouter cela si nécessaire
   }
+  
 
   scheduleTicket() {
-    this.selectedTicket.isScheduled = true;
-    // Logique de planification à ajouter ici
-    this.displayScheduleDialog = false;
+    if (this.selectedTicket.isScheduled) {
+      // Appel du service pour mettre à jour la date de prise en charge
+      this.ticketService.updateDatePriseEnCharge(this.selectedTicket.TicketID, this.selectedTicket.scheduledDate.toISOString())
+        .subscribe(
+          () => {
+            // Si la mise à jour réussit
+            this.selectedTicket.isScheduled = true;
+            // Autres opérations de planification, le cas échéant
+            this.displayScheduleDialog = false;
+            this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Ticket planifié avec succès.' });
+            this.loadTickets();
+          },
+          error => {
+            // En cas d'échec de la mise à jour
+            console.error('Erreur lors de la planification du ticket :', error);
+            this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Échec de la planification du ticket. Veuillez réessayer plus tard.' });
+          }
+        );
+    } else {
+      console.error('Échec de la planification. Le ticket n\'est pas marqué comme planifié.');
+      this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Échec de la planification. Le ticket n\'est pas marqué comme planifié.' });
+    }
   }
+  
 
   confirmDelete(ticket) {
     // Implémentation de la confirmation de suppression

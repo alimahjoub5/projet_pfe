@@ -44,6 +44,18 @@ export class TicketService {
     return this.http.get<string>(`${this.apiUrl}/ticket/${TicketID}/name`, headers);
   }
 
+  updateDatePriseEnCharge(ticketId: number, datepriseencharge: string): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    const formattedDate = datepriseencharge.toString().slice(0, 19).replace('T', ' ');
+    // Utilisez la clé correcte pour envoyer la date formatée dans la demande
+    return this.http.put(`${this.apiUrl}/tickets/${ticketId}/datepriseencharge`, { datepriseencharge: formattedDate }, headers );
+  }
+
+  updateDates(ticketId: number, datedereparage: string, datedevalidation: string): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.put(`${this.apiUrl}/tickets/${ticketId}/dates`, { datedereparage, datedevalidation }, headers);
+  }
+
 
 
 

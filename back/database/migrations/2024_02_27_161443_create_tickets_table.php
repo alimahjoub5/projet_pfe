@@ -30,8 +30,11 @@ class CreateTicketsTable extends Migration
             $table->dateTime('ClosedDate')->nullable();
             $table->enum('StatusValidation', ['true', 'false'])->default('false');
             $table->enum('TicketType', ['curative', 'préventive'])->nullable();
-            $table->dateTime('ModifiedOn')->nullable();
+            $table->dateTime('datepriseencharge')->nullable(); // Date de clôture
+            $table->dateTime('datedereparage')->nullable(); // Date de création
+            $table->dateTime('datedevalidation')->nullable(); // Date de modification
 
+            $table->dateTime('ModifiedOn')->nullable();
             $table->unsignedBigInteger('CreatedBy');
             $table->dateTime('CreatedOn')->nullable();
             $table->unsignedBigInteger('ModifiedBy')->nullable();

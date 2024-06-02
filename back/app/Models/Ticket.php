@@ -16,7 +16,7 @@ class Ticket extends Model
 
     protected $table = 'tickets';
     protected $primaryKey = 'TicketID';
-    public $timestamps = false; // Si vous utilisez les colonnes `created_at` et `updated_at` dans la base de données, changez cette valeur à `true`.
+    public $timestamps = true; // Use Laravel's timestamps feature
 
     protected $fillable = [
         'CreatedBy',
@@ -34,6 +34,10 @@ class Ticket extends Model
         'StartDate',
         'TicketType',
         'ClosedDate',
+        'StatusValidation',
+        'datepriseencharge',
+        'datedereparage',
+        'datedevalidation'
     ];
 
     protected $dates = [
@@ -41,14 +45,15 @@ class Ticket extends Model
         'ModifiedOn',
         'StartDate',
         'ClosedDate',
+        'datepriseencharge',
+        'datedereparage',
+        'datedevalidation'
     ];
 
- 
-    // Relations éventuelles à définir ici
-    // Relation avec le groupe
+    // Relationships
     public function technicianGroup()
     {
-        return $this->belongsTo(TechnicianGroup::class, 'GroupID', 'GroupID'); // Assurez-vous que 'GroupID' correspond à la clé primaire de votre table de groupes
+        return $this->belongsTo(TechnicianGroup::class, 'GroupID', 'GroupID'); // Ensure 'GroupID' matches the primary key of the technician groups table
     }
 
     public function priority()
@@ -61,13 +66,18 @@ class Ticket extends Model
         return $this->belongsTo(EquipmentType::class, 'EquipmentTypeID');
     }
 
-    public function users()
+    public function assignee()
     {
-        return $this->belongsTo(User::class, 'AssigneeID'); // Si un ticket est associé à un seul utilisateur
+        return $this->belongsTo(User::class, 'AssigneeID'); // Single user assignment
     }
 
     public function societe()
     {
-        return $this->belongsTo(Societe::class, 'SocieteID'); // Si un ticket est associé à une seule société
+        return $this->belongsTo(Societe::class, 'SocieteID'); // Single societe assignment
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'CreatedBy'); // User who created the ticket
     }
 }

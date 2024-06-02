@@ -1,35 +1,35 @@
 <form [formGroup]="ticketTaskForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="subject">Identifiant Intervention : {{ticketId}}</label>
-    <label for="subject">Technicien : {{username}}</label>
+    <label for="technician">Technicien : {{username}}</label>
   </div>
   <div class="form-group">
-    <label for="subject">Sujet</label>
-    <input id="subject" formControlName="subject" type="text" pInputText />
+    <label for="Subject">Sujet</label>
+    <input id="Subject" formControlName="Subject" type="text" pInputText />
   </div>
 
   <div class="form-group">
-    <label for="description">Description</label>
-    <textarea id="description" formControlName="description" pInputTextarea></textarea>
+    <label for="Description">Description</label>
+    <textarea id="Description" formControlName="Description" pInputTextarea></textarea>
   </div>
 
-  <!-- Ajout de la case à cocher pour le changement de statut -->
+  <div class="form-group" *ngIf="!ticketTaskForm.get('changeStatus').value">
+    <label for="StartDate">Date et heure de début</label>
+    <p-calendar id="StartDate" formControlName="StartDate" showTime="true" hourFormat="24"></p-calendar>
+  </div>
+  
+  <div class="form-group" *ngIf="!ticketTaskForm.get('changeStatus').value">
+    <label for="EndDate">Date et heure de fin</label>
+    <p-calendar id="EndDate" formControlName="EndDate" showTime="true" hourFormat="24"></p-calendar>
+  </div>
+  
+  
   <div class="form-group">
     <label>
-      <input type="checkbox" formControlName="changeStatus"> Changer le statut
+      <input type="checkbox" formControlName="changeStatus"> Intervention terminée
     </label>
   </div>
-
-  <!-- Affichage conditionnel du dropdown pour le statut -->
-  <div class="form-group" *ngIf="ticketTaskForm.get('changeStatus').value">
-    <label for="statusCodeID">Nouveau Statut</label>
-    <p-dropdown
-      [options]="statusOptions"
-      formControlName="statusCodeID"
-      optionLabel="label"
-      placeholder="Sélectionner un nouveau statut"
-    ></p-dropdown>
-  </div>
+  
 
   <div class="form-buttons">
     <button pButton type="submit" label="Enregistrer"></button>

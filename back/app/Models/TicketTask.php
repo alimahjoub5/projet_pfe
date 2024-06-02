@@ -19,15 +19,12 @@ class TicketTask extends Model
         'CreatedOn',
         'ModifiedBy',
         'ModifiedOn',
-        'StatusCodeID',
         'AssigneeID',
         'Subject',
         'Description',
-        'PriorityID',
         'DueDate',
         'StartDate',
         'EndDate',
-        'CompletedDate',
     ];
 
     protected $dates = [
