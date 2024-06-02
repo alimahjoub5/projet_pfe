@@ -38,7 +38,7 @@ export class AjouterComponent implements OnInit {
     // Réinitialiser le formulaire
     this.groupForm.reset();
 
-    this.router.navigate(['/userlist']);
+    this.router.navigate(['/groupelist']);
 }
    ngOnInit(): void {
     this.groupForm = this.fb.group({
