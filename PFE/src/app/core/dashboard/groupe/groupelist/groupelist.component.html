@@ -1,6 +1,6 @@
 <ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<!-- Your other content goes here -->
 <div class="grid">
   <div class="col-12">
     <div class="card px-6 py-6">
@@ -17,35 +17,36 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="groupes" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <p-table #dt [value]="groupes" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['LastName','Description']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
           <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <h5 class="m-0">Gérer les groupes</h5>
           </div>
         </ng-template>
         <ng-template pTemplate="header">
-                
-                    <tr>
-                        <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
-                        <th>Action</th>
-                    </tr>
-                </ng-template>
+         
+
+
+      <tr>
+        <th pSortableColumn="GroupName">Nom <p-sortIcon field="GroupName"></p-sortIcon></th>
+        <th pSortableColumn="Description">Description <p-sortIcon field="Description"></p-sortIcon></th>
+        
+        <th>Actions</th>
+      </tr>
+    </ng-template>
                 <ng-template pTemplate="body" let-groupe>
                     <tr>
                         <td>{{ groupe.GroupName }}</td>
                         <td>{{ groupe.Description }}</td>
                         <td>
-                            
-                           
-                                <div class="flex">
-                                    <a [routerLink]="['/groupe-detail', groupe.GroupID]" class="view" title="View" data-toggle="tooltip">
-                                        <i class="material-icons">&#xE417;</i>
-                                      </a>
-                                      <a [routerLink]="['/updategrp', groupe.GroupID]"  class="edit" title="Edit" data-toggle="tooltip">
-                                        <i class="material-icons">&#xE254;</i>
-                                      </a>                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteGroupe(groupe.GroupID)"></button>
-                                </div>
+                         
+                            <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/groupe-detail', groupe.GroupID]" routerLinkActive="router-link-active"></button>
+                           <div>
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updategrp', groupe.GroupID]" routerLinkActive="router-link-active"></button>
+                            </div>
+                            <div>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteGroupe(groupe.GroupID)"></button>
+                               </div>
                             </td>
                       
                     </tr>
@@ -55,7 +56,7 @@
                     <tr>
                         <td colspan="3">Aucun groupe trouvé.</td>
                     </tr>
-                </ng-template>
-            </p-table>
-        </div>
+                  </ng-template>
+                </p-table>
+        
         

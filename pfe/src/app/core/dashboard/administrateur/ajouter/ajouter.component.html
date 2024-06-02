@@ -1,5 +1,5 @@
 <!-- user-form.component.html -->
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form p-fluid p-grid">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
     <p-toast></p-toast>
     <h2 class="form-title">Ajouter un utilisateur</h2>
     <div class="form-field p-col-12 p-md-6">
@@ -36,12 +36,11 @@
             [showClear]="true">
         </p-dropdown>
     </div>
-    
+
     <div class="form-field p-col-12">
-        <button type="submit" [disabled]="userForm.invalid" pButton icon="pi pi-user-plus">Ajouter utilisateur</button>
+        <button type="submit" [disabled]="userForm.invalid" pButton icon="pi pi-user-plus" class="btn-primary">Ajouter un utilisateur</button>
     </div>
-    <div>
-        <button type="button" (click)="onCancel()" pButton icon="pi pi-times" class="p-button-error">Annuler</button>
+    <div class="form-field p-col-12">
+        <button type="button" (click)="onCancel()" pButton icon="pi pi-times" class="btn-secondary">Annuler</button>
     </div>
-    
 </form>

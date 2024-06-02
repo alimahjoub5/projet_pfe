@@ -1,5 +1,6 @@
-
-<form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="user-form">
+<form [formGroup]="groupForm" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
+    <p-toast></p-toast>
+    <h2 class="form-title">Ajouter un groupe</h2>
 
     <div class="form-field">
         <label for="GroupName"> Name:</label>
@@ -10,5 +11,12 @@
         <label for="groupDescription"> Description:</label> <!-- Modifier le libellé ici -->
         <textarea id="Description" formControlName="Description" pInputTextarea rows="5" cols="68"></textarea> <!-- Augmenter les colonnes ici -->
     </div>
-   <button type="submit" [disabled]="groupForm.invalid" >Add Group</button>
+   
+    <div class="form-field p-col-12">
+        <button type="submit" [disabled]="groupForm.invalid" pButton icon="pi pi-user-plus" class="btn-primary">Ajouter un groupe</button>
+    </div>
+    <div class="form-field p-col-12">
+        <button type="button" (click)="onCancel()" pButton icon="pi pi-times" class="btn-secondary">Annuler</button>
+    </div>
+    
 </form>

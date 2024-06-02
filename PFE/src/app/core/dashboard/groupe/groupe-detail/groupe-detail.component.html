@@ -1,11 +1,7 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <p-progressSpinner *ngIf="isLoading" ariaLabel="chargement"></p-progressSpinner>
-</div>
 <div class="group-detail">
-    
   
-    <button (click)="printDocument()" class="btn-print">Print</button>
-  <h2>Groupe Details</h2>
+  <button (click)="printDocument()" class="btn-print">Imprimer</button>
+  <h2>Les détails d'un groupe</h2>
     <div class="detail-row">
       <label>Nom du groupe: </label>
       <span>{{ groupe.GroupName }}</span>
@@ -16,33 +12,4 @@
       <span>{{ groupe.Description }}</span>
     </div>
   
-    <div class="detail-row">
-      <label>Créé le: </label>
-      <span>{{ groupe.CreatedOn }}</span>
-    </div>
-  
-    <div class="detail-row">
-      <label>Créé par: </label>
-      <span>{{ groupe.CreatedBy }}</span>
-    </div>
-  
-    <div class="detail-row">
-      <label>Modifié le: </label>
-      <span>{{ groupe.ModifiedOn }}</span>
-    </div>
-  
-    <div class="detail-row">
-      <label>Modifié par: </label>
-      <span>{{ groupe.ModifiedBy }}</span>
-    </div>
-
-    <div class="detail-row">
-        <label>Créé en: </label>
-        <span>{{ groupe.created_at }}</span>
-    </div>
-
-    <div class="detail-row">
-        <label>Modifié en: </label>
-        <span>{{ groupe.updated_at }}</span>
-    </div>
 </div>

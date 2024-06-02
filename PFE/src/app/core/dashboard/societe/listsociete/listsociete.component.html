@@ -29,29 +29,19 @@
       <div class="col-md-6">
         <input type="text" pInputText placeholder="Rechercher" (input)="filter($event.target.value)" class="search-input">
       </div>
-      <div class="col-md-6">
-        <button pButton type="button" icon="pi pi-plus" class="p-button-raised p-button-success" routerLink="/addsociete">
-          Ajouter une societe
-        </button>
-      </div>
+      
     </div>
     <!-- Tableau -->
     
       <!-- Entêtes de colonne -->
       <ng-template pTemplate="header">
         <tr>
-          <th style="width: 3rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-        </th>
-  
           <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
           <th pSortableColumn="address">Adresse <p-sortIcon field="address"></p-sortIcon></th>
           <th pSortableColumn="city">Ville <p-sortIcon field="city"></p-sortIcon></th>
           <th pSortableColumn="phone">Télephone <p-sortIcon field="phone"></p-sortIcon></th>
           <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
           <th pSortableColumn="website">Site Web<p-sortIcon field="website"></p-sortIcon></th>
-
-
           <th>Actions</th>
         </tr>
       </ng-template>

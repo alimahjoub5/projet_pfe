@@ -43,6 +43,12 @@ export class UpdateComponent implements OnInit {
       });
     });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.updateForm.reset();
+
+    this.router.navigate(['/userlist']);
+}
 
   updateUser(): void {
     if (this.updateForm.valid) {

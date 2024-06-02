@@ -5,19 +5,27 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import { GroupeService } from 'src/app/core/services/groupe.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-ajouter',
   templateUrl: './ajoutergrp.component.html',
   styleUrls: ['./ajoutergrp.component.scss'],
   standalone : true,
-  imports : [ReactiveFormsModule,DropdownModule,CheckboxModule  ]
+  imports : [ReactiveFormsModule,DropdownModule,CheckboxModule,ToastModule  ]
 })
 export class AjouterComponent implements OnInit {
   groupForm: FormGroup;
 
-  constructor(private fb: FormBuilder , private groupeService: GroupeService,
-    private authservice: AuthService) {
+  constructor(private fb: FormBuilder , 
+    private groupeService: GroupeService,
+    private authservice: AuthService,
+    private messageService :MessageService,
+    private router: Router
+  
+  ) {
 
     
     this.groupForm = this.fb.group({
@@ -26,7 +34,12 @@ export class AjouterComponent implements OnInit {
   
     });
    }
+   onCancel(): void {
+    // Réinitialiser le formulaire
+    this.groupForm.reset();
 
+    this.router.navigate(['/userlist']);
+}
    ngOnInit(): void {
     this.groupForm = this.fb.group({
       GroupName: ['', Validators.required],
@@ -53,11 +66,13 @@ export class AjouterComponent implements OnInit {
       .subscribe(
         response => {
           console.log('Groupe added successfully:', response);
-          // Réinitialiser le formulaire après l'ajout réussi
+          this.messageService.add({severity:'success', summary:'success', detail:'groupe a été ajouté avec succès'});
           this.groupForm.reset();
         },
         error => {
           console.error('Groupe adding user:', error);
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
         }
       );
   }

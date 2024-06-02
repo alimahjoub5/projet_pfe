@@ -4,13 +4,16 @@ import { Groupe } from 'src/app/core/models/groupe';
 import { GroupeService } from 'src/app/core/services/groupe.service';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-updategrp',
   templateUrl: './updategrp.component.html',
   styleUrls: ['./updategrp.component.scss'],
   standalone:true,
-  imports: [FormsModule,ReactiveFormsModule,CommonModule],
+  imports: [FormsModule,ReactiveFormsModule,CommonModule,ToastModule],
 
 })
 export class UpdategrpComponent implements OnInit {
@@ -20,7 +23,9 @@ export class UpdategrpComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private groupeservice: GroupeService
+    private groupeservice: GroupeService,
+    private authservice : AuthService,
+    private messageService :MessageService,
   ) { }
 
   ngOnInit(): void {
@@ -31,11 +36,18 @@ export class UpdategrpComponent implements OnInit {
       });
     });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
 
+    this.router.navigate(['/groupelist']);
+}
   updateGroupe(): void {
     this.groupeservice.updateGroupe(Number(this.GroupID), this.groupe).subscribe(updatedGroupe => {
       console.log('Groupe updated successfully:', updatedGroupe);
-      this.router.navigate(['groupe-detail/', this.GroupID]);
+      this.showSuccess();
     });
+}
+showSuccess(): void {
+  this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Groupe a été mise à jour avec succès' });
 }
 }

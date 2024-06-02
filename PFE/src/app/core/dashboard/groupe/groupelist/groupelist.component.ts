@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Groupe } from 'src/app/core/models/groupe';
 import { GroupeService } from 'src/app/core/services/groupe.service';
-
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-groupelist',
   standalone: true,
@@ -38,6 +38,8 @@ export class GroupelistComponent implements OnInit {
   groupes: Groupe[];
   isLoading: boolean;
 cols: any;
+filtergroupes: Groupe[] = []; // Initialiser à un tableau vide
+
 
   constructor(
     private groupeService: GroupeService,
@@ -64,6 +66,20 @@ cols: any;
         this.spinner.hide(); // Assurez-vous de cacher le spinner en cas d'erreur
       }
     );
+  }
+  filter(value: string): void {
+    if (!value) {
+      this.filtergroupes = this.groupes;
+    } else {
+      this.filtergroupes = this.groupes.filter(groupe => {
+        return groupe.GroupName.toLowerCase().includes(value.toLowerCase());
+        groupe.Description.toLowerCase().includes(value.toLowerCase());
+       
+      });
+    }
+  }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
   deleteGroupe(groupId: number): void {
