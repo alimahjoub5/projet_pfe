@@ -1,5 +1,8 @@
 <!-- piece-form.component.html -->
-<form [formGroup]="societeForm" (ngSubmit)="onSubmit()" class="societe-form">
+<form [formGroup]="societeForm" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
+    <p-toast></p-toast>
+
+    <h2 class="form-title"> Ajouter une societe</h2>    
     <div class="form-field">
         <label for="name">Nom de la société</label>
         <input type="text" id="name" formControlName="name" pInputText>
@@ -9,8 +12,8 @@
         <input type="text" id="address" formControlName="address" pInputText>
     </div>
     <div class="form-field">
-        <label for="city">Ville</label>
-        <input type="text" id="city" formControlName="city" pInputText>
+        <label for="country">Ville</label>
+        <input type="text" id="country" formControlName="country" pInputText>
     </div>
     <div class="form-field">
         <label for="phone">Téléphone</label>
@@ -24,8 +27,11 @@
         <label for="website">Site web</label>
         <input type="text" id="website" formControlName="website" pInputText>
     </div>
-    <div class="form-actions">
-        <button type="submit" pButton label="Enregistrer" class="p-button-success"></button>
-        <a routerLink="/listsociete" class="p-button p-button-secondary">Annuler</a>
+ 
+    <div class="form-field p-col-12">
+        <button type="submit" [disabled]="societeForm.invalid" class="btn-primary">Ajouter une sociéte</button>
     </div>
+    <div class="form-field p-col-12">
+        <button type="button" (click)="onCancel()"  class="btn-secondary">Annuler</button>
+    </div>  
 </form>

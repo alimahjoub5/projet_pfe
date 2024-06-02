@@ -5,8 +5,10 @@ import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SocieteService } from 'src/app/core/services/societe.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-addsociete',
   standalone: true,
@@ -17,7 +19,7 @@ import { SocieteService } from 'src/app/core/services/societe.service';
     InputNumberModule,
     ButtonModule,
     FileUploadModule,
-    RouterModule],
+    RouterModule,ToastModule],
   templateUrl: './addsociete.component.html',
   styleUrl: './addsociete.component.scss'
 })
@@ -25,45 +27,49 @@ export class AddsocieteComponent implements OnInit {
   societeForm: FormGroup;
 
   constructor(private fb: FormBuilder, 
-    private socservice: SocieteService) { }
+    private socservice: SocieteService,
+    private router: Router,
+    private messageService :MessageService,
+
+  ) { }
 
   ngOnInit(): void {
     this.societeForm = this.fb.group({
       name: [''],
       address: [''],
-      city: [''],
       country: [''],
       phone: [''],
       email: [''],
       website: [''],
-      contact_person: [''],
-      contact_phone: [''],
-      contact_email: [''],
-
-    });
+        });
   }
-  
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.societeForm.reset();
+
+    this.router.navigate(['/listsociete']);
+}
 
   onSubmit() {
     const formData = new FormData();
     formData.append('name', this.societeForm.get('name').value);
     formData.append('address', this.societeForm.get('address').value);
-    formData.append('city', this.societeForm.get('city').value);
     formData.append('country', this.societeForm.get('country').value);
     formData.append('phone', this.societeForm.get('phone').value);
     formData.append('email', this.societeForm.get('email').value);
     formData.append('website', this.societeForm.get('website').value);
-    formData.append('contact_person', this.societeForm.get('contact_person').value);
-    formData.append('contact_phone', this.societeForm.get('contact_phone').value);
-    formData.append('contact_email', this.societeForm.get('contact_email').value);
+  
 
     this.socservice.createSociete(formData).subscribe(
       (response) => {
         console.log('societe créée avec succès :', response);
         this.societeForm.reset();
+        this.messageService.add({severity:'success', summary:'success', detail:'societe a éte ajouté avec succes'});
       },
       (error) => {
         console.error('Erreur lors de la création du societe :', error);
+        this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
       }
     );
   }

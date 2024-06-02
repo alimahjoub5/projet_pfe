@@ -1,47 +1,38 @@
 <div class="loading-overlay" *ngIf="isLoading">
-    <p-progressSpinner *ngIf="isLoading" ariaLabel="chargement"></p-progressSpinner>
-  </div>
-  
-  <div class="profile-container">
-    <p-card>
-      <ng-template pTemplate="header">
-        <div class="header-content">
-          <img src="../../../../assets/layout/images/OIP.jpg" alt="Profile Picture" class="profile-picture">
-          <div class="user-details">
-            <h2>Identifiant : {{user.UserID}}</h2>
-            <h2>{{ user.FirstName }} {{ user.LastName }}</h2>
-            <p>{{ user.Email }}</p>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <div class="profile-details">
-          <div class="profile-item">
-            <label>Prénom:</label>
-            <span>{{ user.FirstName }}</span>
-          </div>
-          <div class="profile-item">
-            <label>Nom:</label>
-            <span>{{user.LastName }}</span>
-          </div>
-          <div class="profile-item">
-            <label>Username:</label>
-            <span>{{ user.Username }}</span>
-          </div>
-          <div class="profile-item">
-            <label>Email:</label>
-            <span>{{ user.Email }}</span>
-          </div>
-          <div class="profile-item">
-            <label>Role:</label>
-            <span>{{ user.Role }}</span>
-          </div>
-          
-        </div>
-        <div class="button-group">
-          <button pButton type="button" label="Modifier" icon="pi pi-pencil" class="p-button-primary" (click)="onEdit()"></button>
-        </div>
-      </ng-template>
-    </p-card>
-  </div>
-  
+  <p-progressSpinner *ngIf="isLoading" ariaLabel="chargement"></p-progressSpinner>
+</div>
+
+<div class="profile-container">
+  <p-card>
+    <div class="header-content">
+      <img src="../../../../assets/layout/images/OIP.jpg" alt="Profile Picture" class="profile-picture">
+      <div class="user-details">
+        <h2>Identifiant : {{user.UserID}}</h2>
+        <h2>{{ user.FirstName }} {{ user.LastName }}</h2>
+        <p>{{ user.Email }}</p>
+      </div>
+    </div>
+    <div class="profile-details">
+      <div class="profile-item">
+        <label>Prénom:</label>
+        <span>{{ user.FirstName }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Nom:</label>
+        <span>{{user.LastName }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Nom d'utilisateur:</label>
+        <span>{{ user.Username }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Email:</label>
+        <span>{{ user.Email }}</span>
+      </div>
+      <div class="profile-item">
+        <label>Rôle:</label>
+        <span>{{ user.Role }}</span>
+      </div>
+    </div>
+  </p-card>
+</div>

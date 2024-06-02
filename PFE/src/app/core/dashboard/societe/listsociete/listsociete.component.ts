@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router'; // Modifier RouterModule en Router
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -17,16 +17,22 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { Societe } from 'src/app/core/models/societe';
 import { SocieteService } from 'src/app/core/services/societe.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SplitButtonModule } from 'primeng/splitbutton';
 @Component({
   selector: 'app-listsociete',
   standalone: true,
   imports: [
+     ReactiveFormsModule, 
+    AutoCompleteModule,
+    ConfirmDialogModule,
+    SplitButtonModule,
+     NgxSpinnerModule,
     TableModule,
-    CommonModule,
-    ButtonModule,
-    InputTextModule,
-    RouterModule,
-    TableModule,
+    CommonModule,TableModule,
+    InputTextModule, 
     FileUploadModule,
     FormsModule,
     ButtonModule,
@@ -49,7 +55,7 @@ export class ListsocieteComponent implements OnInit{
   societes: Societe[] = [];
   showDialog = false; // Le type boolean est déduit automatiquement
   filteredSocietes: Societe[] = []; // Initialiser à un tableau vide
-
+  cols: any;
   constructor(
     private route: ActivatedRoute, 
     private router: Router, // Changer ActivatedRoute en Router
@@ -80,23 +86,9 @@ export class ListsocieteComponent implements OnInit{
     this.showDialog = true; // Afficher la boîte de dialogue pour ajouter une location
   }
 
-  filter(value: string): void {
-    if (!value) {
-      this.filteredSocietes = this.societes;
-    } else {
-      this.filteredSocietes = this.societes.filter(societe => {
-        return societe.name.toLowerCase().includes(value.toLowerCase());
-        societe.address.toLowerCase().includes(value.toLowerCase());
-        societe.city.toLowerCase().includes(value.toLowerCase());
-        societe.country.toLowerCase().includes(value.toLowerCase());
-        societe.phone.toLowerCase().includes(value.toLowerCase());
-        societe.email.toLowerCase().includes(value.toLowerCase());
-        societe.website.toLowerCase().includes(value.toLowerCase());
-        societe.contact_person.toLowerCase().includes(value.toLowerCase());
-        societe.contact_phone.toLowerCase().includes(value.toLowerCase());
-        societe.contact_email.toLowerCase().includes(value.toLowerCase());
-      });
-    }
+
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
   confirmDeleteSocietes(societe: Societe): void {

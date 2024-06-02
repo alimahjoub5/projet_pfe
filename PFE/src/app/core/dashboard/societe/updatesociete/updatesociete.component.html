@@ -1,35 +1,43 @@
-<div class="container">
-    <h2>Modifier Societe</h2>
+<p-toast></p-toast>
+
+<form  (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
+  <p-toast></p-toast>
+  <h2 class="form-title">Modifier une societe</h2>
   
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Nom de la societe</label>
+  <div class="form-field p-col-12 p-md-6">
+    <label for="name">Nom de la societe</label>
         <input type="text" [(ngModel)]="societe.name" name="name" class="form-control" disabled>
       </div>
-      <div class="form-group">
+      <div class="form-field p-col-12 p-md-6">
         <label for="address">Adresse</label>
         <input type="text" [(ngModel)]="societe.address" name="address" class="form-control">
       </div>
-      <div class="form-group">
+      <div class="form-field p-col-12 p-md-6">
         <label for="city">Ville</label>
         <input type="text" [(ngModel)]="societe.city" name="city" class="form-control">
       </div>
-      <div class="form-group">
+      <div class="form-field p-col-12 p-md-6">
         <label for="phone">Télephone</label>
         <input type="text" [(ngModel)]="societe.phone" name="phone" class="form-control">
       </div>
-      <div class="form-group">
+      <div class="form-field p-col-12 p-md-6">
         <label for="email">Email</label>
         <input type="text" [(ngModel)]="societe.email" name="email" class="form-control">
       </div>
-      <div class="form-group">
+      <div class="form-field p-col-12 p-md-6">
         <label for="website">Site web</label>
         <input type="text" [(ngModel)]="societe.website" name="website" class="form-control">
       </div>
       <!-- Ajoutez d'autres champs du formulaire ici -->
-  
-      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
-      <a routerLink="/listsociete"class="btn btn-secondary">Annuler</a>
+  <div class="form-field p-col-12">
+      <button type="submit"  pButton icon="pi pi-save" class="btn-primary">Mettre à jour</button>
+    </div>
+    <div class="form-field p-col-12">
+
+      <button type="button" (click)="onCancel()" pButton icon="pi pi-times" class="btn-secondary">Annuler</button>
+</div>
+     
+ 
     </form>
-  </div>
+
   

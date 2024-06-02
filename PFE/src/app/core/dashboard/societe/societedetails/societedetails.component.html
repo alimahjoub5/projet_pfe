@@ -1,1 +1,35 @@
-<p>societedetails works!</p>
+<div class="group-detail">
+  
+    <button (click)="printDocument()" class="btn-print">Imprimer</button>
+    <h2>Les détails d'une societe</h2>
+
+      <div class="detail-row">
+        <label>Nom de la societe: </label>
+        <span>{{ societe.name }}</span>
+      </div>
+    
+      <div class="detail-row">
+        <label>Address: </label>
+        <span>{{ societe.address }}</span>
+      </div>
+
+      <div class="detail-row">
+        <label>Ville: </label>
+        <span>{{ societe.city }}</span>
+      </div>
+
+      <div class="detail-row">
+        <label>Télephone: </label>
+        <span>{{ societe.phone }}</span>
+      </div>
+
+      <div class="detail-row">
+        <label>Adresse email: </label>
+        <span>{{ societe.email }}</span>
+      </div>
+    
+      <div class="detail-row">
+        <label>Site web: </label>
+        <span>{{ societe.website }}</span>
+      </div>
+  </div>

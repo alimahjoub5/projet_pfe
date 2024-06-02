@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms'; // Supprimez NgModel de cet import
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Societe } from 'src/app/core/models/societe';
 import { SocieteService } from 'src/app/core/services/societe.service';
+import { ToastModule } from 'primeng/toast';
+
 @Component({
   selector: 'app-updatesociete',
   standalone: true,
@@ -11,7 +14,7 @@ import { SocieteService } from 'src/app/core/services/societe.service';
     CommonModule,
     FormsModule, // Conservez FormsModule ici pour utiliser ngModel
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,ToastModule
   ],
   templateUrl: './updatesociete.component.html',
   styleUrl: './updatesociete.component.scss'
@@ -24,7 +27,8 @@ export class UpdatesocieteComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private socservice: SocieteService
+    private socservice: SocieteService,
+    private messageService :MessageService
   ) {
     this.societe ; // Initialiser un nouvel objet Fournisseur
   }
@@ -35,7 +39,11 @@ export class UpdatesocieteComponent implements OnInit {
       this.loadSociete(this.SocieteID);
     });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
 
+    this.router.navigate(['/listsociete']);
+}
   loadSociete(id: number): void {
     this.socservice.getSocieteById(id).subscribe(
       (response: any) => {
@@ -53,34 +61,16 @@ export class UpdatesocieteComponent implements OnInit {
     
     // Vérifiez que les valeurs de l'objet fournisseur sont valides (vous devrez peut-être implémenter une méthode de validation dans la classe Fournisseur)
       this.isLoading = true;
-      this.socservice.updateSociete(this.SocieteID, this.societe).subscribe(
-        () => {
-          this.isLoading = false;
-          this.router.navigate(['/listsociete']);
+      this.socservice.updateSociete(Number(this.SocieteID), this.societe).subscribe(updatedSoc => {
+
+        console.log('societe updated successfully:', updatedSoc);
+        this.showSuccess();
         },
-        error => {
-          this.isLoading = false;
-          console.error('An error occurred while updating soc:', error);
-        }
       );
     
   }
-  
-  // Méthode pour vérifier la validité des données du fournisseur
-  socIsValid(): boolean {
-    // Implémentez votre logique de validation ici
-    // Par exemple, vérifiez si les propriétés obligatoires sont définies
-    return !!this.societe.name && 
-    !!this.societe.address && 
-    !!this.societe.city &&
-     !!this.societe.country&&
-     !!this.societe.phone&&
-     !!this.societe.email&&
-     !!this.societe.website&&
-     !!this.societe.contact_person&&
-     !!this.societe.contact_phone&&
-     !!this.societe.contact_email;
-
+  showSuccess(): void {
+    this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'societe a été mise à jour avec succès' });
   }
   
 }
