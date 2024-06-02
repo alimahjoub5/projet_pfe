@@ -1,7 +1,8 @@
 <!-- update-user.component.html -->
 
-<h2>Mettre à jour un utilisateur</h2>
 <form [formGroup]="updateForm" (ngSubmit)="updateUser()" class="update-form p-fluid p-grid">
+  <p-toast></p-toast>
+  <h2 class="form-title">Modifier un utilisateur</h2>
   <div class="form-field p-col-12 p-md-6">
     <label for="firstName">Prénom</label>
     <input type="text" id="FirstName" formControlName="FirstName" pInputText required>

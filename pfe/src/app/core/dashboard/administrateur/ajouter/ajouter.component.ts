@@ -7,6 +7,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ajouter',
@@ -20,7 +21,8 @@ export class AjouterComponent implements OnInit {
   roles: any[]; // Define roles array
   constructor(private formBuilder: FormBuilder, private userService: UserService,
     private authservice : AuthService,
-    private messageService :MessageService
+    private messageService :MessageService,
+    private router: Router
   ) { 
 
 
@@ -57,6 +59,13 @@ export class AjouterComponent implements OnInit {
       Active: [true]
     });
   }
+  
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.userForm.reset();
+
+    this.router.navigate(['/userlist']);
+}
   onSubmit(): void {
     if (this.userForm.invalid) {
       return;

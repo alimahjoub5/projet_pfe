@@ -1,44 +1,40 @@
+/* styles.scss (ou tout autre fichier SCSS de votre choix) */
+
+.group-detail {
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid #fff; /* Bordure blanche de 2px */
+  border-radius: 8px; /* Coins arrondis */
+  background-color: #fff; /* Fond blanc */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
 .btn-print {
-  background-color: #007bff;
-  color: white;
+  background-color: #007ad9;
+  color: #fff;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.group-detail {
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 20px;
-}
-
-.group-detail h2 {
-  margin-bottom: 10px;
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #007ad9;
 }
 
 .detail-row {
+  display: flex;
   margin-bottom: 10px;
+
+  label {
+    width: 120px;
+    font-weight: bold;
+  }
+
+  span {
+    flex-grow: 1;
+  }
 }
 
-.detail-row label {
-  font-weight: bold;
-}
-
-.detail-row span {
-  margin-left: 10px;
-}

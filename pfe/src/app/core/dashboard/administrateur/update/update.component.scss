@@ -14,6 +14,16 @@ $transition-time: 0.3s;
   border-radius: $border-radius;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+
+
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #007ad9;
+    text-align: center; /* Centre le texte */
+
+  }
+
   .form-field {
     margin-bottom: 1rem;
 

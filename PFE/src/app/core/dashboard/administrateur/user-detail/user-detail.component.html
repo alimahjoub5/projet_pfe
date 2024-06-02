@@ -1,14 +1,9 @@
-<div class="loading-overlay" *ngIf="isLoading">
-  <p-progressSpinner *ngIf="isLoading" ariaLabel="chargement"></p-progressSpinner>
-</div>
 <div class="group-detail">
   
   <button (click)="printDocument()" class="btn-print">Imprimer</button>
   <h2>Les détails d'un utilisateur</h2>
 
-
-  
-    <div class="detail-row">
+      <div class="detail-row">
       <label>Prenom: </label>
       <span>{{ user.FirstName }}</span>
     </div>
@@ -25,7 +20,7 @@
 
 
     <div class="detail-row">
-      <label>Nom d'utilisateur: </label>
+      <label>Nom: </label>
       <span>{{ user.Username }}</span>
     </div>
 

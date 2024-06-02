@@ -13,6 +13,13 @@ $user-transition-time: 0.3s;
     border-radius: $user-border-radius;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+    .form-title {
+        color: $user-primary-color; /* Utilisez votre couleur primaire définie */
+        font-size: 1.5rem; /* Taille de police personnalisée */
+        margin-bottom: 1.5rem; /* Marge inférieure personnalisée */
+        text-align: center; /* Centre le texte */
+    }
+    
     .form-field {
         margin-bottom: 1rem;
 
