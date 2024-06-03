@@ -1,12 +1,61 @@
-.cancel-button {
-    background-color: red; /* Couleur pour le bouton Annuler */
-  }
-  
-  .close-button {
-    background-color: orange; /* Couleur pour le bouton Cloture */
-  }
-  
-  .resolve-button {
-    background-color: green; /* Couleur pour le bouton Resolu */
-  }
-  
+.container {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+  border-bottom: 2px solid #007ad9;
+  padding-bottom: 10px;
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.filters .p-button {
+  font-size: 14px;
+  padding: 8px 12px;
+  background-color: #007ad9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.filters .p-button:hover {
+  background-color: #005fa3;
+}
+
+.p-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.p-table th, .p-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.p-table th {
+  background-color: #007ad9;
+  color: #ffffff;
+}
+
+.p-table tr:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s;
+}
+
+.p-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
