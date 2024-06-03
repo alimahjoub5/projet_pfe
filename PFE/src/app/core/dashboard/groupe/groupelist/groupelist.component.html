@@ -39,17 +39,13 @@
                         <td>{{ groupe.GroupName }}</td>
                         <td>{{ groupe.Description }}</td>
                         <td>
-                         
+                          <div class="button-group">
                             <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/groupe-detail', groupe.GroupID]" routerLinkActive="router-link-active"></button>
-                           <div>
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updategrp', groupe.GroupID]" routerLinkActive="router-link-active"></button>
-                            </div>
-                            <div>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteGroupe(groupe.GroupID)"></button>
-                               </div>
-                            </td>
-                      
-                    </tr>
+                          </div>
+                        </td>
+                      </tr>
                 </ng-template>
         
                 <ng-template pTemplate="emptymessage">

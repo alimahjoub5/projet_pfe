@@ -142,4 +142,8 @@ table input[type="text"]:focus {
         transform: translateY(-50%);
         color: #666; /* couleur de l'icône */
       }
+      .button-group {
+        display: flex;
+        align-items: center;
+      }
       

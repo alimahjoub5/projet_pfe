@@ -37,9 +37,7 @@ export class AppMenuComponent implements OnInit {
         items: [
           { label: 'Utilisateurs', icon: 'pi pi-fw pi-user', routerLink: ['/userlist'] },
           { label: 'Groupes', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] },
-          { label: 'Société', icon: 'pi pi-fw pi-building', routerLink: ['/listsociete'] },
-          { label: "Profils", icon: 'pi pi-fw pi-id-card', routerLink: ['/profil'] },
-          { label: "File d'attente des notifications", icon: 'pi pi-fw pi-envelope', routerLink: ['/'] }
+          { label: "Profil", icon: 'pi pi-fw pi-id-card', routerLink: ['/profil'] },
         ]
       });
     }
@@ -70,7 +68,6 @@ export class AppMenuComponent implements OnInit {
         label: 'Outils',
         items: [
           { label: 'Équipement', icon: 'pi pi-fw pi-desktop', routerLink: ['/eqlist'] },
-          { label: 'Priorité', icon: 'pi pi-fw pi-sort-amount-up', routerLink: ['/prioritylist'] },
           { label: "Tâches de l'intervention", icon: 'pi pi-fw pi-calendar', routerLink: ['/listtasks'] },
           { label: 'Groupes de techniciens', icon: 'pi pi-fw pi-users', routerLink: ['/listt'] }
         ]
