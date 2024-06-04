@@ -107,4 +107,16 @@ table input[type="text"]:focus {
         align-items: center;
         z-index: 999; /* Assurez-vous que le spinner est au-dessus de tous les autres éléments */
     }
-    
+    .button-group {
+        display: flex;
+        align-items: center;
+      }
+      
+      .button-group .p-button {
+        margin-right: 10px;
+      }
+      
+      .button-group .p-button:last-child {
+        margin-right: 0;
+      }
+      

@@ -17,7 +17,7 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="equipments" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <p-table #dt [value]="equipments" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['TypeName','Description','ModelNumber','SerialNumber','InstallationDate']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
           <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <h5 class="m-0">Gérer les équipements</h5>
@@ -30,7 +30,7 @@
             <th pSortableColumn="ModelNumber">Numéro de modèle <p-sortIcon field="ModelNumber"></p-sortIcon></th>
             <th pSortableColumn="SerialNumber">Numéro de série <p-sortIcon field="SerialNumber"></p-sortIcon></th>
             <th pSortableColumn="InstallationDate">Date d'installation <p-sortIcon field="InstallationDate"></p-sortIcon></th>
-            <th>Action</th>
+            <th>Actions</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-equipment>
@@ -41,13 +41,14 @@
             <td>{{ equipment.SerialNumber }}</td>
             <td>{{ equipment.InstallationDate }}</td>
             <td>
-              <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/equipement-detail', equipment.EquipmentTypeID]" routerLinkActive="router-link-active"></button>
-              <div>
-               <button pButton pRipple icon="pi pi-pencil"class="p-button-rounded p-button-success mr-2" [routerLink]="['/update-eq', equipment.EquipmentTypeID]" routerLinkActive="router-link-active"></button>
-             
+              <div class="button-group">
+                <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/equipement-detail', equipment.EquipmentTypeID]" routerLinkActive="router-link-active"></button>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/update-eq', equipment.EquipmentTypeID]" routerLinkActive="router-link-active"></button>
                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEquipment(equipment.EquipmentTypeID)"></button>
-          
               </div>
+            </td>
+            
+            
         </ng-template>
       
         

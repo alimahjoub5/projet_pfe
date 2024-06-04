@@ -45,6 +45,7 @@ export class EqlistComponent implements OnInit {
   equipments: EquipmentType[];
   isLoading: boolean;
 cols: any;
+filterequipements: EquipmentType[] = []; // Initialiser à un tableau vide
 
   constructor(
     private equipmentService: EquipmentTypeService,
@@ -80,6 +81,11 @@ cols: any;
         this.loadEquipments(); // Recharger la liste des équipements après la suppression
       });
     }
+  }
+  
+  
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
 

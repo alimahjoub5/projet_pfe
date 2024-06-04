@@ -1,6 +1,7 @@
 <!-- equipment-form.component.html -->
-<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="equipment-form p-fluid p-grid">
+<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
     <p-toast></p-toast>
+    <h2 class="form-title">Ajouter un équipement</h2>
     
     <div class="form-field p-col-12 p-md-6">
         <label for="TypeName">Nom de l'Equipement :</label>
@@ -36,13 +37,11 @@
         <label for="WarrantyExpiration">Expiration de la Garantie :</label>
         <input type="date" id="WarrantyExpiration" formControlName="WarrantyExpiration" pInputText>
     </div>
-
-  
-
 <div class="form-field p-col-12">
-    <button type="submit" [disabled]="equipmentForm.invalid" pButton icon="pi pi-plus">Ajouter Équipement</button>
-</div>    
-<div class="form-field p-col-12">
-    <button type="submit" pButton icon="pi pi-call">Annuler</button>
+    <button type="submit" [disabled]="equipmentForm.invalid" class="btn-primary">Ajouter un equipement</button>
 </div>
+<div class="form-field p-col-12">
+    <button type="button" (click)="onCancel()" pButton icon="pi pi-times" class="btn-secondary">Annuler</button>
+</div>
+
 </form>

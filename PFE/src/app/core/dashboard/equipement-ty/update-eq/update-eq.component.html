@@ -1,5 +1,5 @@
 <!-- update-equipment-form.component.html -->
-<form [formGroup]="updateForm" (ngSubmit)="updateEquipmentType()" class="equipment-form p-fluid p-grid">
+<form [formGroup]="updateForm" (ngSubmit)="updateEquipmentType()" class="update-form p-fluid p-grid">
   <p-toast></p-toast>
   
   <h2 class="p-col-12">Mettre à jour un équipement</h2>
@@ -32,4 +32,10 @@
   <div class="form-field p-col-12">
       <button type="submit" [disabled]="updateForm.invalid" pButton >Mettre à jour</button>
   </div>
+  <div class="form-field p-col-12">
+    <button type="submit" pButton icon="pi pi-save" class="btn-primary">Mettre à jour</button>
+  </div>
+  <div class="form-field p-col-12">
+    <button type="submit" [disabled]="updateForm.invalid" pButton >Mettre à jour</button>
+</div>
 </form>

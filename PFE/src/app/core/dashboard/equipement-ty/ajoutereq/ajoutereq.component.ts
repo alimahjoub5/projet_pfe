@@ -12,6 +12,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToastModule } from 'primeng/toast';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-ajoutereq',
  
@@ -34,7 +35,8 @@ export class AjoutereqComponent implements OnInit{
   equipmentForm: FormGroup;
 
   constructor(private fb: FormBuilder, private equipmentService: EquipmentTypeService,      private spinner: NgxSpinnerService,
-    private messageService: MessageService,
+    private messageService: MessageService,    private router: Router,
+
 
     private authservice : AuthService) {
     this.equipmentForm = this.fb.group({
@@ -59,6 +61,12 @@ export class AjoutereqComponent implements OnInit{
   showSuccess() {
     this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'equipement créé avec succès' });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.equipmentForm.reset();
+
+    this.router.navigate(['/groupelist']);
+}
   onSubmit(): void {
     if (this.equipmentForm.invalid) {
       return;
