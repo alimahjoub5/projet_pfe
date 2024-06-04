@@ -1,24 +1,26 @@
 <!-- piece-form.component.html -->
-<form  (ngSubmit)="assignUserToGroup()" class="update-form p-fluid p-grid">
+<form (ngSubmit)="assignUserToGroup()" class="update-form p-fluid p-grid">
   <p-toast></p-toast>
 
-    <h2>Ajouter un utilisateur à un groupe</h2>
+  <h2 class="form-title">Ajouter un utilisateur à un groupe</h2>
+  <div class="form-field">
+    <label for="groupSelect">Sélectionner un groupe :</label>
+    <select id="groupSelect" [(ngModel)]="selectedGroupe" name="groupSelect">
+      <option value="">Sélectionner un groupe</option>
+      <option *ngFor="let groupe of groupes" [value]="groupe.GroupID">{{ groupe.GroupName }}</option>
+    </select>
+  </div>
 
-      <div>
-        <label for="groupSelect">Sélectionner un groupe :</label>
-        <select id="groupSelect" [(ngModel)]="selectedGroupe" name="groupSelect">
-          <option value="">Sélectionner un groupe</option>
-          <option *ngFor="let groupe of groupes" [value]="groupe.GroupID">{{ groupe.GroupName }}</option>
-        </select>
-      </div>
-      <div>
-        <label for="userSelect">Sélectionner un utilisateur :</label>
-        <select id="userSelect" [(ngModel)]="selectedUser" name="userSelect">
-          <option value="">Sélectionner un utilisateur</option>
-          <option *ngFor="let user of users" [value]="user.UserID">{{ user.Username }}</option>
-        </select>
-      </div>
-      <button type="submit" [disabled]="!selectedGroupe || !selectedUser">Assigner</button>
-    </form>
+  <div class="form-field">
+    <label for="userSelect">Sélectionner un utilisateur :</label>
+    <select id="userSelect" [(ngModel)]="selectedUser" name="userSelect">
+      <option value="">Sélectionner un utilisateur</option>
+      <option *ngFor="let user of users" [value]="user.UserID">{{ user.Username }}</option>
+    </select>
+  </div>
 
-  
+  <div class="form-field p-col-12">
+    <button type="submit" [disabled]="!selectedGroupe || !selectedUser" class="btn-primary">Assigner</button>
+  </div>
+
+</form>

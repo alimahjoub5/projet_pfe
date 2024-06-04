@@ -1,4 +1,4 @@
-/* update-group.component.scss */
+/* piece-form.component.scss */
 
 $primary-color: #007ad9;
 $secondary-color: #6c757d;
@@ -31,7 +31,7 @@ $transition-time: 0.3s;
       color: $primary-color;
     }
 
-    input, p-dropdown, textarea {
+    select, input, p-dropdown, textarea {
       width: 100%;
       padding: 0.5rem;
       border: 1px solid #ccc;

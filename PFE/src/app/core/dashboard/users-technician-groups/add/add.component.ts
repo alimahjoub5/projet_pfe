@@ -58,7 +58,11 @@ export class AddComponent implements OnInit {
       this.users = users;
     });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
 
+    this.router.navigate(['/listt']);
+}
   assignUserToGroup(): void {
     if (this.selectedGroupe && this.selectedUser) {
       this.usertech.assignUserToGroup(this.selectedUser, this.selectedGroupe).subscribe(
@@ -67,7 +71,7 @@ export class AddComponent implements OnInit {
           // Réinitialiser les sélections après l'assignation réussie si nécessaire
           this.selectedGroupe = undefined;
           this.selectedUser = undefined;
-          this.messageService.add({severity:'success', summary:'success', detail:'societe a éte ajouté avec succes'});
+          this.messageService.add({severity:'success', summary:'success', detail:"l'utilisateur a éte ajouté au groupe avec succés"});
 
         },
         error => {
