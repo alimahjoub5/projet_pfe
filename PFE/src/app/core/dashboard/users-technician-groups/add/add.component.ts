@@ -1,6 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 import { User } from 'src/app/core/models/User';
 import { Groupe } from 'src/app/core/models/groupe';
 import { GroupeService } from 'src/app/core/services/groupe.service';
@@ -10,7 +17,14 @@ import { UsersTechnicianGroupsService } from 'src/app/core/services/user-tech.se
 @Component({
   selector: 'app-add',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputNumberModule,
+    ButtonModule,
+    FileUploadModule,
+    RouterModule,ToastModule],
   templateUrl: './add.component.html',
   styleUrl: './add.component.scss'
 })
@@ -21,7 +35,12 @@ export class AddComponent implements OnInit {
   users: User[] = [];
   selectedUser: number | undefined;
 
-  constructor(private groupeService: GroupeService, private userService: UserService,private usertech:UsersTechnicianGroupsService) { }
+  constructor(private groupeService: GroupeService, private userService: UserService,private usertech:UsersTechnicianGroupsService
+    ,private fb: FormBuilder, 
+    private router: Router,
+    private messageService :MessageService,
+
+  ) { }
 
   ngOnInit(): void {
     this.getAllGroupes();
@@ -48,9 +67,13 @@ export class AddComponent implements OnInit {
           // Réinitialiser les sélections après l'assignation réussie si nécessaire
           this.selectedGroupe = undefined;
           this.selectedUser = undefined;
+          this.messageService.add({severity:'success', summary:'success', detail:'societe a éte ajouté avec succes'});
+
         },
         error => {
           console.error('Erreur lors de l\'assignation :', error);
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
         }
       );
     }

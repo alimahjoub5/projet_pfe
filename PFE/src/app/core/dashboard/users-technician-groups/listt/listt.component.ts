@@ -1,6 +1,6 @@
 
 import { Component , OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { MenuItem} from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -54,6 +54,10 @@ cols: any;
   ngOnInit(): void {
     this.loadTech();
   }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
 
   loadTech(): void {
     this.isLoading = true;

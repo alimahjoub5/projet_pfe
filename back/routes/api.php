@@ -213,7 +213,7 @@ Route::delete('/ticket-tasks/{id}', [TicketTaskController::class, 'destroy']);
 Route::get('/user-technician-groups', [UsersTechnicianGroupsController::class, 'index']);
 Route::get('/user-technician-groups/{id}', [UsersTechnicianGroupsController::class, 'show']);
 Route::post('/user-technician-groups/assign-user', [UsersTechnicianGroupsController::class, 'assignUserToGroup']);
-Route::post('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
+Route::delete('/user-technician-groups/remove-user', [UsersTechnicianGroupsController::class, 'removeUserFromGroup']);
 Route::get('/technician-groups/{groupId}/users', [UsersTechnicianGroupsController::class, 'getUsersInGroup']);
 
 //chat

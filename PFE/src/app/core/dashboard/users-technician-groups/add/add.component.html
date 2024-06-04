@@ -1,6 +1,9 @@
-<div>
+<!-- piece-form.component.html -->
+<form  (ngSubmit)="assignUserToGroup()" class="update-form p-fluid p-grid">
+  <p-toast></p-toast>
+
     <h2>Ajouter un utilisateur à un groupe</h2>
-    <form (ngSubmit)="assignUserToGroup()">
+
       <div>
         <label for="groupSelect">Sélectionner un groupe :</label>
         <select id="groupSelect" [(ngModel)]="selectedGroupe" name="groupSelect">
@@ -17,5 +20,5 @@
       </div>
       <button type="submit" [disabled]="!selectedGroupe || !selectedUser">Assigner</button>
     </form>
-  </div>
+
   
