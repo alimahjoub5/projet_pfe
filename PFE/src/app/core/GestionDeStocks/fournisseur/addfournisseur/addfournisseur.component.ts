@@ -5,9 +5,11 @@ import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
 import { FieldsetModule } from 'primeng/fieldset';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-addfournisseur',
   standalone: true,
@@ -20,14 +22,15 @@ import { FieldsetModule } from 'primeng/fieldset';
   InputNumberModule,
   ButtonModule,
   FileUploadModule,
-  RouterModule],
+  RouterModule, ToastModule],
   templateUrl: './addfournisseur.component.html',
   styleUrl: './addfournisseur.component.scss'
 })
 export class AddfournisseurComponent implements OnInit {
   fournisseurform: FormGroup;
 
-  constructor(private fb: FormBuilder, private fournisseurservice: FournisseurService) { }
+  constructor(private fb: FormBuilder, private fournisseurservice: FournisseurService,    private router: Router,
+    private messageService :MessageService,) { }
 
   ngOnInit() {
     this.fournisseurform = this.fb.group({
@@ -37,6 +40,12 @@ export class AddfournisseurComponent implements OnInit {
       telephone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.fournisseurform.reset();
+
+    this.router.navigate(['/fournisseur']);
+}
   onSubmit() {
     const formData = new FormData();
     formData.append('nom_fournisseur', this.fournisseurform.get('nom_fournisseur').value);
@@ -48,9 +57,13 @@ export class AddfournisseurComponent implements OnInit {
       (response) => {
         console.log('fournisseur créée avec succès :', response);
         this.fournisseurform.reset();
+        this.messageService.add({severity:'success', summary:'success', detail:'fournisseur a éte ajouté avec succes'});
+
       },
       (error) => {
         console.error('Erreur lors de la création du fournisseur :', error);
+        this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
       }
     );
   }

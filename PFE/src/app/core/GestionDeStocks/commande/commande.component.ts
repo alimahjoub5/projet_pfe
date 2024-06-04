@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule ,Route} from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -11,20 +11,31 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CommandeEnAttente } from '../../models/GestionDeStocks/CommandeEnAttente';
 import { CommandeEnAttenteService } from '../../services/GestionDeStocks/CommandeEnAttente.service';
 import { CommonModule } from '@angular/common';
 import { StockService } from '../../services/GestionDeStocks/stock.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SplitButtonModule } from 'primeng/splitbutton';
+
 
 @Component({
   selector: 'app-commande',
   standalone: true,
   imports: [
-    CommonModule,   
+    ReactiveFormsModule, 
+    AutoCompleteModule,
+    ConfirmDialogModule,
+    SplitButtonModule,
+     NgxSpinnerModule,
     TableModule,
+    CommonModule,TableModule,
+    InputTextModule, 
     FileUploadModule,
     FormsModule,
     ButtonModule,
@@ -37,8 +48,7 @@ import { StockService } from '../../services/GestionDeStocks/stock.service';
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule,
-    RouterModule
+    DialogModule,RouterModule
   ],
   templateUrl: './commande.component.html',
   styleUrl: './commande.component.scss'
@@ -47,7 +57,7 @@ export class CommandeComponent implements OnInit {
   Commandes: CommandeEnAttente[] =[]; // Modifier le type de données ici
   showDialog: boolean = false;
   filteredCommandes: CommandeEnAttente[];
-
+cols:any;
   constructor(
     private route: ActivatedRoute, 
     private commandeservice: CommandeEnAttenteService,
@@ -75,22 +85,8 @@ export class CommandeComponent implements OnInit {
     this.showDialog = true;
   }
 
-  filter(value: string) {
-    if (!value) {
-      this.filteredCommandes = this.Commandes;
-    } else {
-      this.filteredCommandes = this.Commandes.filter(
-        commande => {
-        return
-        commande.piece_id.toString().toLowerCase().includes(value.toLowerCase()) || 
-        commande.requested_quantity.toString().toLowerCase().includes(value.toLowerCase()) ||
-        commande.order_date.toString().toLowerCase().includes(value.toLowerCase()) ||
-        commande.order_status.toLowerCase().includes(value.toLowerCase()) ||
-        commande.fournisseur_id.toString().toLowerCase().includes(value.toLowerCase()) ||
-        commande.expected_delivery_date.toString().toLowerCase().includes(value.toLowerCase()) ||
-        commande.actual_delivery_date.toString().toLowerCase().includes(value.toLowerCase()) 
-      });
-    }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
   confirmDeletecommande(Commandes: CommandeEnAttente): void {

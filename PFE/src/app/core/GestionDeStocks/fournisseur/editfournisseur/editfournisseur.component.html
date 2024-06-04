@@ -1,26 +1,31 @@
 <div class="container">
-  <h2>Modifier Fournisseur</h2>
-
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
+  <form (ngSubmit)="onSubmit()"class="update-form p-fluid p-grid">
+    <p-toast></p-toast>
+    <h2 class="form-title">Modifier un Fournisseur</h2>
+    <div class="form-field p-col-12 p-md-6">
       <label for="nom_fournisseur">Nom du fournisseur</label>
       <input type="text" [(ngModel)]="fournisseur.nom_fournisseur" name="nom_fournisseur" class="form-control" disabled>
     </div>
-    <div class="form-group">
+    <div class="form-field p-col-12 p-md-6">
       <label for="adresse">Adresse</label>
       <input type="text" [(ngModel)]="fournisseur.adresse" name="adresse" class="form-control">
     </div>
-    <div class="form-group">
+    <div class="form-field p-col-12 p-md-6">
       <label for="email">Email</label>
       <input type="text" [(ngModel)]="fournisseur.email" name="email" class="form-control">
     </div>
-    <div class="form-group">
+    <div class="form-field p-col-12 p-md-6">
       <label for="telephone">Télephone</label>
       <input type="text" [(ngModel)]="fournisseur.telephone" name="telephone" class="form-control">
     </div>
     <!-- Ajoutez d'autres champs du formulaire ici -->
+    <div class="form-field p-col-12">
+      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
+    </div>
+    <div class="form-field p-col-12">
 
-    <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
-    <a routerLink="/fournisseur"class="btn btn-secondary">Annuler</a>
+      <button type="button" (click)="onCancel()" pButton icon="pi pi-times" class="btn-secondary">Annuler</button>
+</div>
+   
   </form>
 </div>

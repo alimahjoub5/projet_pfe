@@ -9,6 +9,12 @@
         <ng-template pTemplate="left">
           <button pButton pRipple label="Ajouter une sociéte" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/addsociete']" routerLinkActive="router-link-active"></button>
         </ng-template>
+        <ng-template pTemplate="left">
+          <div class="my-2">
+              <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addcommande"></button>
+              <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+          </div>
+      </ng-template>
         <ng-template pTemplate="right">
           <div class="search-box ml-auto">
             <i class="pi pi-search"></i>

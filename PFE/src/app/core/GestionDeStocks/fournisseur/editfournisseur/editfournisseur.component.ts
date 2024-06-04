@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms'; // Supprimez NgModel de cet import
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { c } from '@fullcalendar/core/internal-common';
+import { MessageService } from 'primeng/api';
 import { Fournisseur } from 'src/app/core/models/GestionDeStocks/Fournisseur';
 import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-editfournisseur',
@@ -12,7 +15,7 @@ import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fourni
     CommonModule,
     FormsModule, // Conservez FormsModule ici pour utiliser ngModel
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,ToastModule
   ],
   templateUrl: './editfournisseur.component.html',
   styleUrl: './editfournisseur.component.scss'
@@ -25,7 +28,8 @@ export class EditfournisseurComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fournisseurService: FournisseurService
+    private fournisseurService: FournisseurService,
+    private messageService :MessageService
   ) {
     this.fournisseur ; // Initialiser un nouvel objet Fournisseur
   }
@@ -36,7 +40,11 @@ export class EditfournisseurComponent implements OnInit {
       this.loadFournisseur(this.fournisseur_id);
     });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
 
+    this.router.navigate(['/fournisseur']);
+}
   loadFournisseur(id: number): void {
     this.fournisseurService.getFournisseurById(id).subscribe(
       (response: any) => {
@@ -57,11 +65,13 @@ export class EditfournisseurComponent implements OnInit {
       this.fournisseurService.updateFournisseur(this.fournisseur_id, this.fournisseur).subscribe(
         () => {
           this.isLoading = false;
-          this.router.navigate(['/fournisseur']);
+          this.messageService.add({severity:'success', summary:'success', detail:'fournisseur a éte modifié avec succes'});
         },
         error => {
           this.isLoading = false;
           console.error('An error occurred while updating fournisseur:', error);
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
         }
       );
     } else {
