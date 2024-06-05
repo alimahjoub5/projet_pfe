@@ -258,6 +258,53 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
         return response()->json(['message' => 'Dates updated successfully'], 200);
     }
 
+    public function closeTicket($id)
+    {
+        // Trouver le ticket par son ID
+        $ticket = Ticket::find($id);
+
+        if (!$ticket) {
+            return response()->json(['error' => 'Ticket non trouvé'], 404);
+        }
+
+        // Mettre à jour les champs nécessaires
+        $ticket->datedevalidation = now();
+        $ticket->StatusCodeID = 'cloture';
+        $ticket->StatusValidation = true;
+
+        // Sauvegarder les changements
+        $ticket->save();
+
+        return response()->json(['message' => 'Ticket fermé avec succès', 'ticket' => $ticket]);
+    }
+
+    public function startTicket($id)
+    {
+        // Trouver le ticket par son ID
+        $ticket = Ticket::find($id);
+
+        if (!$ticket) {
+            return response()->json(['error' => 'Ticket non trouvé'], 404);
+        }
+
+        // Mettre à jour le StatusCodeID
+        $ticket->StatusCodeID = 'en_cours';
+
+        // Sauvegarder les changements
+        $ticket->save();
+
+        return response()->json(['message' => 'Ticket mis à jour en cours', 'ticket' => $ticket]);
+    }
+
+
+    public function getTicketsByAssignee($assigneeId)
+    {
+        // Récupérer les tickets par AssigneeID
+        $tickets = Ticket::where('AssigneeID', $assigneeId)->get(['TicketID', 'Subject', 'StartDate', 'ClosedDate']);
+
+        return response()->json($tickets);
+    }
+
 
 
 

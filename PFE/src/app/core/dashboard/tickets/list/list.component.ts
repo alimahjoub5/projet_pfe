@@ -150,5 +150,36 @@ filterTickets(): Ticket[] {
       );
     }
   }
+
+   // Méthode pour fermer un ticket
+   handleOk(id: number): void {
+    this.ticketService.closeTicket(id).subscribe(
+      response => {
+        console.log('Ticket fermé avec succès', response);
+        // Mettre à jour l'interface utilisateur ou notifier l'utilisateur ici
+      },
+      error => {
+        console.error('Erreur lors de la fermeture du ticket', error);
+      }
+    );
+    this.loadTickets();
+
+  }
+
+  // Méthode pour mettre un ticket en cours
+  handleCancel(id: number): void {
+    this.ticketService.startTicket(id).subscribe(
+      response => {
+        console.log('Ticket mis en cours avec succès', response);
+        // Mettre à jour l'interface utilisateur ou notifier l'utilisateur ici
+      },
+      error => {
+        console.error('Erreur lors de la mise en cours du ticket', error);
+      }
+    );
+    this.loadTickets();
+  }
+
+
 }
 

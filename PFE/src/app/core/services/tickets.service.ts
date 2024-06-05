@@ -57,6 +57,26 @@ export class TicketService {
   }
 
 
+    // Méthode pour fermer un ticket
+    closeTicket(id: number): Observable<any> {
+          const headers = this.authService.includeAuthToken();
+      const url = `${this.apiUrl}/tickets/${id}/close`;
+      return this.http.put(url, {},headers);
+    }
+  
+    // Méthode pour mettre un ticket en cours
+    startTicket(id: number): Observable<any> {
+          const headers = this.authService.includeAuthToken();
+      const url = `${this.apiUrl}/tickets/${id}/start`;
+      return this.http.put(url, {},headers);
+    }
+
+  // Méthode pour obtenir les tickets par AssigneeID
+  getTicketsByAssignee(assigneeId: number): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    const url = `${this.apiUrl}/tickets/assignee/${assigneeId}`;
+    return this.http.get(url,headers);
+  }
 
 
   
