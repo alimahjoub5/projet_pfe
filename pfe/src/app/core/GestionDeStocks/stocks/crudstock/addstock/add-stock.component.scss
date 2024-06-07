@@ -1,50 +1,92 @@
-.container {
+/* update-group.component.scss */
+
+$primary-color: #007ad9;
+$secondary-color: #6c757d;
+$border-radius: 0.25rem;
+$transition-time: 0.3s;
+
+.update-form {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem;
   background-color: #fff;
-  border-radius: 10px;
+  border: 1px solid #ebebeb;
+  border-radius: $border-radius;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: $primary-color;
+    text-align: center;
+  }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1rem;
-
-  .p-field {
-    grid-column: span 12;
-
-    @media (min-width: 768px) {
-      &.p-col-6 {
-        grid-column: span 6;
-      }
-    }
+  .form-field {
+    margin-bottom: 1rem;
 
     label {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
       display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: $primary-color;
     }
 
-    .p-inputtext, .p-dropdown, .p-autocomplete {
+    input, p-dropdown, textarea {
       width: 100%;
+      padding: 0.5rem;
+      border-radius: $border-radius;
+      transition: border-color $transition-time;
+
+      &:focus {
+        border-color: $primary-color;
+      }
     }
   }
 
-  .p-button-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $primary-color;
+    border: none;
+    border-radius: $border-radius;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color $transition-time;
 
-    button, a {
-      width: 48%;
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+
+    &:disabled {
+      background-color: $secondary-color;
+      cursor: not-allowed;
+    }
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .btn-secondary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: $secondary-color;
+    border: none;
+    border-radius: $border-radius;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color $transition-time;
+
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+    }
+
+    i {
+      margin-right: 0.5rem;
     }
   }
 }

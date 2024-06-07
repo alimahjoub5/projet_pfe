@@ -71,6 +71,12 @@ export class AddStockComponent implements OnInit {
       local: [''],
     });
   }
+  onCancel(): void {
+    // Réinitialiser le formulaire
+
+    this.router.navigate(['/stocks']);
+}
+
 
   onSubmit(): void {
     const formData = this.stockPieceForm.value;

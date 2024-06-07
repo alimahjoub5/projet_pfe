@@ -1,0 +1,40 @@
+<div class="group-detail">
+  <button (click)="printDocument()" class="btn-print">Imprimer</button>
+  <h2>Les détails d'un fournisseur</h2>
+
+  <div>
+    <div class="detail-row">
+      <label>Nom du fournisseur:</label>
+      <span>{{ fournisseur?.nom_fournisseur }}</span>
+    </div>
+
+    <div class="detail-row">
+      <label>Adresse:</label>
+      <span>{{ fournisseur?.adresse }}</span>
+    </div>
+
+    <div class="detail-row">
+      <label>Adresse email:</label>
+      <span>{{ fournisseur?.email }}</span>
+    </div>
+
+    <div class="detail-row">
+      <label>Téléphone:</label>
+      <span>{{ fournisseur?.telephone }}</span>
+    </div>
+
+    <div class="detail-row" *ngIf="fournisseur?.created_at">
+      <label>Date de création:</label>
+      <span>{{ fournisseur?.created_at | date:'dd/MM/yyyy' }}</span>
+    </div>
+
+    <div class="detail-row" *ngIf="fournisseur?.updated_at">
+      <label>Date de mise à jour:</label>
+      <span>{{ fournisseur?.updated_at | date:'dd/MM/yyyy' }}</span>
+    </div>
+  </div>
+
+  <div class="spinner" *ngIf="isLoading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</div>

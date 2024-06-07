@@ -66,25 +66,21 @@ export class MajStockComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.getStockDetails();
     this.getAllEquipements();
     this.getAllPieces();
     
     this.stockForm = this.fb.group({
       piece_id: ['', Validators.required],
-      equipment_id: ['', Validators.required],
+      equipment_id: ['', Validators.required], // Renommé pour correspondre à la propriété de l'objet
       quantity: ['', Validators.required],
       reserved_quantity: ['', Validators.required],
       local: ['', Validators.required]
     });
-
-    
   }
 
   getStockDetails(): void {
     this.stockId = +this.route.snapshot.paramMap.get('id');
-    
     this.stockService.getStockPieceById(this.stockId).subscribe(
       (stock: StockPiece) => {
         this.stockForm.patchValue(stock);
@@ -99,7 +95,7 @@ export class MajStockComponent implements OnInit {
   getAllEquipements(): void {
     this.equipementService.getAllEquipmentTypes().subscribe((equipements: any) => {
       this.equipements = equipements;
-  
+      console.log(this.equipements);
     });
   }
 
@@ -113,7 +109,7 @@ export class MajStockComponent implements OnInit {
     if (this.stockForm.valid) {
       const updatedStock: StockPiece = this.stockForm.value;
       updatedStock.stock_id = this.stockId;
-      updatedStock.modify_by= Number(this.authservice.getUserID()),
+      updatedStock.modify_by = Number(this.authservice.getUserID());
       this.isLoading = true;
       this.stockService.updateStockPiece(this.stockId, updatedStock).subscribe(
         (response: StockPiece) => {
@@ -129,9 +125,8 @@ export class MajStockComponent implements OnInit {
       );
     }
   }
-  
+
   showSuccess(): void {
     this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Stock mis à jour avec succès' });
   }
-
 }
