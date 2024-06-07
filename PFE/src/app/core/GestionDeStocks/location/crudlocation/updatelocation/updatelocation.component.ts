@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CommonModule } from '@angular/common';
 import { LocationService } from 'src/app/core/services/GestionDeStocks/location.service';
 import { Location } from 'src/app/core/models/GestionDeStocks/Location';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-updatelocation',
   standalone: true,
@@ -12,7 +14,7 @@ import { Location } from 'src/app/core/models/GestionDeStocks/Location';
     CommonModule,
     FormsModule, // Importez FormsModule ici
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,ToastModule
   ],
   templateUrl: './updatelocation.component.html',
   styleUrl: './updatelocation.component.scss'
@@ -27,9 +29,15 @@ export class UpdatelocationComponent implements OnInit{
     private route: ActivatedRoute,
     private router: Router,
     private locationservice: LocationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService :MessageService,
   ) {}
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.localForm.reset();
 
+    this.router.navigate(['/location']);
+}
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.location_id = +params.get('id');
@@ -68,11 +76,14 @@ export class UpdatelocationComponent implements OnInit{
         () => {
           this.isLoading = false;
           // Rediriger vers la liste des pièces après la mise à jour
-          this.router.navigate(['/location']);
+          this.messageService.add({severity:'success', summary:'success', detail:'local a été modifié avec succès'});
+
         },
         error => {
           this.isLoading = false;
           console.error('Une erreur est survenue lors de la mise à jour du local:', error);
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
         }
       );
     }

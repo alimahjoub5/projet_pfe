@@ -5,8 +5,11 @@ import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LocationService } from 'src/app/core/services/GestionDeStocks/location.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
 @Component({
   selector: 'app-addlocation',
   standalone: true,
@@ -18,7 +21,7 @@ import { LocationService } from 'src/app/core/services/GestionDeStocks/location.
     InputNumberModule,
     ButtonModule,
     FileUploadModule,
-    RouterModule
+    RouterModule,ToastModule
   ],
   templateUrl: './addlocation.component.html',
   styleUrl: './addlocation.component.scss'
@@ -26,7 +29,9 @@ import { LocationService } from 'src/app/core/services/GestionDeStocks/location.
 export class AddlocationComponent implements OnInit {
   localForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private locationservice: LocationService) { }
+  constructor(private fb: FormBuilder, private locationservice: LocationService,     private messageService :MessageService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.localForm = this.fb.group({
@@ -34,7 +39,12 @@ export class AddlocationComponent implements OnInit {
      
     });
   }
-  
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.localForm.reset();
+
+    this.router.navigate(['/location']);
+}
 
   onSubmit() {
     const formData = new FormData();
@@ -44,9 +54,13 @@ export class AddlocationComponent implements OnInit {
       (response) => {
         console.log('local créée avec succès :', response);
         this.localForm.reset();
+        this.messageService.add({severity:'success', summary:'success', detail:'local a été ajouté avec succès'});
+
       },
       (error) => {
         console.error('Erreur lors de la création du local :', error);
+        this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
       }
     );
   }

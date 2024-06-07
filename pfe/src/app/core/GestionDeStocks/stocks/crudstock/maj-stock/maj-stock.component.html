@@ -1,8 +1,8 @@
 <div class="container">
-  <h2>Modifier le stock</h2>
-  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="p-fluid form-grid">
-    
-    <div class="p-field p-col-12 p-md-6">
+  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
+    <p-toast></p-toast>
+    <h2 class="form-title"> Modifier un stock</h2>
+    <div class="form-field p-col-12 p-md-6">
       <label for="pieceSelect">Sélectionner une pièce :</label>
       <p-dropdown 
         id="pieceSelect" 
@@ -14,8 +14,8 @@
         [style]="{ width: '100%' }">
       </p-dropdown>
     </div>
-    <div class="p-field p-col-12 p-md-6">
-      <label for="equipementSelect">Sélectionner une equipement :</label>
+    <div class="form-field p-col-12 p-md-6">
+      <label for="equipementSelect">Sélectionner un équipement :</label>
       <p-dropdown 
         id="equipementSelect" 
         [options]="equipements" 
@@ -28,23 +28,25 @@
     </div>
 
 
-    <div class="p-field p-col-12 p-md-6">
+    <div class="form-field p-col-12 p-md-6">
       <label for="quantity">Quantité :</label>
       <input type="number" id="quantity" formControlName="quantity" pInputNumber class="p-inputtext">
     </div>
-    <div class="p-field p-col-12 p-md-6">
+    <div class="form-field p-col-12 p-md-6">
       <label for="reserved_quantity">Quantité réservée :</label>
       <input type="number" id="reserved_quantity" formControlName="reserved_quantity" pInputNumber class="p-inputtext">
     </div>
   
-    <div class="p-field p-col-12 p-md-12">
+    <div class="form-field p-col-12 p-md-6">
       <label for="local">Local :</label>
       <input type="text" id="local" formControlName="local" pInputText class="p-inputtext">
     </div>
  
-    <div class="p-col-12 p-mt-2 p-button-group">
-      <button type="submit" [disabled]="isLoading" pButton label="Enregistrer" class="p-button p-button-primary"></button>
-      <a routerLink="/stocks" pButton label="Annuler" class="p-button p-button-secondary"></a>
+    <div class="form-field p-col-12">
+      <button type="submit" [disabled]="stockForm.invalid" class="btn-primary">Modifier stock</button>
+    </div>   
+    <div class="form-field p-col-12">
+      <button type="button" (click)="onCancel()"  class="btn-secondary">Annuler</button>
     </div>
   </form>
 </div>

@@ -6,7 +6,7 @@ import { Piece } from '../../../models/GestionDeStocks/piece';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -17,6 +17,11 @@ import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { Table } from 'primeng/table';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @Component({
   selector: 'app-piecelist',
@@ -27,20 +32,23 @@ import { ToolbarModule } from 'primeng/toolbar';
     ButtonModule,
     InputTextModule,
     RouterModule,
-    TableModule,
     FileUploadModule,
     FormsModule,
-    ButtonModule,
     RippleModule,
     ToastModule,
     ToolbarModule,
     RatingModule,
-    InputTextModule,
     InputTextareaModule,
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule,RouterModule
+    DialogModule,
+   ReactiveFormsModule, 
+    AutoCompleteModule,
+    ConfirmDialogModule,
+    SplitButtonModule,
+    NgxSpinnerModule,
+
   ],
   templateUrl: './piecelist.component.html',
   styleUrl: './piecelist.component.scss'
@@ -49,7 +57,7 @@ export class PiecelistComponent implements OnInit {
   pieces: Piece[] = [];
   showDialog: boolean = false;
   filteredPieces: Piece[];
-
+  cols:any;
   constructor(
     private route: ActivatedRoute, 
     private pieceService: PieceService) { }
@@ -75,20 +83,10 @@ export class PiecelistComponent implements OnInit {
     this.showDialog = true; // Afficher la boîte de dialogue pour ajouter une pièce
   }
 
-  filter(value: string) {
-    if (!value) {
-      this.filteredPieces = this.pieces;
-    } else {
-      this.filteredPieces = this.pieces.filter(piece => {
-        return piece.nom_piece.toLowerCase().includes(value.toLowerCase()) || 
-               piece.description.toLowerCase().includes(value.toLowerCase()) ||
-               piece.material.toLowerCase().includes(value.toLowerCase()) ||
-               piece.serial_number.toLowerCase().includes(value.toLowerCase()) ||
-               piece.cost.toString().toLowerCase().includes(value.toLowerCase()) ||
-               piece.fournisseur_id.toString().toLowerCase().includes(value.toLowerCase());
-      });
-    }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
+
   confirmDeletePiece(piece: Piece): void {
     const confirmDelete = confirm('Êtes-vous sûr de vouloir supprimer cette pièce ?');
     if (confirmDelete) {

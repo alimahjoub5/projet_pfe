@@ -1,16 +1,21 @@
 <div class="container">
-    <h2>Modifier local</h2>
+    
   
-    <form [formGroup]="localForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
+    <form [formGroup]="localForm" (ngSubmit)="onSubmit()" class="add-location-form p-fluid p-grid">
+      <h2 class="form-title">Modifier local</h2>
+      <p-toast></p-toast>
+      <div class="form-field p-col-12">
         <label for="name">Nom du local</label>
         <input type="text" formControlName="name" class="form-control">
       </div>
    
       <!-- Ajoutez d'autres champs du formulaire ici -->
-  
-      <button type="submit" [disabled]="isLoading" class="btn btn-primary">Enregistrer</button>
-      <a routerLink="/location" class="btn btn-secondary">Annuler</a>
+      <div class="form-field p-col-12">
+        <button type="submit" [disabled]="localForm.invalid" class="btn-primary">Modifier</button>
+    </div>
+    <div class="form-field p-col-12">
+        <button type="button" (click)="onCancel()" class="btn-secondary">Annuler</button>
+    </div>
     </form>
   </div>
   

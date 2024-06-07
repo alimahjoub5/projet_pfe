@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PieceService } from '../../../services/GestionDeStocks/pieceService.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
@@ -35,7 +35,9 @@ export class PieceFormComponent implements OnInit {
 fournisseurs: any;
 
   constructor(private fb: FormBuilder, private pieceService: PieceService, 
-    private fournisseurService : FournisseurService, private messageservice : MessageService) { }
+    private fournisseurService : FournisseurService, private messageservice : MessageService, 
+       private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getAllFournisseurs();
@@ -51,7 +53,12 @@ fournisseurs: any;
       image_piece: [null] 
     });
   }
-  
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.pieceForm.reset();
+
+    this.router.navigate(['/piecelist']);
+}
   getAllFournisseurs(): void {
     this.fournisseurService.getFournisseurs().subscribe((response: any) => {
       this.fournisseurs = response.fournisseurs;

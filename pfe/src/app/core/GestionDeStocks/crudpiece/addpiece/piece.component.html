@@ -1,50 +1,59 @@
-<!-- piece-form.component.html -->
 <p-toast></p-toast>
-<form [formGroup]="pieceForm" (ngSubmit)="onSubmit()">
-  <div class="p-fluid">
-      <div class="p-field">
-          <label for="nom_piece">Nom de la pièce</label>
-          <input type="text" id="nom_piece" formControlName="nom_piece" pInputText>
-      </div>
-      <div class="p-field">
-          <label for="description">Description</label>
-          <textarea type="text" id="description" formControlName="description" pInputTextarea></textarea>
-      </div>
-
-      <div class="p-field image-upload-container">
-        <label for="image_piece" class="image-upload-label">Choisir une image</label>
-        <input id="image_piece" type="file" (change)="onImageChange($event)" accept="image/*" [class.ng-invalid]="pieceForm.get('image_piece').invalid && pieceForm.get('image_piece').touched">
-        <!-- Utilisez une balise <img> pour afficher l'aperçu de l'image -->
-        <img *ngIf="pieceForm.get('image_piece').value" [src]="getImagePreview()" alt="Preview" class="image-preview">
-        <small *ngIf="pieceForm.get('image_piece').invalid && pieceForm.get('image_piece').touched" class="p-error">Image de la pièce est requise</small>
-      </div>
-    
-      <div class="p-field">
-          <label for="material">Matériel</label>
-          <input type="text" id="material" formControlName="material" pInputText>
-      </div>
-      <div class="p-field">
-          <label for="serial_number">Numéro de série</label>
-          <input type="text" id="serial_number" formControlName="serial_number" pInputText>
-      </div>
-      <div class="p-field">
-          <label for="fabrication_date">Date de fabrication</label>
-          <input type="date" id="fabrication_date" formControlName="fabrication_date" pInputText>
-      </div>
-      <div class="p-field">
-          <label for="expiration_date">Date d'expiration</label>
-          <input type="date" id="expiration_date" formControlName="expiration_date" pInputText>
-      </div>
-      <div class="p-field">
-          <label for="cost">Coût</label>
-          <input type="number" id="cost" formControlName="cost" pInputNumber>
-      </div>
-      <div class="p-field" >
-        <label for="fournisseurSelect">Sélectionner un fournisseur :</label>
-        <p-dropdown id="fournisseurSelect" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur" class="w-full"></p-dropdown>
-      </div>
+<form [formGroup]="pieceForm" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
+  <h2 class="form-title">Ajouter une pièce</h2>
+  
+  <div class="form-field">
+    <label for="nom_piece">Nom de la pièce</label>
+    <input type="text" id="nom_piece" formControlName="nom_piece" pInputText>
   </div>
-  <button type="submit" pButton label="Enregistrer"></button>
-  <a routerLink="/piecelist" class="btn btn-secondary">Annuler</a>
-
+  
+  <div class="form-field">
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description" pInputTextarea></textarea>
+  </div>
+  
+  <div class="form-field image-upload-container">
+    <label for="image_piece" class="image-upload-label">Choisir une image</label>
+    <input id="image_piece" type="file" (change)="onImageChange($event)" accept="image/*" [class.ng-invalid]="pieceForm.get('image_piece').invalid && pieceForm.get('image_piece').touched">
+    <img *ngIf="pieceForm.get('image_piece').value" [src]="getImagePreview()" alt="Preview" class="image-preview">
+    <small *ngIf="pieceForm.get('image_piece').invalid && pieceForm.get('image_piece').touched" class="p-error">Image de la pièce est requise</small>
+  </div>
+  
+  <div class="form-field">
+    <label for="material">Matériel</label>
+    <input type="text" id="material" formControlName="material" pInputText>
+  </div>
+  
+  <div class="form-field">
+    <label for="serial_number">Numéro de série</label>
+    <input type="text" id="serial_number" formControlName="serial_number" pInputText>
+  </div>
+  
+  <div class="form-field">
+    <label for="fabrication_date">Date de fabrication</label>
+    <input type="date" id="fabrication_date" formControlName="fabrication_date" pInputText>
+  </div>
+  
+  <div class="form-field">
+    <label for="expiration_date">Date d'expiration</label>
+    <input type="date" id="expiration_date" formControlName="expiration_date" pInputText>
+  </div>
+  
+  <div class="form-field">
+    <label for="cost">Coût</label>
+    <input type="number" id="cost" formControlName="cost" pInputNumber>
+  </div>
+  
+  <div class="form-field">
+    <label for="fournisseurSelect">Sélectionner un fournisseur :</label>
+    <p-dropdown id="fournisseurSelect" formControlName="fournisseur_id" [options]="fournisseurs" optionLabel="nom_fournisseur" class="w-full"></p-dropdown>
+  </div>
+  
+  <div class="form-field p-col-12">
+    <button type="submit" [disabled]="pieceForm.invalid" class="btn-primary">Ajouter une pièce</button>
+  </div>
+  
+  <div class="form-field p-col-12">
+    <button type="button" (click)="onCancel()"  class="btn-secondary">Annuler</button>
+  </div>
 </form>

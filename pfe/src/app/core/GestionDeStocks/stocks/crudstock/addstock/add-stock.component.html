@@ -2,7 +2,7 @@
 <div class="container">
     <form [formGroup]="stockPieceForm" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
       <h2 class="form-title">Ajouter un stock</h2>
-  
+  <p-toast></p-toast>
       <div class="form-field">
         <label for="piece_id">Choisir votre pièce</label>
         <p-dropdown 

@@ -16,11 +16,14 @@ import { StockService } from 'src/app/core/services/GestionDeStocks/stock.servic
 import { StockPiece } from 'src/app/core/models/GestionDeStocks/StockPiece';
 import { LocationService } from 'src/app/core/services/GestionDeStocks/location.service';
 import { Location } from 'src/app/core/models/GestionDeStocks/Location';
+import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-stocks',
   standalone: true, // Je n'ai pas modifié cela car je ne suis pas sûr de son utilisation, veuillez le vérifier
   imports: [
+    ToastModule ,
     CommonModule,
     ReactiveFormsModule, // Utilisation de ReactiveFormsModule au lieu de FormsModule
     InputTextModule,
@@ -35,6 +38,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./add-stock.component.scss'] // Correction de la propriété styleUrl en styleUrls
 })
 export class AddStockComponent implements OnInit {
+  
   stockPieceForm: FormGroup;
   equipmentTypes: EquipmentType[] = [];
   filteredEquipmentTypes: EquipmentType[] = [];
@@ -47,7 +51,7 @@ export class AddStockComponent implements OnInit {
   eqId: number | undefined;
   idpiece: number | undefined;
   locname: number | undefined;
-
+  
   constructor(
     private fb: FormBuilder,
     private equipmentService: EquipmentTypeService,
@@ -55,7 +59,9 @@ export class AddStockComponent implements OnInit {
     private stockService: StockService,
     private locationService: LocationService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService :MessageService,
+
   ) { }
 
   ngOnInit(): void {
@@ -95,11 +101,13 @@ export class AddStockComponent implements OnInit {
       this.stockService.createStockPiece(stockPiece).subscribe(
         (response) => {
           console.log('Stock de pièces créé avec succès :', response);
-          this.router.navigate(['/stocks']);
+          this.messageService.add({severity:'success', summary:'success', detail:'stock a été ajouté avec succès'});
           this.stockPieceForm.reset();
         },
         (error) => {
           console.error('Erreur lors de la création du stock de pièces :', error);
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
         }
       );
     } else {

@@ -1,32 +1,32 @@
+<ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
+
+<!-- Your other content goes here -->
 <div class="grid">
   <div class="col-12">
-      <div class="card px-6 py-6">
-          <p-toast></p-toast>
-          <p-toolbar styleClass="mb-4">
-              <ng-template pTemplate="left">
-                  <div class="my-2">
-                      <button pButton pRipple label="Ajouter un piece stock" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addstock"></button>
-                  </div>
-              </ng-template>
-
-              <!--ng-template pTemplate="right">
-                  <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                  <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
-              </ng-template-->
-          </p-toolbar>
-
-          <p-table [value]="stockPieces" [value]="filteredStockPieces" [rows]="10" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[5,10,20]">              <ng-template pTemplate="caption">
-                  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                      <h5 class="m-0">Gérer le Stock</h5>
-                      <span class="block mt-2 md:mt-0 p-input-icon-left">
-                          <i class="pi pi-search"></i>
-                          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
-                      </span>
-                  </div>
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Ajouter un stock" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/addstock']" routerLinkActive="router-link-active"></button>
+        </ng-template>
+        
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>  
+  
+      <p-table #dt [value]="stockPieces" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['piece_id','equipment_id','quantity','reserved_quantity','local']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+          <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+              <h5 class="m-0">Gérer le stock</h5>
+            </div>
+          </ng-template>
              
 <hr>
 
-  <p-table [value]="stockPieces" #dt>
     <ng-template pTemplate="header">
       <tr>
 
@@ -54,6 +54,11 @@
           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteStockPiece(stockPiece)"></button>
       </td>
        
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">Aucun stock trouvé.</td>
       </tr>
     </ng-template>
   </p-table>

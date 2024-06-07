@@ -1,14 +1,17 @@
-<!-- piece-form.component.html -->
-<form [formGroup]="localForm" (ngSubmit)="onSubmit()">
-    <div class="p-fluid">
-        <div class="p-field">
-            <label for="name">Nom du local</label>
-            <input type="text" id="name" formControlName="name" pInputText>
-        </div>
-       
+<!-- add-location.component.html -->
+<form [formGroup]="localForm" (ngSubmit)="onSubmit()" class="add-location-form p-fluid p-grid">
+    <p-toast></p-toast>
+    <h2 class="form-title">Ajouter un local</h2>
+
+    <div class="form-field p-col-12">
+        <label for="locationName">Nom du local :</label>
+        <input type="text" id="locationName" formControlName="name" pInputText>
     </div>
-    <button type="submit" pButton label="Enregistrer"></button>
-    <a routerLink="/location" class="btn btn-secondary">Annuler</a>
-  
-  </form>
-  
+
+    <div class="form-field p-col-12">
+        <button type="submit" [disabled]="localForm.invalid" class="btn-primary">Ajouter un local</button>
+    </div>
+    <div class="form-field p-col-12">
+        <button type="button" (click)="onCancel()" class="btn-secondary">Annuler</button>
+    </div>
+</form>

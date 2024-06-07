@@ -6,7 +6,9 @@ import { PieceService } from '../../../services/GestionDeStocks/pieceService.ser
 import { CommonModule } from '@angular/common';
 import { FournisseurService } from 'src/app/core/services/GestionDeStocks/fournisseur.service';
 import { DropdownModule } from 'primeng/dropdown';
-
+import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-edit-piece',
   standalone : true,
@@ -15,7 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule, // Importez FormsModule ici
     ReactiveFormsModule,
     RouterModule,
-    DropdownModule
+    DropdownModule,ToastModule
   ],
   templateUrl: './edit-piece.component.html',
   styleUrls: ['./edit-piece.component.scss']
@@ -32,6 +34,7 @@ export class EditPieceComponent implements OnInit {
     private router: Router,
     private pieceService: PieceService,
     private formBuilder: FormBuilder,
+    private messageService :MessageService,
     private fournisseurService : FournisseurService
   ) {}
 
@@ -40,7 +43,10 @@ export class EditPieceComponent implements OnInit {
       this.pieceId = +params.get('id');
       this.loadPiece(this.pieceId);
     });
-this.getAllFournisseurs();
+
+
+  this.getAllFournisseurs();
+
     this.pieceForm = this.formBuilder.group({
       nom_piece: [{value : '',disabled: true}],
       description: ['', Validators.required],
@@ -51,29 +57,28 @@ this.getAllFournisseurs();
       // Ajoutez d'autres champs du formulaire selon vos besoins
     });
   }
+
+  onCancel(): void {
+    // Réinitialiser le formulaire
+
+    this.router.navigate(['/piecelist']);
+}
   getAllFournisseurs(): void {
     this.fournisseurService.getFournisseurs().subscribe((response: any) => {
       this.fournisseurs = response.fournisseurs;
     });
   }
-  loadPiece(id: number): void {
-    this.pieceService.getPieceById(id).subscribe(
+
+  
+  loadPiece(pieceId: number): void {
+    this.pieceId = +this.route.snapshot.paramMap.get('id');
+    this.pieceService.getPieceById(this.pieceId).subscribe(
       (piece: any) => {
-        this.piece = piece;
+        this.pieceForm.patchValue(piece);
         console.log(piece)
-        // Pré-remplir le formulaire avec les données de la pièce
-        this.pieceForm.patchValue({
-          nom_piece: piece.nom_piece,
-          description: piece.description,
-          material: piece.material,
-          serial_number: piece.serial_number,
-          cost: piece.cost,
-          fournisseur_id: piece.fournisseurs[0].nom_fournisseur
-          // Assurez-vous d'ajouter d'autres champs ici si nécessaire
-        });
       },
-      error => {
-        console.error('Une erreur est survenue lors du chargement de la pièce:', error);
+      (error: any) => {
+        console.error('Erreur lors de la récupération du piece :', error);
       }
     );
   }
@@ -87,11 +92,13 @@ this.getAllFournisseurs();
         () => {
           this.isLoading = false;
           // Rediriger vers la liste des pièces après la mise à jour
-          this.router.navigate(['/piecelist']);
+          this.messageService.add({severity:'success', summary:'success', detail:'pièce a éte modifié avec succes'});
         },
         error => {
           this.isLoading = false;
           console.error('Une erreur est survenue lors de la mise à jour de la pièce:', error);
+          this.messageService.add({severity:'error', summary:'Erreur', detail:error.error.message});
+
         }
       );
     }
