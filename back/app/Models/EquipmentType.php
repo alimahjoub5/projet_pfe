@@ -42,5 +42,10 @@ class EquipmentType extends Model
     {
         return $this->hasMany(StockPiece::class, 'equipment_id');
     }
+
+    public function utilisationPieces()
+    {
+        return $this->hasMany(UtilisationPiece::class, 'EquipmentTypeID');
+    }
     // Relations éventuelles à définir ici
 }

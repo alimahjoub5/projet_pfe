@@ -14,8 +14,8 @@ class CreateCommandesEnAttente extends Migration
             $table->timestamp('order_date')->default(DB::raw('CURRENT_TIMESTAMP')); // Utilisez timestamp au lieu de date
             $table->enum('order_status', ['en_attente', 'Annuler', 'livree'])->default('en_attente');
             $table->unsignedBigInteger('fournisseur_id');
-            $table->date('expected_delivery_date')->nullable();
-            $table->date('actual_delivery_date')->nullable();
+            $table->dateTime('expected_delivery_date')->nullable();
+            $table->dateTime('actual_delivery_date')->nullable();
             $table->string('facture_url')->nullable(); // Champ facture_url ajouté
             $table->timestamps();
         

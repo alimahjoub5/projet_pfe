@@ -13,9 +13,7 @@
     <ul>
         <li><strong>Nom de la pièce commandée :</strong> {{ $details['nom_piece'] }}</li>
         <li><strong>Date de livraison prévue :</strong> {{ $details['expected_delivery_date'] }}</li>
-        <li><strong>Prix unitaire :</strong> {{ $details['prix_unitaire'] }} €</li>
         <li><strong>Quantité :</strong> {{ $details['quantite'] }}</li>
-        <li><strong>Total de la commande :</strong> {{ $details['total'] }} €</li>
     </ul>
 
     <p>Nous vous prions de bien vouloir traiter cette commande dans les plus brefs délais et de nous tenir informés de l'état d'avancement de la livraison.</p>

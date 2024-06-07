@@ -12,7 +12,7 @@ export class CommandeEnAttenteService {
   constructor(private http: HttpClient) {}
 
   // Enregistrer une commande en attente
-  enregistrerCommande(commande: CommandeEnAttente): Observable<any> {
+  enregistrerCommande(commande: any): Observable<any> {
     return this.http.post(this.apiUrl+"/store", commande);
   }
  

@@ -108,8 +108,9 @@ export class AddcommandeComponent implements OnInit {
   
           // Return structured object, handling possible null values
           return {
-            piece_id: pieceId ? pieceId.piece_id : null,
-            fournisseur_id: fournisseurId ? fournisseurId.fournisseur_id : null,
+            expected_delivery_date:commande.expected_delivery_date,
+            piece_id: pieceId.piece_id,
+            fournisseur_id:fournisseurId.fournisseur_id,
             order_date: new Date(),
             requested_quantity: commande.requested_quantity, // Utilisation de la quantité demandée de la commande actuelle
             order_status: 'pending',

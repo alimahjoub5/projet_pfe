@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\TechnicianGroup;
 use App\Models\User;
 use App\Models\Societe;
+use App\Models\EquipmentType;
 use App\Models\TicketDates;
 
 class TicketController extends Controller
@@ -262,21 +263,34 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
     {
         // Trouver le ticket par son ID
         $ticket = Ticket::find($id);
-
+        
         if (!$ticket) {
             return response()->json(['error' => 'Ticket non trouvé'], 404);
         }
-
-        // Mettre à jour les champs nécessaires
-        $ticket->datedevalidation = now();
-        $ticket->StatusCodeID = 'cloture';
+    
+        // Mettre à jour les champs nécessaires avec la date et l'heure actuelles
+        $currentDateTime = now(); // Obtenir la date et l'heure actuelles
+    
+        $ticket->datedevalidation = $currentDateTime;
+        $ticket->StatusCodeID = 'cloture'; // Assuming 'cloture' is a valid status code
         $ticket->StatusValidation = true;
-
-        // Sauvegarder les changements
+    
+        // Sauvegarder les changements du ticket
         $ticket->save();
-
+    
+        // Mettre à jour la date de dernière maintenance de l'équipement associé
+        if ($ticket->EquipmentTypeID) {
+            $equipment = EquipmentType::find($ticket->EquipmentTypeID);
+            if ($equipment) {
+                $equipment->LastMaintenanceDate = $currentDateTime;
+                $equipment->save();
+            }
+        }
+    
         return response()->json(['message' => 'Ticket fermé avec succès', 'ticket' => $ticket]);
     }
+    
+
 
     public function startTicket($id)
     {

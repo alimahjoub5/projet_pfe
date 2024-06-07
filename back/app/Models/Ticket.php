@@ -80,4 +80,20 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class, 'CreatedBy'); // User who created the ticket
     }
+
+     /**
+     * Calculate the downtime duration for the ticket.
+     *
+     * @return int Duration in minutes
+     */
+    public function getDowntimeDuration()
+    {
+        if ($this->ClosedDate && $this->StartDate) {
+            $startDate = Carbon::parse($this->StartDate);
+            $closedDate = Carbon::parse($this->datedevalidation);
+            return $startDate->diffInMinutes($closedDate);
+        }
+        return 0;
+    }
+
 }

@@ -9,24 +9,24 @@
         [options]="pieces" 
         optionLabel="nom_piece" 
         optionValue="piece_id" 
-        placeholder="Sélectionner une pièce"
+        placeholder="Sélectionner un équipement"
         formControlName="piece_id" 
         [style]="{ width: '100%' }">
       </p-dropdown>
     </div>
-
     <div class="p-field p-col-12 p-md-6">
-      <label for="equipementSelect">Sélectionner un équipement :</label>
+      <label for="equipementSelect">Sélectionner une equipement :</label>
       <p-dropdown 
         id="equipementSelect" 
         [options]="equipements" 
         optionLabel="TypeName" 
-        optionValue="equipment_id" 
-        placeholder="Sélectionner un équipement"
-        formControlName="EquipmentTypeID" 
+        optionValue="EquipmentTypeID" 
+        placeholder="Sélectionner une equipement"
+        formControlName="equipment_id" 
         [style]="{ width: '100%' }">
       </p-dropdown>
     </div>
+
 
     <div class="p-field p-col-12 p-md-6">
       <label for="quantity">Quantité :</label>

@@ -88,6 +88,7 @@ export class MajStockComponent implements OnInit {
     this.stockService.getStockPieceById(this.stockId).subscribe(
       (stock: StockPiece) => {
         this.stockForm.patchValue(stock);
+        console.log(stock)
       },
       (error: any) => {
         console.error('Erreur lors de la récupération du stock :', error);
@@ -96,7 +97,7 @@ export class MajStockComponent implements OnInit {
   }
 
   getAllEquipements(): void {
-    this.equipementService.getAllEquipmentTypes().subscribe((equipements: EquipmentType[]) => {
+    this.equipementService.getAllEquipmentTypes().subscribe((equipements: any) => {
       this.equipements = equipements;
   
     });

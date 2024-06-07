@@ -238,3 +238,6 @@ Route::put('/societes/{id}', [SocieteController::class, 'update']);
 Route::delete('/societes/{id}', [SocieteController::class, 'destroy']);
 Route::put('/societes/tickets/{ticketId}/assign-to-societe', [TicketController::class, 'assignTicketToSociete']);
 
+use App\Http\Controllers\StatisticController;
+
+Route::get('equipment/availability', [StatisticController::class, 'getAvailabilityRate']);

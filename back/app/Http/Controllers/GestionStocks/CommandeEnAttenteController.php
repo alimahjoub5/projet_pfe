@@ -70,72 +70,87 @@ class CommandeEnAttenteController extends Controller
 
 
     
-        public function store(Request $request)
-        {
-            Log::info($request);
-
-            $validatedData = $request->validate([
-                'fournisseur_id' => 'required',
-                'requested_quantity' => 'required',
-                'piece_id' => 'required',
+    public function store(Request $request)
+    {
+        // Log the full request content for debugging
+        Log::info('Request Content:', $request->all());
+    
+        // Assuming the payload is an array of objects
+        $ordersData = $request->all();
+    
+        $responses = [];
+    
+        foreach ($ordersData as $requestData) {
+            // Validate request data
+            $validatedData = validator($requestData, [
+                'fournisseur_id' => 'required|integer',
+                'requested_quantity' => 'required|integer',
+                'piece_id' => 'required|integer',
                 'expected_delivery_date' => 'nullable|date',
-            ]);
+            ])->validate();
     
             // Fetch supplier details
-            $fournisseur = Fournisseur::findOrFail($request->fournisseur_id);
+            $fournisseur = Fournisseur::findOrFail($validatedData['fournisseur_id']);
     
             // Fetch piece details
-            $piece = Piece::findOrFail($request->piece_id);
+            $piece = Piece::findOrFail($validatedData['piece_id']);
     
             // Calculate total cost
-            $total = $request->requested_quantity * $piece->cost;
+            $total = $validatedData['requested_quantity'] * $piece->cost;
     
             // Generate invoice data
             $invoiceData = [
-                'numero_facture' => $request->commande_id, // Assuming commande_id is the invoice number
+                'numero_commande' => $requestData['commande_id'] ?? 'N/A', // Assuming commande_id is the invoice number
                 'date' => now()->format('d/m/Y'), // Assuming today's date is the invoice date
                 'nom_piece' => $piece->nom_piece,
-                'prix_unitaire' => $piece->cost,
-                'quantite' => $request->requested_quantity,
-                'total' => $total,
+                'quantite' => $validatedData['requested_quantity'],
                 'fournisseur' => $fournisseur->nom_fournisseur,
-                'expected_delivery_date' => $request->expected_delivery_date,
+                'expected_delivery_date' => $validatedData['expected_delivery_date'],
             ];
     
             // Generate PDF
             $pdfPath = $this->generatePdf($invoiceData);
     
-            // Store PDF
-            // You can store the PDF in storage or any other location as per your requirement
-    
             // Send email with PDF attachment
             Mail::to($fournisseur->email)->send(new CommandeNotification($invoiceData, $pdfPath));
-            $validatedData["facture_url"]=$pdfPath;
+    
+            // Add PDF path to validated data
+            $validatedData['facture_url'] = $pdfPath;
+    
             // Create pending order
-           $commande = CommandeEnAttente::create($validatedData);
-
-           return response()->json(['commande' => $commande, 'pdf_path' => $pdfPath], 201);
+            $commande = CommandeEnAttente::create($validatedData);
+    
+            // Add the response to the array
+            $responses[] = ['commande' => $commande, 'pdf_path' => $pdfPath];
         }
+    
+        return response()->json($responses, 201);
+    }
+    
+    private function generatePdf($data)
+    {
+        // Generate PDF logic
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
+    
+        // Load the HTML template and pass the data to it
+        $html = view('facture', $data)->render();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+        $output = $dompdf->output();
+    
+        // Store PDF in the storage folder
+        $fileName = uniqid() . '.pdf'; // Generate a unique file name
+        $filePath = 'pdf/' . $fileName; // Path to store PDF in the storage folder
+        Storage::put($filePath, $output); // Save the PDF to the storage folder
+    
+        return $filePath;
+    }
+    
 
-        
-        private function generatePdf($data)
-        {
-            // Generate PDF logic
-            $options = new Options();
-            $options->set('isHtml5ParserEnabled', true);
-            $dompdf = new Dompdf($options);
-            $dompdf->loadHtml(view('facture', $data)); // Assuming you have a blade template named 'facture'
-            $dompdf->setPaper('A4', 'portrait');
-            $dompdf->render();
-            $output = $dompdf->output();
-        
-            // Store PDF in the storage folder
-            $fileName = uniqid() . '.pdf'; // Generate a unique file name
-            $filePath = 'pdf/' . $fileName; // Path to store PDF in the storage folder
-            Storage::put($filePath, $output); // Save the PDF to the storage folder
-        
-            return $filePath;
-        }
+    
 
 
         

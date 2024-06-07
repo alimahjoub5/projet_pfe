@@ -10,12 +10,16 @@ use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
+/**
      * Register any application services.
+     *
+     * @return void
      */
-    public function register(): void
+    public function register()
     {
-        //
+        $this->app->singleton(EquipmentAvailabilityService::class, function ($app) {
+            return new EquipmentAvailabilityService();
+        });
     }
 
     /**
