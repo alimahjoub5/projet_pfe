@@ -45,6 +45,8 @@
                       <td>{{ fournisseur.email }}</td>
                       <td>{{ fournisseur.telephone }}</td>
                       <td>
+                        <!--button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/detailfournisseur', fournisseur.fournisseur_id]" routerLinkActive="router-link-active"></button-->
+
                           <!-- Bouton Modifier -->
                           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/editfournisseur', fournisseur.fournisseur_id]" routerLinkActive="router-link-active"></button>
                           <!-- Bouton Supprimer -->
@@ -52,6 +54,12 @@
                       </td>
                   </tr>
               </ng-template>
+              
+        <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="8">Aucun fournisseur trouvé.</td>
+            </tr>
+          </ng-template>
           </p-table>
       </div>
   </div>

@@ -14,15 +14,15 @@
               <button pButton pRipple label="Ajouter une commande" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addcommande"></button>
           </div>
       </ng-template>
-        <ng-template pTemplate="right">
-          <div class="search-box ml-auto">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
-          </div>
-        </ng-template>
+      <ng-template pTemplate="right">
+        <div class="search-box ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+        </div>
+      </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="Commandes" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['piece_id','requested_quantity','order_date','order_status','fournisseur_id','expected_delivery_date','actual_delivery_date','facture_url']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <p-table #dt [value]="Commandes" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['piece_id','requested_quantity','order_date','order_status','fournisseur_id','expected_delivery_date','actual_delivery_date']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
           <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <h5 class="m-0">Gérer les commandes</h5>
@@ -105,6 +105,11 @@
         
         
           
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">Aucune commande trouvée.</td>
         </tr>
       </ng-template>
     </p-table>

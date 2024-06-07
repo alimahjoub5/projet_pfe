@@ -19,6 +19,8 @@ import { EditfournisseurComponent } from './fournisseur/editfournisseur/editfour
 import { UpdatecommandeComponent } from './commande/updatecommande/updatecommande.component';
 import { AddcommandeComponent } from './commande/addcommande/addcommande.component';
 import { MajStockComponent } from './stocks/crudstock/maj-stock/maj-stock.component';
+import { DetaillsComponent } from '../dashboard/users-technician-groups/detaills/detaills.component';
+import { DetailsfourniComponent } from './fournisseur/detailsfourni/detailsfourni.component';
 
 
 const routes: Routes = [
@@ -54,6 +56,7 @@ const routes: Routes = [
 { path: "fournisseur", component: FournisseurComponent  },
 { path: "addfournisseur", component: AddfournisseurComponent  },
 { path: "editfournisseur/:id", component: EditfournisseurComponent   },
+{ path: "detailfournisseur/:id", component: DetailsfourniComponent   },
 
 
 ];

@@ -22,36 +22,33 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { MenuItem} from 'primeng/api';
+
+import { Product } from 'src/app/demo/api/product';
+import { MessageService } from 'primeng/api';
+import { ProductService } from 'src/app/demo/service/product.service';
 
 
 @Component({
   selector: 'app-commande',
   standalone: true,
   imports: [
-    ReactiveFormsModule, 
-    AutoCompleteModule,
-    ConfirmDialogModule,
-    SplitButtonModule,
-     NgxSpinnerModule,
-    TableModule,
-    CommonModule,TableModule,
-    InputTextModule, 
-    FileUploadModule,
     FormsModule,
     ButtonModule,
-    RippleModule,
-    ToastModule,
+     ReactiveFormsModule, 
+    AutoCompleteModule,
+    TableModule,DialogModule,
     ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,RouterModule
+    ToastModule,
+    ConfirmDialogModule,
+    SplitButtonModule,
+    RouterModule,
+    NgxSpinnerModule,
+CommonModule
   ],
   templateUrl: './commande.component.html',
-  styleUrl: './commande.component.scss'
+  styleUrl: './commande.component.scss',
+  providers:[MessageService]
 })
 export class CommandeComponent implements OnInit {
   Commandes: CommandeEnAttente[] =[]; // Modifier le type de données ici
@@ -67,6 +64,11 @@ cols:any;
   ngOnInit(): void {
     this.getutilisation();
   }
+   
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
 
   async getutilisation(): Promise<void> {
     this.commandeservice.getCommandesEnAttente().subscribe(response => {
@@ -85,9 +87,7 @@ cols:any;
     this.showDialog = true;
   }
 
-  onGlobalFilter(table: Table, event: Event) {
-    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-  }
+
 
   confirmDeletecommande(Commandes: CommandeEnAttente): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette pièce ?')) {

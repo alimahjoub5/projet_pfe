@@ -50,4 +50,125 @@
   .button-group button, .button-group a {
     margin-left: 10px;
   }
+  .container {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #333;
+    }
+  
+    .commande-container {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+  
+      .commande-group {
+        margin-bottom: 15px;
+  
+        h3 {
+          font-size: 1.2em;
+          margin-bottom: 15px;
+          color: #333;
+        }
+  
+        .p-field {
+          margin-bottom: 15px;
+  
+          label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+          }
+  
+          .p-inputtext {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+          }
+  
+          .p-dropdown {
+            width: 100%;
+  
+            .p-inputtext {
+              width: 100%;
+            }
+          }
+  
+          &.p-error {
+            .p-inputtext,
+            .p-dropdown {
+              border-color: #ff4d4f;
+            }
+  
+            .p-error {
+              color: #ff4d4f;
+              font-size: 0.875em;
+            }
+          }
+        }
+  
+        button {
+          margin-top: 10px;
+        }
+      }
+    }
+  
+    .button-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+  
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1em;
+  
+        &.p-button-danger {
+          background-color: #ff4d4f;
+          border: none;
+  
+          &:hover {
+            background-color: #ff7875;
+          }
+        }
+  
+        &.p-button-secondary {
+          background-color: #6c757d;
+          border: none;
+  
+          &:hover {
+            background-color: #5a6268;
+          }
+        }
+  
+        &.p-button-primary {
+          background-color: #007bff;
+          border: none;
+  
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+      }
+  
+      a {
+        text-decoration: none;
+  
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
   
