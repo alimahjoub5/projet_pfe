@@ -5,11 +5,15 @@ import { CalendarModule } from 'primeng/calendar';
 import { NgStyle } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
+import { EquipmentAvailabilityComponent } from './equipment-avalibility/equipment-avalibility.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ButtonModule, ChartModule, CalendarModule,NgStyle,MenuModule,TableModule],
+  imports: [ButtonModule, ChartModule, CalendarModule,NgStyle,MenuModule,TableModule
+  ,EquipmentAvailabilityComponent
+  
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'] // Correction de la propriété styleUrls
 })

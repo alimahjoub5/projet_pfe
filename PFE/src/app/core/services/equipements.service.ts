@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EquipmentType } from '../models/equipement';
 import { AuthService } from './auth.service';
@@ -46,5 +46,18 @@ export class EquipmentTypeService {
   getEquipmentName(equipmentTypeId: number): Observable<string> {
     const headers = this.authService.includeAuthToken();
     return this.http.get<string>(`${this.apiUrl}/equipment/${equipmentTypeId}/name`, headers);
+  }
+
+
+
+  //----------------------------------STATISTIQUE-----------------------------------------------------
+
+  getAvailabilityRate(equipmentTypeId: number, startDate: string, endDate: string): Observable<any> {
+    let params = new HttpParams()
+      .set('equipment_type_id', equipmentTypeId.toString())
+      .set('start_date', startDate)
+      .set('end_date', endDate);
+
+    return this.http.get<any>(`${this.apiUrl}/equipment/availability`, { params });
   }
 }
