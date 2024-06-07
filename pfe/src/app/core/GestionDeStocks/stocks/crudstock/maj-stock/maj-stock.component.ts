@@ -73,8 +73,8 @@ export class MajStockComponent implements OnInit {
     this.stockForm = this.fb.group({
       piece_id: ['', Validators.required],
       equipment_id: ['', Validators.required], // Renommé pour correspondre à la propriété de l'objet
-      quantity: ['', Validators.required],
-      reserved_quantity: ['', Validators.required],
+      quantity: [{ value: '', disabled: true }, Validators.required],
+      reserved_quantity: [{ value: '', disabled: true }, Validators.required],
       local: ['', Validators.required]
     });
   }
