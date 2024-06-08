@@ -147,7 +147,8 @@ group : Groupe = null;
         ModifiedBy: null,
         StatusCodeID: 'nouveau',
         StatusValidation: false,
-        DueDate: null
+        DueDate: null,
+        equipement: undefined
       }
     console.log(ticket);      // Appeler le service pour ajouter le ticket
       this.ticketService.addTicket(ticket).subscribe(

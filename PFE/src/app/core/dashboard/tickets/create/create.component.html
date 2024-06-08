@@ -1,13 +1,12 @@
-<ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true"></ngx-spinner>
 
 <p-toast></p-toast>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="p-fluid">
-  <div class="p-field">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="update-form p-fluid p-grid">
+  <div class="form-title">
     <label for="id">Intervention N° {{id}}</label>
   </div>
 
-  <div class="p-field">
+  <div class="form-field">
     <label for="equipmentTypeID">Equipement</label>
     <p-autoComplete 
       [suggestions]="filteredEquipmentTypes" 
@@ -22,7 +21,7 @@
   </div>
   
 
-  <div class="p-field">
+  <div class="form-field">
     <label for="priority">Priorité</label>
     <p-dropdown 
       id="priority" 
@@ -34,16 +33,16 @@
     ></p-dropdown>
   </div>
 
-  <div class="p-field">
+  <div class="form-field nature-field">
     <h5>Quelle est la nature de l'intervention ?</h5>
     <p-selectButton [options]="choix" formControlName="TicketType" optionLabel="name"></p-selectButton>
-  
   </div>
-  <div class="p-field">
+  
+  <div class="form-field">
     <label for="subject">Titre</label>
     <input type="text" id="subject" formControlName="subject" class="p-inputtext" required>
   </div>
-  <div class="p-field">
+  <div class="form-field">
     <label for="description">Description de l'intervention (optionnel)</label>
     <textarea id="description" formControlName="description" class="p-inputtext"></textarea>
   </div>
@@ -121,5 +120,7 @@
 
 
 
-  <button type="submit" class="p-button p-button-primary">Soumettre</button>
-</form>
+
+<div class="form-field p-col-12">
+  <button type="submit" [disabled]="form.invalid" class="btn-primary">Ajouter une intervention</button>
+</div></form>

@@ -59,3 +59,24 @@ h2 {
 .p-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+.container {
+  .filters {
+    margin-bottom: 20px;
+    button.active-filter {
+      background-color: #007ad9;
+      color: #fff;
+    }
+  }
+  .tickets-table {
+    .status-annuler {
+      background-color: #f8d7da; // Couleur de fond pour les interventions annulées
+      color: #721c24; // Couleur de texte pour les interventions annulées
+    }
+    .status-cloture {
+      background-color: #d4edda;
+    }
+    .status-resolu {
+      background-color: #fff3cd;
+    }
+  }
+}

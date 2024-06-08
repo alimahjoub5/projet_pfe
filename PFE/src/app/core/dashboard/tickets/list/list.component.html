@@ -1,30 +1,29 @@
-<ngx-spinner bdOpacity="0.9" bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true" *ngIf="isLoading"></ngx-spinner>
 
-<!-- Your other content goes here -->
-<div class="card flex justify-content-center" *ngIf="!isLoading">
-    <!-- Search bar -->
-    <div class="col-sm-4">
-        <div class="search-box">
-            <i class="material-icons"></i>
-            <input type="text" class="form-control" placeholder="Rechercher...">
-        </div>
-    </div>
-    <p-toast></p-toast>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Ajouter une intervention" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/create']" routerLinkActive="router-link-active"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>
 
-    <!-- Bouton pour ajouter un ticket -->
-
-    <!-- Tableau pour afficher les tickets -->
-    <p-table #dt1 [value]="filteredTickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
-        [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">
-
+      <p-table #dt [value]="tickets" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['Subject','Description','EquipmentTypeName','PriorityID','StatusCodeID']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <!-- En-tête du tableau -->
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="Subject" style="width:25%">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
-                <th pSortableColumn="Description" style="width:25%">Description <p-sortIcon field="Description"></p-sortIcon></th>
-                <th pSortableColumn="EquipmentTypeName" style="width:25%">Equipments <p-sortIcon field="EquipmentTypeName"></p-sortIcon></th>
-                <th pSortableColumn="PriorityID" style="width:25%">Priorité <p-sortIcon field="PriorityID"></p-sortIcon></th>
-                <th pSortableColumn="StatusCodeID" style="width:25%">Statut <p-sortIcon field="StatusCodeID"></p-sortIcon></th>
+                <th pSortableColumn="Subject" style="width:20%">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
+                <th pSortableColumn="Description" style="width:20%">Description <p-sortIcon field="Description"></p-sortIcon></th>
+                <th pSortableColumn="EquipmentTypeName" style="width:20%">Équipements <p-sortIcon field="EquipmentTypeName"></p-sortIcon></th>
+                <th pSortableColumn="PriorityID" style="width:20%">Priorité <p-sortIcon field="PriorityID"></p-sortIcon></th>
+                <th pSortableColumn="StatusCodeID" style="width:20%">Statut <p-sortIcon field="StatusCodeID"></p-sortIcon></th>
                 <th>Action</th>
             </tr>
         </ng-template>
@@ -38,20 +37,19 @@
                 </td>
                 <td>
                     <span class="p-column-title">Description</span>
-                    <span class="ml-1 vertical-align-middle">{{ ticket.Description }}</span>
+                    {{ ticket.Description }}
                 </td>
                 <td>
-                    <span class="p-column-title">Equipments</span>
-                    <span class="ml-1 vertical-align-middle">{{ ticket.EquipmentTypeName }}</span>
+                    <span class="p-column-title">Équipements</span>
+                    {{ ticket.EquipmentTypeName }}
                 </td>
-
                 <td [ngClass]="getPriorityColor(ticket.PriorityID)">
                     <span class="p-column-title">Priorité</span>
-                    <span class="ml-1 vertical-align-middle">{{ ticket.PriorityID }}</span>
+                    {{ ticket.PriorityID }}
                 </td>
                 <td>
                     <span class="p-column-title">Statut</span>
-                    <span class="ml-1 vertical-align-middle">{{ ticket.StatusCodeID }}</span>
+                    {{ ticket.StatusCodeID }}
                 </td>
                 <td>
                     <ng-container *ngIf="ticket.StatusCodeID !== 'resolu'; else resolvedActions">
@@ -62,7 +60,7 @@
                     </ng-container>
                     <ng-template #resolvedActions>
                         <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success p-button-text mr-2" (click)="handleOk(ticket.TicketID)" title="OK"></button>
-                        <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-secondary p-button-text " (click)="handleCancel(ticket.TicketID)" title="Annuler"></button>
+                        <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-secondary p-button-text" (click)="handleCancel(ticket.TicketID)" title="Annuler"></button>
                     </ng-template>
                 </td>
             </tr>
@@ -74,5 +72,7 @@
                 <td colspan="6">Aucun ticket trouvé.</td>
             </tr>
         </ng-template>
-    </p-table>
+      </p-table>
+    </div>
+  </div>
 </div>

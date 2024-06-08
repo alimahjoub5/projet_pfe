@@ -1,4 +1,5 @@
 export interface Ticket {
+equipement: any;
     TicketID: number;
     CreatedBy: number;
     CreatedOn?: Date | null;

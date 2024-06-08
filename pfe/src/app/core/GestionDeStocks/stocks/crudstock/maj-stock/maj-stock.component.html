@@ -21,7 +21,6 @@
         [options]="equipements" 
         optionLabel="TypeName" 
         optionValue="EquipmentTypeID" 
-        placeholder="Sélectionner une equipement"
         formControlName="equipment_id" 
         [style]="{ width: '100%' }">
       </p-dropdown>
@@ -36,11 +35,18 @@
       <label for="reserved_quantity">Quantité réservée :</label>
       <input type="number" id="reserved_quantity" formControlName="reserved_quantity" pInputNumber class="p-inputtext">
     </div>
-  
     <div class="form-field p-col-12 p-md-6">
-      <label for="local">Local :</label>
-      <input type="text" id="local" formControlName="local" pInputText class="p-inputtext">
+      <label for="localSelect">Sélectionner un local :</label>
+      <p-dropdown 
+        id="localSelect" 
+        [options]="locations" 
+        optionLabel="name" 
+        optionValue="location_id" 
+        formControlName="location_id" 
+        [style]="{ width: '100%' }">
+      </p-dropdown>
     </div>
+   
  
     <div class="form-field p-col-12">
       <button type="submit" [disabled]="stockForm.invalid" class="btn-primary">Modifier stock</button>

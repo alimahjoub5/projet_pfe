@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
   tickets: Ticket[] = [];
 isLoading: boolean;
 filteredTickets: Ticket[] = [];
-
+cols:any;
 //---------------------------------------------------------------
 
   constructor(private ticketService: TicketService,
