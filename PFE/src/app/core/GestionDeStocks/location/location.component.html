@@ -1,48 +1,33 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <div class="grid">
   <div class="col-12">
-      <div class="card px-6 py-6">
-          <p-toast></p-toast>
-          <p-toolbar styleClass="mb-4">
-              <ng-template pTemplate="left">
-                  <div class="my-2">
-                      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addlocation"></button>
-                      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
-                  </div>
-              </ng-template>
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Ajouter un local" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/addlocation']" routerLinkActive="router-link-active"></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>
 
-              <ng-template pTemplate="right">
-                  <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-                  <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
-              </ng-template>
-          </p-toolbar>
-
-          <p-table [value]="locations" [value]="filteredLocation" [rows]="10" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[5,10,20]">              <ng-template pTemplate="caption">
-                  <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                      <h5 class="m-0">Gérer les locaux</h5>
-                      <span class="block mt-2 md:mt-0 p-input-icon-left">
-                          <i class="pi pi-search"></i>
-                          <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..."  class="w-full sm:w-auto"/>
-                      </span>
-                  </div>
-              </ng-template>
-<div class="row">
-    <div class="col-md-6">
-      <input type="text" pInputText placeholder="Rechercher" (input)="filter($event.target.value)" class="search-input">
-    </div>
-    <div class="col-md-6">
-      <button pButton type="button" icon="pi pi-plus" class="p-button-raised p-button-success" routerLink="/addlocation">
-        Ajouter un local
-      </button>
-    </div>
-  </div>
+      <p-table #dt [value]="locations" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gérer les groupes</h5>
+          </div>
+        </ng-template>
   <!-- Tableau -->
   
     <!-- Entêtes de colonne -->
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 3rem">
-          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-      </th>
+       
 
         <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
        
@@ -52,17 +37,21 @@
     <!-- Corps du tableau -->
     <ng-template pTemplate="body" let-location>
       <tr>
-        <td>
-          <p-tableCheckbox [value]="location"></p-tableCheckbox>
-      </td>
+      
         <td>{{ location.name }}</td>
         <td>
           <!-- Bouton Modifier -->
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatelocation', location.location_id]" routerLinkActive="router-link-active"></button>
           <!-- Bouton Supprimer -->
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="confirmDeleteLocations(location)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletelocation(location.location_id)"></button>
       </td>
         
+      </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="emptymessage">
+      <tr>
+          <td colspan="3">Aucun local trouvé.</td>
       </tr>
     </ng-template>
   </p-table>

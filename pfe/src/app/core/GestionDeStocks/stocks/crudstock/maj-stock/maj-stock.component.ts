@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule ,Route, Router} from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
@@ -25,6 +25,7 @@ import { PieceService } from 'src/app/core/services/GestionDeStocks/pieceService
 import { StockService } from 'src/app/core/services/GestionDeStocks/stock.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
+import { CheckboxModule } from 'primeng/checkbox';
  // Assurez-vous de remplacer cela par le chemin réel
 
 @Component({
@@ -39,7 +40,14 @@ import { EquipmentTypeService } from 'src/app/core/services/equipements.service'
     FileUploadModule,
     RouterModule,
     DropdownModule, // Exemple d'importation supplémentaire
-    AutoCompleteModule // Exemple d'importation supplémentaire
+    AutoCompleteModule ,
+    ToastModule,
+     CheckboxModule,   
+     NgxSpinnerModule,
+     DialogModule,
+     FormsModule,
+     
+   // Exemple d'importation supplémentaire
   ],
   
   templateUrl: './maj-stock.component.html',
@@ -78,6 +86,13 @@ export class MajStockComponent implements OnInit {
       local: ['', Validators.required]
     });
   }
+ 
+  onCancel(): void {
+    // Réinitialiser le formulaire
+    this.stockForm.reset();
+
+    this.router.navigate(['/stocks']);
+}
 
   getStockDetails(): void {
     this.stockId = +this.route.snapshot.paramMap.get('id');
@@ -116,7 +131,6 @@ export class MajStockComponent implements OnInit {
           console.log('Stock mis à jour avec succès :', response);
           this.isLoading = false;
           this.showSuccess();
-          this.router.navigate(['/stocks']);
         },
         (error: any) => {
           console.error('Erreur lors de la mise à jour du stock :', error);

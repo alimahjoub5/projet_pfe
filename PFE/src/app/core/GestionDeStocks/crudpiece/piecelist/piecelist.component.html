@@ -1,33 +1,29 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <div class="grid">
   <div class="col-12">
     <div class="card px-6 py-6">
       <p-toast></p-toast>
       <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-          <div class="my-2">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" routerLink="/addpiece"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
-          </div>
+          <button pButton pRipple label="Ajouter une pièce" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/addpiece']" routerLinkActive="router-link-active"></button>
         </ng-template>
         <ng-template pTemplate="right">
-          <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-          <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
         </ng-template>
       </p-toolbar>
 
-      <ng-template pTemplate="caption">
-        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-          <h5 class="m-0">Gérer les commandes</h5>
-          <span class="block mt-2 md:mt-0 p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." class="w-full sm:w-auto"/>
-          </span>
-        </div>
-        <hr>
-      </ng-template>
+      <p-table #dt [value]="pieces" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['image_piece','nom_piece','description','material','serial_number','cost','fournisseur_id']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gérer les pièces</h5>
+          </div>
+        </ng-template>
 
       <!-- Tableau -->
-      <p-table [value]="pieces" [rows]="10" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[5,10,20]">
         <!-- Entêtes de colonne -->
         <ng-template pTemplate="header">
           <tr>
@@ -60,7 +56,10 @@
 
           </tr>
         </ng-template>
+        
+        <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="3">Aucune pièce trouvée.</td>
+          </tr>
+        </ng-template>
       </p-table>
-    </div>
-  </div>
-</div>

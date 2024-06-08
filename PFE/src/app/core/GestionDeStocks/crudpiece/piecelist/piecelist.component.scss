@@ -1,5 +1,130 @@
 /* piecelist.component.scss */
+/* Bouton personnalisé */
+.custom-button {
+  background-color: #4CAF50; /* Couleur de fond */
+  border: none; /* Supprime la bordure */
+  color: white; /* Couleur du texte */
+  padding: 12px 24px; /* Espacement intérieur */
+  text-align: center; /* Alignement du texte */
+  text-decoration: none; /* Supprime la décoration du texte */
+  display: inline-block; /* Affichage en ligne */
+  font-size: 16px; /* Taille de la police */
+  margin: 4px 2px; /* Marge extérieure */
+  transition-duration: 0.4s; /* Durée de transition */
+  cursor: pointer; /* Curseur pointer */
+  border-radius: 8px; /* Bordures arrondies */
+}
 
+.custom-button:hover {
+  background-color: #45a049; /* Couleur de fond au survol */
+  color: white; /* Couleur du texte au survol */
+}
+
+/* Style pour les éléments <input> dans les cellules de la table */
+table input[type="text"] {
+  width: 100%; /* Prend la largeur totale de la cellule */
+  padding: 8px; /* Ajoute un remplissage intérieur */
+  border: 1px solid #ccc; /* Ajoute une bordure */
+  border-radius: 5px; /* Ajoute un arrondi aux coins */
+  box-sizing: border-box; /* Inclut le remplissage et la bordure dans la largeur */
+  font-size: 14px; /* Taille de police */
+}
+
+/* Style pour les éléments <input> lorsqu'ils sont en focus */
+table input[type="text"]:focus {
+  outline: none; /* Supprime la bordure de mise au point par défaut */
+  border-color: #007bff; /* Change la couleur de la bordure lorsque l'élément est en focus */
+}
+
+/* Style pour le champ de recherche personnalisé avec une icône */
+.custom-search-input {
+  position: relative;
+}
+
+.custom-search-input__input {
+  padding-left: 2.5rem; /* Ajustez la valeur en fonction de la taille de l'icône */
+}
+
+.custom-search-input i {
+  position: absolute;
+  left: 1rem; /* Ajustez la valeur pour positionner l'icône à gauche du champ de recherche */
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666; /* couleur de l'icône */
+}
+
+  
+  .search-box {
+      position: relative;
+  }
+  
+  .search-box input[type="text"] {
+      width: 100%;
+      padding-left: 35px; /* Ajustez la marge gauche pour inclure l'icône */
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+  }
+  
+  .search-box i {
+      position: absolute;
+      top: 50%;
+      left: 10px; /* Ajustez la position de l'icône */
+      transform: translateY(-50%);
+      color: #666; /* Couleur de l'icône */
+  }
+ 
+  
+  .search-box input[type="text"] {
+      width: 200px; /* Ajustez la largeur selon vos besoins */
+      padding-left: 35px; /* Ajustez la marge gauche pour inclure l'icône */
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+  }
+  
+  .search-box i {
+      position: absolute;
+      top: 50%;
+      left: 10px; /* Ajustez la position de l'icône */
+      transform: translateY(-50%);
+      color: #666; /* Couleur de l'icône */
+  }
+  
+
+  .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.5); /* Ajoutez un fond semi-transparent */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999; /* Assurez-vous que le spinner est au-dessus de tous les autres éléments */
+  }
+  
+    .custom-search-input {
+      position: relative;
+    }
+    
+    .custom-search-input__input {
+      padding-left: 2.5rem; /* ajustez la valeur en fonction de la taille de l'icône */
+    }
+    
+    .custom-search-input i {
+      position: absolute;
+      left: 1rem; /* ajustez la valeur pour positionner l'icône à gauche du champ de recherche */
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666; /* couleur de l'icône */
+    }
+    .button-group {
+      display: flex;
+      align-items: center;
+    }
+    
 /* Style pour la barre de recherche */
 .search-input {
     width: 100%;

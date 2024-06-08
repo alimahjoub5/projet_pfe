@@ -14,7 +14,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -50,7 +50,7 @@ export class LocationComponent implements OnInit {
   locations: Location[] = [];
   showDialog = false; // Le type boolean est déduit automatiquement
   filteredLocation: Location[] = []; // Initialiser à un tableau vide
-
+cols:any;
   constructor(
     private route: ActivatedRoute, 
     private router: Router, // Changer ActivatedRoute en Router
@@ -90,12 +90,14 @@ export class LocationComponent implements OnInit {
       });
     }
   }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
 
-  confirmDeleteLocation(location: Location): void {
-    if (confirm("Êtes-vous sûr de vouloir supprimer cette location ?")) {
-      this.locationService.deleteLocation(location.location_id).subscribe(() => {
-        this.getLocation(); // Recharger la liste des locations après la suppression
+  deletelocation(location_id: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce local ?')) {
+      this.locationService.deleteLocation(location_id).subscribe(() => {
+        this.getLocation(); // Recharger la liste des groupes après la suppression
       });
     }
-  }
-}
+  }}

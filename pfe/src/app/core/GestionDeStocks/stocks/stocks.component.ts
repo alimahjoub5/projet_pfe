@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StockPiece } from '../../models/GestionDeStocks/StockPiece';
 import { StockService } from '../../services/GestionDeStocks/stock.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -14,9 +14,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @Component({
   selector: 'app-stocks',
@@ -27,20 +31,24 @@ import { ToolbarModule } from 'primeng/toolbar';
     ButtonModule,
     InputTextModule,
     RouterModule,
-    TableModule,
     FileUploadModule,
     FormsModule,
-    ButtonModule,
     RippleModule,
     ToastModule,
     ToolbarModule,
     RatingModule,
-    InputTextModule,
     InputTextareaModule,
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule,RouterModule
+    DialogModule,
+     ReactiveFormsModule, 
+    AutoCompleteModule,
+    ConfirmDialogModule,
+    SplitButtonModule,
+    RouterModule,
+    NgxSpinnerModule,
+
   ],
   templateUrl: './stocks.component.html',
   styleUrl: './stocks.component.scss'
@@ -49,6 +57,7 @@ export class StockComponent implements OnInit {
   stockPieces: StockPiece[] = [];
   filteredStockPieces: StockPiece[] = [];
   searchText: string;
+  cols:any;
   constructor(private stockService: StockService) { }
 
   ngOnInit(): void {
@@ -59,6 +68,9 @@ export class StockComponent implements OnInit {
     this.stockService.getStockPieces().subscribe(data => {
       this.stockPieces = data;
     });
+  }
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
 
