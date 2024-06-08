@@ -241,3 +241,5 @@ Route::put('/societes/tickets/{ticketId}/assign-to-societe', [TicketController::
 use App\Http\Controllers\StatisticController;
 
 Route::get('equipment/availability', [StatisticController::class, 'getAvailabilityRate']);
+Route::get('userstasks', [TicketController::class, 'getUsersTasks']);
+Route::get('users/user-tasks/{userId}', [TicketController::class, 'getUserTasks']);

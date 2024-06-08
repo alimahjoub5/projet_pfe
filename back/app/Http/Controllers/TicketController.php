@@ -320,7 +320,62 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
     }
 
 
+    public function getUsersTasks()
+    {
+        // Récupérer tous les utilisateurs
+        $users = User::all();
+
+        $data = [];
+
+        foreach ($users as $user) {
+            // Tâches clôturées
+            $completedTasks = Ticket::where('AssigneeID', $user->UserID)
+                                    ->where('StatusCodeID', 'cloture') // Remplacez 'cloture' par l'ID ou le code correct du statut clôturé
+                                    ->count();
+
+            // Tâches non effectuées (en cours ou nouvelles)
+            $pendingTasks = Ticket::where('AssigneeID', $user->UserID)
+                                  ->whereIn('StatusCodeID', ['en cours', 'nouveau']) // Remplacez 'en cours' et 'nouveau' par les IDs ou les codes corrects des statuts
+                                  ->count();
+
+            $data[] = [
+                'user' => $user,
+                'completed_tasks' => $completedTasks,
+                'pending_tasks' => $pendingTasks,
+            ];
+        }
+
+        return response()->json($data);
+    }
 
 
+    public function getUserTasks($userId)
+    {
+        // Récupérer l'utilisateur par son identifiant
+        $user = User::find($userId);
+
+        // Vérifier si l'utilisateur existe et s'il est un technicien
+        if (!$user || $user->Role !== 'Technician') {
+            return response()->json(['error' => 'User not found or not a technician'], 404);
+        }
+
+        // Tâches clôturées
+        $completedTasks = Ticket::where('AssigneeID', $user->UserID)
+                                ->where('StatusCodeID', 'cloture') // Remplacez 'cloture' par l'ID ou le code correct du statut clôturé
+                                ->count();
+
+        // Tâches non effectuées (en cours ou nouvelles)
+        $pendingTasks = Ticket::where('AssigneeID', $user->UserID)
+                              ->whereIn('StatusCodeID', ['en cours', 'nouveau']) // Remplacez 'en cours' et 'nouveau' par les IDs ou les codes corrects des statuts
+                              ->count();
+
+        $data = [
+            'user' => $user,
+            'completed_tasks' => $completedTasks,
+            'pending_tasks' => $pendingTasks,
+        ];
+
+        return response()->json($data);
+    }
 
 }

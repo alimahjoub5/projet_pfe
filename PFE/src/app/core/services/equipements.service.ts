@@ -52,12 +52,5 @@ export class EquipmentTypeService {
 
   //----------------------------------STATISTIQUE-----------------------------------------------------
 
-  getAvailabilityRate(equipmentTypeId: number, startDate: string, endDate: string): Observable<any> {
-    let params = new HttpParams()
-      .set('equipment_type_id', equipmentTypeId.toString())
-      .set('start_date', startDate)
-      .set('end_date', endDate);
 
-    return this.http.get<any>(`${this.apiUrl}/equipment/availability`, { params });
-  }
 }
