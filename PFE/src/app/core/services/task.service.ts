@@ -42,4 +42,11 @@ export class TaskService {
     const headers = this.authService.includeAuthToken();
     return this.http.get<string>(`${this.apiUrl}/tasks/${taskId}/name`, headers);
   }
+
+
+  getTasksByUser(userId: number): Observable<Task[]> {
+    const headers = this.authService.includeAuthToken();
+    const url = `${this.apiUrl}/ticket-tasks/${userId}/tasks`;
+    return this.http.get<Task[]>(url,headers);
+  }
 }

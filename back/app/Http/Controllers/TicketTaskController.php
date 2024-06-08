@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TicketTask;
 use App\Models\Ticket;
+use App\Models\User;
 
 class TicketTaskController extends Controller
 {
     public function index()
     {
-        $tasks = TicketTask::all();
+        $tasks = TicketTask::with('assignee')->get();
         return response()->json($tasks, 200);
     }
 
@@ -30,18 +31,23 @@ class TicketTaskController extends Controller
             'CreatedBy' => 'required|exists:users,UserID',
             // Add other validation rules as needed
         ]);
-    
+
         // Create the ticket task
-        $task = TicketTask::create($request->all());
-    
+        $task = new TicketTask();
+        $task->fill($request->all());
+        $task->CreatedOn = now(); // Set the CreatedOn field to the current datetime
+        $task->save();
+
         // Find the ticket by its ID
         $ticket = Ticket::findOrFail($request->TicketID);
-    if ($request->StatusCodeID!=null){
-        $ticket->update([
-            'StatusCodeID' => $request->StatusCodeID,
-            'datedereparage' => now() // Utilisation de la fonction now() de Laravel pour obtenir la date et l'heure actuelles
-        ]);
-    }
+
+        if ($request->StatusCodeID != null) {
+            $ticket->update([
+                'StatusCodeID' => $request->StatusCodeID,
+                'datedereparage' => now() // Utilisation de la fonction now() de Laravel pour obtenir la date et l'heure actuelles
+            ]);
+        }
+
         // Return the created task along with the updated ticket
         return response()->json(['task' => $task, 'ticket' => $ticket], 201);
     }
@@ -74,5 +80,20 @@ class TicketTaskController extends Controller
 
         $task->delete();
         return response()->json(null, 204);
+    }
+
+    public function tasksByUser($userId)
+    {
+        $user = User::find($userId);
+
+        if (!$user) {
+            return response()->json(['error' => 'Utilisateur non trouvé'], 404);
+        }
+
+        $tasks = TicketTask::where('AssigneeID', $userId)
+            ->orderBy('StartDate', 'asc')
+            ->get();
+
+        return response()->json($tasks);
     }
 }

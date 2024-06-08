@@ -4,17 +4,22 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>ID</th>
+                <th pSortableColumn="Subject">Sujet <p-sortIcon field="Subject"></p-sortIcon></th>
                 <th pSortableColumn="task">Tâche <p-sortIcon field="task"></p-sortIcon></th>
-                <th pSortableColumn="employee">Employé <p-sortIcon field="employee"></p-sortIcon></th>
-                <th>Date</th>
+                <th pSortableColumn="StartDate">Date Debut <p-sortIcon field="StartDate"></p-sortIcon></th>
+                <th pSortableColumn="EndDate">Date Fin <p-sortIcon field="EndDate"></p-sortIcon></th>
+                <th>Date de creation</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-task>
             <tr>
                 <td>{{ task.TicketTaskID }}</td>
+                <td>{{ task.Subject }}</td>
                 <td>{{ task.Description }}</td>
-                <td>{{ task.assignee.Username }}</td>
+                <td>{{ task.StartDate ? task.StartDate : 'Non spécifié' }}</td>
+                <td>{{ task.EndDate ? task.EndDate : 'Non spécifié' }}</td>
                 <td>{{ task.CreatedOn }}</td>
+                
             </tr>
         </ng-template>
     </p-table>

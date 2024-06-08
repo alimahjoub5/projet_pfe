@@ -36,5 +36,20 @@ class TicketTask extends Model
         'CompletedDate',
     ];
 
-    // Relations éventuelles à définir ici
+    // Relations
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class, 'TicketID', 'TicketID');
+    }
+
+    public function assignee()
+    {
+        return $this->belongsTo(User::class, 'AssigneeID'); // Affectation d'un seul utilisateur
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'CreatedBy'); // Utilisateur ayant créé la tâche
+    }
 }
+

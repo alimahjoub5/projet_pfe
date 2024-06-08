@@ -44,4 +44,12 @@ export class UtilisationPieceService {
     const url = `${this.apiUrl}/${utilisationId}`;
     return this.http.delete<void>(url);
   }
+
+  getMostUsedPieces(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/statistics/most-used-pieces`);
+  }
+
+  getMostConsumedEquipment(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/statistics/most-consumed-equipment`);
+  }
 }

@@ -9,16 +9,25 @@ import { UserService } from '../../services/user-service.service';
 import { AuthService } from '../../services/auth.service';
 import { TachesCourbeComponent } from './taches-courbe/taches-courbe.component';
 import { TacheRecComponent } from './tache-rec/tache-rec.component';
+import { TacheRecEmpComponent } from './tache-rec copy/tache-rec.component';
+import { CommandeStatComponent } from './commande-stat/commande-stat.component';
+import { BestsellerComponent } from './bestseller/bestseller.component';
+import { MostUsedPiecesComponent } from "./most-used-pieces/most-used-pieces.component";
+import { MostConsumedEquipmentComponent } from "./most-consumed-equipment/most-consumed-equipment.component";
+import { AccessStatsComponent } from "./access-stats/access-stats.component";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [ButtonModule, ChartModule, CalendarModule,NgStyle,MenuModule,TableModule,CommonModule,
-    TachesCourbeComponent,
-    TacheRecComponent
-  ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'] // Correction de la propriété styleUrls
+    selector: 'app-home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'] // Correction de la propriété styleUrls
+    ,
+    imports: [ButtonModule, ChartModule, CalendarModule, NgStyle, MenuModule, TableModule, CommonModule,
+        TachesCourbeComponent,
+        TacheRecComponent,
+        TacheRecEmpComponent,
+        CommandeStatComponent,
+        BestsellerComponent, MostUsedPiecesComponent, MostConsumedEquipmentComponent, AccessStatsComponent]
 })
 export class HomeComponent {
 unreadTasks=null;

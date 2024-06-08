@@ -5,13 +5,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { TaskService } from 'src/app/core/services/task.service';
 
 @Component({
-  selector: 'app-tache-rec',
+  selector: 'app-tache-rec-Emp',
   standalone: true,
   imports: [CardModule,TableModule],
   templateUrl: './tache-rec.component.html',
   styleUrl: './tache-rec.component.scss'
 })
-export class TacheRecComponent {
+export class TacheRecEmpComponent {
   recentTasks: any;
 constructor(private taskService:TaskService,
   private auth : AuthService

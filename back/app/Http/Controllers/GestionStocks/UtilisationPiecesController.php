@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\UtilisationPiece;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use App\Models\StockPiece;
+use App\Models\Piece;
+use App\Models\EquipmentType;
+use Illuminate\Support\Facades\DB; // Add this line to import the DB facade
 
 class UtilisationPiecesController extends Controller
 {
@@ -126,5 +128,32 @@ class UtilisationPiecesController extends Controller
         }
 
         return response()->json($utilisation, 200);
+    }
+
+
+    // Method to get the most used pieces
+    public function mostUsedPieces()
+    {
+        $mostUsedPieces = UtilisationPiece::select('piece_id', DB::raw('SUM(quantity_used) as total_quantity_used'))
+            ->groupBy('piece_id')
+            ->orderBy('total_quantity_used', 'desc')
+            ->take(10)
+            ->with('piece') // Include the piece details
+            ->get();
+
+        return response()->json($mostUsedPieces);
+    }
+
+    // Method to get the equipment that consumes the most pieces
+    public function mostConsumedEquipment()
+    {
+        $mostConsumedEquipment = UtilisationPiece::select('EquipmentTypeID', DB::raw('SUM(quantity_used) as total_quantity_used'))
+            ->groupBy('EquipmentTypeID')
+            ->orderBy('total_quantity_used', 'desc')
+            ->take(10)
+            ->with('equipment') // Include the equipment details
+            ->get();
+
+        return response()->json($mostConsumedEquipment);
     }
 }

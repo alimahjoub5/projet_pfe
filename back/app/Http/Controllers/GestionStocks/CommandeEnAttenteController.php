@@ -16,6 +16,8 @@ use Dompdf\Options;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use App\Mail\CommandeNotification;
+use Illuminate\Support\Facades\DB;
+
 
 class CommandeEnAttenteController extends Controller
 {
@@ -196,6 +198,32 @@ class CommandeEnAttenteController extends Controller
         return response()->json(null, 204);
     }
 
+    public function commandeStat()
+    {
+        $enCours = CommandeEnAttente::where('order_status', 'en_attente')->get();
+        $livrees = CommandeEnAttente::where('order_status', 'livree')->get();
+        $annulees = CommandeEnAttente::where('order_status', 'Annuler')->get();
 
+        return response()->json([
+            'en_cours' => $enCours,
+            'livrees' => $livrees,
+            'annulees' => $annulees
+        ]);
+    }
+
+
+    public function bestSuppliersStats()
+    {
+        $fournisseurs = DB::table('fournisseurs')
+            ->select('fournisseurs.nom_fournisseur', DB::raw('COUNT(*) as total_commandes'), 
+                      DB::raw('AVG(DATEDIFF(actual_delivery_date, order_date)) as moyenne_delai'))
+            ->join('commandes_en_attente', 'fournisseurs.fournisseur_id', '=', 'commandes_en_attente.fournisseur_id')
+            ->whereNotNull('actual_delivery_date')
+            ->groupBy('fournisseurs.nom_fournisseur')
+            ->orderBy('moyenne_delai', 'ASC')
+            ->get();
+
+        return response()->json($fournisseurs);
+    }
 
 }

@@ -11,6 +11,8 @@ use App\Mail\TechnicianAssignedToTicket;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use App\Models\PersonalAccessToken;
+use Illuminate\Support\Facades\DB;
 
 
 class UserController extends Controller
@@ -260,6 +262,35 @@ public function skipPasswordReset($userId)
 }
 
 
+public function getUserAccessStatistics()
+    {
+        // Fetching the count of access tokens grouped by user
+        $statistics = DB::table('personal_access_tokens')
+                             ->select('tokenable_id as user_id', DB::raw('count(*) as access_count'))
+                             ->where('tokenable_type', User::class)
+                             ->groupBy('tokenable_id')
+                             ->get();
+
+        // Preparing the response data
+        $data = collect($statistics)->map(function ($stat) {
+            $user = User::find($stat->user_id);
+            if ($user) {
+                return [
+                    'user_id' => $user->id,
+                    'FirstName' => $user->FirstName,
+                    'LastName' => $user->LastName,
+                    'Username' => $user->Username,
+                    'Email' => $user->Email,
+                    'access_count' => $stat->access_count,
+                ];
+            } else {
+                // Handle the case when user is null
+                return null;
+            }
+        })->filter();
+
+        return response()->json($data);
+    }
 
 
 }

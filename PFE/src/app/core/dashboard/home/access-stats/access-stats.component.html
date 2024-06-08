@@ -1,0 +1,39 @@
+<div class="card">
+  <h2>Statistiques d'accès par utilisateur</h2>
+
+  <div *ngIf="loading">
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!loading && stats.length === 0">
+    <p>No access statistics found.</p>
+  </div>
+
+  <div *ngIf="stats.length > 0">
+    <p-table [value]="stats.slice(0, 5)" [sortField]="sortField" [sortOrder]="sortOrder" (sortFunction)="customSort($event)">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="user_id">User ID <p-sortIcon field="user_id"></p-sortIcon></th>
+          <th pSortableColumn="FirstName">First Name <p-sortIcon field="FirstName"></p-sortIcon></th>
+          <th pSortableColumn="LastName">Last Name <p-sortIcon field="LastName"></p-sortIcon></th>
+          <th pSortableColumn="Username">Username <p-sortIcon field="Username"></p-sortIcon></th>
+          <th pSortableColumn="Email">Email <p-sortIcon field="Email"></p-sortIcon></th>
+          <th pSortableColumn="access_count">Access Count <p-sortIcon field="access_count"></p-sortIcon></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-stat>
+        <tr>
+          <td>{{ stat.user_id }}</td>
+          <td>{{ stat.FirstName }}</td>
+          <td>{{ stat.LastName }}</td>
+          <td>{{ stat.Username }}</td>
+          <td>{{ stat.Email }}</td>
+          <td>{{ stat.access_count }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div *ngIf="stats.length > 5">
+      <button (click)="showMore()">Voir plus</button>
+    </div>
+  </div>
+</div>

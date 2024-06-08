@@ -19,13 +19,38 @@
    
 </div>
 
- <div class="grid">
- <div class="col-12 xl:col-6">
-    <app-tache-rec></app-tache-rec>
-</div>
-<div *ngIf="isManager" class="col-12 xl:col-6">
+<div class="grid">
+    <div class="col-12 xl:col-6">
+       <app-tache-rec></app-tache-rec>
+   </div> 
+   
+   <div class="grid">
+    <div class="col-12 col-6">
+       <app-tache-rec-Emp></app-tache-rec-Emp>
+   </div>
+
+<div class="col-12 xl:col-6">
 <app-taches-courbe></app-taches-courbe>
   </div>
   
+
+
+  <div class="col-12 xl:col-6">
+    <app-commande-stat></app-commande-stat>
+</div>
+
+<div class="col-12 xl:col-6">
+    <app-bestseller></app-bestseller>      
+</div>  
+<div class="col-12 xl:col-6">
+    <app-most-used-pieces></app-most-used-pieces>    
+</div>
+<div class="col-12 xl:col-6">
+    <app-most-consumed-equipment></app-most-consumed-equipment>    
+</div>
+<div class="col-12 xl:col-6">
+    <app-access-stats></app-access-stats>    
+</div>
+
 </div>
 

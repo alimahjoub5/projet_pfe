@@ -64,6 +64,8 @@ Route::get('/commandes/{id}', [CommandeEnAttenteController::class, 'show']);
 Route::post('/commandes/store', [CommandeEnAttenteController::class, 'store']);
 Route::put('/commandes/{id}', [CommandeEnAttenteController::class, 'update']);
 Route::delete('/commandes/{id}', [CommandeEnAttenteController::class, 'destroy']);
+Route::get('commande-stat', [CommandeEnAttenteController::class, 'commandeStat']);
+Route::get('best-suppliers-stats', [CommandeEnAttenteController::class, 'bestSuppliersStats']);
 
 use Illuminate\Support\Facades\File;
 
@@ -114,6 +116,10 @@ Route::get('/utilisation/{id}', [UtilisationPiecesController::class, 'show']);
 Route::post('/utilisation', [UtilisationPiecesController::class, 'store']);
 Route::put('/utilisation/{id}', [UtilisationPiecesController::class, 'update']);
 Route::delete('/utilisation/{id}', [UtilisationPiecesController::class, 'destroy']);
+Route::get('/utilisation/statistics/most-used-pieces', [UtilisationPiecesController::class, 'mostUsedPieces']);
+Route::get('/utilisation/statistics/most-consumed-equipment', [UtilisationPiecesController::class, 'mostConsumedEquipment']);
+
+
 //---------------------------------------------------------------------------------------
 
 Route::get('ticketdate', [TicketController::class, 'getDate']);
@@ -208,6 +214,7 @@ Route::get('/ticket-tasks/{id}', [TicketTaskController::class, 'show']);
 Route::post('/ticket-tasks', [TicketTaskController::class, 'store']);
 Route::put('/ticket-tasks/{id}', [TicketTaskController::class, 'update']);
 Route::delete('/ticket-tasks/{id}', [TicketTaskController::class, 'destroy']);
+Route::get('/ticket-tasks/{userId}/tasks', [TicketTaskController::class, 'tasksByUser']);
 
 //user technician groups api 
 
@@ -243,3 +250,6 @@ use App\Http\Controllers\StatisticController;
 Route::get('equipment/availability', [StatisticController::class, 'getAvailabilityRate']);
 Route::get('userstasks', [TicketController::class, 'getUsersTasks']);
 Route::get('users/user-tasks/{userId}', [TicketController::class, 'getUserTasks']);
+
+
+Route::get('/statistics/user-access', [UserController::class, 'getUserAccessStatistics']);
