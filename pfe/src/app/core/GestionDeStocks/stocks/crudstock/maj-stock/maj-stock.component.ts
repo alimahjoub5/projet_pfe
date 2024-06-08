@@ -26,6 +26,7 @@ import { StockService } from 'src/app/core/services/GestionDeStocks/stock.servic
 import { AuthService } from 'src/app/core/services/auth.service';
 import { EquipmentTypeService } from 'src/app/core/services/equipements.service';
 import { CheckboxModule } from 'primeng/checkbox';
+import { LocationService } from 'src/app/core/services/GestionDeStocks/location.service';
  // Assurez-vous de remplacer cela par le chemin réel
 
 @Component({
@@ -60,13 +61,14 @@ export class MajStockComponent implements OnInit {
   pieces: Piece[];
   stockId: number;
   stock: StockPiece[];
-
+locations:Location;
   constructor(
     private fb: FormBuilder,
     private equipementService: EquipmentTypeService,
     private pieceService: PieceService,
     private stockService: StockService,
     private messageService: MessageService,
+    private localservice: LocationService,
     private spinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router,
@@ -77,6 +79,7 @@ export class MajStockComponent implements OnInit {
     this.getStockDetails();
     this.getAllEquipements();
     this.getAllPieces();
+    this.getAllLocations();
     
     this.stockForm = this.fb.group({
       piece_id: ['', Validators.required],
@@ -113,7 +116,12 @@ export class MajStockComponent implements OnInit {
       console.log(this.equipements);
     });
   }
-
+  getAllLocations(): void {
+    this.localservice.getLocations().subscribe((locations: any) => {
+      this.locations = locations;
+      console.log(this.locations);
+    });
+  }
   getAllPieces(): void {
     this.pieceService.getAllPieces().subscribe((response: any) => {
       this.pieces = response.pieces;

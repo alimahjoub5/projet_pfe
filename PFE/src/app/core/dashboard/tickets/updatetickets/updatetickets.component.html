@@ -1,26 +1,28 @@
-<h2>Mettre à jour un Intervention</h2>
 
-<form (ngSubmit)="updateTicket()" #updateForm="ngForm">
- 
-  <div class="form-group">
+<form (ngSubmit)="updateTicket()" #updateForm="ngForm" class="update-form p-fluid p-grid">
+  <h2 class="form-title">Mettre à jour une Intervention</h2>
+<p-toast></p-toast>
+  <div class="form-field">
     <label for="Subject">Sujet</label>
     <input type="text" class="form-control" id="Subject" name="Subject" [(ngModel)]="ticket.Subject" required>
   </div>
 
 
 
-  <div class="form-group">
+  <div class="form-field">
     <label for="Description">Description</label>
     <textarea class="form-control" id="Description" name="Description" [(ngModel)]="ticket.Description"></textarea>
   </div>
 
   
     <label for="AssigneeID">Assigné à</label>
-    <div class="p-field">
+    <div class="form-field">
       <button type="button" (click)="showAssignDialog()" [disabled]="isDisable" class="p-button p-component p-button-icon-only">
         <span class="p-button-icon pi pi-user"></span>
       </button>
     </div> <br>
   
-  <button type="submit" class="btn btn-primary">Mettre à jour</button>
-</form>
+
+    <div class="form-field p-col-12">
+      <button type="submit"  class="btn-primary">Mettre a jour</button>
+    </div></form>

@@ -1,38 +1,41 @@
-<form [formGroup]="ticketTaskForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
+<form [formGroup]="ticketTaskForm" (ngSubmit)="onSubmit()"class="update-form p-fluid p-grid">
+  <h2 class="form-title"> Ajouter tâche</h2>
+  <div class="form-field">
     <label for="subject">Identifiant Intervention : {{ticketId}}</label>
     <label for="technician">Technicien : {{username}}</label>
   </div>
-  <div class="form-group">
+  <div class="form-field">
     <label for="Subject">Sujet</label>
     <input id="Subject" formControlName="Subject" type="text" pInputText />
   </div>
 
-  <div class="form-group">
+  <div class="form-field">
     <label for="Description">Description</label>
     <textarea id="Description" formControlName="Description" pInputTextarea></textarea>
   </div>
 
-  <div class="form-group" *ngIf="!ticketTaskForm.get('changeStatus').value">
+  <div class="form-field" *ngIf="!ticketTaskForm.get('changeStatus').value">
     <label for="StartDate">Date et heure de début</label>
     <p-calendar id="StartDate" formControlName="StartDate" showTime="true" hourFormat="24"></p-calendar>
   </div>
   
-  <div class="form-group" *ngIf="!ticketTaskForm.get('changeStatus').value">
+  <div class="form-field" *ngIf="!ticketTaskForm.get('changeStatus').value">
     <label for="EndDate">Date et heure de fin</label>
     <p-calendar id="EndDate" formControlName="EndDate" showTime="true" hourFormat="24"></p-calendar>
   </div>
   
   
-  <div class="form-group">
+  <div class="form-field">
     <label>
       <input type="checkbox" formControlName="changeStatus"> Intervention terminée
     </label>
   </div>
   
 
-  <div class="form-buttons">
-    <button pButton type="submit" label="Enregistrer"></button>
-    <button pButton type="button" label="Annuler" class="p-button-secondary" (click)="onCancel()"></button>
-  </div>
+  <div class="form-field p-col-12">
+    <button type="submit" [disabled]="ticketTaskForm.invalid" class="btn-primary">Ajouter une sociéte</button>
+</div>
+<div class="form-field p-col-12">
+    <button type="button" (click)="onCancel()"  class="btn-secondary">Annuler</button>
+</div>  
 </form>
