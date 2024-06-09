@@ -78,7 +78,18 @@ export class TicketService {
     return this.http.get(url,headers);
   }
 
+  getUnplannedDowntime(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/unplanned-downtime`);
+  }
 
+  getFailuresByPeriod(startDate: string, endDate: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/failures-by-period`, {
+      params: {
+        start_date: startDate,
+        end_date: endDate
+      }
+    });
+  }
   
   
 

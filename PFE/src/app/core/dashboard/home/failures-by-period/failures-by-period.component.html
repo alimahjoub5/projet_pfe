@@ -1,0 +1,29 @@
+<div class="p-grid p-justify-center">
+  <div class="p-col-12 p-md-6">
+    <h2 class="p-text-center">Nombre de Pannes par Période de Temps</h2>
+    <div class="p-grid p-jc-center p-ai-center">
+      <div class="p-col-10">
+        <p-calendar [(ngModel)]="startDate" [dateFormat]="'yy-mm-dd'" appendTo="body" placeholder="Start Date" showIcon="true"></p-calendar>
+      </div>
+      <div class="p-col-10">
+        <p-calendar [(ngModel)]="endDate" [dateFormat]="'yy-mm-dd'" appendTo="body" placeholder="End Date" showIcon="true"></p-calendar>
+      </div>
+      <div class="p-col-10 p-md-4 p-lg-3">
+        <button pButton type="button" label="Fetch Data" (click)="fetchData()" class="p-button-success"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="p-grid p-justify-center">
+  <div class="p-col-12 p-md-10">
+    <div class="card">
+      <h2 class="p-text-center">Graphique des Pannes</h2>
+      <div class="p-grid p-jc-center">
+        <div class="p-col-12">
+          <canvas id="myChart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

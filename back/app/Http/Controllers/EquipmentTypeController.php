@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EquipmentType;
+use App\Models\Ticket;
+use DB;
+use Carbon\Carbon;
 
 class EquipmentTypeController extends Controller
 {
@@ -88,5 +91,58 @@ class EquipmentTypeController extends Controller
         }
     }
     
+    public function getMaintenanceClaimRate()
+    {
+        // Récupérer le nombre total d'équipements
+        $totalEquipments = EquipmentType::count();
+
+        // Récupérer le nombre total de réclamations de maintenance
+        $totalMaintenanceClaims = Ticket::whereNotNull('EquipmentTypeID')->count();
+
+        // Calculer le taux de réclamation de maintenance
+        $maintenanceClaimRate = 0;
+        if ($totalEquipments > 0) {
+            $maintenanceClaimRate = ($totalMaintenanceClaims / $totalEquipments) * 100;
+        }
+
+        return response()->json([
+            'total_equipments' => $totalEquipments,
+            'total_maintenance_claims' => $totalMaintenanceClaims,
+            'maintenance_claim_rate' => $maintenanceClaimRate
+        ]);
+    }
+
+
+
+    
+        public function getAverageAssetLifetime()
+        {
+            // Récupérer tous les équipements avec la date d'installation
+            $equipments = EquipmentType::whereNotNull('InstallationDate')->get();
+    
+            $totalLifetime = 0;
+            $totalEquipments = 0;
+    
+            foreach ($equipments as $equipment) {
+                // Calculer la durée de vie de l'équipement
+                $installationDate = Carbon::parse($equipment->InstallationDate);
+                $currentDate = Carbon::now();
+                $lifetime = $installationDate->diffInYears($currentDate);
+    
+                // Ajouter la durée de vie à la durée totale
+                $totalLifetime += $lifetime;
+                $totalEquipments++;
+            }
+    
+            // Calculer la durée moyenne de vie des équipements
+            $averageLifetime = $totalEquipments > 0 ? $totalLifetime / $totalEquipments : 0;
+    
+            return response()->json([
+                'average_asset_lifetime' => $averageLifetime
+            ]);
+        }
+    
+    
+
 
 }

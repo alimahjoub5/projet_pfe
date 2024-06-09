@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Societe;
 use App\Models\EquipmentType;
 use App\Models\TicketDates;
+use Carbon\Carbon;
+use DB;
 
 class TicketController extends Controller
 {
@@ -324,29 +326,44 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
     {
         // Récupérer tous les utilisateurs
         $users = User::all();
-
+    
         $data = [];
-
+    
         foreach ($users as $user) {
             // Tâches clôturées
             $completedTasks = Ticket::where('AssigneeID', $user->UserID)
                                     ->where('StatusCodeID', 'cloture') // Remplacez 'cloture' par l'ID ou le code correct du statut clôturé
                                     ->count();
 
+
             // Tâches non effectuées (en cours ou nouvelles)
             $pendingTasks = Ticket::where('AssigneeID', $user->UserID)
-                                  ->whereIn('StatusCodeID', ['en cours', 'nouveau']) // Remplacez 'en cours' et 'nouveau' par les IDs ou les codes corrects des statuts
-                                  ->count();
+            ->whereIn('StatusCodeID', ['en cours', 'nouveau']) // Remplacez 'en cours' et 'nouveau' par les IDs ou les codes corrects des statuts
+            ->count();
 
+
+            // Tâches annulées
+            $canceledTasks = Ticket::where('AssigneeID', $user->UserID)
+                                   ->where('StatusCodeID', 'Annuler') // Remplacez 'annule' par l'ID ou le code correct du statut annulé
+                                   ->count();
+    
+            // Tâches en cours
+            $ongoingTasks = Ticket::where('AssigneeID', $user->UserID)
+                                  ->where('StatusCodeID', 'en_cours') // Remplacez 'en cours' par l'ID ou le code correct du statut en cours
+                                  ->count();
+    
             $data[] = [
                 'user' => $user,
                 'completed_tasks' => $completedTasks,
                 'pending_tasks' => $pendingTasks,
+                'canceled_tasks' => $canceledTasks,
+                'ongoing_tasks' => $ongoingTasks,
             ];
         }
-
+    
         return response()->json($data);
     }
+    
 
 
     public function getUserTasks($userId)
@@ -369,13 +386,61 @@ return response()->json(['message' => 'Ticket assigned to societe successfully']
                               ->whereIn('StatusCodeID', ['en cours', 'nouveau']) // Remplacez 'en cours' et 'nouveau' par les IDs ou les codes corrects des statuts
                               ->count();
 
+                               // Tâches annulées
+            $canceledTasks = Ticket::where('AssigneeID', $user->UserID)
+            ->where('StatusCodeID', 'Annuler') // Remplacez 'annule' par l'ID ou le code correct du statut annulé
+            ->count();
+
+             // Tâches en cours
+             $ongoingTasks = Ticket::where('AssigneeID', $user->UserID)
+             ->where('StatusCodeID', 'en_cours') // Remplacez 'en cours' par l'ID ou le code correct du statut en cours
+             ->count();
+
         $data = [
             'user' => $user,
             'completed_tasks' => $completedTasks,
             'pending_tasks' => $pendingTasks,
+            'canceled_tasks' => $canceledTasks,
+            'ongoing_tasks' => $ongoingTasks,
         ];
 
         return response()->json($data);
+    }
+
+
+    public function getUnplannedDowntime()
+    {
+        // Récupérer tous les tickets
+        $tickets = Ticket::all();
+
+        $unplannedDowntime = 0;
+
+        foreach ($tickets as $ticket) {
+            // Vérifier si le ticket a un temps d'arrêt non planifié
+            if ($ticket->StartDate && $ticket->datedevalidation) {
+                $startTime = Carbon::parse($ticket->StartDate);
+                $endTime = Carbon::parse($ticket->datedevalidation);
+                $unplannedDowntime += $endTime->diffInMinutes($startTime);
+            }
+        }
+
+        return response()->json([
+            'unplanned_downtime' => $unplannedDowntime
+        ]);
+    }
+
+
+    public function getFailuresByPeriod(Request $request)
+    {
+        $startDate = Carbon::parse($request->input('start_date'))->startOfDay()->toDateString();
+        $endDate = Carbon::parse($request->input('end_date'))->endOfDay()->toDateString();
+
+        $failures = Ticket::whereBetween('created_at', [$startDate, $endDate])
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+            ->get();
+
+        return response()->json($failures);
     }
 
 }

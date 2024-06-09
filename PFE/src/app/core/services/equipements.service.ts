@@ -52,5 +52,14 @@ export class EquipmentTypeService {
 
   //----------------------------------STATISTIQUE-----------------------------------------------------
 
+  getMaintenanceClaimRate(): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<any>(`${this.apiUrl}/maintenance-claim-rate`, headers);
+  }
+
+  getAverageAssetLifetime(): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<any>(`${this.apiUrl}/average-asset-lifetime`, headers);
+  }
 
 }

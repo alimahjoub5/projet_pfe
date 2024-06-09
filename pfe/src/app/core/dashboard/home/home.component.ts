@@ -15,6 +15,9 @@ import { BestsellerComponent } from './bestseller/bestseller.component';
 import { MostUsedPiecesComponent } from "./most-used-pieces/most-used-pieces.component";
 import { MostConsumedEquipmentComponent } from "./most-consumed-equipment/most-consumed-equipment.component";
 import { AccessStatsComponent } from "./access-stats/access-stats.component";
+import { MaintenanceClaimComponent } from "./maintenance-claim/maintenance-claim.component";
+import { AverageAssetLifetimeComponent } from "./average-asset-lifetime/average-asset-lifetime.component";
+import { FailuresByPeriodComponent } from "./failures-by-period/failures-by-period.component";
 
 @Component({
     selector: 'app-home',
@@ -27,7 +30,7 @@ import { AccessStatsComponent } from "./access-stats/access-stats.component";
         TacheRecComponent,
         TacheRecEmpComponent,
         CommandeStatComponent,
-        BestsellerComponent, MostUsedPiecesComponent, MostConsumedEquipmentComponent, AccessStatsComponent]
+        BestsellerComponent, MostUsedPiecesComponent, MostConsumedEquipmentComponent, AccessStatsComponent, MaintenanceClaimComponent, AverageAssetLifetimeComponent, FailuresByPeriodComponent]
 })
 export class HomeComponent {
 unreadTasks=null;
@@ -36,6 +39,8 @@ chartData: any;
 chartOptions: any;
 taskOverviewData: any[] = [];
   isManager: boolean;
+  encours=null;
+  annuler=null;
 
   constructor(private userservice:UserService,
     private auth:AuthService) {
@@ -47,23 +52,34 @@ taskOverviewData: any[] = [];
     
 if (auth.getRole()==="Technician"){
     this.userservice.getUserTasks(Number(auth.getUserID())).subscribe(data => {
+      console.log(data)
       this.unreadTasks = data.pending_tasks;
       this.respondedTasks = data.completed_tasks;
+      this.encours =data.ongoing_tasks;
+      this.annuler=data.canceled_tasks;
     });
 }else{
   this.userservice.getUsersTasks().subscribe(data => {
     let totalPendingTasks = 0;
     let totalCompletedTasks = 0;
+    let totalOngoingTasks = 0;
+    let totalCanceledTasks = 0;
+    console.log(data);
 
     data.forEach((item: any) => {
       totalPendingTasks += item.pending_tasks;
       totalCompletedTasks += item.completed_tasks;
+      totalOngoingTasks += item.ongoing_tasks;
+      totalCanceledTasks += item.canceled_tasks;
     });
 
     this.unreadTasks = totalPendingTasks;
     this.respondedTasks = totalCompletedTasks;
+    this.encours = totalOngoingTasks;
+    this.annuler = totalCanceledTasks;
   });
 }
+
     
   }
   

@@ -250,6 +250,12 @@ use App\Http\Controllers\StatisticController;
 Route::get('equipment/availability', [StatisticController::class, 'getAvailabilityRate']);
 Route::get('userstasks', [TicketController::class, 'getUsersTasks']);
 Route::get('users/user-tasks/{userId}', [TicketController::class, 'getUserTasks']);
+Route::get('/unplanned-downtime', [TicketController::class, 'getUnplannedDowntime']);
+Route::get('/failures-by-period', [TicketController::class, 'getFailuresByPeriod']);
 
 
 Route::get('/statistics/user-access', [UserController::class, 'getUserAccessStatistics']);
+use App\Http\Controllers\MaintenanceController;
+
+Route::get('/maintenance-claim-rate', [EquipmentTypeController::class, 'getMaintenanceClaimRate']);
+Route::get('/average-asset-lifetime', [EquipmentTypeController::class, 'getAverageAssetLifetime']);

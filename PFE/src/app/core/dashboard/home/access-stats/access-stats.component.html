@@ -13,7 +13,6 @@
     <p-table [value]="stats.slice(0, 5)" [sortField]="sortField" [sortOrder]="sortOrder" (sortFunction)="customSort($event)">
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="user_id">User ID <p-sortIcon field="user_id"></p-sortIcon></th>
           <th pSortableColumn="FirstName">First Name <p-sortIcon field="FirstName"></p-sortIcon></th>
           <th pSortableColumn="LastName">Last Name <p-sortIcon field="LastName"></p-sortIcon></th>
           <th pSortableColumn="Username">Username <p-sortIcon field="Username"></p-sortIcon></th>
@@ -23,7 +22,6 @@
       </ng-template>
       <ng-template pTemplate="body" let-stat>
         <tr>
-          <td>{{ stat.user_id }}</td>
           <td>{{ stat.FirstName }}</td>
           <td>{{ stat.LastName }}</td>
           <td>{{ stat.Username }}</td>
