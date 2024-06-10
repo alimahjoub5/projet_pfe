@@ -143,6 +143,7 @@ Route::put('/tickets/{id}/dates', [TicketController::class, 'updateDates']);
 Route::put('/tickets/{id}/close', [TicketController::class, 'closeTicket']);
 Route::put('/tickets/{id}/start', [TicketController::class, 'startTicket']);
 Route::get('/tickets/assignee/{assigneeId}', [TicketController::class, 'getTicketsByAssignee']);
+Route::get('/tickets/user/{userId}', [TicketController::class, 'getUserTickets']);
 
 // user controller routes
 

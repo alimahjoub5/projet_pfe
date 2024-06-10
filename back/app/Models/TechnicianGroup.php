@@ -11,7 +11,7 @@ class TechnicianGroup extends Model
 
     protected $table = 'technician_groups';
     protected $primaryKey = 'GroupID';
-    public $timestamps = false; // Si vous utilisez les colonnes `created_at` et `updated_at` dans la base de données, changez cette valeur à `true`.
+    public $timestamps = false;
 
     protected $fillable = [
         'GroupName',
@@ -26,10 +26,9 @@ class TechnicianGroup extends Model
         'CreatedOn' => 'datetime',
         'ModifiedOn' => 'datetime',
     ];
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'users_technician_groups', 'GroupID', 'UserID');
     }
-
-
 }

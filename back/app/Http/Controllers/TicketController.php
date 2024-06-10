@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TechnicianAssignedToTicket;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\TechnicianGroup;
@@ -11,6 +12,7 @@ use App\Models\EquipmentType;
 use App\Models\TicketDates;
 use Carbon\Carbon;
 use DB;
+use App\Models\UsersTechnicianGroups;
 
 class TicketController extends Controller
 {
@@ -51,6 +53,52 @@ class TicketController extends Controller
     
         return response()->json($ticketsWithGroupNamePriorityAndEquipment, 200);
     }
+
+
+    public function getUserTickets($userId)
+    {
+        // Fetch groups the user belongs to
+        $userGroups = UsersTechnicianGroups::where('UserID', $userId)->pluck('GroupID')->toArray();
+
+        // Fetch tickets where AssigneeID is the user or GroupID is in the user's groups
+        $tickets = Ticket::with(['technicianGroup', 'priority', 'EquipmentType', 'users', 'Societe'])
+            ->where('AssigneeID', $userId)
+            ->orWhereIn('GroupID', $userGroups)
+            ->get();
+
+        // Map the tickets to include the group name, priority name, and equipment name
+        $ticketsWithGroupNamePriorityAndEquipment = $tickets->map(function ($ticket) {
+            return [
+                'TicketID' => $ticket->TicketID,
+                'CreatedBy' => $ticket->CreatedBy,
+                'CreatedOn' => $ticket->CreatedOn,
+                'ModifiedBy' => $ticket->ModifiedBy,
+                'ModifiedOn' => $ticket->ModifiedOn,
+                'StatusCodeID' => $ticket->StatusCodeID,
+                'AssigneeID' => $ticket->AssigneeID,
+                'datepriseencharge' => $ticket->datepriseencharge,
+                'datedereparage' => $ticket->datedereparage,
+                'datedevalidation' => $ticket->datedevalidation,
+                'Subject' => $ticket->Subject,
+                'SocieteID' => $ticket->SocieteID,
+                'Description' => $ticket->Description,
+                'PriorityID' => $ticket->PriorityID,
+                'GroupID' => $ticket->GroupID,
+                'EquipmentTypeID' => $ticket->EquipmentTypeID,
+                'StartDate' => $ticket->StartDate,
+                'EndDate' => $ticket->EndDate,
+                'DueDate' => $ticket->DueDate,
+                'ClosedDate' => $ticket->ClosedDate,
+                'name' => $ticket->Societe ? $ticket->Societe->name : 'Non assigné',
+                'GroupName' => $ticket->technicianGroup ? $ticket->technicianGroup->GroupName : 'Non assigné',
+                'PriorityName' => $ticket->priority ? $ticket->priority->Name : 'Non défini',
+                'EquipmentTypeName' => $ticket->EquipmentType ? $ticket->EquipmentType->TypeName : 'Non défini',
+                'username' => $ticket->users ? $ticket->users->Username : 'Non assigné'
+            ];
+        });
+
+        return response()->json($ticketsWithGroupNamePriorityAndEquipment, 200);
+    }
     
     
         
@@ -74,10 +122,10 @@ class TicketController extends Controller
     }
     
 
-    public function addTicket(Request $request){
+    public function addTicket(Request $request)
+    {
         // Extracting the required fields from the request
         $ticketData = [
-
             'Subject' => $request->input('Subject'),
             'Description' => $request->input('Description'),
             'TicketType' => $request->input('TicketType'),
@@ -89,17 +137,52 @@ class TicketController extends Controller
             'CreatedBy' => $request->input('CreatedBy'),
             'ModifiedBy' => $request->input('ModifiedBy'),
             'StatusCodeID' => $request->input('StatusCodeID'),
-            'TicketID' =>$request->input('TicketID')
+            'TicketID' => $request->input('TicketID')
         ];
-        $data=['TicketID' =>$request->input('TicketID'),
-        'datedemande' =>null,
-        'datepriseencharge'=>null,
-        'datedereparage'=>null,
-        'datedevalidation'=>null,
-    ];
+
+        // Ensure that only one of AssigneeID, GroupID, or SocieteID is filled
+        $filledFields = array_filter([
+            'AssigneeID' => $ticketData['AssigneeID'],
+            'GroupID' => $ticketData['GroupID'],
+            'SocieteID' => $ticketData['SocieteID'],
+        ]);
+
+        if (count($filledFields) !== 1) {
+            return response()->json(['error' => 'Please fill only one of AssigneeID, GroupID, or SocieteID'], 400);
+        }
+
         // Create a new ticket with the extracted data
         $ticket = Ticket::create($ticketData);
-        $date = TicketDates::create($data);
+
+        if (!empty($ticket->AssigneeID)) {
+            // Fetch the technician details using the AssigneeID
+            $technician = User::find($ticket->AssigneeID);
+
+            if ($technician && !empty($technician->Email)) {
+                // Send email to the technician
+                Mail::send(new TechnicianAssignedToTicket($ticket, $technician));
+            } else {
+                // Handle case where technician email is not available or invalid
+                return response()->json([
+                    'message' => 'Ticket created, but email not sent. Technician email not found.'
+                ], 201);
+            }
+        } elseif (!empty($ticket->GroupID)) {
+            // Fetch all users in the group
+            $groupMembers = UsersTechnicianGroups::where('GroupID', $ticket->GroupID)->get();
+
+            foreach ($groupMembers as $member) {
+                $technician = User::find($member->UserID);
+
+                if ($technician && !empty($technician->Email)) {
+                    // Send email to each technician in the group
+                    Mail::send(new TechnicianAssignedToTicket($ticket, $technician));
+                }
+            }
+        } elseif (!empty($ticket->SocieteID)) {
+            // If you need to handle SocieteID specifically, implement logic here
+        }
+
         // Return the created ticket as JSON response with status code 201
         return response()->json($ticket, 201);
     }
@@ -125,9 +208,14 @@ class TicketController extends Controller
         if(is_null($ticket)){
             return response()->json(['message'=> 'Ticket not found'], 404);
         }
-        $ticket->delete();
+        // Mettre à jour le StatusCodeID
+        $ticket->StatusCodeID = 'Annuler';
+
+        // Sauvegarder les changements
+        $ticket->save();
         return response()->json(null, 204);
     }
+
 
     public function getTicketName($ticketID) {
         $ticket = Ticket::find($ticketID);

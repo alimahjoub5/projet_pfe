@@ -73,6 +73,7 @@ isManager: boolean;
 
 loadTickets() {
   this.isLoading = true;
+  if (this.auth.getRole()=='Manager'){
   this.ticketService.getAllTickets().subscribe(
     (tickets: Ticket[]) => {
       this.tickets = tickets;
@@ -84,13 +85,29 @@ loadTickets() {
       this.isLoading = false;
     }
   );
+  }else{
+  this.ticketService.getuserTickets(Number(this.auth.getUserID())).subscribe(
+    (tickets: Ticket[]) => {
+      this.tickets = tickets;
+      this.filteredTickets = this.filterTickets();
+      console.log(this.filteredTickets)
+      this.isLoading = false;
+    },
+    (error) => {
+      console.log('Error occurred while loading tickets:', error);
+      this.isLoading = false;
+    }
+  );
+  }
 }
 filterTickets(): Ticket[] {
   // Filtrer les tickets pour exclure les statuts "Cloture", "Annuler" et "Resolu"
   return this.tickets.filter(ticket =>
-    ticket.StatusCodeID !== 'cloture' &&
-    ticket.StatusCodeID !== 'Annuler'  );
+    ticket.StatusCodeID.toLowerCase() !== 'cloture' &&
+    ticket.StatusCodeID.toLowerCase() !== 'annuler'
+  );
 }
+
 
   //--------------------------------------------------------------------------------------
 

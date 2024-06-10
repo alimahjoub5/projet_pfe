@@ -53,7 +53,7 @@ class Ticket extends Model
     // Relationships
     public function technicianGroup()
     {
-        return $this->belongsTo(TechnicianGroup::class, 'GroupID', 'GroupID'); // Ensure 'GroupID' matches the primary key of the technician groups table
+        return $this->belongsTo(TechnicianGroup::class, 'GroupID');
     }
 
     public function priority()

@@ -15,7 +15,7 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="tickets" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['Subject','Description','EquipmentTypeName','PriorityID','StatusCodeID']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
+      <p-table #dt [value]="filteredTickets" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['Subject','Description','EquipmentTypeName','PriorityID','StatusCodeID']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Affichage de {first} à {last} sur {totalRecords} entrées" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <!-- En-tête du tableau -->
         <ng-template pTemplate="header">
             <tr>

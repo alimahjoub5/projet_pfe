@@ -7,11 +7,11 @@ import { GroupeService } from 'src/app/core/services/groupe.service';
 @Component({
   selector: 'app-assign-ticket-group',
   standalone: true,
-  imports: [AutoCompleteModule, FormsModule
-  ],
+  imports: [AutoCompleteModule, FormsModule],
   templateUrl: './assign-ticket-group.component.html',
-  styleUrl: './assign-ticket-group.component.scss'
+  styleUrls: ['./assign-ticket-group.component.scss'] // Changed from styleUrl to styleUrls
 })
+
 export class AssignTicketGroupComponent implements OnInit {
   @Output() groupeSelected = new EventEmitter<Groupe>();
 
@@ -43,15 +43,16 @@ export class AssignTicketGroupComponent implements OnInit {
   filterGroupes(event: any) {
     let filtered: Groupe[] = [];
     let query = event.query;
-
+  
     if (this.groupes) {
       filtered = this.groupes.filter((groupe) =>
         groupe.GroupName.toLowerCase().startsWith(query.toLowerCase())
       );
     }
-
+  
     this.filteredGroupes = filtered;
   }
+  
 
   saveSelectedGroupe() {
     // Ajoutez votre logique de sauvegarde ici

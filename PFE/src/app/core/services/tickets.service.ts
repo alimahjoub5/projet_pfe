@@ -15,6 +15,10 @@ export class TicketService {
   getAllTickets(): Observable<any> {
     const headers = this.authService.includeAuthToken();
     return this.http.get<any>(`${this.apiUrl}/tickets`, headers);
+  }  
+  getuserTickets(id: number): Observable<any> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<any>(`${this.apiUrl}/tickets/user/${id}`, headers);
   }
   getLastID(): Observable<any> {
     const headers = this.authService.includeAuthToken();

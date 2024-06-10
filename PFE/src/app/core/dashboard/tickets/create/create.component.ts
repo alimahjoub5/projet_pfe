@@ -53,38 +53,36 @@ export class CreateComponent implements OnInit {
   filteredEquipmentTypes: EquipmentType[] | undefined;
 
   form: FormGroup;
-  isLoading : boolean;
+  isLoading: boolean = false;
   value: any;
   choix: any[] = [
     { name: 'Curative', value: 'curative' },
     { name: 'Préventive', value: 'préventive' },
     // Ajoutez d'autres options de paiement au besoin
   ];
-Priorit: any[] = [
-  { name: 'Haute', value: 'haute' },
-  { name: 'Normale', value: 'normale' },
-  { name: 'Basse', value: 'basse' },
-  
-  // Ajoutez d'autres options de paiement au besoin
-];
 
+  Priorit: any[] = [
+    { name: 'Haute', value: 'haute' },
+    { name: 'Normale', value: 'normale' },
+    { name: 'Basse', value: 'basse' },
+    // Ajoutez d'autres options de paiement au besoin
+  ];
 
+  @ViewChild(AssignTicketGroupComponent) assignTicketGroupComponent: AssignTicketGroupComponent | undefined;
+  @ViewChild(AssignTicketTechnicianComponent) assignTicketTechnicianComponent: AssignTicketTechnicianComponent | undefined;
+  @ViewChild(AssignTicketSocieteComponent) assignTicketSocieteComponent: AssignTicketSocieteComponent | undefined;
 
-@ViewChild(AssignTicketGroupComponent) assignTicketGroupComponent: AssignTicketGroupComponent | undefined;
-@ViewChild(AssignTicketTechnicianComponent) assignTicketTechnicianComponent: AssignTicketTechnicianComponent | undefined;
-@ViewChild(AssignTicketSocieteComponent) assignTicketSocieteComponent: AssignTicketSocieteComponent | undefined;
-
-displayAssignDialog: boolean = false;
-selectedAssignType: string = '';
-selectedOption: any;
+  displayAssignDialog: boolean = false;
+  selectedAssignType: string = '';
+  selectedOption: any;
   valueFromA: any;
-id: any;
-isDisable; boolean;
-societe : Societe =null ;
-technician : User =null;
-group : Groupe = null;
-  technicien: number;
-  soc: number;
+  id: any;
+  isDisable: boolean = false;
+  societe: Societe | null = null;
+  technician: User | null = null;
+  group: Groupe | null = null;
+  technicien: number = 0;
+  soc: number = 0;
   grp: any;
 
   constructor(
@@ -96,7 +94,6 @@ group : Groupe = null;
     private messageService: MessageService,
     private authservice: AuthService,
     private primengConfig: PrimeNGConfig
-
   ) {}
 
   showSuccess() {
@@ -108,17 +105,17 @@ group : Groupe = null;
 
     this.ticketService.getLastID().subscribe(
       (response: any) => {
-       this.id=Number(response)+1;
-      });
-      //-------------------------------------
+       this.id = Number(response) + 1;
+      }
+    );
+
     this.form = this.fb.group({
       subject: ['', Validators.required],
-      description: ['',Validators.required],
-      assignType: ['',Validators.required],
+      description: ['', Validators.required],
+      assignType: ['', Validators.required],
       priority: ['', Validators.required],
-      TicketType : ['', Validators.required],
+      TicketType: ['', Validators.required],
       selectedEquipmentType: [null, Validators.required],
-
     });
 
     this.loadEquipmentTypes();
@@ -126,20 +123,19 @@ group : Groupe = null;
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.isLoading=true;
+      this.isLoading = true;
       this.showSuccess();
       this.spinner.show(); // Show the spinner
-      // Créer une nouvelle instance de Ticket en extrayant les valeurs du formulaire
+
       const ticketData = this.form.value;
   
-      // Créer une nouvelle instance de Ticket avec les données extraites
       const ticket: Ticket = {
         TicketID: this.id,
         Subject: ticketData.subject,
         Description: ticketData.description,
-        AssigneeID: Number(this.technicien),
-        SocieteID: Number(this.soc),
-        GroupID: Number(this.grp),
+        AssigneeID: this.technicien ? Number(this.technicien) : null,
+        SocieteID: this.soc ? Number(this.soc) : null,
+        GroupID: this.group?.GroupID ? Number(this.group.GroupID) : null,
         PriorityID: ticketData.priority.value,
         TicketType: ticketData.TicketType.value,
         EquipmentTypeID: this.value,
@@ -149,8 +145,12 @@ group : Groupe = null;
         StatusValidation: false,
         DueDate: null,
         equipement: undefined
-      }
-    console.log(ticket);      // Appeler le service pour ajouter le ticket
+      };
+      
+      
+
+      console.log(ticket);
+      
       this.ticketService.addTicket(ticket).subscribe(
         (response: any) => {
           console.log('Ticket created successfully:', response);
@@ -165,8 +165,6 @@ group : Groupe = null;
       console.error('Invalid form. Please check required fields.');
     }
   }
-  
-
 
   loadEquipmentTypes(): void {
     this.equipmentService.getAllEquipmentTypes().subscribe(
@@ -195,44 +193,38 @@ group : Groupe = null;
   onEquipmentTypeSelect(event: any): void {
     console.log(event.value);
     this.form.controls['selectedEquipmentType'].setValue(event.value.TypeName);
-    this.value= event.value.EquipmentTypeID;
+    this.value = event.value.EquipmentTypeID;
     console.log(this.value);
-
   }
-
 
   onSubmit1(): void {
     this.displayAssignDialog = false;
-    this.isDisable=true;
+    this.isDisable = true;
   }
-  
 
   onCancel(): void {
     this.displayAssignDialog = false; // Cacher la boîte de dialogue
   }
+
   showAssignDialog(): void {
     this.displayAssignDialog = true;
   }
-  selectedSociete
 
   onSocieteSelected(selectedSociete: Societe) {
-    // Faites quelque chose avec la société sélectionnée
     console.log('Societe selected:', selectedSociete);
-    this.societe=selectedSociete;
-    this.soc=selectedSociete.SocieteID;
+    this.societe = selectedSociete;
+    this.soc = selectedSociete.SocieteID;
   }
  
-  onGroupeSelected(selectedSociete: Groupe) {
-    // Faites quelque chose avec la société sélectionnée
-    console.log('Societe selected:', selectedSociete);
-    this.group=selectedSociete;
-    this.selectedSociete.GroupID;
+  onGroupeSelected(selectedGroup: Groupe) {
+    console.log('Group selected:', selectedGroup);
+    this.group = selectedGroup;
+    // this.selectedSociete.GroupID; // Not sure what you intend to do here, it seems incorrect
   }
 
   onTechnicianSelected(selectedTechnician: User) {
-    // Faites quelque chose avec la société sélectionnée
-    console.log('Societe selected:', selectedTechnician);
-    this.technician=selectedTechnician;
-    this.technicien=selectedTechnician.UserID;
+    console.log('Technician selected:', selectedTechnician);
+    this.technician = selectedTechnician;
+    this.technicien = selectedTechnician.UserID;
   }
 }

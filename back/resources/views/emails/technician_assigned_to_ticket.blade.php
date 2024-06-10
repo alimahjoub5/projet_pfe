@@ -1,5 +1,5 @@
 @component('mail::message')
-# Technician Assigned to Ticket
+# Technicien Assigné au Ticket
 
 Bonjour,
 
@@ -14,7 +14,7 @@ Nous tenons à vous informer qu'un technicien a été assigné au ticket suivant
 ---
 
 **Technicien assigné :**
-- **Nom:** {{ $technician->Username }}
+- **Nom:** {{ $technician->LastName . ' ' . $technician->FirstName }}
 - **Email:** {{ $technician->Email }}
 
 Veuillez prendre note de cette assignation et collaborer avec le technicien assigné pour résoudre ce ticket dans les plus brefs délais.

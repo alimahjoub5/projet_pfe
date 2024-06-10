@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -32,7 +31,12 @@ class TechnicianAssignedToTicket extends Mailable
      */
     public function build()
     {
-        return $this->subject('Technician Assigned to Ticket')
-                    ->markdown('emails.technician_assigned_to_ticket');
+        return $this->to($this->technician->Email)
+                    ->subject('Technician Assigned to Ticket')
+                    ->markdown('emails.technician_assigned_to_ticket')
+                    ->with([
+                        'ticket' => $this->ticket,
+                        'technician' => $this->technician,
+                    ]);
     }
 }
