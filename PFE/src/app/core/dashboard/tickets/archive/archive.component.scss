@@ -59,60 +59,17 @@ h2 {
 .p-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
-.container {
-  .filters {
-    margin-bottom: 20px;
-    button.active-filter {
-      background-color: #007ad9;
-      color: #fff;
-    }
-  }
-  .tickets-table {
-    .status-annuler {
-      background-color: #f8d7da; // Couleur de fond pour les interventions annulées
-      color: #721c24; // Couleur de texte pour les interventions annulées
-    }
-    .status-cloture {
-      background-color: #d4edda;
-    }
-    .status-resolu {
-      background-color: #fff3cd;
-    }
-  }
+
+
+.cloture-color {
+  background-color: green;
 }
 
-
-
-/* Styles personnalisés pour les boutons */
-.annuler-button {
-  background-color: #ff4d4d; /* Rouge */
-  border-color: #ff4d4d;
-  color: white;
-
-  &:hover {
-    background-color: #ff3333;
-    border-color: #ff3333;
-  }
+.annuler-color {
+  background-color: red;
 }
 
-.cloture-button {
-  background-color: #4dff4d; /* Vert */
-  border-color: #4dff4d;
-  color: white;
-
-  &:hover {
-    background-color: #33ff33;
-    border-color: #33ff33;
-  }
+.autre-color {
+  background-color: yellow;
 }
 
-.resolu-button {
-  background-color: #ffff4d; /* Jaune */
-  border-color: #ffff4d;
-  color: black;
-
-  &:hover {
-    background-color: #ffff33;
-    border-color: #ffff33;
-  }
-}

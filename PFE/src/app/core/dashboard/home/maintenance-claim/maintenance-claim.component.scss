@@ -3,3 +3,64 @@
     display: block;
     width: 100%;
   }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Hauteur minimale pour centrer verticalement */
+    background-color: #f4f4f9; /* Couleur de fond légère */
+    padding: 20px;
+  }
+  
+  .chart-card {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  
+    p-chart {
+      display: block;
+      width: 100%;
+      height: 400px; /* Ajuster la hauteur selon vos besoins */
+    }
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Hauteur minimale pour centrer verticalement */
+    background-color: #fff; /* Couleur de fond blanche */
+    padding: 20px;
+  }
+  
+  .chart-card {
+    text-align: center;
+    background-color: #fff; /* Couleur de fond blanche pour la carte */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  
+    p-chart {
+      display: block;
+      width: 100%;
+      height: 400px; /* Ajuster la hauteur selon vos besoins */
+    }
+  }
+    

@@ -1,11 +1,43 @@
 .dashboard-card {
-    .card-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
+  background-color: #fff; /* Fond blanc pour la carte */
+  padding: 20px; /* Espacement intérieur */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre portée légère */
+  margin-bottom: 20px; /* Espacement extérieur en bas */
+  text-align: center; /* Texte centré */
   
-    .card-value {
-      font-size: 1.5rem;
-    }
+  .card-title {
+    font-size: 24px; /* Taille de police pour le titre */
+    margin-bottom: 10px; /* Espacement en bas du titre */
+    color: #333; /* Couleur du texte */
   }
+  
+  .card-value {
+    font-size: 30px; /* Taille de police pour la valeur */
+    font-weight: bold; /* Texte en gras */
+    color: #007ad9; /* Couleur principale pour les valeurs */
+  }
+  
+  .p-mb-0 {
+    margin-bottom: 0; /* Pas d'espacement en bas */
+  }
+  
+  .p-mt-2 {
+    margin-top: 10px; /* Espacement en haut */
+  }
+}
+
+.chart-container {
+  width: 100%; 
+  height: 400px;
+  padding: 20px; /* Espacement intérieur */
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    height: 300px; /* Hauteur ajustée pour les écrans plus petits */
+    padding: 15px;
+  }
+}
+
   

@@ -19,12 +19,18 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ticket>
-      <tr>
+      <tr [ngClass]="{
+          'bg-success': ticket.StatusCodeID === 'cloture',
+          'bg-danger': ticket.StatusCodeID === 'annuler',
+          'bg-warning': ticket.StatusCodeID !== 'cloture' && ticket.StatusCodeID !== 'annuler'
+      }">
         <td>{{ ticket.TicketID }}</td>
         <td>{{ ticket.Subject }}</td>
         <td>{{ ticket.Description }}</td>
         <td>{{ ticket.StatusCodeID }}</td>
       </tr>
     </ng-template>
+    
+    
   </p-table>
 </div>

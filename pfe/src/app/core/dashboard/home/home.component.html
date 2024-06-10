@@ -52,23 +52,22 @@
         <app-most-consumed-equipment></app-most-consumed-equipment>
     </div>
 
-
-
+  <div class="col-12 xl:col-6" *ngIf="isMagasinier || isManager">
+        <app-bestseller></app-bestseller>
+    </div>
     <!-- Section for Magasinier -->
     <div class="col-12 xl:col-6" *ngIf="isMagasinier">
         <app-commande-stat></app-commande-stat>
     </div>
 
-    <div class="col-12 xl:col-6" *ngIf="isMagasinier || isManager">
-        <app-bestseller></app-bestseller>
-    </div>
+  
 
     <div class="col-12 xl:col-6" *ngIf="isMagasinier">
         <app-most-used-pieces></app-most-used-pieces>
     </div>
 
     <!-- Section for Admin -->
-    <div class="col-12 xl:col-6" *ngIf="isAdmin">
+    <div *ngIf="isAdmin">
         <app-access-stats></app-access-stats>
     </div>
 

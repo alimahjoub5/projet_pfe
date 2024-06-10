@@ -27,7 +27,7 @@ export class MaintenanceClaimComponent  implements OnInit {
           }
         ]
       };
-  
+
       this.chartOptions = {
         title: {
           display: true,
@@ -37,14 +37,22 @@ export class MaintenanceClaimComponent  implements OnInit {
         legend: {
           position: 'top'
         },
-        animation: { // Ajout des options d'animation
-          duration: 2000, // Durée de l'animation en millisecondes
-          easing: 'easeInOutQuart', // Type d'animation (facultatif)
-          from: 0 // Animation de départ (facultatif)
+        animation: {
+          duration: 2000,
+          easing: 'easeInOutQuart',
+          from: 0
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
         }
       };
     });
   }
+
   
   
 }
