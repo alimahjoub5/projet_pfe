@@ -52,6 +52,8 @@
                     {{ ticket.StatusCodeID }}
                 </td>
                 <td>
+                  <div class="button-group">
+
                     <ng-container *ngIf="ticket.StatusCodeID !== 'resolu'; else resolvedActions">
                         <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" [routerLink]="['/ticket-details', ticket.TicketID]" routerLinkActive="router-link-active"></button>
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" [routerLink]="['/updatetickets', ticket.TicketID]" routerLinkActive="router-link-active"></button>
@@ -61,7 +63,7 @@
                     <ng-template #resolvedActions>
                         <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success p-button-text mr-2" (click)="handleOk(ticket.TicketID)" title="OK"></button>
                         <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-secondary p-button-text" (click)="handleCancel(ticket.TicketID)" title="Annuler"></button>
-                    </ng-template>
+                    </ng-template></div>
                 </td>
             </tr>
         </ng-template>

@@ -1,14 +1,24 @@
-<ngx-spinner bdOpacity=0.9 bdColor="rgba(51,51,51,0.5)" size="medium" color="#fff" type="ball-scale-multiple" [fullScreen]="true" *ngIf="isLoading"></ngx-spinner>
 
-<div class="card flex justify-content-center" *ngIf="!isLoading">
-    
-    <p-toast></p-toast>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+        </ng-template>
+        <ng-template pTemplate="right">
+          <div class="search-box ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Rechercher..." class="w-full sm:w-auto" />
+          </div>
+        </ng-template>
+      </p-toolbar>
 
-    <!-- Bouton pour ajouter un ticket -->
+      <p-table #dt1 [value]="tickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
+      [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">      
 
     <!-- Tableau pour afficher les tickets -->
-    <p-table #dt1 [value]="tickets" selectionMode="single" dataKey="TicketID" [tableStyle]="{'min-width': '50rem'}"
-        [rows]="10" [paginator]="true" stateStorage="session" stateKey="ticket-table-session">
+
 
         <!-- En-tête du tableau -->
         <ng-template pTemplate="header">
