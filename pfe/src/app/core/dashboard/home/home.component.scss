@@ -1,1 +1,49 @@
 @import "primeicons/primeicons.css";
+.dashboard {
+    .card {
+        margin-bottom: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+    
+    .stat-box {
+        padding: 1rem;
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 1rem;
+
+        &.bg-purple-100 {
+            background-color: #e0d7f6;
+        }
+
+        &.bg-green-100 {
+            background-color: #d7f6d7;
+        }
+
+        &.bg-red-100 {
+            background-color: #f6d7d7;
+        }
+        
+        i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    }
+}

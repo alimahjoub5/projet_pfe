@@ -2,9 +2,10 @@
   <h2>Historique des Interventions</h2>
 
   <div class="filters p-grid p-align-center">
-    <button pButton type="button" label="Annuler" (click)="filterByStatus('Annuler')"></button>
-    <button pButton type="button" label="Cloture" (click)="filterByStatus('cloture')"></button>
-    <button pButton type="button" label="Resolu" (click)="filterByStatus('resolu')"></button>
+    <button pButton type="button" label="Annuler" (click)="filterByStatus('Annuler')" class="annuler-button"></button>
+    <button pButton type="button" label="Cloture" (click)="filterByStatus('cloture')" class="cloture-button"></button>
+    <button pButton type="button" label="Resolu" (click)="filterByStatus('resolu')" class="resolu-button"></button>
+   
     <!-- Ajoutez d'autres boutons si nécessaire -->
   </div>
 

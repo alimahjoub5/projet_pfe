@@ -1,4 +1,4 @@
-<div class="card mb-4 p-3">
+<div class="card mb-4 p-3" *ngIf="isTechnician || isManager">
     <div class="flex justify-content-between mb-3">
         <div>
             <span class="block text-500 font-medium mb-1">Interventions</span>
@@ -14,61 +14,67 @@
             <span class="text-500"> traitées</span>
         </div>
         <div>
-            <span class="text-blue-500 font-medium">{{encours}}</span>
+            <span class="text-blue-500 font-medium">{{ encours }}</span>
             <span class="text-500"> en cours</span>
         </div>
     </div>
     <hr class="my-2">
     <div class="flex justify-content-between mb-3">
         <div>
-            <span class="text-red-500 font-medium">{{annuler}}</span>
+            <span class="text-red-500 font-medium">{{ annuler }}</span>
             <span class="text-500"> en suspendu</span>
         </div>
     </div>
 </div>
 
-<div class="grid">
-    <div class="col-12 xl:col-6">
+<div class="grid dashboard">
+    <!-- Section for Manager -->
+    <div class="col-12" *ngIf="isManager">
         <app-tache-rec></app-tache-rec>
-    </div> 
-
-    <div class="col-12 col-6">
-        <app-tache-rec-Emp></app-tache-rec-Emp>
     </div>
-
-    <div class="col-12 xl:col-6">
+    
+    <div class="col-12 xl:col-6" *ngIf="isManager">
         <app-taches-courbe></app-taches-courbe>
     </div>
 
-    <div class="col-12 xl:col-6">
-        <app-commande-stat></app-commande-stat>
-    </div>
-
-    <div class="col-12 xl:col-6">
-        <app-bestseller></app-bestseller>      
-    </div>  
-
-    <div class="col-12 xl:col-6">
-        <app-most-used-pieces></app-most-used-pieces>    
-    </div>
-
-    <div class="col-12 xl:col-6">
-        <app-most-consumed-equipment></app-most-consumed-equipment>    
-    </div>
-
-    <div class="col-12 xl:col-6">
-        <app-access-stats></app-access-stats>    
-    </div>
-
-    <div class="col-12 xl:col-6">
-        <app-maintenance-claim></app-maintenance-claim>
-    </div>
-
-    <div class="col-12 xl:col-6">
+    <div class="col-12 xl:col-6" *ngIf="isManager">
         <app-average-asset-lifetime></app-average-asset-lifetime>
     </div>
 
-    <!--div class="col-12 xl:col-6">
+    <!-- Section for Technician -->
+    <div class="col-12 xl:col-6" *ngIf="isTechnician">
+        <app-tache-rec-Emp></app-tache-rec-Emp>
+    </div> 
+    <div class="col-12 xl:col-6" *ngIf="isTechnician || isManager">
+        <app-maintenance-claim></app-maintenance-claim>
+    </div> 
+    <div class="col-12 xl:col-6" *ngIf="isTechnician || isManager">
+        <app-most-consumed-equipment></app-most-consumed-equipment>
+    </div>
+
+
+
+    <!-- Section for Magasinier -->
+    <div class="col-12 xl:col-6" *ngIf="isMagasinier">
+        <app-commande-stat></app-commande-stat>
+    </div>
+
+    <div class="col-12 xl:col-6" *ngIf="isMagasinier || isManager">
+        <app-bestseller></app-bestseller>
+    </div>
+
+    <div class="col-12 xl:col-6" *ngIf="isMagasinier">
+        <app-most-used-pieces></app-most-used-pieces>
+    </div>
+
+    <!-- Section for Admin -->
+    <div class="col-12 xl:col-6" *ngIf="isAdmin">
+        <app-access-stats></app-access-stats>
+    </div>
+
+    <!-- Uncomment when needed -->
+    <!-- <div class="col-12 xl:col-6">
         <app-failures-by-period></app-failures-by-period>
-    </div-->
+    </div> -->
 </div>
+

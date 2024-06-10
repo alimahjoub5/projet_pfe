@@ -16,6 +16,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-list',
@@ -45,13 +46,19 @@ export class ListComponent implements OnInit {
 isLoading: boolean;
 filteredTickets: Ticket[] = [];
 cols:any;
+isManager: boolean;
+
 //---------------------------------------------------------------
 
   constructor(private ticketService: TicketService,
               private spinner: NgxSpinnerService,
-              private messageService: MessageService
+              private messageService: MessageService,
+              private auth: AuthService
+              ) {
 
-              ) { }
+     const role = this.auth.getRole();
+    this.isManager = role === 'Manager';
+               }
 
   
 

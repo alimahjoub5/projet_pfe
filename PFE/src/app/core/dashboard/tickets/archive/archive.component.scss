@@ -80,3 +80,39 @@ h2 {
     }
   }
 }
+
+
+
+/* Styles personnalisés pour les boutons */
+.annuler-button {
+  background-color: #ff4d4d; /* Rouge */
+  border-color: #ff4d4d;
+  color: white;
+
+  &:hover {
+    background-color: #ff3333;
+    border-color: #ff3333;
+  }
+}
+
+.cloture-button {
+  background-color: #4dff4d; /* Vert */
+  border-color: #4dff4d;
+  color: white;
+
+  &:hover {
+    background-color: #33ff33;
+    border-color: #33ff33;
+  }
+}
+
+.resolu-button {
+  background-color: #ffff4d; /* Jaune */
+  border-color: #ffff4d;
+  color: black;
+
+  &:hover {
+    background-color: #ffff33;
+    border-color: #ffff33;
+  }
+}

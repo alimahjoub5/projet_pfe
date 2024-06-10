@@ -25,6 +25,7 @@ import { AuthInterceptor } from './core/services/intercepteur/auth.interceptor';
 import { AuthService } from './core/services/auth.service';
 import { UsersTechnicianGroupsService } from './core/services/user-tech.service';
 import { FullCalendarModule } from '@fullcalendar/angular';
+
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
     imports: [BrowserModule,FormsModule,AppRoutingModule, AppLayoutModule,HttpClientModule

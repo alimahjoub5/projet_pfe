@@ -5,7 +5,7 @@
       <p-toast></p-toast>
       <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-          <button pButton pRipple label="Ajouter une intervention" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/create']" routerLinkActive="router-link-active"></button>
+          <button pButton pRipple  *ngIf="isManager" label="Ajouter une intervention" icon="pi pi-plus" class="p-button-success mr-2" [routerLink]="['/create']" routerLinkActive="router-link-active"></button>
         </ng-template>
         <ng-template pTemplate="right">
           <div class="search-box ml-auto">
