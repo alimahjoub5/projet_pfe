@@ -49,4 +49,9 @@ export class TaskService {
     const url = `${this.apiUrl}/ticket-tasks/${userId}/tasks`;
     return this.http.get<Task[]>(url,headers);
   }
+
+  getTaskByAssignee(assigneeID: number): Observable<any[]> {
+    const headers = this.authService.includeAuthToken();
+    return this.http.get<any[]>(`${this.apiUrl}/future-tasks/${assigneeID}`,headers);
+  }
 }

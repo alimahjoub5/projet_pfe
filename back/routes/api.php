@@ -194,6 +194,7 @@ Route::post('/technician-groups', [TechnicianGroupController::class, 'store']);
 Route::put('/technician-groups/{id}', [TechnicianGroupController::class, 'update']);
 Route::delete('/technician-groups/{id}', [TechnicianGroupController::class, 'destroy']);
 Route::get('/group/{id}', [TechnicianGroupController::class, 'getGroupNameById']);
+Route::get('/group-members/{userId}', [UsersTechnicianGroupsController::class, 'getGroupMembers']);
 
 
 // tickets status api
@@ -216,6 +217,7 @@ Route::post('/ticket-tasks', [TicketTaskController::class, 'store']);
 Route::put('/ticket-tasks/{id}', [TicketTaskController::class, 'update']);
 Route::delete('/ticket-tasks/{id}', [TicketTaskController::class, 'destroy']);
 Route::get('/ticket-tasks/{userId}/tasks', [TicketTaskController::class, 'tasksByUser']);
+Route::get('/future-tasks/{assigneeID}', [TicketTaskController::class, 'getFutureTasks']);
 
 //user technician groups api 
 

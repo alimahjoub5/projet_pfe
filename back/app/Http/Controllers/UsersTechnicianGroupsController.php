@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TechnicianGroup;
 use App\Models\User;
+use App\Models\UsersTechnicianGroups;
+use App\Models\UserTechnicianGroup;
 
 class UsersTechnicianGroupsController extends Controller
 {
@@ -59,4 +61,31 @@ class UsersTechnicianGroupsController extends Controller
         $users = $group->users;
         return response()->json($users, 200);
     }
+
+    public function getGroupMembers($userId)
+    {
+        // Récupère l'utilisateur avec les groupes auxquels il appartient
+        $user = User::with('technicianGroups.users')->find($userId);
+
+        if (!$user) {
+            return response()->json(['error' => 'Utilisateur non trouvé.'], 404);
+        }
+
+        // Récupère les groupes auxquels l'utilisateur appartient
+        $groups = $user->technicianGroups;
+
+        // Initialise une collection pour les membres du groupe
+        $groupMembers = collect();
+
+        // Récupère tous les membres de chaque groupe
+        foreach ($groups as $group) {
+            $groupMembers = $groupMembers->merge($group->users);
+        }
+
+        // Supprime les doublons de membres
+        $groupMembers = $groupMembers->unique('UserID');
+
+        return response()->json($groupMembers);
+    }
+
 }

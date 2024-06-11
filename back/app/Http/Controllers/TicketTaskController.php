@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TicketTask;
 use App\Models\Ticket;
 use App\Models\User;
+use Carbon\Carbon;
 
 class TicketTaskController extends Controller
 {
@@ -46,6 +47,12 @@ class TicketTaskController extends Controller
                 'StatusCodeID' => $request->StatusCodeID,
                 'datedereparage' => now() // Utilisation de la fonction now() de Laravel pour obtenir la date et l'heure actuelles
             ]);
+        }else{
+            // Mettre à jour le StatusCodeID
+            $ticket->update([
+                'StatusCodeID' => 'en_cours'
+            ]);
+
         }
 
         // Return the created task along with the updated ticket
@@ -91,7 +98,20 @@ class TicketTaskController extends Controller
         }
 
         $tasks = TicketTask::where('AssigneeID', $userId)
-            ->orderBy('StartDate', 'asc')
+            ->orderBy('StartDate', 'ASC')
+            ->get();
+
+        return response()->json($tasks);
+    }
+
+
+    public function getFutureTasks($assigneeID)
+    {
+        $today = Carbon::today();
+
+        // Récupérer les tâches futures pour l'utilisateur spécifié
+        $tasks = TicketTask::where('AssigneeID', $assigneeID)
+            ->where('StartDate', '>', $today)
             ->get();
 
         return response()->json($tasks);

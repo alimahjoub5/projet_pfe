@@ -70,43 +70,53 @@ isManager: boolean;
   }
 
 //---------------------------------------------------------------------------------------
-
 loadTickets() {
   this.isLoading = true;
-  if (this.auth.getRole()=='Manager'){
-  this.ticketService.getAllTickets().subscribe(
-    (tickets: Ticket[]) => {
-      this.tickets = tickets;
-      this.filteredTickets = this.filterTickets();
-      this.isLoading = false;
-    },
-    (error) => {
-      console.log('Error occurred while loading tickets:', error);
-      this.isLoading = false;
-    }
-  );
-  }else{
-  this.ticketService.getuserTickets(Number(this.auth.getUserID())).subscribe(
-    (tickets: Ticket[]) => {
-      this.tickets = tickets;
-      this.filteredTickets = this.filterTickets();
-      console.log(this.filteredTickets)
-      this.isLoading = false;
-    },
-    (error) => {
-      console.log('Error occurred while loading tickets:', error);
-      this.isLoading = false;
-    }
-  );
+  if (this.auth.getRole() === 'Manager') {
+    this.ticketService.getAllTickets().subscribe(
+      (tickets: Ticket[]) => {
+        this.tickets = tickets;
+        this.filteredTickets = this.filterTickets();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.log('Error occurred while loading tickets:', error);
+        this.isLoading = false;
+      }
+    );
+  } else {
+    this.ticketService.getuserTickets(Number(this.auth.getUserID())).subscribe(
+      (tickets: Ticket[]) => {
+        this.tickets = tickets;
+        this.filteredTickets = this.filterTickets();
+        console.log(this.filteredTickets);
+        this.isLoading = false;
+      },
+      (error) => {
+        console.log('Error occurred while loading tickets:', error);
+        this.isLoading = false;
+      }
+    );
   }
 }
+
 filterTickets(): Ticket[] {
-  // Filtrer les tickets pour exclure les statuts "Cloture", "Annuler" et "Resolu"
-  return this.tickets.filter(ticket =>
-    ticket.StatusCodeID.toLowerCase() !== 'cloture' &&
-    ticket.StatusCodeID.toLowerCase() !== 'annuler'
-  );
+  if (this.auth.getRole() === 'Technician') {
+    // Filtrer les tickets pour exclure les statuts "Cloture", "Annuler" et "Resolu" pour les techniciens
+    return this.tickets.filter(ticket =>
+      ticket.StatusCodeID.toLowerCase() !== 'cloture' &&
+      ticket.StatusCodeID.toLowerCase() !== 'annuler' &&
+      ticket.StatusCodeID.toLowerCase() !== 'resolu'
+    );
+  } else {
+    // Filtrer les tickets pour exclure les statuts "Cloture" et "Annuler" pour les autres rôles
+    return this.tickets.filter(ticket =>
+      ticket.StatusCodeID.toLowerCase() !== 'cloture' &&
+      ticket.StatusCodeID.toLowerCase() !== 'annuler'
+    );
+  }
 }
+
 
 
   //--------------------------------------------------------------------------------------

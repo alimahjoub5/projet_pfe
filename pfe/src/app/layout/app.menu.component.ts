@@ -95,7 +95,7 @@ export class AppMenuComponent implements OnInit {
         {
           label: 'Groupes',
           items: [
-            { label: 'Consulter le Groupe', icon: 'pi pi-fw pi-users', routerLink: ['/groupelist'] },
+            { label: 'Consulter le Groupe', icon: 'pi pi-fw pi-users', routerLink: ['/membre'] },
           ]
         },
         {

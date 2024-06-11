@@ -51,11 +51,15 @@ export class PlannifierComponent {
 
   loadTickets() {
     this.ticketService.getAllTickets().subscribe(data => {
-      // Filtrer les tickets dont le champ datepriseencharge est null
-      this.tickets = data.filter(ticket => ticket.datepriseencharge === null);
+      console.log(data)
+      // Filtrer les tickets dont le champ datepriseencharge est null, le StatusCodeID est différent de "Annuler" et le TicketType est "préventive"
+      this.tickets = data.filter(ticket => ticket.datepriseencharge === null && ticket.StatusCodeID !== "Annuler" && ticket.TicketType !== "curative");
       this.isLoading = false;
     });
   }
+  
+  
+  
   
   
   

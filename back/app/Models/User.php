@@ -50,7 +50,7 @@ class User extends AuthenticatableUser implements Authenticatable
 
     public function technicianGroups()
     {
-        return $this->hasMany(UserTechnicianGroup::class, 'UserID');
+        return $this->belongsToMany(TechnicianGroup::class, 'users_technician_groups', 'UserID', 'GroupID');
     }
 
 }
