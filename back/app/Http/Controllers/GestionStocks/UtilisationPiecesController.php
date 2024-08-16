@@ -4,6 +4,7 @@ namespace App\Http\Controllers\GestionStocks;
 
 use Illuminate\Http\Request;
 use App\Models\UtilisationPiece;
+use App\Models\stockPiece;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Piece;
